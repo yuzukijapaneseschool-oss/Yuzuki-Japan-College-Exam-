@@ -1,0 +1,17 @@
+{
+  "name": "yuzuki-japan-college",
+  "version": "1.0.0",
+  "description": "YUZUKI Japan College Official Web Portal & Prometric CBT Exam Platform",
+  "main": "backend/src/server.js",
+  "scripts": {
+    "build": "npm run build-frontend && npm run build-backend",
+    "build-frontend": "cd frontend && npm install && npm run build",
+    "build-backend": "cd backend && npm install",
+    "start": "node backend/src/server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "YUZUKI Japan College",
+  "license": "ISC"
+}
