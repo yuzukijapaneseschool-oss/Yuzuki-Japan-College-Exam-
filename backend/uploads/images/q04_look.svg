@@ -1,0 +1,15 @@
+<svg width="300" height="260" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="260" fill="#f8fafc"/>
+  <!-- Head -->
+  <circle cx="150" cy="110" r="45" fill="#fed7aa"/>
+  <!-- Hair -->
+  <path d="M105 110 Q150 40 195 110 Q195 150 185 160 Q175 110 165 105 Q150 95 135 105 Q125 110 115 160 Z" fill="#334155"/>
+  <!-- Hands around eyes looking -->
+  <ellipse cx="135" cy="105" rx="14" ry="16" fill="none" stroke="#ea580c" stroke-width="4"/>
+  <ellipse cx="165" cy="105" rx="14" ry="16" fill="none" stroke="#ea580c" stroke-width="4"/>
+  <circle cx="135" cy="105" r="5" fill="#1e293b"/>
+  <circle cx="165" cy="105" r="5" fill="#1e293b"/>
+  <path d="M142 130 Q150 138 158 130" stroke="#ea580c" stroke-width="2" fill="none"/>
+  <!-- Body -->
+  <path d="M115 170 L185 170 L200 250 L100 250 Z" fill="#be123c"/>
+</svg>
