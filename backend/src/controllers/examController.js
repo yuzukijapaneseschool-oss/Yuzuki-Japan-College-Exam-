@@ -16,9 +16,10 @@ async function getExams(req, res) {
     let params = [user.id, user.id, user.id];
 
     if (user.role === 'student') {
-      if (!user.course_id) return res.json({ exams: [] });
-      sql += ` AND e.course_id = ?`;
-      params.push(user.course_id);
+      if (req.query.course_id) {
+        sql += ` AND e.course_id = ?`;
+        params.push(req.query.course_id);
+      }
     }
 
     sql += ` ORDER BY e.id DESC`;

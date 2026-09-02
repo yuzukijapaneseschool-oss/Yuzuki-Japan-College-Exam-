@@ -182,26 +182,35 @@ async function seedInitialData() {
     `);
   }
 
-  // Seed Admin and Sample Student
-  const adminUser = await query.get('SELECT * FROM users WHERE email = ?', ['admin@yuzuki.college']);
+  // Seed Official Admin and Verified Student
+  const adminUser = await query.get('SELECT * FROM users WHERE email = ?', ['lahirudilshan552@gmail.com']);
   if (!adminUser) {
-    const adminPasswordHash = await bcrypt.hash('admin123', 10);
+    const adminPasswordHash = await bcrypt.hash('japan@9803', 10);
     await query.run(`
-      INSERT INTO users (name, email, password, student_id, role, status, phone)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `, ['Yuzuki Principal Admin', 'admin@yuzuki.college', adminPasswordHash, 'ADMIN-001', 'admin', 'approved', '+94 77 123 4567']);
-    console.log('Default admin seeded: admin@yuzuki.college / admin123');
+      INSERT INTO users (name, email, password, student_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at)
+      VALUES (?, ?, ?, ?, 'admin', 'approved', '+94 77 353 9800', 'active', datetime('now', '+999 days'), datetime('now', '+999 days'))
+    `, ['Lahiru Dilshan (Admin)', 'lahirudilshan552@gmail.com', adminPasswordHash, 'ADMIN-YJP']);
+    console.log('Official admin seeded: lahirudilshan552@gmail.com / japan@9803 (Student ID: ADMIN-YJP)');
   }
 
-  const sampleStudent = await query.get('SELECT * FROM users WHERE email = ?', ['student@yuzuki.college']);
+  const officialAdmin = await query.get('SELECT * FROM users WHERE email = ?', ['admin@yuzukijapancollege.edu.lk']);
+  if (!officialAdmin) {
+    const adminPasswordHash = await bcrypt.hash('japan@9803', 10);
+    await query.run(`
+      INSERT INTO users (name, email, password, student_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at)
+      VALUES (?, ?, ?, ?, 'admin', 'approved', '+94 77 353 9800', 'active', datetime('now', '+999 days'), datetime('now', '+999 days'))
+    `, ['Yuzuki Principal Admin', 'admin@yuzukijapancollege.edu.lk', adminPasswordHash, 'ADMIN-001']);
+  }
+
+  const sampleStudent = await query.get('SELECT * FROM users WHERE email = ?', ['student@yuzukijapancollege.edu.lk']);
   if (!sampleStudent) {
-    const studentPasswordHash = await bcrypt.hash('student123', 10);
+    const studentPasswordHash = await bcrypt.hash('student@123', 10);
     const jftCourse = await query.get("SELECT id FROM courses WHERE code = 'JFT-BASIC'");
     await query.run(`
-      INSERT INTO users (name, email, password, student_id, course_id, role, status, phone)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `, ['Kasun Perera', 'student@yuzuki.college', studentPasswordHash, 'YZ-2026-001', jftCourse ? jftCourse.id : 1, 'student', 'approved', '+94 71 987 6543']);
-    console.log('Sample student seeded: student@yuzuki.college / student123 (Student ID: YZ-2026-001)');
+      INSERT INTO users (name, email, password, student_id, course_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at, monthly_price, batch_mode)
+      VALUES (?, ?, ?, ?, ?, 'student', 'approved', '+94 71 987 6543', 'active', datetime('now', '+365 days'), datetime('now', '+365 days'), 9.99, 'SSW & CBT Candidate')
+    `, ['Kasun Perera (Student)', 'student@yuzukijapancollege.edu.lk', studentPasswordHash, 'YJP-2026-001', jftCourse ? jftCourse.id : 1]);
+    console.log('Official student seeded: student@yuzukijapancollege.edu.lk / student@123 (Student ID: YJP-2026-001)');
   }
 
   // Seed JFT Sample Exam if not exists
