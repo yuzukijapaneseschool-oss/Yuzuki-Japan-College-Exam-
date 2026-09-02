@@ -363,7 +363,11 @@ async function seedInitialData() {
           n5Exam.id, q.section, q.text,
           q.optA, q.optB, q.optC, q.optD, q.correct, q.marks, q.explanation, i + 1
         ]);
-  // Ensure all SSW Truck Driving Category Modules exist
+      }
+    }
+  }
+
+  // Ensure all SSW Truck Driving Category Modules exist unconditionally on every boot
   const truckCourse = await query.get("SELECT id FROM courses WHERE code = 'SSW-TRUCK-DRIVING'");
   if (truckCourse) {
     const allTruckModules = [
@@ -399,6 +403,7 @@ async function seedInitialData() {
             VALUES (?, 'General', ?, 'Option A', 'Option B', 'Option C', 'Option D', 'A', 1, 'Official Practice', ?)
           `, [ins.id, `Question ${i} for ${m.title}`, i]);
         }
+        console.log(`Auto-seeded module: [${m.cat}] ${m.title}`);
       }
     }
   }
