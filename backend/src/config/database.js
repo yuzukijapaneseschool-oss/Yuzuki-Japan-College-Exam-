@@ -363,6 +363,42 @@ async function seedInitialData() {
           n5Exam.id, q.section, q.text,
           q.optA, q.optB, q.optC, q.optD, q.correct, q.marks, q.explanation, i + 1
         ]);
+  // Ensure all SSW Truck Driving Category Modules exist
+  const truckCourse = await query.get("SELECT id FROM courses WHERE code = 'SSW-TRUCK-DRIVING'");
+  if (truckCourse) {
+    const allTruckModules = [
+      // Driver Basics (6 Topics)
+      { title: 'Role of Truck Drivers', cat: 'Driver Basics', total: 31 },
+      { title: 'Accident Prevention and Safety', cat: 'Driver Basics', total: 32 },
+      { title: 'Manners', cat: 'Driver Basics', total: 30 },
+      { title: 'Health and Safety Management', cat: 'Driver Basics', total: 31 },
+      { title: 'Traffic Rules', cat: 'Driver Basics', total: 31 },
+      { title: 'Eco-driving and routes', cat: 'Driver Basics', total: 32 },
+
+      // Transportation work (7 Topics)
+      { title: 'Work flow', cat: 'Transportation work', total: 30 },
+      { title: 'Driver Rules', cat: 'Transportation work', total: 30 },
+      { title: 'Inspection and roll call', cat: 'Transportation work', total: 31 },
+      { title: 'Operation Management', cat: 'Transportation work', total: 29 },
+      { title: 'Trouble Response', cat: 'Transportation work', total: 33 },
+      { title: 'Emergency and weather response', cat: 'Transportation work', total: 26 },
+      { title: 'Truck Operation', cat: 'Transportation work', total: 33 }
+    ];
+
+    for (const m of allTruckModules) {
+      const exists = await query.get("SELECT id FROM exams WHERE course_id = ? AND title = ?", [truckCourse.id, m.title]);
+      if (!exists) {
+        const ins = await query.run(`
+          INSERT INTO exams (title, course_id, duration_minutes, passing_score, description, is_active)
+          VALUES (?, ?, 0, 70, ?, 1)
+        `, [m.title, truckCourse.id, `[${m.cat}] ${m.title}`]);
+
+        for (let i = 1; i <= m.total; i++) {
+          await query.run(`
+            INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
+            VALUES (?, 'General', ?, 'Option A', 'Option B', 'Option C', 'Option D', 'A', 1, 'Official Practice', ?)
+          `, [ins.id, `Question ${i} for ${m.title}`, i]);
+        }
       }
     }
   }
