@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { query } = require('../config/database');
 const { JWT_SECRET } = require('../middleware/authMiddleware');
+const { sendAdmissionCardEmail } = require('../utils/emailService');
 
 function getSubscriptionDetails(user) {
   const now = new Date();
@@ -126,6 +127,20 @@ async function register(req, res) {
       null,      // No free trial upon registration
       9.99
     ]);
+
+    // Dispatch Admission Card copy to College Management & Student
+    sendAdmissionCardEmail({
+      student_id: assignedStudentId,
+      name: name.trim(),
+      email: cleanEmail,
+      phone: phone ? phone.trim() : '',
+      nic_number: nic_number ? nic_number.trim() : '',
+      city: city ? city.trim() : 'Kandy',
+      course_name: course.name,
+      batch_mode: batch_mode === 'online_zoom' ? 'Online Live (Zoom)' : 'Physical Classroom (Kandy Campus)',
+      bank_slip_url: bank_slip_url || null,
+      registration_type: 'New Batch Admission (Rs. 5,000 Deposit Slip Submitted)'
+    }).catch(err => console.error('Admission email notification error:', err));
 
     return res.status(201).json({
       success: true,
@@ -383,6 +398,20 @@ async function registerExistingStudent(req, res) {
       JWT_SECRET,
       { expiresIn: '30d' }
     );
+
+    // Dispatch Admission Card copy to College Management & Student
+    sendAdmissionCardEmail({
+      student_id: cleanStudentId,
+      name: name.trim(),
+      email: cleanEmail,
+      phone: phone ? phone.trim() : '',
+      nic_number: nic_number ? nic_number.trim() : '',
+      city: city ? city.trim() : 'Kandy',
+      course_name: course.name,
+      batch_mode: cleanStudentId.startsWith('YTD') ? 'SSW Truck Driving Track' : 'Japanese Language Track',
+      bank_slip_url: null,
+      registration_type: 'Existing College Student Activation (30-Day CBT Pass)'
+    }).catch(err => console.error('Admission email notification error:', err));
 
     return res.status(201).json({
       success: true,
