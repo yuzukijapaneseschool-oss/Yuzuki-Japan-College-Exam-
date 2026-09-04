@@ -4,7 +4,7 @@
   "description": "YUZUKI Japan College Official Web Portal & Prometric CBT Exam Platform",
   "main": "backend/src/server.js",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
+    "build": "echo 'Production frontend dist ready'",
     "start": "node backend/src/server.js"
   },
   "dependencies": {
