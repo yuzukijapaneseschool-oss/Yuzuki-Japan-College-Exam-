@@ -497,6 +497,11 @@ async function downloadDatabaseBackup(req, res) {
     }
     return res.download(backupFile);
   } catch (err) {
+    console.error('downloadDatabaseBackup error:', err);
+    return res.status(500).json({ error: 'Failed to download database backup.' });
+  }
+}
+
 async function toggleDualTrack(req, res) {
   try {
     const { id } = req.params;
