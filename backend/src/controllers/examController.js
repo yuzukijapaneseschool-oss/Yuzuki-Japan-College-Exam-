@@ -16,9 +16,27 @@ async function getExams(req, res) {
     let params = [user.id, user.id, user.id];
 
     if (user.role === 'student') {
-      if (req.query.course_id) {
-        sql += ` AND e.course_id = ?`;
-        params.push(req.query.course_id);
+      const studentUser = await query.get('SELECT * FROM users WHERE id = ?', [user.id]);
+      const isDualTrack = Boolean(studentUser?.allow_dual_track === 1 || studentUser?.batch_mode === 'dual_track');
+
+      if (!isDualTrack) {
+        const studentId = (studentUser?.student_id || '').toUpperCase();
+        if (studentId.startsWith('YTD') || studentUser?.course_id === 7) {
+          // YTD: Truck Driving ONLY
+          sql += ` AND e.course_id = 7`;
+        } else if (studentId.startsWith('YJP') || [1, 2, 3, 4].includes(studentUser?.course_id)) {
+          // YJP: Japanese Language ONLY
+          sql += ` AND e.course_id IN (1, 2, 3, 4)`;
+        } else if (req.query.course_id) {
+          sql += ` AND e.course_id = ?`;
+          params.push(req.query.course_id);
+        }
+      } else {
+        // Dual Track Enabled: Can filter by query or see both
+        if (req.query.course_id) {
+          sql += ` AND e.course_id = ?`;
+          params.push(req.query.course_id);
+        }
       }
     }
 
@@ -64,17 +82,28 @@ async function getExamSession(req, res) {
           locked_reason: 'subscription_required'
         });
       }
-    }
 
-    if (user.role === 'student' && exam.course_id !== user.course_id) {
-      const studentUser = await query.get('SELECT * FROM users WHERE id = ?', [user.id]);
-      const isDualOrExisting = studentUser?.batch_mode === 'existing_college_student' || 
-                               studentUser?.batch_mode === 'all_access' || 
-                               [1, 2, 7].includes(user.course_id) && [1, 2, 7].includes(exam.course_id);
-      if (!isDualOrExisting) {
-        return res.status(403).json({ 
-          error: `Access Denied: This exam belongs to ${exam.course_name}. Your Student ID is registered for a different course.` 
-        });
+      // Check track isolation (YJP vs YTD vs Dual Track)
+      const isDualTrack = Boolean(studentUser.allow_dual_track === 1 || studentUser.batch_mode === 'dual_track');
+      if (!isDualTrack) {
+        const studentId = (studentUser.student_id || '').toUpperCase();
+        if (studentId.startsWith('YTD') || studentUser.course_id === 7) {
+          if (exam.course_id !== 7) {
+            return res.status(403).json({ 
+              error: `Access Restricted: Your Student ID (${studentUser.student_id}) is authorized for SSW Truck Driving exams only. Please contact College Admin / Sensei to enable Dual Track (Japanese + Truck Driving) access.` 
+            });
+          }
+        } else if (studentId.startsWith('YJP') || [1, 2, 3, 4].includes(studentUser.course_id)) {
+          if (![1, 2, 3, 4].includes(exam.course_id)) {
+            return res.status(403).json({ 
+              error: `Access Restricted: Your Student ID (${studentUser.student_id}) is authorized for Japanese Language exams only. Please contact College Admin / Sensei to enable Dual Track (Japanese + Truck Driving) access.` 
+            });
+          }
+        } else if (exam.course_id !== user.course_id) {
+          return res.status(403).json({ 
+            error: `Access Denied: This exam belongs to ${exam.course_name}. Your Student ID is registered for a different course.` 
+          });
+        }
       }
     }
 

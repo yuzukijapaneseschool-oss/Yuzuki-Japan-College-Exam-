@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+  }
+
+  /* Anti-Copy Protection: Protect all text, questions, and explanations */
+  *, *::before, *::after {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+  }
+
+  /* Allow typing in form inputs and textareas only */
+  input, textarea {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+  }
+
+  /* Prevent dragging images */
+  img {
+    -webkit-user-drag: none !important;
+    user-drag: none !important;
+    pointer-events: auto;
+  }
+}
+
+/* Custom Japanese Kanji/Furigana typography styling */
+.japanese-text, .font-japanese {
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Meiryo', sans-serif;
+  line-height: 2.2 !important;
+  letter-spacing: 0.02em;
+}
+
+/* Furigana Ruby Typography - renders Hiragana crisply above Kanji */
+ruby {
+  ruby-align: center;
+  ruby-position: over;
+  display: inline-ruby;
+  vertical-align: middle;
+}
+
+rt {
+  font-size: 0.58em;
+  line-height: 1;
+  color: #475569;
+  font-family: 'Noto Sans JP', sans-serif;
+  user-select: none;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-emphasis: none;
+}
+
+.japanese-ruby-container {
+  display: inline-block;
+  line-height: 2.3;
+}
+
+.jp-title {
+  font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

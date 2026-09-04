@@ -13,6 +13,7 @@ router.get('/stats', adminController.getStats);
 // Student management & approvals
 router.get('/students', adminController.getStudents);
 router.patch('/students/:id/status', adminController.updateStudentStatus);
+router.patch('/students/:id/dual-track', adminController.toggleDualTrack);
 router.post('/students/:studentId/extend-subscription', adminController.extendSubscription);
 router.delete('/students/:id', adminController.deleteStudent);
 

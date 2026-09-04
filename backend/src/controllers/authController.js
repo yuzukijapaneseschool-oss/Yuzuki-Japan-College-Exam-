@@ -222,6 +222,7 @@ async function getMe(req, res) {
         course_id: user.course_id,
         course_name: course?.name,
         course_code: course?.code,
+        allow_dual_track: Boolean(user.allow_dual_track === 1 || user.batch_mode === 'dual_track'),
         subscription
       }
     });
@@ -291,16 +292,34 @@ async function registerExistingStudent(req, res) {
       course_id, 
       phone, 
       nic_number,
-      city = 'Kandy',
-      track_mode = 'existing_student'
+      city = 'Kandy'
     } = req.body;
 
-    if (!name || !email || !password || !student_id || !course_id) {
-      return res.status(400).json({ error: 'Name, Email, Password, Student ID, and Course selection are required.' });
+    if (!name || !email || !password || !student_id) {
+      return res.status(400).json({ error: 'Name, Email, Password, and Student ID are required.' });
     }
 
     const cleanEmail = email.trim().toLowerCase();
     const cleanStudentId = student_id.trim().toUpperCase();
+
+    // Determine course based on Student ID prefix:
+    // YTD prefix -> SSW Truck Driving ONLY (Course ID 7)
+    // YJP prefix -> Japanese Language ONLY (Course ID 1)
+    let effectiveCourseId = course_id ? parseInt(course_id, 10) : 1;
+    let trackName = 'Japanese Language (JFT-Basic / JLPT)';
+
+    if (cleanStudentId.startsWith('YTD')) {
+      effectiveCourseId = 7; // SSW Truck Driving
+      trackName = 'SSW Truck Driving & Logistics (19 Exams / 583 Furigana Qs)';
+    } else if (cleanStudentId.startsWith('YJP')) {
+      effectiveCourseId = 1; // JFT-Basic / Japanese Language
+      trackName = 'Japanese Language (JFT-Basic / JLPT N5)';
+    } else {
+      // If student ID is custom format, use requested course or default
+      if (effectiveCourseId === 7) {
+        trackName = 'SSW Truck Driving & Logistics';
+      }
+    }
 
     // Check if email is already taken
     const existingEmail = await query.get('SELECT id FROM users WHERE LOWER(email) = ?', [cleanEmail]);
@@ -314,32 +333,34 @@ async function registerExistingStudent(req, res) {
       return res.status(400).json({ error: `Student ID "${cleanStudentId}" is already active under ${existingStudent.name}. Please log in directly.` });
     }
 
-    const course = await query.get('SELECT id, name FROM courses WHERE id = ?', [course_id]);
+    const course = await query.get('SELECT id, name FROM courses WHERE id = ?', [effectiveCourseId]);
     if (!course) {
       return res.status(400).json({ error: 'Invalid Course selection.' });
     }
 
     const hashedPassword = await bcrypt.hash(password.trim(), 10);
 
-    // Give 90-day active CBT Exam Pass for existing college students
+    // 30-Day Active CBT Exam Pass for existing college students
     const expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() + 90);
+    expiryDate.setDate(expiryDate.getDate() + 30);
+
+    const batchModeStr = cleanStudentId.startsWith('YTD') ? 'ytd_truck_only' : 'yjp_japanese_only';
 
     const userResult = await query.run(`
       INSERT INTO users (
         name, email, password, student_id, course_id, phone, nic_number, city, batch_mode, bank_slip_url, role, status,
-        subscription_status, subscription_ends_at, trial_ends_at, monthly_price
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        subscription_status, subscription_ends_at, trial_ends_at, monthly_price, allow_dual_track
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
     `, [
       name.trim(),
       cleanEmail,
       hashedPassword,
       cleanStudentId,
-      course_id,
+      effectiveCourseId,
       phone ? phone.trim() : null,
       nic_number ? nic_number.trim() : null,
       city ? city.trim() : 'Kandy',
-      'existing_college_student',
+      batchModeStr,
       null,
       'student',
       'approved', // Instantly Approved for Existing Yuzuki College Students!
@@ -357,7 +378,7 @@ async function registerExistingStudent(req, res) {
         role: 'student',
         student_id: cleanStudentId,
         name: name.trim(),
-        course_id: course_id
+        course_id: effectiveCourseId
       },
       JWT_SECRET,
       { expiresIn: '30d' }
@@ -365,7 +386,7 @@ async function registerExistingStudent(req, res) {
 
     return res.status(201).json({
       success: true,
-      message: `🎉 Welcome back to YUZUKI Japan College! Student ID ${cleanStudentId} is now activated with Full CBT Exam Access.`,
+      message: `🎉 Welcome back to YUZUKI Japan College! Student ID ${cleanStudentId} is activated for 30 Days (${trackName}).`,
       token,
       user: {
         id: userResult.id,
@@ -374,17 +395,19 @@ async function registerExistingStudent(req, res) {
         student_id: cleanStudentId,
         role: 'student',
         status: 'approved',
-        course_id: course_id,
+        course_id: effectiveCourseId,
         course_name: course.name,
+        allow_dual_track: false,
         subscription: {
           status: 'active',
           is_active: true,
-          plan: 'Yuzuki College Student (Active CBT Exam Pass)',
-          days_remaining: 90,
+          plan: `Yuzuki Student: ${trackName} (30-Day CBT Pass)`,
+          days_remaining: 30,
           expires_at: expiryDate.toISOString()
         }
       },
-      student_id: cleanStudentId
+      student_id: cleanStudentId,
+      track_name: trackName
     });
 
   } catch (err) {

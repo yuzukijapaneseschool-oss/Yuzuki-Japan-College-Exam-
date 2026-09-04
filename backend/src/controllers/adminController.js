@@ -58,7 +58,7 @@ async function getStudents(req, res) {
   try {
     const { status, course_id, search } = req.query;
     let sql = `
-      SELECT u.id, u.name, u.email, u.student_id, u.course_id, u.phone, u.nic_number, u.city, u.batch_mode, u.bank_slip_url, u.role, u.status, u.created_at, u.subscription_status, u.trial_ends_at, u.subscription_ends_at,
+      SELECT u.id, u.name, u.email, u.student_id, u.course_id, u.phone, u.nic_number, u.city, u.batch_mode, u.bank_slip_url, u.role, u.status, u.created_at, u.subscription_status, u.trial_ends_at, u.subscription_ends_at, u.allow_dual_track,
              c.name as course_name, c.code as course_code,
              (SELECT COUNT(*) FROM exam_attempts ea WHERE ea.user_id = u.id) as attempts_count,
              (SELECT MAX(score) FROM exam_attempts ea WHERE ea.user_id = u.id) as best_score
@@ -497,13 +497,36 @@ async function downloadDatabaseBackup(req, res) {
     }
     return res.download(backupFile);
   } catch (err) {
-    console.error('downloadDatabaseBackup error:', err);
-    return res.status(500).json({ error: 'Failed to download database backup.' });
+async function toggleDualTrack(req, res) {
+  try {
+    const { id } = req.params;
+    const student = await query.get('SELECT * FROM users WHERE id = ? AND role = "student"', [id]);
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found.' });
+    }
+
+    const currentVal = student.allow_dual_track === 1 || student.batch_mode === 'dual_track';
+    const newVal = currentVal ? 0 : 1;
+    const newBatchMode = newVal === 1 ? 'dual_track' : (student.course_id === 7 ? 'ytd_truck_only' : 'yjp_japanese_only');
+
+    await query.run('UPDATE users SET allow_dual_track = ?, batch_mode = ? WHERE id = ?', [newVal, newBatchMode, id]);
+
+    return res.json({
+      success: true,
+      allow_dual_track: newVal === 1,
+      message: newVal === 1
+        ? `🌟 Dual Track (Japanese + Truck Driving) enabled for ${student.name} (${student.student_id}).`
+        : `Track isolated to Single Course for ${student.name} (${student.student_id}).`
+    });
+  } catch (err) {
+    console.error('toggleDualTrack error:', err);
+    return res.status(500).json({ error: 'Failed to update dual track access.' });
   }
 }
 
 module.exports = {
   extendSubscription,
+  toggleDualTrack,
   getStats,
   getStudents,
   updateStudentStatus,

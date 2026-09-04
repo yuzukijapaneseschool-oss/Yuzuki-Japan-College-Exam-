@@ -68,6 +68,9 @@ async function applySubscriptionMigrations() {
   try {
     await query.run("ALTER TABLE users ADD COLUMN monthly_price REAL DEFAULT 9.99");
   } catch (e) {}
+  try {
+    await query.run("ALTER TABLE users ADD COLUMN allow_dual_track INTEGER DEFAULT 0");
+  } catch (e) {}
 }
 
 
