@@ -480,14 +480,6 @@ export default function ExistingStudentRegister() {
               </div>
             </div>
 
-            {/* Notice regarding Dual Track */}
-            <div className="bg-slate-100 border border-slate-300/80 rounded-2xl p-3.5 flex items-start space-x-2.5 text-xs text-slate-600">
-              <Info className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
-              <p className="leading-relaxed">
-                <strong>Dual Track (Japanese + Truck Driving) විමසීම්:</strong> ඔබට විෂය ධාරා දෙකේම විභාග එකවර කිරීමට අවශ්‍ය නම්, මෙම පෝරමය මගින් ඔබගේ Student ID එක සක්‍රීය කරගත් පසු College Admin / Sensei හට දන්වා ඔබගේ Account එකට <strong>Dual Track Access</strong> ලබා ගන්න.
-              </p>
-            </div>
-
             {/* Submit Button */}
             <button
               type="submit"
