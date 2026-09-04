@@ -265,24 +265,137 @@ async function subscribe(req, res) {
       30
     ]);
 
-    return res.json({
+      return res.json({
+        success: true,
+        message: 'CBT Exam Simulator pass activated for 30 days!',
+        subscription: {
+          status: 'active',
+          is_active: true,
+          days_remaining: 30,
+          expires_at: newSubEndDate.toISOString(),
+          plan: 'CBT Exam Simulator (Active Pass)'
+        }
+      });
+    } catch (err) {
+      return res.status(500).json({ error: 'Failed to process subscription.' });
+    }
+  }
+
+async function registerExistingStudent(req, res) {
+  try {
+    const { 
+      name, 
+      email, 
+      password, 
+      student_id, 
+      course_id, 
+      phone, 
+      nic_number,
+      city = 'Kandy',
+      track_mode = 'existing_student'
+    } = req.body;
+
+    if (!name || !email || !password || !student_id || !course_id) {
+      return res.status(400).json({ error: 'Name, Email, Password, Student ID, and Course selection are required.' });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanStudentId = student_id.trim().toUpperCase();
+
+    // Check if email is already taken
+    const existingEmail = await query.get('SELECT id FROM users WHERE LOWER(email) = ?', [cleanEmail]);
+    if (existingEmail) {
+      return res.status(400).json({ error: 'An account with this email already exists. Please log in or use your primary email.' });
+    }
+
+    // Check if Student ID is already registered
+    const existingStudent = await query.get('SELECT id, name FROM users WHERE UPPER(student_id) = ?', [cleanStudentId]);
+    if (existingStudent) {
+      return res.status(400).json({ error: `Student ID "${cleanStudentId}" is already active under ${existingStudent.name}. Please log in directly.` });
+    }
+
+    const course = await query.get('SELECT id, name FROM courses WHERE id = ?', [course_id]);
+    if (!course) {
+      return res.status(400).json({ error: 'Invalid Course selection.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+
+    // Give 90-day active CBT Exam Pass for existing college students
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 90);
+
+    const userResult = await query.run(`
+      INSERT INTO users (
+        name, email, password, student_id, course_id, phone, nic_number, city, batch_mode, bank_slip_url, role, status,
+        subscription_status, subscription_ends_at, trial_ends_at, monthly_price
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `, [
+      name.trim(),
+      cleanEmail,
+      hashedPassword,
+      cleanStudentId,
+      course_id,
+      phone ? phone.trim() : null,
+      nic_number ? nic_number.trim() : null,
+      city ? city.trim() : 'Kandy',
+      'existing_college_student',
+      null,
+      'student',
+      'approved', // Instantly Approved for Existing Yuzuki College Students!
+      'active',   // Active Exam Pass
+      expiryDate.toISOString(),
+      expiryDate.toISOString(),
+      0.00
+    ]);
+
+    // Create JWT token for immediate auto-login
+    const token = jwt.sign(
+      { 
+        id: userResult.id, 
+        email: cleanEmail, 
+        role: 'student',
+        student_id: cleanStudentId,
+        name: name.trim(),
+        course_id: course_id
+      },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    );
+
+    return res.status(201).json({
       success: true,
-      message: 'CBT Exam Simulator pass activated for 30 days!',
-      subscription: {
-        status: 'active',
-        is_active: true,
-        days_remaining: 30,
-        expires_at: newSubEndDate.toISOString(),
-        plan: 'CBT Exam Simulator (Active Pass)'
-      }
+      message: `🎉 Welcome back to YUZUKI Japan College! Student ID ${cleanStudentId} is now activated with Full CBT Exam Access.`,
+      token,
+      user: {
+        id: userResult.id,
+        name: name.trim(),
+        email: cleanEmail,
+        student_id: cleanStudentId,
+        role: 'student',
+        status: 'approved',
+        course_id: course_id,
+        course_name: course.name,
+        subscription: {
+          status: 'active',
+          is_active: true,
+          plan: 'Yuzuki College Student (Active CBT Exam Pass)',
+          days_remaining: 90,
+          expires_at: expiryDate.toISOString()
+        }
+      },
+      student_id: cleanStudentId
     });
+
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to process subscription.' });
+    console.error('Existing student registration error:', err);
+    return res.status(500).json({ error: 'Internal server error during existing student activation.' });
   }
 }
 
 module.exports = {
   register,
+  registerExistingStudent,
   login,
   getMe,
   subscribe,

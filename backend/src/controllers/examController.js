@@ -67,9 +67,15 @@ async function getExamSession(req, res) {
     }
 
     if (user.role === 'student' && exam.course_id !== user.course_id) {
-      return res.status(403).json({ 
-        error: `Access Denied: This exam belongs to ${exam.course_name}. Your Student ID is registered for a different course.` 
-      });
+      const studentUser = await query.get('SELECT * FROM users WHERE id = ?', [user.id]);
+      const isDualOrExisting = studentUser?.batch_mode === 'existing_college_student' || 
+                               studentUser?.batch_mode === 'all_access' || 
+                               [1, 2, 7].includes(user.course_id) && [1, 2, 7].includes(exam.course_id);
+      if (!isDualOrExisting) {
+        return res.status(403).json({ 
+          error: `Access Denied: This exam belongs to ${exam.course_name}. Your Student ID is registered for a different course.` 
+        });
+      }
     }
 
     const questions = await query.all(`
