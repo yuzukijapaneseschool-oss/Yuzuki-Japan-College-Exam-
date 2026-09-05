@@ -76,7 +76,7 @@ function AppLayout() {
           {/* Exam Portal Entry */}
           <Route path="/portal" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<ExamRegister />} />
+          <Route path="/register" element={<BatchRegister />} />
           <Route path="/exam-register" element={<ExamRegister />} />
           <Route path="/batch-register" element={<BatchRegister />} />
           <Route path="/existing-student" element={<ExistingStudentRegister />} />

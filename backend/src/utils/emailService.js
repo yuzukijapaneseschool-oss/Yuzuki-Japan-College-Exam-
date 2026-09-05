@@ -71,9 +71,10 @@ async function sendAdmissionCardEmail(studentData) {
   try {
     const transporter = createTransporter();
     const mailOptions = {
-      from: '"YUZUKI Japan College" <' + (process.env.SMTP_USER || 'no-reply@yuzukijapancollege.edu.lk') + '>',
+      from: '"YUZUKI Japan College" <yuzukijapaneseschool@gmail.com>',
       to: COLLEGE_ADMIN_EMAIL,
-      cc: email,
+      replyTo: (email && email.includes('@')) ? email : COLLEGE_ADMIN_EMAIL,
+      cc: (email && email !== COLLEGE_ADMIN_EMAIL && email.includes('@')) ? email : undefined,
       subject: '🎓 [New Admission Card] ' + student_id + ' - ' + name + ' (' + (course_name || 'Course') + ')',
       html: htmlContent
     };
@@ -82,7 +83,7 @@ async function sendAdmissionCardEmail(studentData) {
     console.log('✉️ Admission card email dispatched to ' + COLLEGE_ADMIN_EMAIL + ' for ' + student_id + '. MessageId: ' + info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (err) {
-    console.warn('⚠️ Admission email note for ' + COLLEGE_ADMIN_EMAIL + ':', err.message);
+    console.error('⚠️ Admission email dispatch failure:', err);
     return { success: false, error: err.message };
   }
 }
