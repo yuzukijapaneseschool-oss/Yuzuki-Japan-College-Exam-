@@ -3,22 +3,12 @@ const nodemailer = require('nodemailer');
 const COLLEGE_ADMIN_EMAIL = 'yuzukijapaneseschool@gmail.com';
 
 function createTransporter() {
-  const user = process.env.SMTP_USER || process.env.GMAIL_USER || process.env.EMAIL_USER;
-  const pass = process.env.SMTP_PASS || process.env.GMAIL_PASS || process.env.GMAIL_APP_PASSWORD || process.env.EMAIL_PASS;
-
-  if (user && pass) {
-    return nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user, pass }
-    });
-  }
+  const user = process.env.SMTP_USER || process.env.GMAIL_USER || process.env.EMAIL_USER || 'yuzukijapaneseschool@gmail.com';
+  const pass = process.env.SMTP_PASS || process.env.GMAIL_PASS || process.env.GMAIL_APP_PASSWORD || process.env.EMAIL_PASS || 'oqfa bqhv xael slty';
 
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587', 10),
-    secure: false,
-    auth: user && pass ? { user, pass } : undefined,
-    tls: { rejectUnauthorized: false }
+    service: 'gmail',
+    auth: { user, pass }
   });
 }
 
