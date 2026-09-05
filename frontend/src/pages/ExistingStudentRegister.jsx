@@ -65,7 +65,7 @@ export default function ExistingStudentRegister() {
 
     const cleanId = formData.student_id.trim().toUpperCase();
     if (!cleanId) {
-      setError('Please enter your official College Student ID (e.g. YJP-001 or YTD-001).');
+      setError('Please enter your official College Student ID (e.g. YJP00305 or YTD00305).');
       return;
     }
 
@@ -248,7 +248,7 @@ export default function ExistingStudentRegister() {
             }`}>
               <div className="flex items-center space-x-2">
                 <span className="px-2.5 py-0.5 rounded-md font-mono font-black text-xs bg-rose-600 text-white">
-                  YJP-XXXXX
+                  YJP00305...
                 </span>
                 <span className="text-xs font-bold text-slate-900">Japanese Language Track</span>
               </div>
@@ -262,7 +262,7 @@ export default function ExistingStudentRegister() {
             }`}>
               <div className="flex items-center space-x-2">
                 <span className="px-2.5 py-0.5 rounded-md font-mono font-black text-xs bg-amber-600 text-white">
-                  YTD-XXXXX
+                  YTD00305...
                 </span>
                 <span className="text-xs font-bold text-slate-900">Truck Driving Track</span>
               </div>
@@ -305,7 +305,7 @@ export default function ExistingStudentRegister() {
                       type="text"
                       name="student_id"
                       required
-                      placeholder="e.g. YJP-2026-001 or YTD-001"
+                      placeholder="e.g. YJP00305 or YTD00305"
                       value={formData.student_id}
                       onChange={handleStudentIdChange}
                       className="w-full pl-10 pr-4 py-2.5 rounded-xl border-2 border-rose-400/60 focus:border-rose-600 focus:ring-2 focus:ring-rose-500/20 text-slate-900 font-mono font-bold placeholder:text-slate-400 text-sm outline-none bg-rose-50/20 uppercase"
