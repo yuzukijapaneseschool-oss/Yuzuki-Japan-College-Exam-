@@ -73,8 +73,16 @@ const candidateDistPaths = [
 const frontendDist = candidateDistPaths.find(p => fs.existsSync(p));
 if (frontendDist) {
   console.log('Serving production frontend bundle from:', frontendDist);
-  app.use(express.static(frontendDist));
+  app.use(express.static(frontendDist, {
+    maxAge: '1d',
+    setHeaders: (res, path) => {
+      if (path.endsWith('index.html')) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      }
+    }
+  }));
   app.get('*', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.sendFile(path.join(frontendDist, 'index.html'));
   });
 }
