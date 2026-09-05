@@ -14,6 +14,7 @@ import iceCreamDansala from '../../assets/yuzuki_ice_cream_dansala.jpg';
 import convocationGroup from '../../assets/convocation_group_full.jpg';
 
 // Real JFT Pass Achievers
+import passThanuja from '../../assets/jft_pass_thanuja.jpg';
 import passMatheesh from '../../assets/jft_pass_matheesh.jpg';
 import passDilmi from '../../assets/jft_pass_dilmi.jpg';
 import passKavindu from '../../assets/jft_pass_kavindu.jpg';
@@ -119,6 +120,7 @@ export default function Home() {
   ];
 
   const achievers = [
+    { name: 'Thanuja Kangara', score: '223 / 250', exam: 'JFT-Basic A2.2 (Top Pass)', img: passThanuja },
     { name: 'Dilmi Nawodya', score: '220 / 250', exam: 'JFT-Basic A2.2 (Pass)', img: passDilmi },
     { name: 'Kavindu Siriwardhana', score: '215 / 250', exam: 'JFT-Basic A2.2 (Pass)', img: passKavindu },
     { name: 'Matheesh Manelka', score: '210 / 250', exam: 'JFT-Basic A2.2 (Pass)', img: passMatheesh },
@@ -226,7 +228,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
           {achievers.map((ach, idx) => (
             <div 
               key={idx}
