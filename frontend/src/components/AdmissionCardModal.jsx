@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logoImg from '../assets/logo.png';
-import { Printer, X, CheckCircle2, ShieldCheck, QrCode, Building, Phone, MapPin } from 'lucide-react';
+import { Printer, X, CheckCircle2, ShieldCheck, QrCode, Building, Phone, MapPin, ArrowLeft } from 'lucide-react';
 
 export default function AdmissionCardModal({ isOpen, onClose, studentData }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen || !studentData) return null;
 
   const handlePrint = () => {
@@ -16,30 +30,39 @@ export default function AdmissionCardModal({ isOpen, onClose, studentData }) {
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto animate-fade-in">
-      <div className="bg-slate-900 border border-slate-700 w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl space-y-4 my-8">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto animate-fade-in print:p-0 print:bg-white"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div className="bg-slate-900 border border-slate-700 w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl space-y-4 my-6 sm:my-8 print:border-none print:shadow-none print:my-0">
         
         {/* Action Header (Hidden in Print) */}
         <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between print:hidden">
           <div className="flex items-center space-x-2">
             <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <span className="text-sm font-bold text-white">Official Admission Slip & Student ID</span>
+            <span className="text-xs sm:text-sm font-bold text-white">Official Admission Slip & Student ID</span>
           </div>
           <div className="flex items-center space-x-2">
             <button
               type="button"
               onClick={handlePrint}
-              className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-md transition-colors"
+              className="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-md transition-all active:scale-95"
             >
               <Printer className="w-4 h-4" />
-              <span>Print / Save as PDF</span>
+              <span>Print / Save PDF</span>
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors"
+              className="px-3 py-2 bg-rose-600/90 hover:bg-rose-600 text-white rounded-xl text-xs font-bold flex items-center space-x-1 shadow-md transition-all active:scale-95"
+              title="Close Modal (Esc)"
             >
               <X className="w-4 h-4" />
+              <span>Close</span>
             </button>
           </div>
         </div>
@@ -140,6 +163,31 @@ export default function AdmissionCardModal({ isOpen, onClose, studentData }) {
             </div>
           </div>
 
+        </div>
+
+        {/* Bottom Action Footer (Hidden in Print) */}
+        <div className="p-4 bg-slate-950 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 print:hidden">
+          <span className="text-xs text-slate-400 text-center sm:text-left">
+            💡 Tap <strong>Print</strong> to save PDF or tap <strong>Close</strong> to return.
+          </span>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="flex-1 sm:flex-none px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-lg transition-all active:scale-95"
+            >
+              <Printer className="w-4 h-4" />
+              <span>Print / Save PDF</span>
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 sm:flex-none px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-lg transition-all active:scale-95"
+            >
+              <X className="w-4 h-4" />
+              <span>Close (වසන්න)</span>
+            </button>
+          </div>
         </div>
 
       </div>
