@@ -8,6 +8,14 @@ async function seedJftModelPaper04() {
 
     if (existingExam) {
       examId = existingExam.id;
+      const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
+      if (countRes && countRes.count >= 60) {
+        await query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200, is_active = 1 WHERE id = ?', [examId]);
+        await query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
+        await query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
+        await query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
+        return;
+      }
       console.log(`Seeding JFT Model Paper 04 (Exam ID: ${examId})...`);
       await query.run(`
         UPDATE exams 
