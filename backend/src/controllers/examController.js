@@ -211,7 +211,7 @@ async function submitExam(req, res) {
     if (isJftExam) {
       // Official JFT-Basic Standard: 250 Total Scale Score, 200 Marks to Pass (80%)
       finalTotalMarks = 250;
-      finalScore = questions.length > 0 ? Math.round((correctCount / questions.length) * 250) : 0;
+      finalScore = rawTotalMarks === 250 ? rawEarnedMarks : (questions.length > 0 ? Math.round((correctCount / questions.length) * 250) : 0);
       percentage = Math.round((finalScore / 250) * 1000) / 10;
       passed = finalScore >= 200 ? 1 : 0;
     } else {

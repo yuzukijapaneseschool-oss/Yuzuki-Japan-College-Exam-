@@ -43,7 +43,7 @@ async function seedJftModelPaper04() {
         option_c: 'いもうと',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'おばあさん (Grandmother / ආච්චි).'
       },
       {
@@ -58,7 +58,7 @@ async function seedJftModelPaper04() {
         option_c: 'まんがか',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'いしゃ (Doctor / වෛද්‍යවරයා).'
       },
       {
@@ -73,7 +73,7 @@ async function seedJftModelPaper04() {
         option_c: 'おどります',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'かきます (Write / ලියනවා).'
       },
       {
@@ -88,7 +88,7 @@ async function seedJftModelPaper04() {
         option_c: 'イギリス',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'イギリス (United Kingdom / බ්‍රිතාන්‍යය).'
       },
       {
@@ -103,7 +103,7 @@ async function seedJftModelPaper04() {
         option_c: 'にく',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'えび (Shrimp/Prawn / ඉස්සා).'
       },
       {
@@ -118,7 +118,7 @@ async function seedJftModelPaper04() {
         option_c: 'こうえん',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'きっさてん (Coffee Shop / Cafe / තේපැන්හල/කෝපි හල).'
       },
       {
@@ -133,7 +133,7 @@ async function seedJftModelPaper04() {
         option_c: 'おけしょうをします',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'おけしょうをします (Put on makeup / වේශ නිරූපණය/මේකප් කරනවා).'
       },
       {
@@ -148,7 +148,7 @@ async function seedJftModelPaper04() {
         option_c: 'えをかきます',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'でんわをします (Make a phone call / දුරකථන ඇමතුමක් ගන්නවා).'
       },
       {
@@ -163,7 +163,7 @@ async function seedJftModelPaper04() {
         option_c: '講園',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'こうえん -> 公園 (Park / උද්‍යානය).'
       },
       {
@@ -178,7 +178,7 @@ async function seedJftModelPaper04() {
         option_c: '友達',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'ともだち -> 友達 (Friend / මිතුරා).'
       },
       {
@@ -193,7 +193,7 @@ async function seedJftModelPaper04() {
         option_c: '去年',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'ことし -> 今年 (This year / මේ වසර).'
       },
       {
@@ -208,7 +208,7 @@ async function seedJftModelPaper04() {
         option_c: '週間',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'しゅうまつ -> 週末 (Weekend / සති අන්තය).'
       },
       {
@@ -223,7 +223,7 @@ async function seedJftModelPaper04() {
         option_c: '韓国',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'ちゅうごく -> 中国 (China / චීනය).'
       },
       {
@@ -238,7 +238,7 @@ async function seedJftModelPaper04() {
         option_c: '両親',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'りょうしん -> 両親 (Parents / දෙමාපියන්).'
       },
       {
@@ -253,7 +253,7 @@ async function seedJftModelPaper04() {
         option_c: '店',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'まち -> 町 (Town/City / නගරය).'
       },
 

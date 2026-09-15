@@ -10,7 +10,10 @@ async function seedJftModelPaper01() {
       examId = exam.id;
       const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
       if (countRes && countRes.count >= 60) {
-        // Already fully seeded
+        await query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200 WHERE id = ?', [examId]);
+        await query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
+        await query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
+        await query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
         return;
       }
       console.log('Seeding full 60 questions for JFT Model Paper 01...');
@@ -46,7 +49,7 @@ async function seedJftModelPaper01() {
         option_c: 'プレゼントをあげる',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'あいさつする (To greet / ආචාර කරනවා).'
       },
       {
@@ -61,7 +64,7 @@ async function seedJftModelPaper01() {
         option_c: 'じてんしゃ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'じてんしゃ (Bicycle / බයිසිකලය).'
       },
       {
@@ -76,7 +79,7 @@ async function seedJftModelPaper01() {
         option_c: 'およいでいます',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: '話しています (はなしています - Talking / Speaking).'
       },
       {
@@ -91,7 +94,7 @@ async function seedJftModelPaper01() {
         option_c: 'こくせき',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'こっき (国旗 - National Flag / ජාතික කොඩිය).'
       },
       {
@@ -106,7 +109,7 @@ async function seedJftModelPaper01() {
         option_c: 'おんがくを聞いています',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'おふろにはいっています (Taking a bath / නාන තටාකයේ නාමින් සිටියි).'
       },
       {
@@ -121,7 +124,7 @@ async function seedJftModelPaper01() {
         option_c: 'がんばります',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'あやまります (To apologize / සමාව අයදිනවා).'
       },
       {
@@ -136,7 +139,7 @@ async function seedJftModelPaper01() {
         option_c: 'あそびます',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'しゃしんをとります (Take a photo / ඡායාරූපයක් ගන්නවා).'
       },
       {
@@ -151,7 +154,7 @@ async function seedJftModelPaper01() {
         option_c: 'きます',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '帽子をかぶります (Wear a hat / තොප්පියක් දමනවා).'
       },
       {
@@ -166,7 +169,7 @@ async function seedJftModelPaper01() {
         option_c: 'けんかをします',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'けんかをします (Quarrel / Fight / රණ්ඩු වෙනවා).'
       },
       {
@@ -181,7 +184,7 @@ async function seedJftModelPaper01() {
         option_c: 'りようしん',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '両親 (りょうしん - Parents / දෙමාපියන්).'
       },
       {
@@ -196,7 +199,7 @@ async function seedJftModelPaper01() {
         option_c: 'かいもの',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '買い物 (かいもの - Shopping / බඩු මිලදී ගැනීම).'
       },
       {
@@ -211,7 +214,7 @@ async function seedJftModelPaper01() {
         option_c: '試合',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'しあい = 試合 (Match / Game / තරගය).'
       },
       {
@@ -226,7 +229,7 @@ async function seedJftModelPaper01() {
         option_c: 'まど',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'まど (窓 - Window / ජනේලය).'
       },
       {
@@ -241,7 +244,7 @@ async function seedJftModelPaper01() {
         option_c: 'ふるい',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'にぎやかな (Lively / Bustling / වඩාත්ම කාර්යබහුල, ජනාකීර්ණ).'
       },
       {
@@ -256,7 +259,7 @@ async function seedJftModelPaper01() {
         option_c: 'お酒',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'タバコをすいます (Smoke cigarettes / දුම්වැටි බොනවා).'
       },
 

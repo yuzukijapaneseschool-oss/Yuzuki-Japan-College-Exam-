@@ -43,7 +43,7 @@ async function seedJftModelPaper07() {
         option_c: 'トラク',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'トラック (Truck / ලොරිය/ට්‍රක් රථය).'
       },
       {
@@ -58,7 +58,7 @@ async function seedJftModelPaper07() {
         option_c: 'あんないします',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'けっこんします (To get married / විවාහ වෙනවා).'
       },
       {
@@ -73,7 +73,7 @@ async function seedJftModelPaper07() {
         option_c: 'ねこ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'ねこ (Cat / පූසා).'
       },
       {
@@ -88,7 +88,7 @@ async function seedJftModelPaper07() {
         option_c: 'そうじします',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'そうじします (To clean / පිරිසිදු කරනවා).'
       },
       {
@@ -103,7 +103,7 @@ async function seedJftModelPaper07() {
         option_c: 'せんたっき',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'テレビ (Television / රූපවාහිනිය).'
       },
       {
@@ -118,7 +118,7 @@ async function seedJftModelPaper07() {
         option_c: 'ここ',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'このたてもの (This building / මේ ගොඩනැගිල්ල. 連体詞「この」+ 名詞).'
       },
       {
@@ -133,7 +133,7 @@ async function seedJftModelPaper07() {
         option_c: 'なんさつ',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'なんまい (How many thin/flat items like neckties / නෙක්ටයි ගණන් කිරීමේදී 枚 [まい] භාවිතා වේ).'
       },
       {
@@ -148,7 +148,7 @@ async function seedJftModelPaper07() {
         option_c: 'やさしくなかった',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'あまり + 否定 -> あまりやさしくなかったです (Was not very easy / එතරම් පහසු වූයේ නැත).'
       },
       {
@@ -163,7 +163,7 @@ async function seedJftModelPaper07() {
         option_c: '買いました',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'デパートで買い物を買いました/しました (Did shopping / සාප්පු සවාරි කළා).'
       },
       {
@@ -178,7 +178,7 @@ async function seedJftModelPaper07() {
         option_c: '1時間半',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '1時間半 (1 and a half hours / පැය එකහමාරක්).'
       },
       {
@@ -193,7 +193,7 @@ async function seedJftModelPaper07() {
         option_c: 'たんじょび',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '誕生日 (たんじょうび - Birthday / උපන්දිනය).'
       },
       {
@@ -208,7 +208,7 @@ async function seedJftModelPaper07() {
         option_c: 'ななじ',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '七時 (しちじ - 7 o\'clock / හතයි).'
       },
       {
@@ -223,7 +223,7 @@ async function seedJftModelPaper07() {
         option_c: 'あね',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '姉 (あね - Elder sister / අක්කා).'
       },
       {
@@ -238,7 +238,7 @@ async function seedJftModelPaper07() {
         option_c: 'たいせつな',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '親切 (しんせつ - Kind / කාරුණික).'
       },
       {
@@ -253,7 +253,7 @@ async function seedJftModelPaper07() {
         option_c: 'りょうこう',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '旅行 (りょこう - Trip / Travel / සංචාරය).'
       },
 

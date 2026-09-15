@@ -10,6 +10,10 @@ async function seedJftModelPaper10() {
       examId = existingExam.id;
       const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
       if (countRes && countRes.count >= 60) {
+        await query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200 WHERE id = ?', [examId]);
+        await query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
+        await query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
+        await query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
         return;
       }
       console.log(`Seeding JFT Model Paper 10 (Exam ID: ${examId})...`);
@@ -47,7 +51,7 @@ async function seedJftModelPaper10() {
         option_c: 'うさぎ',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'さる (Monkey / වඳුරා).'
       },
       {
@@ -62,7 +66,7 @@ async function seedJftModelPaper10() {
         option_c: 'ニュージーランド',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'オーストラリア (Australia / ඕස්ට්‍රේලියාව).'
       },
       {
@@ -77,7 +81,7 @@ async function seedJftModelPaper10() {
         option_c: 'すうも',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'すもう (Sumo wrestling / සුමෝ ක්‍රීඩාව).'
       },
       {
@@ -92,7 +96,7 @@ async function seedJftModelPaper10() {
         option_c: 'ピアノをあげます',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'ピアノをひきます (Play piano / පියානෝ වාදනය කරනවා).'
       },
       {
@@ -107,7 +111,7 @@ async function seedJftModelPaper10() {
         option_c: 'なおします',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'なきます (Cry / අඬනවා).'
       },
       {
@@ -122,7 +126,7 @@ async function seedJftModelPaper10() {
         option_c: 'けがをします',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'けがをします (Get injured / තුවාල වෙනවා).'
       },
       {
@@ -137,7 +141,7 @@ async function seedJftModelPaper10() {
         option_c: 'たちます',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'すわります (Sit down / වාඩි වෙනවා).'
       },
       {
@@ -152,7 +156,7 @@ async function seedJftModelPaper10() {
         option_c: 'キャベツ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'キャベツ (Cabbage / ගෝවා).'
       },
       {
@@ -167,7 +171,7 @@ async function seedJftModelPaper10() {
         option_c: 'バナナ',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'すいか (Watermelon / පැණි කොමඩු).'
       },
       {
@@ -182,7 +186,7 @@ async function seedJftModelPaper10() {
         option_c: '服をかぶります',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '服をぬぎます (Take off clothes / ඇඳුම් ගලවනවා).'
       },
       {
@@ -197,7 +201,7 @@ async function seedJftModelPaper10() {
         option_c: '先週',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '先週 (せんしゅう - Last week / පසුගිය සතිය).'
       },
       {
@@ -212,7 +216,7 @@ async function seedJftModelPaper10() {
         option_c: '水曜日',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '木曜日 (もくようび - Thursday / බ්‍රහස්පතින්දා).'
       },
       {
@@ -227,7 +231,7 @@ async function seedJftModelPaper10() {
         option_c: '火三',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '火山 (かざん - Volcano / ගිනි කන්ද).'
       },
       {
@@ -242,7 +246,7 @@ async function seedJftModelPaper10() {
         option_c: '近魚',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '金魚 (きんぎょ - Goldfish / රන් මත්ස්‍යයා).'
       },
       {
@@ -257,7 +261,7 @@ async function seedJftModelPaper10() {
         option_c: '新誌',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '新聞 (しんぶん - Newspaper / පුවත්පත).'
       },
 

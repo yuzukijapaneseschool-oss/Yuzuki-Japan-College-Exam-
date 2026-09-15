@@ -10,6 +10,10 @@ async function seedJftModelPaper03() {
       examId = existingExam.id;
       const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
       if (countRes && countRes.count >= 60) {
+        await query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200 WHERE id = ?', [examId]);
+        await query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
+        await query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
+        await query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
         return;
       }
       console.log(`Seeding JFT Model Paper 03 (Exam ID: ${examId})...`);
@@ -47,7 +51,7 @@ async function seedJftModelPaper03() {
         option_c: 'おとうさん',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'おかあさん (Mother / අම්මා).'
       },
       {
@@ -62,7 +66,7 @@ async function seedJftModelPaper03() {
         option_c: 'はしります',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'よみます (Read / කියවනවා).'
       },
       {
@@ -77,7 +81,7 @@ async function seedJftModelPaper03() {
         option_c: 'くるま',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'くるま (車 - Car / මෝටර් රථය).'
       },
       {
@@ -92,7 +96,7 @@ async function seedJftModelPaper03() {
         option_c: 'とり',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'うま (馬 - Horse / අශ්වයා).'
       },
       {
@@ -107,7 +111,7 @@ async function seedJftModelPaper03() {
         option_c: 'ねます',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'べんきょうします (勉強します - Study / පාඩම් කරනවා).'
       },
       {
@@ -122,7 +126,7 @@ async function seedJftModelPaper03() {
         option_c: 'は・の',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'これ「は」 日本「の」 時計です。(This is a Japanese watch).'
       },
       {
@@ -137,7 +141,7 @@ async function seedJftModelPaper03() {
         option_c: 'も・も',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'ナロンさん「も」インド人ですか。いいえ、ナロンさん「は」インド人ではありません。'
       },
       {
@@ -152,7 +156,7 @@ async function seedJftModelPaper03() {
         option_c: 'の・は・か',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '山本さん「の」 会社「は」 どこです「か」。'
       },
       {
@@ -167,7 +171,7 @@ async function seedJftModelPaper03() {
         option_c: 'が',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'この雑誌「を」ください。(Please give me this magazine).'
       },
       {
@@ -182,7 +186,7 @@ async function seedJftModelPaper03() {
         option_c: 'の・の',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'あなた「の」ノート ... 私「の」ではありません。(Mine).'
       },
       {
@@ -197,7 +201,7 @@ async function seedJftModelPaper03() {
         option_c: 'じしょ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '辞書 (じしょ - Dictionary / ශබ්දකෝෂය).'
       },
       {
@@ -212,7 +216,7 @@ async function seedJftModelPaper03() {
         option_c: 'としょうかん',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '図書館 (としょかん - Library / පුස්තකාලය).'
       },
       {
@@ -227,7 +231,7 @@ async function seedJftModelPaper03() {
         option_c: 'ばなび',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '花火 (はなび - Fireworks / ගිනිකෙළි).'
       },
       {
@@ -242,7 +246,7 @@ async function seedJftModelPaper03() {
         option_c: 'かぞく',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '５人家族 (ごにんかぞく - Family of 5 / පස් දෙනෙකුගෙන් යුත් පවුලකි).'
       },
       {
@@ -257,7 +261,7 @@ async function seedJftModelPaper03() {
         option_c: 'この',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'どこ (Where / කොහේද?).'
       },
 

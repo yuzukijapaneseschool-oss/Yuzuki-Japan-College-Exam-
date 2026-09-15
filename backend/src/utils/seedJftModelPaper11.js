@@ -121,7 +121,7 @@ async function seedJftModelPaper11() {
         option_c: 'のみもの',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 2,
         explanation: 'ගෙතුම් වැඩ ජපන් බසින් "あみもの (Amimono / 編み物)" වේ.'
       },
       {
@@ -135,7 +135,7 @@ async function seedJftModelPaper11() {
         option_c: 'じょやのかね',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'අලුත් අවුරුදු උදාවේ විහාරස්ථානවල නාද කරන සීනුව "じょやのかね (Joya no kane / 除夜の鐘)" වේ.'
       },
       {
@@ -149,7 +149,7 @@ async function seedJftModelPaper11() {
         option_c: 'のみりょうり',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 2,
         explanation: 'ජපන් හොට් පොට් ආහාරය "なべりょうり (Nabe ryouri / 鍋料理)" වේ.'
       },
       {
@@ -163,7 +163,7 @@ async function seedJftModelPaper11() {
         option_c: 'うき',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'වැසි සමය "うき (Uki / 雨期)" වේ.'
       },
       {
@@ -177,7 +177,7 @@ async function seedJftModelPaper11() {
         option_c: 'まんが',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 2,
         explanation: 'වියළි සමය "かんき (Kanki / 乾期)" වේ.'
       },
       {
@@ -191,7 +191,7 @@ async function seedJftModelPaper11() {
         option_c: 'じかん',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 2,
         explanation: 'තරඟය හෙවත් "試合" කන්ජිය හිරගනාවෙන් "しあい (Shiai)" වේ.'
       },
       {
@@ -205,7 +205,7 @@ async function seedJftModelPaper11() {
         option_c: 'ゆき',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'හිම හෙවත් "雪" කන්ජිය හිරගනාවෙන් "ゆき (Yuki)" වේ.'
       },
       {
@@ -219,7 +219,7 @@ async function seedJftModelPaper11() {
         option_c: 'ほうほう',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'ක්‍රමය හෙවත් "方法" කන්ජිය හිරගනාවෙන් "ほうほう (Houhou)" වේ.'
       },
       {
@@ -233,7 +233,7 @@ async function seedJftModelPaper11() {
         option_c: 'しんぱいしました',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 2,
         explanation: 'අපහසුතාවට පත්වුණා හෙවත් "困りました" කන්ජිය හිරගනාවෙන් "こまりました (Komarimashita)" වේ.'
       },
       {
@@ -247,7 +247,7 @@ async function seedJftModelPaper11() {
         option_c: 'せいどう',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 2,
         explanation: 'ජීවන රටාව හෙවත් "生活" කන්ජිය හිරගනාවෙන් "せいかつ (Seikatsu)" වේ.'
       },
 
@@ -263,7 +263,7 @@ async function seedJftModelPaper11() {
         option_c: 'ひまなでとき',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'Na-adjective (ひまな) + とき -> "ひまなとき (හිස් වේලාවට)" නිවැරදි වේ.'
       },
       {
@@ -277,7 +277,7 @@ async function seedJftModelPaper11() {
         option_c: 'ばかり',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ක්‍රියාපද Stem + ながら (ඇවිදින අතරතුර / එකවර කරන ක්‍රියා) -> "歩きながら (ඇවිදින ගමන්)" වේ.'
       },
       {
@@ -291,7 +291,7 @@ async function seedJftModelPaper11() {
         option_c: '行き',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'අදහස ප්‍රකාශ කිරීමේදී Volitional form (行こう) + と思っています -> "行こうと思っています" වේ.'
       },
       {
@@ -305,7 +305,7 @@ async function seedJftModelPaper11() {
         option_c: 'ねて',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'උපදෙස් දීමේදී Ta-form + ほうがいい -> "ねたほうがいい (නිදාගත්තොත් හොඳයි)" වේ.'
       },
       {
@@ -319,7 +319,7 @@ async function seedJftModelPaper11() {
         option_c: '食べ',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'Verb stem + すぎる (අධිකව කිරීම) -> "食べすぎた (වැඩියෙන් කාපු නිසා)" වේ.'
       },
       {
@@ -333,7 +333,7 @@ async function seedJftModelPaper11() {
         option_c: '聞くこと',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'නාම පදයක් බවට පත් කිරීමේදී Dictionary form + ことです -> "聞くことです (අසන එක)" වේ.'
       },
       {
@@ -347,7 +347,7 @@ async function seedJftModelPaper11() {
         option_c: 'どれですか',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'හේතුව විමසීමේදී "どうしてですか (ඇයි ඒ?)" නිවැරදි වේ.'
       },
       {
@@ -361,7 +361,7 @@ async function seedJftModelPaper11() {
         option_c: 'たいへんですね',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'වැස්ස නිසා ඇතිවන අපහසුවට සංවේදීව "たいへんですね (අපොයි කරදරයක් නේ)" යෙදීම ගැලපේ.'
       },
       {
@@ -375,7 +375,7 @@ async function seedJftModelPaper11() {
         option_c: 'あれはどうですか',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'අනෙක් පාර්ශ්වයේ කාලගුණය ඇසීමට "そっちはどうですか (ඔයාගේ පැත්තේ කොහොමද?)" ගැලපේ.'
       },
       {
@@ -389,7 +389,7 @@ async function seedJftModelPaper11() {
         option_c: 'それから',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'මෙම ප්‍රදේශය අවට යන්න "このあたり (Kono atari)" වේ.'
       },
       {
@@ -403,7 +403,7 @@ async function seedJftModelPaper11() {
         option_c: 'ですが',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: '"にぎやかですが (ජනාකීර්ණ වුවත්) たのしいですよ" යන්න අර්ථවත් වේ.'
       },
       {
@@ -417,7 +417,7 @@ async function seedJftModelPaper11() {
         option_c: 'どうですか',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'මගියෙකුගෙන් කරුණක් විමසීමට පෙර "すみません (සමාවෙන්න)" යොදයි.'
       },
       {
@@ -431,7 +431,7 @@ async function seedJftModelPaper11() {
         option_c: 'まがってはいけない',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'මග පෙන්වීමේදී "みぎにまがってください (දකුණට හැරෙන්න)" යොදයි.'
       },
       {
@@ -445,7 +445,7 @@ async function seedJftModelPaper11() {
         option_c: 'どうしますか',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'හමුවීමේ වේලාව හා ස්ථානය පිළිබඳ සැලසුම ඇසීමට "どうしますか (කොහොම කරමුද?)" යොදයි.'
       },
       {
@@ -459,7 +459,7 @@ async function seedJftModelPaper11() {
         option_c: 'かしこまりました',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'මිතුරන් අතර එකඟතාව ප්‍රකාශ කිරීමේදී "わかりました (තේරුණා / හරි)" යොදයි.'
       },
 
@@ -475,7 +475,7 @@ async function seedJftModelPaper11() {
         option_c: 'c (あき)',
         option_d: 'd (ふゆ)',
         correct_option: 'D',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ජපානයේ දැනට පවතින සෘතුව ශීත සෘතුව (d: ふゆ / winter) වේ.'
       },
       {
@@ -489,7 +489,7 @@ async function seedJftModelPaper11() {
         option_c: '3月',
         option_d: '4月',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව මාර්තු මාසයේදී (3月) කාලගුණය උණුසුම් වීමට පටන් ගනී.'
       },
       {
@@ -503,7 +503,7 @@ async function seedJftModelPaper11() {
         option_c: '5月,6月,7月',
         option_d: '4月,6月,7月',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ජපානයේ වසන්ත කාලය (Spring) වන්නේ මාර්තු, අප්‍රේල් සහ මැයි මාසයි (3月,4月,5月).'
       },
       {
@@ -517,7 +517,7 @@ async function seedJftModelPaper11() {
         option_c: '6月',
         option_d: '9月',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ජපානයේ වැසි සෘතුව හෙවත් "つゆ (Tsuyu)" පැමිණෙන්නේ ජුනි මාසයේදී (6月) ය.'
       },
       {
@@ -531,7 +531,7 @@ async function seedJftModelPaper11() {
         option_c: '01月,02月,03月',
         option_d: '09月,10月,11月',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'ජපානයේ ශීත කාලය (Winter) වන්නේ දෙසැම්බර්, ජනවාරි සහ පෙබරවාරි මාසයි (12月,01月,02月).'
       },
       {
@@ -545,7 +545,7 @@ async function seedJftModelPaper11() {
         option_c: '11月',
         option_d: '12月',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ටෝකියෝව නොවැම්බර් මාසයේදී (11月) ශීතල වේ.'
       },
       {
@@ -559,7 +559,7 @@ async function seedJftModelPaper11() {
         option_c: '3人',
         option_d: '4人',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව මාරිගේ පවුලේ සාමාජිකයින් 3 දෙනෙකි (3人).'
       },
       {
@@ -573,7 +573,7 @@ async function seedJftModelPaper11() {
         option_c: 'しゅふ',
         option_d: '学生',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'මාරි හෝටලයක (ホテル / Hotel) සේවය කරයි.'
       },
       {
@@ -587,7 +587,7 @@ async function seedJftModelPaper11() {
         option_c: '3人',
         option_d: '4人',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ඇයගේ සොහොයුරියගේ පවුලේ සාමාජිකයින් 3 දෙනෙකි (3人).'
       },
       {
@@ -601,7 +601,7 @@ async function seedJftModelPaper11() {
         option_c: '日本に住んでいます。きょうしです。おぺらをおしえています',
         option_d: '日本に住んでいます。学生です。オペラを習っています',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ඇය ඉතාලියේ ජීවත් වන අතර ශිෂ්‍යාවකි. ඔපෙරා සංගීතය ඉගෙන ගනියි.'
       },
       {
@@ -615,7 +615,7 @@ async function seedJftModelPaper11() {
         option_c: 'おばはかんこく語と英語ができますけどポルトガル語はできません',
         option_d: 'おばはおっとと韓国語で話します',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'නැන්දා පෘතුගීසි සහ ඉංග්‍රීසි කතා කළ හැකි වුවද කොරියානු බස කතා කළ නොහැකිය.'
       },
       {
@@ -629,7 +629,7 @@ async function seedJftModelPaper11() {
         option_c: '電車の写真をとること',
         option_d: '電車のきっぷをあつめること',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ජෝගේ විනෝදාංශය වන්නේ දුම්රියවල ඡායාරූප ගැනීමයි (電車の写真をとること).'
       },
       {
@@ -643,7 +643,7 @@ async function seedJftModelPaper11() {
         option_c: 'c (Brand Shop)',
         option_d: 'd (Mount Fuji)',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'ඔවුන් කතා කරන්නේ රාමන් සහ කඩසාප්පු පිරි සජීවී වීදියක් (b) ගැනය.'
       },
       {
@@ -657,7 +657,7 @@ async function seedJftModelPaper11() {
         option_c: '高いビル',
         option_d: '駅',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ෂින්ජුකු බටහිර දොරටුවේ උස් ගොඩනැගිලි (高いビル / Tall buildings) පිහිටා ඇත.'
       },
       {
@@ -671,7 +671,7 @@ async function seedJftModelPaper11() {
         option_c: '夜はうるさいです',
         option_d: '夜はにぎやかです',
         correct_option: 'D',
-        marks: 1,
+        marks: 5,
         explanation: 'රාත්‍රියට ෂින්ජුකු ඉතා සජීවී හා ජනාකීර්ණ ස්ථානයකි (夜はにぎやかです).'
       },
 
@@ -687,7 +687,7 @@ async function seedJftModelPaper11() {
         option_c: 'フルーシケーキ',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'L2thePz පවසන්නේ තමාට පලතුරු කේක් (フルーツケーキ / Fruit cake) සෑදීම දක්ෂ බවයි.'
       },
       {
@@ -701,7 +701,7 @@ async function seedJftModelPaper11() {
         option_c: 'ぶた肉カレー',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'Myfish පවසන්නේ තමා නිතර චිකන් කරි (とり肉カレー / Chicken curry) හදන බවයි.'
       },
       {
@@ -715,7 +715,7 @@ async function seedJftModelPaper11() {
         option_c: '電車がないから',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'පණිවිඩයේ "でんしゃがとまりました (දුම්රිය නැවතුණා)" යනුවෙන් ඇති බැවින් දුම්රිය ධාවනය නොවීම (電車がうごかないから) නිවැරදි වේ.'
       },
       {
@@ -729,7 +729,7 @@ async function seedJftModelPaper11() {
         option_c: '',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'රියෝ කුන් "おばあちゃん (ආච්චි)" ලෙස අමතන බැවින් ඔහු ඇයගේ මුණුබුරා (まご) වේ.'
       },
       {
@@ -743,7 +743,7 @@ async function seedJftModelPaper11() {
         option_c: '',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ආච්චි "らいしゅう、広島に行きますよ (ලබන සතියේ හිරෝෂිමාවට එන්නම්)" යයි පවසන බැවින් රියෝ හිරෝෂිමාවේ ජීවත් වේ.'
       },
       {
@@ -757,7 +757,7 @@ async function seedJftModelPaper11() {
         option_c: '',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'ආච්චි ටෝකියෝවේ ද රියෝ හිරෝෂිමාවේ ද ජීවත් වන බැවින් ඔවුන් එකට ජීවත් නොවේ.'
       },
       {
@@ -771,7 +771,7 @@ async function seedJftModelPaper11() {
         option_c: '',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ආච්චි "おじいちゃんもいっしょです (සීයත් මා සමග එනවා)" යැයි පවසන බැවින් නිවැරදිය.'
       },
       {
@@ -785,7 +785,7 @@ async function seedJftModelPaper11() {
         option_c: '',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'පණිවිඩයේ "おじいちゃんは日本語をべんきょうしていません (සීයා ජපන් බස ඉගෙන ගන්නේ නැත)" ලෙස පැහැදිලිව සඳහන් වේ.'
       },
       {
@@ -799,7 +799,7 @@ async function seedJftModelPaper11() {
         option_c: 'c (公園で絵を描く)',
         option_d: 'd (焼きそばを食べる)',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: '1 වැනි පුද්ගලයාගේ විනෝදාංශය වන්නේ කෞතුකාගාරයට ගොස් මොනේගේ චිත්‍ර නැරඹීමයි (a).'
       },
       {
@@ -813,7 +813,7 @@ async function seedJftModelPaper11() {
         option_c: 'c (公園で絵を描く)',
         option_d: 'd (焼きそばを食べる)',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: '2 වැනි පුද්ගලයාගේ විනෝදාංශය වන්නේ නිවාඩු වේලාවට උද්‍යානයේදී මල්වල චිත්‍ර ඇඳීමයි (c).'
       },
       {
@@ -827,7 +827,7 @@ async function seedJftModelPaper11() {
         option_c: 'c (公園で絵を描く)',
         option_d: 'd (焼きそばを食べる)',
         correct_option: 'D',
-        marks: 1,
+        marks: 5,
         explanation: '3 වැනි පුද්ගලයාගේ විනෝදාංශය වන්නේ යකිසෝබා වැනි ආහාර අනුභවයයි (d).'
       },
       {
@@ -841,7 +841,7 @@ async function seedJftModelPaper11() {
         option_c: 'c (公園で絵を描く)',
         option_d: 'd (焼きそばを食べる)',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: '4 වැනි පුද්ගලයාගේ විනෝදාංශය වන්නේ ගියූදොන් වැනි ආහාර පිසීමයි (b).'
       },
       {
@@ -855,7 +855,7 @@ async function seedJftModelPaper11() {
         option_c: 'メルボンの今のきせつと寒い時のいい服',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'අකාරි විමසන්නේ මෙල්බර්න්වල වත්මන් සෘතුව සහ ඊට සුදුසු ඇඳුම් මොනවාද යන්නයි.'
       },
       {
@@ -869,7 +869,7 @@ async function seedJftModelPaper11() {
         option_c: '春',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'කේට් පවසන්නේ මෙල්බර්න්වල දැන් ගිම්හාන කාලය (夏 / Summer) බවයි.'
       },
       {
@@ -883,7 +883,7 @@ async function seedJftModelPaper11() {
         option_c: '昼は暑い、夜は寒い',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ලිපියේ "ひるはあついです... よるはさむくなります" ලෙස ඇති බැවින් දවල්ට රස්නෙයි, රෑට ශීතලයි (昼は暑い、夜は寒い) නිවැරදි වේ.'
       }
     ];

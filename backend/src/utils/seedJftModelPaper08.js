@@ -43,7 +43,7 @@ async function seedJftModelPaper08() {
         option_c: 'うさぎ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'うさぎ (Rabbit / හාවා).'
       },
       {
@@ -58,7 +58,7 @@ async function seedJftModelPaper08() {
         option_c: 'ニュージーランド',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'ドイツ (Germany / ජර්මනිය).'
       },
       {
@@ -73,7 +73,7 @@ async function seedJftModelPaper08() {
         option_c: 'ぶたにく',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'ぎゅうにゅう (Milk / කිරි).'
       },
       {
@@ -88,7 +88,7 @@ async function seedJftModelPaper08() {
         option_c: 'やすみます',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'さんぽします (Walk / ඇවිදිනවා).'
       },
       {
@@ -103,7 +103,7 @@ async function seedJftModelPaper08() {
         option_c: 'さとうをあげます',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'さとうをいれます (Put in sugar / සීනි දමනවා).'
       },
       {
@@ -118,7 +118,7 @@ async function seedJftModelPaper08() {
         option_c: 'パンをあげます',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'パンをきります (Cut bread / පාන් කපනවා).'
       },
       {
@@ -133,7 +133,7 @@ async function seedJftModelPaper08() {
         option_c: 'たちます',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'たちます (Stand up / නැගිටිනවා).'
       },
       {
@@ -148,7 +148,7 @@ async function seedJftModelPaper08() {
         option_c: 'キャベツ',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'きゅうり (Cucumber / පිපිඤ්ඤා).'
       },
       {
@@ -163,7 +163,7 @@ async function seedJftModelPaper08() {
         option_c: 'バナナ',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'ぶどう (Grapes / මිදි).'
       },
       {
@@ -178,7 +178,7 @@ async function seedJftModelPaper08() {
         option_c: 'そうじき',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'せんたっき (Washing machine / රෙදි සෝදන යන්ත්‍රය).'
       },
       {
@@ -193,7 +193,7 @@ async function seedJftModelPaper08() {
         option_c: '入形',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '人形 (にんぎょう - Doll / බෝනික්කා).'
       },
       {
@@ -208,7 +208,7 @@ async function seedJftModelPaper08() {
         option_c: '制生',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '先生 (せんせい - Teacher / ගුරුවරයා).'
       },
       {
@@ -223,7 +223,7 @@ async function seedJftModelPaper08() {
         option_c: '八千屋',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '八百屋 (やおや - Greengrocer / එළවළු කඩය).'
       },
       {
@@ -238,7 +238,7 @@ async function seedJftModelPaper08() {
         option_c: '今週',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '今週 (こんしゅう - This week / මේ සතිය).'
       },
       {
@@ -253,7 +253,7 @@ async function seedJftModelPaper08() {
         option_c: '花日',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '花火 (はなび - Fireworks / ගිනිකෙළි).'
       },
 
