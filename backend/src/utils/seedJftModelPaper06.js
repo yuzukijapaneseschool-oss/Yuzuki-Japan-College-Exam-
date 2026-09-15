@@ -8,10 +8,6 @@ async function seedJftModelPaper06() {
 
     if (existingExam) {
       examId = existingExam.id;
-      const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
-      if (countRes && countRes.count >= 60) {
-        return;
-      }
       console.log(`Seeding JFT Model Paper 06 (Exam ID: ${examId})...`);
       await query.run(`
         UPDATE exams 
@@ -787,7 +783,7 @@ async function seedJftModelPaper06() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '文章を読んで、正しい答えを選んでください。\n\n朝は時間がありません。駅でパンを買って食べます。昼も仕事が忙しいですから、たいていパンとぎゅうにゅうです。晩ご飯はうちのそばのレストランでゆっくりご飯を食べます。\n\nこの人はいつもどんなものを食べていますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft06_passage_50.png',
         audio_url: null,
         option_a: '朝も夜もパンを食べます',
         option_b: '朝と昼はパンで、夜はそばを食べます',
@@ -802,7 +798,7 @@ async function seedJftModelPaper06() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '【51/52/53 共通問題】\n私は 11月にオーストラリアに来ました。去年02月からこちらの大学で英語を勉強します。学校がはじまるまでオーストラリアをりょこうしていて、今はアパートでこれを書いています。\n私は住んでいるところは大学がある町から少しとおいです。でも、アパートの近くにおいしいパン屋があって、コーヒーをのむこともできます。\n日本は 02月はとてもさむくなりますが、オーストラリアは、02月はとてもあつくなります。雨もあまりふりません。でも、あきはすずしくなりますから、あそびに来ませんか。\n\nこの人はいまどこにいますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft06_passage_51_53.png',
         audio_url: null,
         option_a: '中国',
         option_b: '日本',
@@ -817,7 +813,7 @@ async function seedJftModelPaper06() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '日本は02月にどうなりますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft06_passage_51_53.png',
         audio_url: null,
         option_a: 'あつくなります',
         option_b: 'さむくなります',
@@ -832,7 +828,7 @@ async function seedJftModelPaper06() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'ここにあっているものはどれか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft06_passage_51_53.png',
         audio_url: null,
         option_a: '大学はこの人のアパートからとおいです',
         option_b: '大学のとなりにパンやがあります',
@@ -847,7 +843,7 @@ async function seedJftModelPaper06() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '文章を読んで、正しい答えを選んでください。\n\n去年ははとひろしまへ行きました。東京からしんかんせんで行きました。私たちはげんばくドームを見ました。それからおいしい料理を食べました。ひろしまはとてもよかったです。そして、きれいでした。つぎはながさきへ行きたいです。\n\nここにあっているものはどれか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft06_passage_54.png',
         audio_url: null,
         option_a: '家族とひろしまへ行きました',
         option_b: '東京からしんかんせんでひろしまへ行ってげんばくドームを見ました',

@@ -8,10 +8,6 @@ async function seedJftModelPaper05() {
 
     if (existingExam) {
       examId = existingExam.id;
-      const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
-      if (countRes && countRes.count >= 60) {
-        return;
-      }
       console.log(`Seeding JFT Model Paper 05 (Exam ID: ${examId})...`);
       await query.run(`
         UPDATE exams 
@@ -787,7 +783,7 @@ async function seedJftModelPaper05() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '文章を読んで質問に答えてください。\n\nおきなわはどこにありますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft05_passage_50_52.png',
         audio_url: null,
         option_a: 'きゅうしゅうの北',
         option_b: 'きゅうしゅうの西',
@@ -802,7 +798,7 @@ async function seedJftModelPaper05() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '文章を読んで質問に答えてください。\n\nおきなわでいちばん大きな町は何ですか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft05_passage_50_52.png',
         audio_url: null,
         option_a: 'なら',
         option_b: 'なは',
@@ -817,7 +813,7 @@ async function seedJftModelPaper05() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '文章を読んで、ここにあっているものはどれですか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft05_passage_50_52.png',
         audio_url: null,
         option_a: '私は３才のときおきなわへ行きました',
         option_b: 'さんごうしょうにきれいな魚がたくさん釣りました',
@@ -832,7 +828,7 @@ async function seedJftModelPaper05() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'メールを読んで質問に答えてください。\n\n二人はどこであいますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft05_passage_53.png',
         audio_url: null,
         option_a: 'みどり駅の北口で',
         option_b: 'さくら駅の北口で',

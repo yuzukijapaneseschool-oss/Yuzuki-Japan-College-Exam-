@@ -8,10 +8,6 @@ async function seedJftModelPaper04() {
 
     if (existingExam) {
       examId = existingExam.id;
-      const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
-      if (countRes && countRes.count >= 60) {
-        return;
-      }
       console.log(`Seeding JFT Model Paper 04 (Exam ID: ${examId})...`);
       await query.run(`
         UPDATE exams 
@@ -907,7 +903,7 @@ async function seedJftModelPaper04() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '案内を読んで質問に答えてください。\n\nカラオケコンテストはいつですか。（05月04日の読み方）',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft04_passage_58_60.png',
         audio_url: null,
         option_a: 'よっか',
         option_b: 'よちか',
@@ -922,7 +918,7 @@ async function seedJftModelPaper04() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'カラオケコンテストではうたをうたう人が何人さんかしなければなりませんか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft04_passage_58_60.png',
         audio_url: null,
         option_a: '7人',
         option_b: '5人',
@@ -937,7 +933,7 @@ async function seedJftModelPaper04() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'カラオケコンテストは何時からですか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft04_passage_58_60.png',
         audio_url: null,
         option_a: '朝9時からです',
         option_b: '夜9時からです',
