@@ -10,6 +10,10 @@ async function seedJftModelPaper09() {
       examId = existingExam.id;
       const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
       if (countRes && countRes.count >= 60) {
+        await query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200 WHERE id = ?', [examId]);
+        await query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
+        await query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
+        await query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
         return;
       }
       console.log(`Seeding JFT Model Paper 09 (Exam ID: ${examId})...`);
@@ -47,7 +51,7 @@ async function seedJftModelPaper09() {
         option_c: 'アイロン',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'アイロン (Iron / ඉස්තිරික්කය).'
       },
       {
@@ -62,7 +66,7 @@ async function seedJftModelPaper09() {
         option_c: 'そうじぎ',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'そうじき (Vacuum cleaner / වැකියුම් ක්ලීනර්).'
       },
       {
@@ -77,7 +81,7 @@ async function seedJftModelPaper09() {
         option_c: 'かおをあらいます',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'かおをあらいます (Wash face / මුහුණ සෝදනවා).'
       },
       {
@@ -92,7 +96,7 @@ async function seedJftModelPaper09() {
         option_c: 'ひげをきります',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'ひげをそります (Shave beard / රැවුල කපනවා/බානවා).'
       },
       {
@@ -107,7 +111,7 @@ async function seedJftModelPaper09() {
         option_c: 'ざどう',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'さどう (Tea ceremony / තේ උත්සව කලාව).'
       },
       {
@@ -122,7 +126,7 @@ async function seedJftModelPaper09() {
         option_c: 'そつぎょう',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'りゅうがく (Study abroad / විදේශ අධ්‍යාපනය).'
       },
       {
@@ -137,7 +141,7 @@ async function seedJftModelPaper09() {
         option_c: 'しゅうまつ',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'しゅみ (Hobby / විනෝදාංශය).'
       },
       {
@@ -152,7 +156,7 @@ async function seedJftModelPaper09() {
         option_c: 'こえ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'こえ (Voice / කටහඬ).'
       },
       {
@@ -167,7 +171,7 @@ async function seedJftModelPaper09() {
         option_c: 'ゴルフ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'ゴルフ (Golf / ගොල්ෆ් ක්‍රීඩාව).'
       },
       {
@@ -182,7 +186,7 @@ async function seedJftModelPaper09() {
         option_c: 'しんごうき',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'しんごうき (Traffic light / රථවාහන සංඥා ලාම්පුව).'
       },
       {
@@ -197,7 +201,7 @@ async function seedJftModelPaper09() {
         option_c: '漢学',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '漢字 (かんじ - Kanji characters / කන්ජි අක්ෂර).'
       },
       {
@@ -212,7 +216,7 @@ async function seedJftModelPaper09() {
         option_c: '笑び',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '遊び (あそび - Play / visit / විනෝද වීම/සෙල්ලම් කිරීම).'
       },
       {
@@ -227,7 +231,7 @@ async function seedJftModelPaper09() {
         option_c: '食堂',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '食事 (しょくじ - Meal / ආහාර වේල).'
       },
       {
@@ -242,7 +246,7 @@ async function seedJftModelPaper09() {
         option_c: '親友',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '親友 (しんゆう - Best friend / හොඳම මිතුරා).'
       },
       {
@@ -257,7 +261,7 @@ async function seedJftModelPaper09() {
         option_c: '制活',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '生活 (せいかつ - Life / Living / ජීවිතය).'
       },
 

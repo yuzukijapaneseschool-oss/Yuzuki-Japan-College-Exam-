@@ -115,6 +115,8 @@ const { seedJftModelPaper07 } = require('./utils/seedJftModelPaper07');
 const { seedJftModelPaper08 } = require('./utils/seedJftModelPaper08');
 const { seedJftModelPaper09 } = require('./utils/seedJftModelPaper09');
 const { seedJftModelPaper10 } = require('./utils/seedJftModelPaper10');
+const { seedJftModelPaper11 } = require('./utils/seedJftModelPaper11');
+const { seedJftModelPaper12 } = require('./utils/seedJftModelPaper12');
 
 async function start() {
   try {
@@ -129,6 +131,8 @@ async function start() {
     await seedJftModelPaper08();
     await seedJftModelPaper09();
     await seedJftModelPaper10();
+    await seedJftModelPaper11();
+    await seedJftModelPaper12();
     initAutoBackup();
     app.listen(PORT, () => {
       console.log('========================================================');

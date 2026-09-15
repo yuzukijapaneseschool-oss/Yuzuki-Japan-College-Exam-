@@ -120,7 +120,7 @@ async function seedJftModelPaper12() {
         option_c: 'に',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 2,
         explanation: 'ශරීර අංගයක ලක්ෂණයක් විස්තර කිරීමේදී "[අවයවය] + が + විශේෂණය" -> "目が大きくて (ඇස් ලොකුයි)" වේ.'
       },
       {
@@ -134,7 +134,7 @@ async function seedJftModelPaper12() {
         option_c: 'はなし',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'ක්‍රියාපද Stem "はなし" + ますよ -> "はなしますよ" වේ.'
       },
       {
@@ -148,7 +148,7 @@ async function seedJftModelPaper12() {
         option_c: 'ばかり',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'යමක් පමණක්ම නිතර කිරීම හඟවන "ばかり (Bakari)" යෙදේ -> "あまいものばかり (පැණිරස දේවල්ම)".'
       },
       {
@@ -162,7 +162,7 @@ async function seedJftModelPaper12() {
         option_c: 'さむい',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 2,
         explanation: 'හේතුව දක්වා ඉල්ලීමක් කිරීමේදී Plain form + から -> "さむいから (ශීතල නිසා)" නිවැරදි වේ.'
       },
       {
@@ -176,7 +176,7 @@ async function seedJftModelPaper12() {
         option_c: 'しからせられ',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 2,
         explanation: 'Passive form (受身形): しかる -> しかられる -> "しかられました (බැනුම් ඇසුවා)" වේ.'
       },
       {
@@ -190,7 +190,7 @@ async function seedJftModelPaper12() {
         option_c: '学校',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'පාසල හෙවත් "がっこう" සඳහා නිවැරදි කන්ජිය "学校" වේ.'
       },
       {
@@ -204,7 +204,7 @@ async function seedJftModelPaper12() {
         option_c: '今日',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 2,
         explanation: 'හෙට හෙවත් "あした" සඳහා නිවැරදි කන්ජිය "明日" වේ.'
       },
       {
@@ -218,7 +218,7 @@ async function seedJftModelPaper12() {
         option_c: '祖語',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 2,
         explanation: 'මව්භාෂාව හෙවත් "ぼご" සඳහා කන්ජිය "母語" වේ.'
       },
       {
@@ -232,7 +232,7 @@ async function seedJftModelPaper12() {
         option_c: '目',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 2,
         explanation: 'ඇස හෙවත් "め" සඳහා කන්ජිය "目" වේ.'
       },
       {
@@ -246,7 +246,7 @@ async function seedJftModelPaper12() {
         option_c: '雪く',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 2,
         explanation: 'නරක / දුර්වල හෙවත් "わるく" සඳහා කන්ජිය "悪く" වේ.'
       },
 
@@ -262,7 +262,7 @@ async function seedJftModelPaper12() {
         option_c: 'くすりをのんでから、晩ご飯を食べます',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'රාත්‍රී කෑමට පෙර බෙහෙත් බොන්න යනු බෙහෙත් බී රාත්‍රී කෑම ගැනීමයි (くすりをのんでから、晩ご飯を食べます).'
       },
       {
@@ -276,7 +276,7 @@ async function seedJftModelPaper12() {
         option_c: '明日は雨がふります',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: '"明日も (හෙටත්)" යනු අදත් පායලා ඇති බව හඟවයි (今日ははれています).'
       },
       {
@@ -290,7 +290,7 @@ async function seedJftModelPaper12() {
         option_c: 'この本はおもしろくないですが、やさしくないです',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: '"むずかしい (අමාරුයි)" යනු "やさしくない (පහසු නැත)" වේ.'
       },
       {
@@ -304,7 +304,7 @@ async function seedJftModelPaper12() {
         option_c: 'ちょと、あらって行きます。',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: '"〜て来ます" යනු ගොස් යමක් කර නැවත පැමිණීමයි (手をあらって、またここに来ます).'
       },
       {
@@ -318,7 +318,7 @@ async function seedJftModelPaper12() {
         option_c: '田中は私の先生です',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: '"友達 (මිතුරා)" සහ "友人 (යහළුවා)" සමාන අර්ථ දෙයි.'
       },
       {
@@ -332,7 +332,7 @@ async function seedJftModelPaper12() {
         option_c: 'おかえりなさい',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'මගියෙකුගෙන් පාර විමසීමට පෙර "すみません (සමාවෙන්න)" යොදයි.'
       },
       {
@@ -346,7 +346,7 @@ async function seedJftModelPaper12() {
         option_c: 'しろくて',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'විශේෂණ පද සම්බන්ධ කිරීම: 白い -> しろくて (සුදු වූත් විශාල වූත්).'
       },
       {
@@ -360,7 +360,7 @@ async function seedJftModelPaper12() {
         option_c: 'いきました',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: '"もう (දැනටමත්)" සමග අතීත කාලය යෙදේ -> "いきましたか (ගියාද?)".'
       },
       {
@@ -374,7 +374,7 @@ async function seedJftModelPaper12() {
         option_c: 'あまりです',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'තවම නැත යන්නට "いいえ、まだです" යොදයි.'
       },
       {
@@ -388,7 +388,7 @@ async function seedJftModelPaper12() {
         option_c: 'いかない',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'යෝජනා කිරීමේදී "いきましょう (යමු)" යොදයි.'
       },
       {
@@ -402,7 +402,7 @@ async function seedJftModelPaper12() {
         option_c: 'も',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'කාලය දැක්වීමට "高校のとき (උසස් පාසල් කාලයේදී)" වේ.'
       },
       {
@@ -416,7 +416,7 @@ async function seedJftModelPaper12() {
         option_c: 'わるいですね',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'පැසසීමේදී "すごいですね (නියමයිනේ / විශිෂ්ටයිනේ)" යොදයි.'
       },
       {
@@ -430,7 +430,7 @@ async function seedJftModelPaper12() {
         option_c: 'あげたい',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'කාරුණිකව ඉල්ලීමේදී "かしてくだいませんか (ණයට දිය හැකිද?)" යොදයි.'
       },
       {
@@ -444,7 +444,7 @@ async function seedJftModelPaper12() {
         option_c: 'きょうみがありますか',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'උනන්දුව / කැමැත්ත ඇසීමට "きょうみがありますか (කැමැත්තක් / උනන්දුවක් තියෙනවද?)" යොදයි.'
       },
       {
@@ -458,7 +458,7 @@ async function seedJftModelPaper12() {
         option_c: 'いつまで',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'කවදා හෝ දවසක යන්නට "いつか (Itsuka)" යොදයි.'
       },
 
@@ -474,7 +474,7 @@ async function seedJftModelPaper12() {
         option_c: 'C',
         option_d: 'D',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ෆුජි හෝටලය පිහිටා ඇත්තේ A ස්ථානයේය.'
       },
       {
@@ -488,7 +488,7 @@ async function seedJftModelPaper12() {
         option_c: 'C',
         option_d: 'D',
         correct_option: 'D',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව තානාපති කාර්යාලය (たいしかん) පිහිටා ඇත්තේ D ස්ථානයේය.'
       },
       {
@@ -502,7 +502,7 @@ async function seedJftModelPaper12() {
         option_c: 'ふじデパートの入り口',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ඔවුන් හමුවන්නේ ෆුජි ඩිපාර්ට්මන්ට් ස්ටෝරුවේ උතුරු දොරටුව අසලදීය (ふじデパート北口).'
       },
       {
@@ -516,7 +516,7 @@ async function seedJftModelPaper12() {
         option_c: '5時',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව හමුවන වේලාව සවස 4:30 (4時半) වේ.'
       },
       {
@@ -530,7 +530,7 @@ async function seedJftModelPaper12() {
         option_c: 'c (時計の見間違い)',
         option_d: 'd (道路渋滞)',
         correct_option: 'D',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ප්‍රමාද වූයේ රථවාහන තදබදය (Traffic jam - d) නිසාය.'
       },
       {
@@ -544,7 +544,7 @@ async function seedJftModelPaper12() {
         option_c: '小学校の時中国語',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව කේට් ප්‍රාථමික පාසල් කාලයේදී චීන භාෂාව (小学校の時中国語) ඉගෙන ගත්තේය.'
       },
       {
@@ -558,7 +558,7 @@ async function seedJftModelPaper12() {
         option_c: '字はおもしろくて書くのがべんりです',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'අකුරු රසවත් වුවත් ලිවීමට අපහසුයි (字がおもしろいですが書くのがむずかしい).'
       },
       {
@@ -572,7 +572,7 @@ async function seedJftModelPaper12() {
         option_c: 'c (明日と言う)',
         option_d: 'd (タブレットを見る)',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව නිවැරදි රූපය තෑග්ගක් ලබා දීම (a) වේ.'
       },
       {
@@ -586,7 +586,7 @@ async function seedJftModelPaper12() {
         option_c: 'c',
         option_d: 'd',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව නිවැරදි රූපය කඩය වසා තිබීම (b: 本日休業) වේ.'
       },
       {
@@ -600,7 +600,7 @@ async function seedJftModelPaper12() {
         option_c: 'c (券売機)',
         option_d: 'd (電話)',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව සිතියම් පුවරුව (b) නිවැරදි වේ.'
       },
       {
@@ -614,7 +614,7 @@ async function seedJftModelPaper12() {
         option_c: 'c',
         option_d: 'd',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ප්‍රවේශපත්‍ර යන්ත්‍රය (c: 券売機) නිවැරදි වේ.'
       },
       {
@@ -628,7 +628,7 @@ async function seedJftModelPaper12() {
         option_c: 'おがわさんは韓国がすきで、韓国へいつか行きたいです',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'ශ්‍රව්‍ය පටය අනුව ඔගාවා මධ්‍යම පාසල් වියේ සිටම කොරියානු නාට්‍ය නැරඹීය.'
       },
       {
@@ -642,7 +642,7 @@ async function seedJftModelPaper12() {
         option_c: 'かわいさんはタイ人です',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'කවායි තායිලන්තයට ප්‍රිය කරන අතර තායි නැටුම්ද දක්ෂ ලෙස ඉදිරිපත් කරයි.'
       },
       {
@@ -656,7 +656,7 @@ async function seedJftModelPaper12() {
         option_c: '韓国語',
         option_d: 'ドイツ語',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ප්‍රාථමික පාසලේදී ඉංග්‍රීසි භාෂාව (英語) ඉගෙන ගත්තේය.'
       },
       {
@@ -670,7 +670,7 @@ async function seedJftModelPaper12() {
         option_c: '韓国語',
         option_d: 'ドイツ語',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'විශ්වවිද්‍යාලයේදී ප්‍රංශ භාෂාව (フランス語) ඉගෙන ගත්තේය.'
       },
 
@@ -686,7 +686,7 @@ async function seedJftModelPaper12() {
         option_c: '道にまよったから',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'පණිවිඩයේ "みちにまよいました (පාර අතරමං වුණා)" යනුවෙන් ඇති බැවින් "道にまよったから" නිවැරදි වේ.'
       },
       {
@@ -700,7 +700,7 @@ async function seedJftModelPaper12() {
         option_c: '電車で行きます。三十分かかります',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'යොෂිඩා දුම්රියෙන් ගමන් කරන අතර විනාඩි 30 ක් ගතවේ (電車で行きます。三十分かかります).'
       },
       {
@@ -714,7 +714,7 @@ async function seedJftModelPaper12() {
         option_c: '',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'ලිපියේ "えきのちかくに すてきなくつの店があります" ලෙස ඇති බැවින් නිවැරදිය.'
       },
       {
@@ -728,7 +728,7 @@ async function seedJftModelPaper12() {
         option_c: '',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: '"アネモネ" යනු පාවහන් සාප්පුවකි (くつの店).'
       },
       {
@@ -742,7 +742,7 @@ async function seedJftModelPaper12() {
         option_c: '',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'එය නනාඒගේ අක්කාගේ සාප්පුවයි (私のあねの店).'
       },
       {
@@ -756,7 +756,7 @@ async function seedJftModelPaper12() {
         option_c: '',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'නනාඒ සෑම දිනකම එහි අර්ධකාලීනව සේවය කරයි (私もまいにち アルバイトをしています).'
       },
       {
@@ -770,7 +770,7 @@ async function seedJftModelPaper12() {
         option_c: 'c',
         option_d: 'd',
         correct_option: 'D',
-        marks: 1,
+        marks: 5,
         explanation: 'උතුරු දොරටුවෙන් කෙළින් ගොස් හන්දියෙන් දකුණට හැරුණු පසු ඇති ස්ථානය "d" වේ.'
       },
       {
@@ -784,7 +784,7 @@ async function seedJftModelPaper12() {
         option_c: '2時20分',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'නියමිත හමුවීමේ වේලාව සවස 2:00 (2時) විය.'
       },
       {
@@ -798,7 +798,7 @@ async function seedJftModelPaper12() {
         option_c: 'びじゅつかん',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'ඔවුන් දෙදෙනා කලාගාරයට (びじゅつかん / 美術館) ගියහ.'
       },
       {
@@ -812,7 +812,7 @@ async function seedJftModelPaper12() {
         option_c: 'びじゅつかんがきらいだから',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: 'Y පවසන්නේ "ちょっと道をまちがえました (පාර වැරදුණා)" යනුවෙනි.'
       },
       {
@@ -826,7 +826,7 @@ async function seedJftModelPaper12() {
         option_c: 'しょうご12時とゆうがたの6時の間',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'දවල් 12 න් පසු සහ සවස 6 න් පෙර (しょうご12時とゆうがたの6時の間) සාප්පු සවාරියේ යෙදේ.'
       },
       {
@@ -840,7 +840,7 @@ async function seedJftModelPaper12() {
         option_c: 'やけいを見るために',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'රාත්‍රී දර්ශන නැරඹීමට (やけいを見るために / 夜景を見るために) ටවර් එකට යයි.'
       },
       {
@@ -854,7 +854,7 @@ async function seedJftModelPaper12() {
         option_c: 'びじゅつかん、どうぶつえん',
         option_d: '',
         correct_option: 'A',
-        marks: 1,
+        marks: 5,
         explanation: 'කෞතුකාගාරය සහ සත්වෝද්‍යානය (はくぶつかん、どうぶつえん) වෙත තවම ගොස් නැත.'
       },
       {
@@ -868,7 +868,7 @@ async function seedJftModelPaper12() {
         option_c: 'お酒は一日に9ほんも飲みます',
         option_d: '',
         correct_option: 'B',
-        marks: 1,
+        marks: 5,
         explanation: '"やけいは まだです" ඇති බැවින් රාත්‍රී දර්ශන තවම නරඹා නැත (やけいを見たことがありません).'
       },
       {
@@ -882,7 +882,7 @@ async function seedJftModelPaper12() {
         option_c: 'すし',
         option_d: '',
         correct_option: 'C',
-        marks: 1,
+        marks: 5,
         explanation: 'එඩ් පවසන්නේ තමා සුෂි සාදාගෙන එන බවයි (私は おすしを作っていきます).'
       }
     ];

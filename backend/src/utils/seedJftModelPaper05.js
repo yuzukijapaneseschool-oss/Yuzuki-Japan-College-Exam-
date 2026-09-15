@@ -43,7 +43,7 @@ async function seedJftModelPaper05() {
         option_c: 'うえの人',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'となりの人 (Person next door / Neighbor / ළඟ/එහා ගෙදර කෙනා).'
       },
       {
@@ -58,7 +58,7 @@ async function seedJftModelPaper05() {
         option_c: 'かんこく',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'ちゅうごく (China / චීනය).'
       },
       {
@@ -73,7 +73,7 @@ async function seedJftModelPaper05() {
         option_c: 'まんがか',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'エンジニア (Engineer / ඉංජිනේරුවා).'
       },
       {
@@ -88,7 +88,7 @@ async function seedJftModelPaper05() {
         option_c: 'ペットをかいます',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'ペットをかいます (Keep a pet / සුරතල් සතුන් ඇති කරනවා).'
       },
       {
@@ -103,7 +103,7 @@ async function seedJftModelPaper05() {
         option_c: 'えをつくります',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'えをかきます (Draw/Paint a picture / චිත්‍ර අඳිනවා).'
       },
       {
@@ -118,7 +118,7 @@ async function seedJftModelPaper05() {
         option_c: 'どこ',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '物を示す指示代名詞:「これ」はカメラです (This is a camera / මෙය කැමරාවකි).'
       },
       {
@@ -133,7 +133,7 @@ async function seedJftModelPaper05() {
         option_c: 'どの',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '連体詞「どの」＋名詞「方（かた）」: 山田さんは「どの」方ですか (Which person is Yamada-san? / යමදා මහතා කවුරුන්ද/කොයි කෙනාද?).'
       },
       {
@@ -148,7 +148,7 @@ async function seedJftModelPaper05() {
         option_c: 'てんき',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '春・夏・秋・冬: よっつの「きせつ」(Four seasons / සෘතු හතර).'
       },
       {
@@ -163,7 +163,7 @@ async function seedJftModelPaper05() {
         option_c: 'だれの',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '内容をたずねる:「なんの」雑誌ですか -> 料理の雑誌です (What kind of magazine? / කුමන සඟරාවක්ද?).'
       },
       {
@@ -178,7 +178,7 @@ async function seedJftModelPaper05() {
         option_c: 'たかい',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'ビルの高さ:「たかい」ビル (Tall building / උස ගොඩනැගිල්ලක්).'
       },
       {
@@ -193,7 +193,7 @@ async function seedJftModelPaper05() {
         option_c: 'げっこんしき',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '卒業式 -> そつぎょうしき (Graduation ceremony / උපාධි ප්‍රදානෝත්සවය).'
       },
       {
@@ -208,7 +208,7 @@ async function seedJftModelPaper05() {
         option_c: 'こうえん',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '動物園 -> どうぶつえん (Zoo / සත්වෝද්‍යානය).'
       },
       {
@@ -223,7 +223,7 @@ async function seedJftModelPaper05() {
         option_c: 'やさい',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '肉 -> にく (Meat / මස්).'
       },
       {
@@ -238,7 +238,7 @@ async function seedJftModelPaper05() {
         option_c: 'でんわ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '電話 -> でんわ (Telephone / දුරකථනය).'
       },
       {
@@ -253,7 +253,7 @@ async function seedJftModelPaper05() {
         option_c: 'あそんで',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '座って -> すわって (Sitting / වාඩි වී සිටින).'
       },
 

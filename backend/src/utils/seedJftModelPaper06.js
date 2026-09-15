@@ -43,7 +43,7 @@ async function seedJftModelPaper06() {
         option_c: 'おばあさん',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'お父さん (Father / තාත්තා).'
       },
       {
@@ -58,7 +58,7 @@ async function seedJftModelPaper06() {
         option_c: 'カナダ',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'カナダ (Canada / කැනඩාව).'
       },
       {
@@ -73,7 +73,7 @@ async function seedJftModelPaper06() {
         option_c: 'かんごし',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 1,
         explanation: 'のうか (Farmer / ගොවියා/ගොවිතැන් කරන්නා).'
       },
       {
@@ -88,7 +88,7 @@ async function seedJftModelPaper06() {
         option_c: '食べます',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 1,
         explanation: 'のみます (To drink / බොනවා).'
       },
       {
@@ -103,7 +103,7 @@ async function seedJftModelPaper06() {
         option_c: 'のります',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 1,
         explanation: 'バスにのります (To get on / board a bus / බස් එකට නගිනවා).'
       },
       {
@@ -118,7 +118,7 @@ async function seedJftModelPaper06() {
         option_c: 'うさぎ',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: 'いぬ (Dog / බල්ලා).'
       },
       {
@@ -133,7 +133,7 @@ async function seedJftModelPaper06() {
         option_c: 'おどります',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'シャワーをあびます (Take a shower / නානවා).'
       },
       {
@@ -148,7 +148,7 @@ async function seedJftModelPaper06() {
         option_c: 'おきます',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: 'おきます (Wake up / get up / අවදි වෙනවා).'
       },
       {
@@ -163,7 +163,7 @@ async function seedJftModelPaper06() {
         option_c: '本をよみます',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: 'ねます (Go to sleep / to bed / නිදාගන්නවා).'
       },
       {
@@ -178,7 +178,7 @@ async function seedJftModelPaper06() {
         option_c: '南才',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '何才 (なんさい - How old / වයස කීයද).'
       },
       {
@@ -193,7 +193,7 @@ async function seedJftModelPaper06() {
         option_c: '友達',
         option_d: '',
         correct_option: 'A',
-        marks: 5,
+        marks: 2,
         explanation: '友人 (ゆうじん - Friend / මිතුරා).'
       },
       {
@@ -208,7 +208,7 @@ async function seedJftModelPaper06() {
         option_c: '三人',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '三人 (さんにん - 3 people / තිදෙනෙක්).'
       },
       {
@@ -223,7 +223,7 @@ async function seedJftModelPaper06() {
         option_c: '四着',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '四季 (しき - Four seasons / සෘතු හතර).'
       },
       {
@@ -238,7 +238,7 @@ async function seedJftModelPaper06() {
         option_c: '女性',
         option_d: '',
         correct_option: 'C',
-        marks: 5,
+        marks: 2,
         explanation: '女性 (じょせい - Woman / Female / කාන්තාව).'
       },
       {
@@ -253,7 +253,7 @@ async function seedJftModelPaper06() {
         option_c: '多七',
         option_d: '',
         correct_option: 'B',
-        marks: 5,
+        marks: 2,
         explanation: '七夕 (たなばた - Tanabata Star Festival / තනබත උත්සවය).'
       },
 
