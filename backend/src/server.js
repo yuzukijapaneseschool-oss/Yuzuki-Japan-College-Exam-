@@ -55,7 +55,7 @@ app.get('/api/health', (req, res) => {
     status: 'online',
     college: 'YUZUKI Japan College',
     security: 'hardened (Anti-BruteForce, Rate-Limited, Helmet Protected)',
-    version: '1.2.0',
+    version: '1.3.0',
     timestamp: new Date().toISOString()
   });
 });
@@ -103,6 +103,20 @@ async function applySecuritySchemaMigrations() {
   try {
     await query.run('ALTER TABLE exam_attempts ADD COLUMN tab_switches_count INTEGER DEFAULT 0');
   } catch (e) {}
+
+  try {
+    // Unconditional point migration for all JFT exams to standard 250 Total Marks (200 Pass)
+    const jftExams = await query.all("SELECT id FROM exams WHERE course_id = 1 OR title LIKE '%JFT%'");
+    for (const e of jftExams) {
+      await query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200 WHERE id = ?', [e.id]);
+      await query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [e.id]);
+      await query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [e.id]);
+      await query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [e.id]);
+    }
+    console.log(`[DB Migration] Applied standard JFT 250-mark structure to ${jftExams.length} JFT exams.`);
+  } catch (e) {
+    console.error('Migration error:', e);
+  }
 }
 
 const { initAutoBackup } = require('./utils/dbBackup');
