@@ -1,0 +1,26 @@
+<svg width="500" height="150" viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="150" fill="#f8fafc"/>
+  <!-- Box A: Sun (はれ) -->
+  <rect x="20" y="15" width="100" height="120" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="30" y="35" font-size="14" font-weight="bold" fill="#16a34a">a</text>
+  <circle cx="70" cy="75" r="25" fill="#f59e0b"/>
+  <text x="70" y="82" font-size="30" text-anchor="middle">☀️</text>
+  
+  <!-- Box B: Rain/Umbrella (あめ) -->
+  <rect x="140" y="15" width="100" height="120" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="150" y="35" font-size="14" font-weight="bold" fill="#16a34a">b</text>
+  <text x="190" y="85" font-size="36" text-anchor="middle">☔</text>
+  
+  <!-- Box C: Hot Sun Boy (あつい) -->
+  <rect x="260" y="15" width="100" height="120" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="270" y="35" font-size="14" font-weight="bold" fill="#16a34a">c</text>
+  <circle cx="285" cy="50" r="10" fill="#ef4444"/>
+  <circle cx="310" cy="65" r="12" fill="#fed7aa"/>
+  <text x="310" y="110" font-size="11" font-weight="bold" text-anchor="middle" fill="#b91c1c">あつい (Hot)</text>
+  
+  <!-- Box D: Cold Shivering Girl (さむい) -->
+  <rect x="380" y="15" width="100" height="120" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="390" y="35" font-size="14" font-weight="bold" fill="#16a34a">d</text>
+  <circle cx="430" cy="65" r="12" fill="#c7d2fe"/>
+  <text x="430" y="110" font-size="11" font-weight="bold" text-anchor="middle" fill="#4338ca">さむい (Cold)</text>
+</svg>

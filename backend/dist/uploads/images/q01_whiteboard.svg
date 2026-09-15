@@ -1,0 +1,14 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" rx="16" fill="#14b8a6"/>
+  <rect x="30" y="25" width="340" height="210" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="8"/>
+  <rect x="50" y="215" width="300" height="12" rx="4" fill="#cbd5e1"/>
+  <!-- Magnets -->
+  <circle cx="345" cy="50" r="5" fill="#ef4444"/>
+  <circle cx="345" cy="65" r="5" fill="#3b82f6"/>
+  <circle cx="345" cy="80" r="5" fill="#10b981"/>
+  <circle cx="345" cy="95" r="5" fill="#f59e0b"/>
+  <!-- Markers on tray -->
+  <rect x="70" y="210" width="35" height="6" rx="2" fill="#ef4444"/>
+  <rect x="115" y="210" width="35" height="6" rx="2" fill="#3b82f6"/>
+  <rect x="160" y="210" width="35" height="6" rx="2" fill="#0f172a"/>
+</svg>

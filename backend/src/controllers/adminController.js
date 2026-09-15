@@ -58,7 +58,7 @@ async function getStudents(req, res) {
   try {
     const { status, course_id, search } = req.query;
     let sql = `
-      SELECT u.id, u.name, u.email, u.student_id, u.course_id, u.phone, u.nic_number, u.city, u.batch_mode, u.bank_slip_url, u.role, u.status, u.created_at, u.subscription_status, u.trial_ends_at, u.subscription_ends_at,
+      SELECT u.id, u.name, u.email, u.student_id, u.course_id, u.phone, u.nic_number, u.city, u.batch_mode, u.bank_slip_url, u.role, u.status, u.created_at, u.subscription_status, u.trial_ends_at, u.subscription_ends_at, u.allow_dual_track,
              c.name as course_name, c.code as course_code,
              (SELECT COUNT(*) FROM exam_attempts ea WHERE ea.user_id = u.id) as attempts_count,
              (SELECT MAX(score) FROM exam_attempts ea WHERE ea.user_id = u.id) as best_score
@@ -272,15 +272,18 @@ async function createQuestion(req, res) {
       correct_option, marks, explanation, order_num
     } = req.body;
 
-    if (!question_text || !option_a || !option_b || !option_c || !option_d || !correct_option) {
+    if (!question_text || !option_a || !option_b || !option_c || !correct_option) {
       return res.status(400).json({ 
-        error: 'Question text, 4 options (A, B, C, D), and the correct option are required.' 
+        error: 'Question text, Options (A, B, C), and the correct option are required.' 
       });
     }
 
     const cleanCorrect = correct_option.trim().toUpperCase();
-    if (!['A', 'B', 'C', 'D'].includes(cleanCorrect)) {
-      return res.status(400).json({ error: 'Correct option must be A, B, C, or D.' });
+    const cleanOptionD = option_d && typeof option_d === 'string' ? option_d.trim() : '';
+    const validOptions = cleanOptionD ? ['A', 'B', 'C', 'D'] : ['A', 'B', 'C'];
+
+    if (!validOptions.includes(cleanCorrect)) {
+      return res.status(400).json({ error: `Correct option must be one of: ${validOptions.join(', ')}.` });
     }
 
     const result = await query.run(`
@@ -300,7 +303,7 @@ async function createQuestion(req, res) {
       option_a.trim(),
       option_b.trim(),
       option_c.trim(),
-      option_d.trim(),
+      cleanOptionD,
       cleanCorrect,
       marks ? parseInt(marks, 10) : 1,
       explanation ? explanation.trim() : '',
@@ -335,8 +338,18 @@ async function updateQuestion(req, res) {
     }
 
     let cleanCorrect = correct_option ? correct_option.trim().toUpperCase() : existing.correct_option;
-    if (!['A', 'B', 'C', 'D'].includes(cleanCorrect)) {
-      return res.status(400).json({ error: 'Correct option must be A, B, C, or D.' });
+    let finalOptionD = existing.option_d || '';
+    if (option_d !== undefined) {
+      finalOptionD = option_d ? option_d.trim() : '';
+    }
+
+    const validOptions = finalOptionD ? ['A', 'B', 'C', 'D'] : ['A', 'B', 'C'];
+    if (!validOptions.includes(cleanCorrect)) {
+      if (cleanCorrect === 'D' && !finalOptionD) {
+        cleanCorrect = 'A';
+      } else {
+        return res.status(400).json({ error: `Correct option must be one of: ${validOptions.join(', ')}.` });
+      }
     }
 
     await query.run(`
@@ -349,8 +362,8 @@ async function updateQuestion(req, res) {
           option_a = COALESCE(?, option_a),
           option_b = COALESCE(?, option_b),
           option_c = COALESCE(?, option_c),
-          option_d = COALESCE(?, option_d),
-          correct_option = COALESCE(?, correct_option),
+          option_d = ?,
+          correct_option = ?,
           marks = COALESCE(?, marks),
           explanation = COALESCE(?, explanation),
           order_num = COALESCE(?, order_num)
@@ -364,7 +377,7 @@ async function updateQuestion(req, res) {
       option_a ? option_a.trim() : null,
       option_b ? option_b.trim() : null,
       option_c ? option_c.trim() : null,
-      option_d ? option_d.trim() : null,
+      finalOptionD,
       cleanCorrect,
       marks ? parseInt(marks, 10) : null,
       explanation !== undefined ? explanation.trim() : null,
@@ -502,8 +515,36 @@ async function downloadDatabaseBackup(req, res) {
   }
 }
 
+async function toggleDualTrack(req, res) {
+  try {
+    const { id } = req.params;
+    const student = await query.get('SELECT * FROM users WHERE id = ? AND role = "student"', [id]);
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found.' });
+    }
+
+    const currentVal = student.allow_dual_track === 1 || student.batch_mode === 'dual_track';
+    const newVal = currentVal ? 0 : 1;
+    const newBatchMode = newVal === 1 ? 'dual_track' : (student.course_id === 7 ? 'ytd_truck_only' : 'yjp_japanese_only');
+
+    await query.run('UPDATE users SET allow_dual_track = ?, batch_mode = ? WHERE id = ?', [newVal, newBatchMode, id]);
+
+    return res.json({
+      success: true,
+      allow_dual_track: newVal === 1,
+      message: newVal === 1
+        ? `🌟 Dual Track (Japanese + Truck Driving) enabled for ${student.name} (${student.student_id}).`
+        : `Track isolated to Single Course for ${student.name} (${student.student_id}).`
+    });
+  } catch (err) {
+    console.error('toggleDualTrack error:', err);
+    return res.status(500).json({ error: 'Failed to update dual track access.' });
+  }
+}
+
 module.exports = {
   extendSubscription,
+  toggleDualTrack,
   getStats,
   getStudents,
   updateStudentStatus,

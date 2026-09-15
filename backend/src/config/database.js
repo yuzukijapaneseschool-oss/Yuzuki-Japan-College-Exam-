@@ -55,19 +55,27 @@ const query = {
 };
 
 
-async function applySubscriptionMigrations() {
-  try {
-    await query.run("ALTER TABLE users ADD COLUMN subscription_status TEXT DEFAULT 'trial'");
-  } catch (e) {}
-  try {
-    await query.run("ALTER TABLE users ADD COLUMN trial_ends_at DATETIME");
-  } catch (e) {}
-  try {
-    await query.run("ALTER TABLE users ADD COLUMN subscription_ends_at DATETIME");
-  } catch (e) {}
-  try {
-    await query.run("ALTER TABLE users ADD COLUMN monthly_price REAL DEFAULT 9.99");
-  } catch (e) {}
+async function applyUserTableMigrations() {
+  const userColumns = [
+    { name: 'subscription_status', sql: "ALTER TABLE users ADD COLUMN subscription_status TEXT DEFAULT 'locked'" },
+    { name: 'trial_ends_at', sql: "ALTER TABLE users ADD COLUMN trial_ends_at DATETIME" },
+    { name: 'subscription_ends_at', sql: "ALTER TABLE users ADD COLUMN subscription_ends_at DATETIME" },
+    { name: 'monthly_price', sql: "ALTER TABLE users ADD COLUMN monthly_price REAL DEFAULT 9.99" },
+    { name: 'allow_dual_track', sql: "ALTER TABLE users ADD COLUMN allow_dual_track INTEGER DEFAULT 0" },
+    { name: 'bank_slip_url', sql: "ALTER TABLE users ADD COLUMN bank_slip_url TEXT" },
+    { name: 'batch_mode', sql: "ALTER TABLE users ADD COLUMN batch_mode TEXT DEFAULT 'physical_kandy'" },
+    { name: 'nic_number', sql: "ALTER TABLE users ADD COLUMN nic_number TEXT" },
+    { name: 'city', sql: "ALTER TABLE users ADD COLUMN city TEXT DEFAULT 'Kandy'" }
+  ];
+
+  for (const col of userColumns) {
+    try {
+      await query.run(col.sql);
+      console.log(`[DB Migration] Added column ${col.name} to users table.`);
+    } catch (e) {
+      // Column already exists, safe to ignore
+    }
+  }
 }
 
 
@@ -87,12 +95,11 @@ async function applyPaymentTableMigration() {
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )
   `);
-  console.log('Payments table verified/created in SQLite database.');
 }
 
 async function initDatabase() {
   await applyPaymentTableMigration();
-  await applySubscriptionMigrations();
+  await applyUserTableMigrations();
   // Create tables
   await query.exec(`
     CREATE TABLE IF NOT EXISTS courses (
@@ -111,8 +118,17 @@ async function initDatabase() {
       student_id TEXT UNIQUE,
       course_id INTEGER,
       phone TEXT,
+      nic_number TEXT,
+      city TEXT DEFAULT 'Kandy',
+      batch_mode TEXT DEFAULT 'physical_kandy',
+      bank_slip_url TEXT,
       role TEXT DEFAULT 'student', -- 'admin' or 'student'
       status TEXT DEFAULT 'pending', -- 'pending', 'approved', 'rejected'
+      subscription_status TEXT DEFAULT 'locked',
+      trial_ends_at DATETIME,
+      subscription_ends_at DATETIME,
+      monthly_price REAL DEFAULT 9.99,
+      allow_dual_track INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE SET NULL
     );
@@ -182,26 +198,35 @@ async function seedInitialData() {
     `);
   }
 
-  // Seed Admin and Sample Student
-  const adminUser = await query.get('SELECT * FROM users WHERE email = ?', ['admin@yuzuki.college']);
+  // Seed Official Admin and Verified Student
+  const adminUser = await query.get('SELECT * FROM users WHERE email = ?', ['lahirudilshan552@gmail.com']);
   if (!adminUser) {
-    const adminPasswordHash = await bcrypt.hash('admin123', 10);
+    const adminPasswordHash = await bcrypt.hash('japan@9803', 10);
     await query.run(`
-      INSERT INTO users (name, email, password, student_id, role, status, phone)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `, ['Yuzuki Principal Admin', 'admin@yuzuki.college', adminPasswordHash, 'ADMIN-001', 'admin', 'approved', '+94 77 123 4567']);
-    console.log('Default admin seeded: admin@yuzuki.college / admin123');
+      INSERT INTO users (name, email, password, student_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at)
+      VALUES (?, ?, ?, ?, 'admin', 'approved', '+94 77 353 9800', 'active', datetime('now', '+999 days'), datetime('now', '+999 days'))
+    `, ['Lahiru Dilshan (Admin)', 'lahirudilshan552@gmail.com', adminPasswordHash, 'ADMIN-YJP']);
+    console.log('Official admin seeded: lahirudilshan552@gmail.com / japan@9803 (Student ID: ADMIN-YJP)');
   }
 
-  const sampleStudent = await query.get('SELECT * FROM users WHERE email = ?', ['student@yuzuki.college']);
+  const officialAdmin = await query.get('SELECT * FROM users WHERE email = ?', ['admin@yuzukijapancollege.edu.lk']);
+  if (!officialAdmin) {
+    const adminPasswordHash = await bcrypt.hash('japan@9803', 10);
+    await query.run(`
+      INSERT INTO users (name, email, password, student_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at)
+      VALUES (?, ?, ?, ?, 'admin', 'approved', '+94 77 353 9800', 'active', datetime('now', '+999 days'), datetime('now', '+999 days'))
+    `, ['Yuzuki Principal Admin', 'admin@yuzukijapancollege.edu.lk', adminPasswordHash, 'ADMIN-001']);
+  }
+
+  const sampleStudent = await query.get('SELECT * FROM users WHERE email = ?', ['student@yuzukijapancollege.edu.lk']);
   if (!sampleStudent) {
-    const studentPasswordHash = await bcrypt.hash('student123', 10);
+    const studentPasswordHash = await bcrypt.hash('student@123', 10);
     const jftCourse = await query.get("SELECT id FROM courses WHERE code = 'JFT-BASIC'");
     await query.run(`
-      INSERT INTO users (name, email, password, student_id, course_id, role, status, phone)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `, ['Kasun Perera', 'student@yuzuki.college', studentPasswordHash, 'YZ-2026-001', jftCourse ? jftCourse.id : 1, 'student', 'approved', '+94 71 987 6543']);
-    console.log('Sample student seeded: student@yuzuki.college / student123 (Student ID: YZ-2026-001)');
+      INSERT INTO users (name, email, password, student_id, course_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at, monthly_price, batch_mode)
+      VALUES (?, ?, ?, ?, ?, 'student', 'approved', '+94 71 987 6543', 'active', datetime('now', '+365 days'), datetime('now', '+365 days'), 9.99, 'SSW & CBT Candidate')
+    `, ['Kasun Perera (Student)', 'student@yuzukijapancollege.edu.lk', studentPasswordHash, 'YJP-2026-001', jftCourse ? jftCourse.id : 1]);
+    console.log('Official student seeded: student@yuzukijapancollege.edu.lk / student@123 (Student ID: YJP-2026-001)');
   }
 
   // Seed JFT Sample Exam if not exists
@@ -354,6 +379,47 @@ async function seedInitialData() {
           n5Exam.id, q.section, q.text,
           q.optA, q.optB, q.optC, q.optD, q.correct, q.marks, q.explanation, i + 1
         ]);
+      }
+    }
+  }
+
+  // Ensure all SSW Truck Driving Category Modules exist unconditionally on every boot
+  const truckCourse = await query.get("SELECT id FROM courses WHERE code = 'SSW-TRUCK-DRIVING'");
+  if (truckCourse) {
+    const allTruckModules = [
+      // Driver Basics (6 Topics)
+      { title: 'Role of Truck Drivers', cat: 'Driver Basics', total: 31 },
+      { title: 'Accident Prevention and Safety', cat: 'Driver Basics', total: 32 },
+      { title: 'Manners', cat: 'Driver Basics', total: 30 },
+      { title: 'Health and Safety Management', cat: 'Driver Basics', total: 31 },
+      { title: 'Traffic Rules', cat: 'Driver Basics', total: 31 },
+      { title: 'Eco-driving and routes', cat: 'Driver Basics', total: 32 },
+
+      // Transportation work (7 Topics)
+      { title: 'Work flow', cat: 'Transportation work', total: 30 },
+      { title: 'Driver Rules', cat: 'Transportation work', total: 30 },
+      { title: 'Inspection and roll call', cat: 'Transportation work', total: 31 },
+      { title: 'Operation Management', cat: 'Transportation work', total: 29 },
+      { title: 'Trouble Response', cat: 'Transportation work', total: 33 },
+      { title: 'Emergency and weather response', cat: 'Transportation work', total: 26 },
+      { title: 'Truck Operation', cat: 'Transportation work', total: 33 }
+    ];
+
+    for (const m of allTruckModules) {
+      const exists = await query.get("SELECT id FROM exams WHERE course_id = ? AND title = ?", [truckCourse.id, m.title]);
+      if (!exists) {
+        const ins = await query.run(`
+          INSERT INTO exams (title, course_id, duration_minutes, passing_score, description, is_active)
+          VALUES (?, ?, 0, 70, ?, 1)
+        `, [m.title, truckCourse.id, `[${m.cat}] ${m.title}`]);
+
+        for (let i = 1; i <= m.total; i++) {
+          await query.run(`
+            INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
+            VALUES (?, 'General', ?, 'Option A', 'Option B', 'Option C', 'Option D', 'A', 1, 'Official Practice', ?)
+          `, [ins.id, `Question ${i} for ${m.title}`, i]);
+        }
+        console.log(`Auto-seeded module: [${m.cat}] ${m.title}`);
       }
     }
   }

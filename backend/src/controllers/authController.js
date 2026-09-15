@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { query } = require('../config/database');
 const { JWT_SECRET } = require('../middleware/authMiddleware');
+const { sendAdmissionCardEmail } = require('../utils/emailService');
 
 function getSubscriptionDetails(user) {
   const now = new Date();
@@ -56,19 +57,47 @@ function getSubscriptionDetails(user) {
   };
 }
 
-// Sequential YJP Student ID Generator (starts from YJP00305 following YJP00304)
-async function getNextYjpStudentId() {
+// Sequential Student ID Generator
+// - Japanese Language Track (Course ID 1, 2, 3, 4) -> 'YJP00305', 'YJP00306', ...
+// - SSW Truck Driving Track (Course ID 7) -> 'YTD00101', 'YTD00102', ...
+// - Other SSW Tracks (e.g. 5, 6, 8, 9, 10, 11) -> 'YJP00305', ...
+async function getNextStudentId(courseId) {
+  const numericCourseId = parseInt(courseId, 10);
+  let prefix = 'YJP';
+  let minStart = 304;
+
+  if (numericCourseId === 7) {
+    prefix = 'YTD';
+    minStart = 100;
+  }
+
+  const prefixLen = prefix.length;
+  // Look for highest numerical ID in the database for this prefix
   const result = await query.get(`
-    SELECT MAX(CAST(SUBSTR(student_id, 4) AS INTEGER)) as max_num 
+    SELECT MAX(CAST(SUBSTR(student_id, ${prefixLen + 1}) AS INTEGER)) as max_num 
     FROM users 
-    WHERE student_id LIKE 'YJP%' AND student_id NOT LIKE 'YJP-%'
+    WHERE student_id LIKE '${prefix}%' AND student_id NOT LIKE '${prefix}-%'
   `);
-  
-  const currentMax = (result && result.max_num && result.max_num >= 304) ? result.max_num : 304;
+
+  const currentMax = (result && result.max_num && Number(result.max_num) >= minStart) 
+    ? Number(result.max_num) 
+    : minStart;
   const nextNum = currentMax + 1;
   const padded = String(nextNum).padStart(5, '0');
-  return `YJP${padded}`;
+  const candidateId = `${prefix}${padded}`;
+
+  // Double check uniqueness defensively against race conditions
+  const exists = await query.get('SELECT id FROM users WHERE UPPER(student_id) = ?', [candidateId.toUpperCase()]);
+  if (exists) {
+    const fallbackNum = nextNum + 1;
+    return `${prefix}${String(fallbackNum).padStart(5, '0')}`;
+  }
+
+  return candidateId;
 }
+
+// Backwards compatibility alias
+const getNextYjpStudentId = () => getNextStudentId(1);
 
 async function register(req, res) {
   try {
@@ -94,15 +123,15 @@ async function register(req, res) {
       return res.status(400).json({ error: 'An account with this email already exists. Please log in.' });
     }
 
-    const course = await query.get('SELECT id, name FROM courses WHERE id = ?', [course_id]);
+    const course = await query.get('SELECT id, name, code FROM courses WHERE id = ?', [course_id]);
     if (!course) {
       return res.status(400).json({ error: 'Invalid Course selection.' });
     }
 
     const hashedPassword = await bcrypt.hash(password.trim(), 10);
 
-    // Auto-generate the next official sequential YJP ID (e.g. YJP00305)
-    const assignedStudentId = await getNextYjpStudentId();
+    // Auto-generate the next official sequential ID (e.g. YJP00305, YTD00101)
+    const assignedStudentId = await getNextStudentId(course_id);
 
     const userResult = await query.run(`
       INSERT INTO users (
@@ -127,6 +156,22 @@ async function register(req, res) {
       9.99
     ]);
 
+    console.log(`[Registration] New student registered successfully: ${assignedStudentId} - ${name.trim()} (${cleanEmail})`);
+
+    // Dispatch Admission Card copy to College Management & Student
+    sendAdmissionCardEmail({
+      student_id: assignedStudentId,
+      name: name.trim(),
+      email: cleanEmail,
+      phone: phone ? phone.trim() : '',
+      nic_number: nic_number ? nic_number.trim() : '',
+      city: city ? city.trim() : 'Kandy',
+      course_name: course.name,
+      batch_mode: batch_mode === 'online_zoom' ? 'Online Live (Zoom)' : 'Physical Classroom (Kandy Campus)',
+      bank_slip_url: bank_slip_url || null,
+      registration_type: 'New Batch Admission (Rs. 5,000 Deposit Slip Submitted)'
+    }).catch(err => console.error('[Registration Email Error]:', err.message));
+
     return res.status(201).json({
       success: true,
       message: `Batch Registration & Deposit Slip received! Your official Student ID is ${assignedStudentId}. Course materials and timetables will be provided by Kandy campus. CBT Exam platform will be unlocked upon course completion.`,
@@ -137,7 +182,7 @@ async function register(req, res) {
 
   } catch (err) {
     console.error('Registration error:', err);
-    return res.status(500).json({ error: 'Internal server error during registration.' });
+    return res.status(500).json({ error: 'Internal server error during registration: ' + err.message });
   }
 }
 
@@ -222,6 +267,7 @@ async function getMe(req, res) {
         course_id: user.course_id,
         course_name: course?.name,
         course_code: course?.code,
+        allow_dual_track: Boolean(user.allow_dual_track === 1 || user.batch_mode === 'dual_track'),
         subscription
       }
     });
@@ -265,26 +311,176 @@ async function subscribe(req, res) {
       30
     ]);
 
-    return res.json({
-      success: true,
-      message: 'CBT Exam Simulator pass activated for 30 days!',
-      subscription: {
-        status: 'active',
-        is_active: true,
-        days_remaining: 30,
-        expires_at: newSubEndDate.toISOString(),
-        plan: 'CBT Exam Simulator (Active Pass)'
+      return res.json({
+        success: true,
+        message: 'CBT Exam Simulator pass activated for 30 days!',
+        subscription: {
+          status: 'active',
+          is_active: true,
+          days_remaining: 30,
+          expires_at: newSubEndDate.toISOString(),
+          plan: 'CBT Exam Simulator (Active Pass)'
+        }
+      });
+    } catch (err) {
+      return res.status(500).json({ error: 'Failed to process subscription.' });
+    }
+  }
+
+async function registerExistingStudent(req, res) {
+  try {
+    const { 
+      name, 
+      email, 
+      password, 
+      student_id, 
+      course_id, 
+      phone, 
+      nic_number,
+      city = 'Kandy'
+    } = req.body;
+
+    if (!name || !email || !password || !student_id) {
+      return res.status(400).json({ error: 'Name, Email, Password, and Student ID are required.' });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanStudentId = student_id.trim().toUpperCase();
+
+    // Determine course based on Student ID prefix:
+    // YTD prefix -> SSW Truck Driving ONLY (Course ID 7)
+    // YJP prefix -> Japanese Language ONLY (Course ID 1)
+    let effectiveCourseId = course_id ? parseInt(course_id, 10) : 1;
+    let trackName = 'Japanese Language (JFT-Basic / JLPT)';
+
+    if (cleanStudentId.startsWith('YTD')) {
+      effectiveCourseId = 7; // SSW Truck Driving
+      trackName = 'SSW Truck Driving & Logistics (19 Exams / 583 Furigana Qs)';
+    } else if (cleanStudentId.startsWith('YJP')) {
+      effectiveCourseId = 1; // JFT-Basic / Japanese Language
+      trackName = 'Japanese Language (JFT-Basic / JLPT N5)';
+    } else {
+      // If student ID is custom format, use requested course or default
+      if (effectiveCourseId === 7) {
+        trackName = 'SSW Truck Driving & Logistics';
       }
+    }
+
+    // Check if email is already taken
+    const existingEmail = await query.get('SELECT id FROM users WHERE LOWER(email) = ?', [cleanEmail]);
+    if (existingEmail) {
+      return res.status(400).json({ error: 'An account with this email already exists. Please log in or use your primary email.' });
+    }
+
+    // Check if Student ID is already registered
+    const existingStudent = await query.get('SELECT id, name FROM users WHERE UPPER(student_id) = ?', [cleanStudentId]);
+    if (existingStudent) {
+      return res.status(400).json({ error: `Student ID "${cleanStudentId}" is already active under ${existingStudent.name}. Please log in directly.` });
+    }
+
+    const course = await query.get('SELECT id, name FROM courses WHERE id = ?', [effectiveCourseId]);
+    if (!course) {
+      return res.status(400).json({ error: 'Invalid Course selection.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+
+    // 30-Day Active CBT Exam Pass for existing college students
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 30);
+
+    const batchModeStr = cleanStudentId.startsWith('YTD') ? 'ytd_truck_only' : 'yjp_japanese_only';
+
+    const userResult = await query.run(`
+      INSERT INTO users (
+        name, email, password, student_id, course_id, phone, nic_number, city, batch_mode, bank_slip_url, role, status,
+        subscription_status, subscription_ends_at, trial_ends_at, monthly_price, allow_dual_track
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+    `, [
+      name.trim(),
+      cleanEmail,
+      hashedPassword,
+      cleanStudentId,
+      effectiveCourseId,
+      phone ? phone.trim() : null,
+      nic_number ? nic_number.trim() : null,
+      city ? city.trim() : 'Kandy',
+      batchModeStr,
+      null,
+      'student',
+      'approved', // Instantly Approved for Existing Yuzuki College Students!
+      'active',   // Active Exam Pass
+      expiryDate.toISOString(),
+      expiryDate.toISOString(),
+      0.00
+    ]);
+
+    // Create JWT token for immediate auto-login
+    const token = jwt.sign(
+      { 
+        id: userResult.id, 
+        email: cleanEmail, 
+        role: 'student',
+        student_id: cleanStudentId,
+        name: name.trim(),
+        course_id: effectiveCourseId
+      },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    );
+
+    // Dispatch Admission Card copy to College Management & Student
+    sendAdmissionCardEmail({
+      student_id: cleanStudentId,
+      name: name.trim(),
+      email: cleanEmail,
+      phone: phone ? phone.trim() : '',
+      nic_number: nic_number ? nic_number.trim() : '',
+      city: city ? city.trim() : 'Kandy',
+      course_name: course.name,
+      batch_mode: cleanStudentId.startsWith('YTD') ? 'SSW Truck Driving Track' : 'Japanese Language Track',
+      bank_slip_url: null,
+      registration_type: 'Existing College Student Activation (30-Day CBT Pass)'
+    }).catch(err => console.error('Admission email notification error:', err));
+
+    return res.status(201).json({
+      success: true,
+      message: `🎉 Welcome back to YUZUKI Japan College! Student ID ${cleanStudentId} is activated for 30 Days (${trackName}).`,
+      token,
+      user: {
+        id: userResult.id,
+        name: name.trim(),
+        email: cleanEmail,
+        student_id: cleanStudentId,
+        role: 'student',
+        status: 'approved',
+        course_id: effectiveCourseId,
+        course_name: course.name,
+        allow_dual_track: false,
+        subscription: {
+          status: 'active',
+          is_active: true,
+          plan: `Yuzuki Student: ${trackName} (30-Day CBT Pass)`,
+          days_remaining: 30,
+          expires_at: expiryDate.toISOString()
+        }
+      },
+      student_id: cleanStudentId,
+      track_name: trackName
     });
+
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to process subscription.' });
+    console.error('Existing student registration error:', err);
+    return res.status(500).json({ error: 'Internal server error during existing student activation.' });
   }
 }
 
 module.exports = {
   register,
+  registerExistingStudent,
   login,
   getMe,
   subscribe,
+  getNextStudentId,
   getNextYjpStudentId
 };

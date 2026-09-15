@@ -44,6 +44,11 @@ const authLimiter = rateLimit({
 app.use('/api/auth/login', authLimiter);
 
 app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')));
+app.use('/images', express.static(path.resolve(__dirname, '../uploads/images')));
+app.use('/images', express.static(path.resolve(__dirname, '../public/images')));
+app.use('/audio', express.static(path.resolve(__dirname, '../uploads/audio')));
+app.use('/audio', express.static(path.resolve(__dirname, '../public/audio')));
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 app.get('/api/health', (req, res) => {
   res.json({
@@ -73,8 +78,16 @@ const candidateDistPaths = [
 const frontendDist = candidateDistPaths.find(p => fs.existsSync(p));
 if (frontendDist) {
   console.log('Serving production frontend bundle from:', frontendDist);
-  app.use(express.static(frontendDist));
+  app.use(express.static(frontendDist, {
+    maxAge: '1d',
+    setHeaders: (res, path) => {
+      if (path.endsWith('index.html')) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      }
+    }
+  }));
   app.get('*', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.sendFile(path.join(frontendDist, 'index.html'));
   });
 }
@@ -93,11 +106,29 @@ async function applySecuritySchemaMigrations() {
 }
 
 const { initAutoBackup } = require('./utils/dbBackup');
+const { seedJftModelPaper01 } = require('./utils/seedJftModelPaper01');
+const { seedJftModelPaper03 } = require('./utils/seedJftModelPaper03');
+const { seedJftModelPaper04 } = require('./utils/seedJftModelPaper04');
+const { seedJftModelPaper05 } = require('./utils/seedJftModelPaper05');
+const { seedJftModelPaper06 } = require('./utils/seedJftModelPaper06');
+const { seedJftModelPaper07 } = require('./utils/seedJftModelPaper07');
+const { seedJftModelPaper08 } = require('./utils/seedJftModelPaper08');
+const { seedJftModelPaper09 } = require('./utils/seedJftModelPaper09');
+const { seedJftModelPaper10 } = require('./utils/seedJftModelPaper10');
 
 async function start() {
   try {
     await initDatabase();
     await applySecuritySchemaMigrations();
+    await seedJftModelPaper01();
+    await seedJftModelPaper03();
+    await seedJftModelPaper04();
+    await seedJftModelPaper05();
+    await seedJftModelPaper06();
+    await seedJftModelPaper07();
+    await seedJftModelPaper08();
+    await seedJftModelPaper09();
+    await seedJftModelPaper10();
     initAutoBackup();
     app.listen(PORT, () => {
       console.log('========================================================');

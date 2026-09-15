@@ -16,9 +16,28 @@ async function getExams(req, res) {
     let params = [user.id, user.id, user.id];
 
     if (user.role === 'student') {
-      if (!user.course_id) return res.json({ exams: [] });
-      sql += ` AND e.course_id = ?`;
-      params.push(user.course_id);
+      const studentUser = await query.get('SELECT * FROM users WHERE id = ?', [user.id]);
+      const isDualTrack = Boolean(studentUser?.allow_dual_track === 1 || studentUser?.batch_mode === 'dual_track');
+
+      if (!isDualTrack) {
+        const studentId = (studentUser?.student_id || '').toUpperCase();
+        if (studentId.startsWith('YJP') || ([1, 2, 3, 4].includes(studentUser?.course_id) && !studentId.startsWith('YTD'))) {
+          // YJP: Japanese Language ONLY
+          sql += ` AND e.course_id IN (1, 2, 3, 4)`;
+        } else if (studentId.startsWith('YTD') || studentUser?.course_id === 7) {
+          // YTD: Truck Driving ONLY
+          sql += ` AND e.course_id = 7`;
+        } else if (req.query.course_id) {
+          sql += ` AND e.course_id = ?`;
+          params.push(req.query.course_id);
+        }
+      } else {
+        // Dual Track Enabled: Can filter by query or see both
+        if (req.query.course_id) {
+          sql += ` AND e.course_id = ?`;
+          params.push(req.query.course_id);
+        }
+      }
     }
 
     sql += ` ORDER BY e.id DESC`;
@@ -63,12 +82,29 @@ async function getExamSession(req, res) {
           locked_reason: 'subscription_required'
         });
       }
-    }
 
-    if (user.role === 'student' && exam.course_id !== user.course_id) {
-      return res.status(403).json({ 
-        error: `Access Denied: This exam belongs to ${exam.course_name}. Your Student ID is registered for a different course.` 
-      });
+      // Check track isolation (YJP vs YTD vs Dual Track)
+      const isDualTrack = Boolean(studentUser.allow_dual_track === 1 || studentUser.batch_mode === 'dual_track');
+      if (!isDualTrack) {
+        const studentId = (studentUser.student_id || '').toUpperCase();
+        if (studentId.startsWith('YTD') || studentUser.course_id === 7) {
+          if (exam.course_id !== 7) {
+            return res.status(403).json({ 
+              error: `Access Restricted: Your Student ID (${studentUser.student_id}) is authorized for SSW Truck Driving exams only. Please contact College Admin / Sensei to enable Dual Track (Japanese + Truck Driving) access.` 
+            });
+          }
+        } else if (studentId.startsWith('YJP') || [1, 2, 3, 4].includes(studentUser.course_id)) {
+          if (![1, 2, 3, 4].includes(exam.course_id)) {
+            return res.status(403).json({ 
+              error: `Access Restricted: Your Student ID (${studentUser.student_id}) is authorized for Japanese Language exams only. Please contact College Admin / Sensei to enable Dual Track (Japanese + Truck Driving) access.` 
+            });
+          }
+        } else if (exam.course_id !== user.course_id) {
+          return res.status(403).json({ 
+            error: `Access Denied: This exam belongs to ${exam.course_name}. Your Student ID is registered for a different course.` 
+          });
+        }
+      }
     }
 
     const questions = await query.all(`
@@ -80,6 +116,10 @@ async function getExamSession(req, res) {
       ORDER BY order_num ASC, id ASC
     `, [id]);
 
+    const isJftExam = exam.course_id === 1 || (exam.title && exam.title.toUpperCase().includes('JFT'));
+    const totalMarks = isJftExam ? 250 : questions.reduce((acc, q) => acc + (q.marks || 1), 0);
+    const passingScore = isJftExam ? 200 : exam.passing_score;
+
     return res.json({
       exam: {
         id: exam.id,
@@ -87,10 +127,11 @@ async function getExamSession(req, res) {
         course_name: exam.course_name,
         course_code: exam.course_code,
         duration_minutes: exam.duration_minutes,
-        passing_score: exam.passing_score,
+        passing_score: passingScore,
         description: exam.description,
         total_questions: questions.length,
-        total_marks: questions.reduce((acc, q) => acc + (q.marks || 1), 0)
+        total_marks: totalMarks,
+        is_jft: isJftExam
       },
       questions,
       studentWatermark: {
@@ -126,17 +167,22 @@ async function submitExam(req, res) {
       ORDER BY order_num ASC, id ASC
     `, [id]);
 
-    let totalMarks = 0;
-    let earnedMarks = 0;
+    const isJftExam = exam.course_id === 1 || (exam.title && exam.title.toUpperCase().includes('JFT'));
+    let correctCount = 0;
+    let rawTotalMarks = 0;
+    let rawEarnedMarks = 0;
     const detailedReview = [];
 
     for (const q of questions) {
       const qMarks = q.marks || 1;
-      totalMarks += qMarks;
+      rawTotalMarks += qMarks;
       const studentChoice = answers ? answers[q.id] : null;
       const isCorrect = studentChoice && studentChoice.toUpperCase() === q.correct_option.toUpperCase();
 
-      if (isCorrect) earnedMarks += qMarks;
+      if (isCorrect) {
+        correctCount++;
+        rawEarnedMarks += qMarks;
+      }
 
       detailedReview.push({
         id: q.id,
@@ -157,8 +203,23 @@ async function submitExam(req, res) {
       });
     }
 
-    const percentage = totalMarks > 0 ? Math.round((earnedMarks / totalMarks) * 1000) / 10 : 0;
-    const passed = percentage >= exam.passing_score ? 1 : 0;
+    let finalScore;
+    let finalTotalMarks;
+    let percentage;
+    let passed;
+
+    if (isJftExam) {
+      // Official JFT-Basic Standard: 250 Total Scale Score, 200 Marks to Pass (80%)
+      finalTotalMarks = 250;
+      finalScore = questions.length > 0 ? Math.round((correctCount / questions.length) * 250) : 0;
+      percentage = Math.round((finalScore / 250) * 1000) / 10;
+      passed = finalScore >= 200 ? 1 : 0;
+    } else {
+      finalTotalMarks = rawTotalMarks;
+      finalScore = rawEarnedMarks;
+      percentage = finalTotalMarks > 0 ? Math.round((finalScore / finalTotalMarks) * 1000) / 10 : 0;
+      passed = percentage >= exam.passing_score ? 1 : 0;
+    }
 
     const result = await query.run(`
       INSERT INTO exam_attempts (
@@ -168,8 +229,8 @@ async function submitExam(req, res) {
     `, [
       user.id,
       exam.id,
-      earnedMarks,
-      totalMarks,
+      finalScore,
+      finalTotalMarks,
       percentage,
       passed,
       JSON.stringify(answers || {}),
@@ -180,11 +241,11 @@ async function submitExam(req, res) {
     return res.json({
       success: true,
       attemptId: result.id,
-      score: earnedMarks,
-      total_marks: totalMarks,
+      score: finalScore,
+      total_marks: finalTotalMarks,
       percentage,
       passed: !!passed,
-      passing_score: exam.passing_score,
+      passing_score: isJftExam ? 200 : exam.passing_score,
       time_taken_seconds: timeTakenSeconds || 0,
       tab_switches_count: tabSwitchesCount || 0,
       detailedReview
