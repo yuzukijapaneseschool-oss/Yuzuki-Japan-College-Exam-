@@ -8,10 +8,6 @@ async function seedJftModelPaper07() {
 
     if (existingExam) {
       examId = existingExam.id;
-      const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
-      if (countRes && countRes.count >= 60) {
-        return;
-      }
       console.log(`Seeding JFT Model Paper 07 (Exam ID: ${examId})...`);
       await query.run(`
         UPDATE exams 
@@ -727,7 +723,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '【46/47/48 共通問題】\n私は水曜日に「英語で話す会話」に行っています。この会話は日本人と外国人が 10 人ぐらいいますが、先生はいません。会話のみなさんは英語がじょうずですが、もっとじょうずになりたいと言います。ですから、みんなでいろいろなことを英語を使って言います。今まで、ニュースや旅行の話、お金の話などをしました。歌を歌ったり、スピーチをしたりしたこともあります。私は英語があまりじょうずではありませんが、みなさんがとてもやさしいので、学校で勉強するより、このクラスで英語を話すほうがたのしいです。\n\nこのクラスにどんな人が来ていますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_46_48.png',
         audio_url: null,
         option_a: '英語がもっとじょうずになりたい人',
         option_b: '英語がじょうずではない人',
@@ -742,7 +738,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '私はどうして「英語で話し会話」と言うクラスへ行っていますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_46_48.png',
         audio_url: null,
         option_a: 'クラスでみんなしんせつでたのしいから',
         option_b: 'クラスはお金ははらわないから',
@@ -757,7 +753,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'ここにあっているものはどれか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_46_48.png',
         audio_url: null,
         option_a: '私は英語がじょうずで、みんなとじょうずに英語を話しています',
         option_b: 'このクラスでは先生がおしえています',
@@ -772,7 +768,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '【49/50/51 共通問題】\n3 か月の前、あたらしい家にひっこしました。1 かいにはだいどころとトイレと私とつまがいっしょに使う部屋があります。2 かいには、子供の部屋が二つあります。今子供は 1 人しかいませんが、来年あかちゃんが生まれます。子供が少ないので、まだ 2 かいの部屋は使っていません。ひっこす前は、父と母と住んでいました。父と母は毎日、子供といっしょにあそびました。子供はよく「おじいさん、おばあさんあそびたい」と言います。それで休みの日はたいてい、子供と父と母に会いに行きます。明日、つまは仕事に、私は父と母の家に行きます。\n\nこの人は今、子供が何人いますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_49_51.png',
         audio_url: null,
         option_a: '3',
         option_b: '2',
@@ -787,7 +783,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'この人は新しい家にひっこす前にどこに住んでいましたか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_49_51.png',
         audio_url: null,
         option_a: '男の人の両親と',
         option_b: '女の人の両親と',
@@ -802,7 +798,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'どうして明日父と母の家に行きますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_49_51.png',
         audio_url: null,
         option_a: '子供は父と母に会いたいからです',
         option_b: 'つまが仕事に行くからです',
@@ -817,7 +813,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '【52/53/54 共通問題】\n私はきょうだいがありません。でもいとこがいます。母の妹の子供です。いとこといっしょにいると、知らない人はよく「きょうだいですね」と言います。母とおばは顔がちがいましたが、私といとこはにています。それはおもしろいです。\nおととい、頭がいたかったので、友達とえいがに行きませんでした。友達へのメールに「ごめんなさい」と書きました。でも、昨日友達から「えいがかんいませんでしたか」と言う電話がありました。友達は少しおこっていました。たぶん、それは私のいとこです。私と友達は二人でわらいました。\n\nこの人のおばは母の誰ですか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_52_54.png',
         audio_url: null,
         option_a: '母の姉です',
         option_b: '母の妹です',
@@ -832,7 +828,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '私は何がおもしろいですか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_52_54.png',
         audio_url: null,
         option_a: '自分がきょうだいがいないが、母にはきょうだいがいること',
         option_b: '母とおばはにていないが、私といとこはにていること',
@@ -847,7 +843,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '友達はどうして私に電話をしましたか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_52_54.png',
         audio_url: null,
         option_a: '頭がいたい私が、えいがかんにいたと思ったからです',
         option_b: 'えいがかんの時間をわすれたので、私に聞きたかったからです',
@@ -862,7 +858,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '【55/56/57 共通問題】\n小さいときは、田舎に住んでいました。学校がとおくて大変でしたが、よく学校から帰るとくに、友達とのはらをはしったり、川で泳いだりしました。家におそく帰って来るので、母はおこりましたが、あのころはとてもたのしかったです。\n今、大きな町の会社で働いています。のはらや川がありませんが、お店がたくさんあります。買い物は便利です。母が病気になったので、来月からいっしょに住みます。ここは病院は近いですから、母にも便利です。でも、私はまたのはらや川であそびたいです。\n\n私は小さいころよく何をしましたか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_55_57.png',
         audio_url: null,
         option_a: '友達といっしょに行きました',
         option_b: '友達とのはらや川であそびました',
@@ -877,7 +873,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: '母はどうして大きな町で住みますか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_55_57.png',
         audio_url: null,
         option_a: '病院は近いからです',
         option_b: '買い物が便利からです',
@@ -892,7 +888,7 @@ async function seedJftModelPaper07() {
         section_name: 'Section 4: Reading Comprehension (読解)',
         question_text: 'ここにあっているものはどれか。',
         question_type: 'multiple_choice',
-        image_url: null,
+        image_url: '/images/jft07_passage_55_57.png',
         audio_url: null,
         option_a: 'この人は小さいとき、町に住んでいました',
         option_b: '今、この人は小さな田舎の会社で働いています',
