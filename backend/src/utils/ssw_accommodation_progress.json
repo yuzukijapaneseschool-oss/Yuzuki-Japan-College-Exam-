@@ -1,0 +1,2092 @@
+{
+  "1_front_desk": {
+    "title": "Front Desk Work (フロント業務)",
+    "total": 24,
+    "questions": {
+      "1": {
+        "sid": 1,
+        "question_text": "チェックイン<ruby>時<rt>じ</rt></ruby>にお<ruby>客様<rt>きゃくさま</rt></ruby>を<ruby>迎<rt>むか</rt></ruby>える<ruby>際<rt>さい</rt></ruby>の<ruby>挨拶<rt>あいさつ</rt></ruby>として、<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "「いらっしゃいませ。ようこそお<ruby>越<rt>こ</rt></ruby>しくださいました。」",
+        "option_b": "「どうも、こんにちは。」",
+        "option_c": "「お<ruby>疲<rt>つか</rt></ruby>れ<ruby>様<rt>さま</rt></ruby>でした。」",
+        "option_d": "「お<ruby>待<rt>ま</rt></ruby>たせしました、どうぞ。」",
+        "correct_option": "A",
+        "explanation": "ホテルのフロントでお客様をお迎えする際は、「いらっしゃいませ。ようこそお越しくださいました」と笑顔で丁寧に挨拶するのが基本です。"
+      },
+      "2": {
+        "sid": 2,
+        "question_text": "チェックイン<ruby>時<rt>じ</rt></ruby>にお<ruby>客様<rt>きゃくさま</rt></ruby>に<ruby>宿泊カード<rt>しゅくはくかーど</rt></ruby>（レジストレーションカード）へ<ruby>記入<rt>きにゅう</rt></ruby>を<ruby>依頼<rt>いらい</rt></ruby>する<ruby>際<rt>さい</rt></ruby>の<ruby>言葉遣<rt>ことばづか</rt></ruby>いとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "「ここに<ruby>名前<rt>なまえ</rt></ruby>と<ruby>住所<rt>じゅうしょ</rt></ruby>を<ruby>書<rt>か</rt></ruby>いてください。」",
+        "option_b": "「<ruby>恐<rt>おそ</rt></ruby>れ<ruby>入<rt>い</rt></ruby>りますが、こちらのカードにお<ruby>名前<rt>なまえ</rt></ruby>とご<ruby>住所<rt>じゅうしょ</rt></ruby>のご<ruby>記入<rt>きにゅう</rt></ruby>をお<ruby>願<rt>ねが</rt></ruby>いいたします。」",
+        "option_c": "「カードに<ruby>書<rt>か</rt></ruby>かないと<ruby>泊<rt>と</rt></ruby>まれません。」",
+        "option_d": "「<ruby>名前<rt>なまえ</rt></ruby>を<ruby>記入<rt>きにゅう</rt></ruby>してもいいですよ。」",
+        "correct_option": "B",
+        "explanation": "お客様に記入をお願いする際は、クッション言葉「恐れ入りますが」を使い、「ご記入をお願いいたします」と丁寧に伝えます。"
+      },
+      "3": {
+        "sid": 3,
+        "question_text": "<ruby>日本<rt>にほん</rt></ruby>に<ruby>住所<rt>じゅうしょ</rt></ruby>を<ruby>持<rt>も</rt></ruby>たない<ruby>外国人<rt>がいこくじん</rt></ruby><ruby>宿泊客<rt>しゅくはくきゃく</rt></ruby>がチェックインする<ruby>際<rt>さい</rt></ruby>、<ruby>旅館業法<rt>りょかんぎょうほう</rt></ruby>に<ruby>基<rt>づ</rt></ruby>きフロントで<ruby>確認<rt>かくにん</rt></ruby>・コピーが<ruby>義務<rt>ぎむ</rt></ruby><ruby>付<rt>づ</rt></ruby>けられているものはどれですか？",
+        "option_a": "<ruby>運転免許証<rt>うんてんめんきょしょう</rt></ruby>",
+        "option_b": "パスポート（<ruby>旅券<rt>りょけん</rt></ruby>）",
+        "option_c": "クレジットカードのコピー",
+        "option_d": "<ruby>学生証<rt>がくせいしょう</rt></ruby>",
+        "correct_option": "B",
+        "explanation": "日本国内に住所を持たない外国人宿泊客には、旅館業法によりパスポートの提示を求め、国籍及び旅券番号を記載させ、パスポートをコピーして保管することが義務付けられています。"
+      },
+      "4": {
+        "sid": 4,
+        "question_text": "チェックイン<ruby>前<rt>まえ</rt></ruby>にお<ruby>客様<rt>きゃくさま</rt></ruby>から<ruby>荷物<rt>にもつ</rt></ruby>のお<ruby>預<rt>あず</rt></ruby>かりを<ruby>頼<rt>たの</rt></ruby>まれた<ruby>際<rt>さい</rt></ruby>の<ruby>対応<rt>たいおう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>荷物札<rt>にもつふだ</rt></ruby>（クロークタグ）を<ruby>渡<rt>わた</rt></ruby>し、チェックイン<ruby>時<rt>じ</rt></ruby>まで<ruby>安全<rt>あんぜん</rt></ruby>な<ruby>場所<rt>ばしょ</rt></ruby>で<ruby>保管<rt>ほかん</rt></ruby>する",
+        "option_b": "フロントのカウンターの<ruby>上<rt>うえ</rt></ruby>にそのまま<ruby>置<rt>お</rt></ruby>いておく",
+        "option_c": "チェックイン<ruby>前<rt>まえ</rt></ruby>は<ruby>荷物<rt>にもつ</rt></ruby>の<ruby>預<rt>あず</rt></ruby>かりはできないとお<ruby>断<rt>ことわ</rt></ruby>りする",
+        "option_d": "お<ruby>客様<rt>きゃくさま</rt></ruby>に<ruby>自分<rt>じぶん</rt></ruby>でクロークルームに<ruby>運<rt>はこ</rt></ruby>んでもらう",
+        "correct_option": "A",
+        "explanation": "チェックイン前にお荷物をお預かりする際は、荷物札（クロークタグ）の半券をお渡しし、施錠されたクロークルームや安全な保管場所で大切に保管します。"
+      },
+      "5": {
+        "sid": 5,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>から<ruby>現金<rt>げんきん</rt></ruby>や<ruby>貴金属<rt>ききんぞく</rt></ruby>などの<ruby>貴重品<rt>きちょうひん</rt></ruby>のお<ruby>預<rt>あず</rt></ruby>かりを<ruby>依頼<rt>いらい</rt></ruby>された<ruby>場合<rt>ばあい</rt></ruby>の<ruby>対応<rt>たいおう</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>通常<rt>つうじょう</rt></ruby>のスーツケースと<ruby>一緒<rt>いっしょ</rt></ruby>にクロークルームに<ruby>置<rt>お</rt></ruby>く",
+        "option_b": "<ruby>貴重品預<rt>きちょうひんあずか</rt></ruby>り<ruby>袋<rt>ぶくろ</rt></ruby>に<ruby>封入<rt>ふうにゅう</rt></ruby>してお<ruby>客様<rt>きゃくさま</rt></ruby>のサインまたは<ruby>印鑑<rt>いんかん</rt></ruby>をもらい、<ruby>金庫<rt>きんこ</rt></ruby>（セーフティボックス）で<ruby>保管<rt>ほかん</rt></ruby>する",
+        "option_c": "フロントスタッフのポケットに<ruby>入<rt>い</rt></ruby>れて<ruby>持<rt>も</rt></ruby>っておく",
+        "option_d": "<ruby>貴重品<rt>きちょうひん</rt></ruby>はいかなる<ruby>場合<rt>ばあい</rt></ruby>もフロントでは<ruby>預<rt>あず</rt></ruby>からない",
+        "correct_option": "B",
+        "explanation": "貴重品のお預かりは、貴重品専用の預かり袋にお客様の立会いの下で封入・封印し、預かり証を発行した上でフロント内の耐火金庫等で厳重に保管します。"
+      },
+      "6": {
+        "sid": 6,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>へルームキーを<ruby>手渡<rt>てわた</rt></ruby>す<ruby>際<rt>さい</rt></ruby>の<ruby>防犯上<rt>ぼうはんじょう</rt></ruby>の<ruby>配慮<rt>はいりょ</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>他<rt>ほか</rt></ruby>のお<ruby>客様<rt>きゃくさま</rt></ruby>に<ruby>聞<rt>き</rt></ruby>こえるような<ruby>大<rt>おお</rt></ruby>きな<ruby>声<rt>こえ</rt></ruby>で「〇〇<ruby>号室<rt>ごうしつ</rt></ruby>のキーです」と<ruby>言<rt>い</rt></ruby>う",
+        "option_b": "<ruby>部屋番号<rt>へやばんごう</rt></ruby>を<ruby>大声<rt>おおごえ</rt></ruby>で<ruby>復唱<rt>ふくしょう</rt></ruby>せず、キーカードのケースや<ruby>案内用紙<rt>あんないようし</rt></ruby>を<ruby>指<rt>ゆび</rt></ruby><ruby>示<rt>し</rt></ruby>して「こちらがお<ruby>部屋<rt>へや</rt></ruby>の<ruby>番号<rt>ばんごう</rt></ruby>でございます」と<ruby>案内<rt>あんない</rt></ruby>する",
+        "option_c": "キーをカウンターに<ruby>投<rt>な</rt></ruby>げて<ruby>渡<rt>わた</rt></ruby>す",
+        "option_d": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>部屋番号<rt>へやばんごう</rt></ruby>をフロントのホワイトボードに<ruby>書<rt>か</rt></ruby>いておく",
+        "correct_option": "B",
+        "explanation": "防犯上およびプライバシー保護の観点から、部屋番号を周囲に聞こえるような大声で読み上げることは避け、キーフォルダーの番号を指差しで静かに案内します。"
+      },
+      "7": {
+        "sid": 7,
+        "question_text": "チェックアウト<ruby>時<rt>じ</rt></ruby>の<ruby>精算業務<rt>せいさんぎょうむ</rt></ruby>で、お<ruby>客様<rt>きゃくさま</rt></ruby>からクレジットカードでのお<ruby>支払<rt>しはら</rt></ruby>いを受けた<ruby>際<rt>さい</rt></ruby>の<ruby>手順<rt>てじゅん</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "<ruby>金額<rt>きんがく</rt></ruby>をお<ruby>客様<rt>きゃくさま</rt></ruby>に<ruby>確認<rt>かくにん</rt></ruby>せず、すぐにカードリーダーに<ruby>通<rt>とお</rt></ruby>す",
+        "option_b": "<ruby>請求金額<rt>せいきゅうきんがく</rt></ruby>をお<ruby>客様<rt>きゃくさま</rt></ruby>に<ruby>提示<rt>ていじ</rt></ruby>して<ruby>確認<rt>かくにん</rt></ruby>をいただき、端末で決済処理を行った後、カード・売上票（レシート）・領収書を両手で手渡す",
+        "option_c": "クレジットカードを<ruby>預<rt>あず</rt></ruby>かったまま、スタッフが<ruby>裏<rt>うら</rt></ruby>の<ruby>事務所<rt>じむしょ</rt></ruby>に<ruby>持<rt>も</rt></ruby>ち<ruby>去<rt>さ</rt></ruby>る",
+        "option_d": "暗証番号（PIN）を口頭でお客様に言わせ、スタッフが入力する",
+        "correct_option": "B",
+        "explanation": "クレジットカード決済では、請求明細と金額をお客様に確認していただき、暗証番号はお客様ご自身に入力していただきます。完了後はカードと明細書を丁寧に両手でお返しします。"
+      },
+      "8": {
+        "sid": 8,
+        "question_text": "チェックアウトされるお<ruby>客様<rt>きゃくさま</rt></ruby>をお<ruby>見送<rt>みおく</rt></ruby>りする<ruby>際<rt>さい</rt></ruby>の<ruby>挨拶<rt>あいさつ</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "「どうも、さようなら。」",
+        "option_b": "「ご<ruby>利用<rt>りよう</rt></ruby>ありがとうございました。どうぞお<ruby>気<rt>き</rt></ruby>をつけてお<ruby>出<rt>で</rt></ruby>かけ（お<ruby>帰<rt>かえ</rt></ruby>り）くださいませ。」",
+        "option_c": "「また<ruby>来<rt>き</rt></ruby>てくださいね。」",
+        "option_d": "「お<ruby>終<rt>お</rt></ruby>わりです。」",
+        "correct_option": "B",
+        "explanation": "お見送りの挨拶は、ご宿泊への感謝と道中の安全を祈る気持ちを込め、「ご利用ありがとうございました。どうぞお気をつけてお出かけくださいませ」と心を込めて伝えます。"
+      },
+      "9": {
+        "sid": 9,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>から「<ruby>近<rt>ちか</rt></ruby>くでおいしいラーメン<ruby>屋<rt>や</rt></ruby>はありますか？」と<ruby>尋<rt>たず</rt></ruby>ねられた<ruby>際<rt>さい</rt></ruby>のコンシェルジュ・フロント<ruby>対応<rt>たいおう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "「わかりません」と<ruby>即座<rt>そくざ</rt></ruby>に<ruby>答<rt>こた</rt></ruby>える",
+        "option_b": "フロントにある<ruby>周辺<rt>しゅうへん</rt></ruby>マップを<ruby>用<rt>もち</rt></ruby>い、お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>好<rt>この</rt></ruby>み（スープの<ruby>種類<rt>しゅるい</rt></ruby>や<ruby>距離<rt>きょり</rt></ruby>）を<ruby>伺<rt>うかが</rt></ruby>いながらおすすめの<ruby>店<rt>みせ</rt></ruby>や<ruby>営業時間<rt>えいぎょうじかん</rt></ruby>・<ruby>行<rt>い</rt></ruby>き<ruby>方<rt>かた</rt></ruby>を<ruby>丁寧<rt>ていねい</rt></ruby>に<ruby>案内<rt>あんない</rt></ruby>する",
+        "option_c": "「スマホで<ruby>自分<rt>じぶん</rt></ruby>で<ruby>調<rt>しら</rt></ruby>べてください」と<ruby>言<rt>い</rt></ruby>う",
+        "option_d": "<ruby>高額<rt>こうがく</rt></ruby>なホテル<ruby>内<rt>ない</rt></ruby>レストランのみを<ruby>強引<rt>ごういん</rt></ruby>に<ruby>勧<rt>すす</rt></ruby>める",
+        "correct_option": "B",
+        "explanation": "周辺案内では、地図を活用してお客様のご希望（予算、味の好み、徒歩所要時間など）を確認し、営業時間や定休日も考慮して親切にご案内します。"
+      },
+      "10": {
+        "sid": 10,
+        "question_text": "<ruby>電話<rt>でんわ</rt></ruby>で<ruby>宿泊予約<rt>しゅくはくよやく</rt></ruby>を<ruby>受<rt>う</rt></ruby>ける<ruby>際<rt>さい</rt></ruby>、<ruby>必<rt>かなら</rt></ruby>ず<ruby>確認<rt>かくにん</rt></ruby>・<ruby>復唱<rt>ふくしょう</rt></ruby>すべき<ruby>項目<rt>こうもく</rt></ruby>として<ruby>含<rt>ふく</rt></ruby>まれないものはどれですか？",
+        "option_a": "<ruby>宿泊日<rt>しゅくはくび</rt></ruby>・<ruby>宿泊日数<rt>しゅくはくにっすう</rt></ruby>",
+        "option_b": "<ruby>宿泊人数<rt>しゅくはくにんずう</rt></ruby>および<ruby>部屋<rt>へや</rt></ruby>のタイプ",
+        "option_c": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>氏名<rt>しめい</rt></ruby>およびご<ruby>連絡先<rt>れんらくさき</rt></ruby><ruby>電話番号<rt>でんわばんごう</rt></ruby>",
+        "option_d": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>家族<rt>かぞく</rt></ruby><ruby>全員<rt>ぜんいん</rt></ruby>の<ruby>血液型<rt>けつえきがた</rt></ruby>",
+        "correct_option": "D",
+        "explanation": "電話予約時は、宿泊日程、泊数、人数、部屋タイプ、プラン名、料金、到着予定時刻、氏名、連絡先電話番号を正確に聞き取り復唱します。血液型は確認不要です。"
+      },
+      "11": {
+        "sid": 11,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>が「<ruby>部屋<rt>へや</rt></ruby>のエアコンが<ruby>効<rt>き</rt></ruby>かない」とフロントに<ruby>連絡<rt>れんらく</rt></ruby>された<ruby>際<rt>さい</rt></ruby>の<ruby>一次対応<rt>いちじたいおう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "「そんなはずはありません」と<ruby>反論<rt>はんろん</rt></ruby>する",
+        "option_b": "ご<ruby>不便<rt>ふべん</rt></ruby>をおかけしたことをお<ruby>詫<rt>わ</rt></ruby>びし、すぐにお<ruby>部屋<rt>へや</rt></ruby>へ<ruby>伺<rt>うかが</rt></ruby>って<ruby>状況<rt>じょうきょう</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>・<ruby>調整<rt>ちょうせい</rt></ruby>し、<ruby>改善<rt>かいぜん</rt></ruby>しない<ruby>場合<rt>ばあい</rt></ruby>は<ruby>部屋変更<rt>へやへんこう</rt></ruby>を<ruby>提案<rt>ていあん</rt></ruby>する",
+        "option_c": "「<ruby>我慢<rt>がまん</rt></ruby>してください」と<ruby>伝<rt>つた</rt></ruby>える",
+        "option_d": "チェックアウトまで<ruby>放置<rt>ほうち</rt></ruby>する",
+        "correct_option": "B",
+        "explanation": "客室の設備不良のクレームでは、まずお客様にお詫びをし、迅速に客室を訪問して状況確認・修理対応を行います。復旧が困難な場合は速やかにお部屋の移動をご案内します。"
+      },
+      "12": {
+        "sid": 12,
+        "question_text": "<ruby>宿泊約款<rt>しゅくはくやっかん</rt></ruby>に<ruby>基<rt>づ</rt></ruby>くキャンセル料（<ruby>違約金<rt>いやくきん</rt></ruby>）の<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "いかなる<ruby>理由<rt>りゆう</rt></ruby>であってもキャンセル料を<ruby>請求<rt>せいきゅう</rt></ruby>することは<ruby>法律<rt>ほうりつ</rt></ruby>で<ruby>禁止<rt>きんし</rt></ruby>されている",
+        "option_b": "ホテルの<ruby>宿泊約款<rt>しゅくはくやっかん</rt></ruby>に<ruby>定<rt>さだ</rt></ruby>められた<ruby>期日<rt>きじつ</rt></ruby>・<ruby>比率<rt>ひりつ</rt></ruby>（<ruby>前日<rt>ぜんじつ</rt></ruby>20％、<ruby>当日<rt>とうじつ</rt></ruby>80％、<ruby>不泊<rt>ふはく</rt></ruby>100％など）に<ruby>基<rt>づ</rt></ruby>いて<ruby>適用<rt>てきよう</rt></ruby>される",
+        "option_c": "キャンセル料はフロントスタッフのその<ruby>日<rt>ひ</rt></ruby>の<ruby>気分<rt>きぶん</rt></ruby>で<ruby>自由<rt>じゆう</rt></ruby>に<ruby>決<rt>き</rt></ruby>める",
+        "option_d": "キャンセルされた<ruby>場合<rt>ばあい</rt></ruby>、<ruby>宿泊料<rt>しゅくはくりょう</rt></ruby>の10<ruby>倍<rt>ばい</rt></ruby>を<ruby>請求<rt>せいきゅう</rt></ruby>する",
+        "correct_option": "B",
+        "explanation": "ホテルのキャンセル料（違約金）は、あらかじめ公示されている宿泊約款の基準に基づいて所定の割合が請求されます。"
+      },
+      "13": {
+        "sid": 13,
+        "question_text": "モーニングコール（ウェイクアップコール）の<ruby>設定<rt>せってい</rt></ruby>・<ruby>管理<rt>かんり</rt></ruby>におけるフロントの<ruby>注意点<rt>ちゅういてん</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>指定時刻<rt>していじこく</rt></ruby>と<ruby>部屋番号<rt>へやばんごう</rt></ruby>を<ruby>正確<rt>せいかく</rt></ruby>にシステムに<ruby>登録<rt>とうろく</rt></ruby>し、<ruby>自動<rt>じどう</rt></ruby>コールに<ruby>応答<rt>おうとう</rt></ruby>がない<ruby>場合<rt>ばあい</rt></ruby>はフロントから<ruby>直接<rt>ちょくせつ</rt></ruby>コールやお<ruby>部屋<rt>へや</rt></ruby>への<ruby>確認<rt>かくにん</rt></ruby>を<ruby>行<rt>おこな</rt></ruby>う",
+        "option_b": "モーニングコールは<ruby>忘<rt>わす</rt></ruby>れやすいので<ruby>一切<rt>いっさい</rt></ruby><ruby>引<rt>ひ</rt></ruby>き<ruby>受<rt>う</rt></ruby>けない",
+        "option_c": "<ruby>指定時刻<rt>していじこく</rt></ruby>の1<ruby>時間前<rt>じかんまえ</rt></ruby>に<ruby>起<rt>お</rt></ruby>こす",
+        "option_d": "お<ruby>客様<rt>きゃくさま</rt></ruby>が<ruby>出<rt>で</rt></ruby>なくても1<ruby>回<rt>かい</rt></ruby>鳴らせばフロントの<ruby>責任<rt>せきにん</rt></ruby>は<ruby>完了<rt>かんりょう</rt></ruby>する",
+        "correct_option": "A",
+        "explanation": "モーニングコールは飛行機や重要会議に直結するため、時間・部屋番号を二重確認し、不応答の場合はスタッフによる追加フォローを行います。"
+      },
+      "14": {
+        "sid": 14,
+        "question_text": "タクシーの<ruby>手配<rt>てはい</rt></ruby>をお<ruby>客様<rt>きゃくさま</rt></ruby>から<ruby>頼<rt>たの</rt></ruby>まれた<ruby>際<rt>さい</rt></ruby>、フロントスタッフが<ruby>確認<rt>かくにん</rt></ruby>すべきこととして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "<ruby>利用希望時刻<rt>りようきぼうじこく</rt></ruby>、<ruby>台数<rt>だいすう</rt></ruby>、<ruby>乗車人数<rt>じょうしゃにんずう</rt></ruby>、<ruby>大<rt>おお</rt></ruby>きな<ruby>荷物<rt>にもつ</rt></ruby>の<ruby>有無<rt>うむ</rt></ruby>、および<ruby>迎<rt>むか</rt></ruby>え<ruby>料金<rt>りょうきん</rt></ruby>の<ruby>事前了解<rt>じぜんりょうかい</rt></ruby>",
+        "option_b": "タクシー<ruby>運転手<rt>うんてんしゅ</rt></ruby>の<ruby>年齢<rt>ねんれい</rt></ruby>",
+        "option_c": "お<ruby>客様<rt>きゃくさま</rt></ruby>のパスポートの<ruby>有効期限<rt>ゆうこうきげん</rt></ruby>",
+        "option_d": "タクシーの<ruby>車体<rt>しゃたい</rt></ruby>の<ruby>色<rt>いろ</rt></ruby>の<ruby>希望<rt>きぼう</rt></ruby>のみ",
+        "correct_option": "A",
+        "explanation": "タクシー手配では、出発希望時刻、台数、人数、荷物の量（トランクに入るか）、およびタクシー会社の迎車料金がかかる旨を事前に確認・承諾いただきます。"
+      },
+      "15": {
+        "sid": 15,
+        "question_text": "フロントスタッフの<ruby>身<rt>み</rt></ruby>だしなみ（グルーミング）として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>清潔<rt>せいけつ</rt></ruby>な<ruby>制服<rt>せいふく</rt></ruby>を<ruby>正<rt>ただ</rt></ruby>しく<ruby>着用<rt>ちゃくよう</rt></ruby>し、<ruby>名札<rt>なふだ</rt></ruby>を<ruby>所定<rt>しょてい</rt></ruby>の<ruby>位置<rt>いち</rt></ruby>につけ、<ruby>爪<rt>つめ</rt></ruby>を<ruby>短<rt>みじか</rt></ruby>く<ruby>切<rt>き</rt></ruby>り<ruby>整<rt>ととの</rt></ruby>える",
+        "option_b": "<ruby>派手<rt>はで</rt></ruby>なアクセサリーをたくさんつける",
+        "option_c": "<ruby>強<rt>つよ</rt></ruby>い<ruby>香水<rt>こうすい</rt></ruby>をつけて<ruby>業務<rt>ぎょうむ</rt></ruby>を<ruby>行<rt>おこな</rt></ruby>う",
+        "option_d": "<ruby>制服<rt>せいふく</rt></ruby>のボタンを<ruby>外<rt>はず</rt></ruby>してリラックスした<ruby>格好<rt>かっこう</rt></ruby>をする",
+        "correct_option": "A",
+        "explanation": "ホテルのフロントはお客様が最初に接するホテルの顔です。清潔な制服の正しい着用、名札の装着、整った髪型、切り揃えられた爪など清潔感と安心感を与える身だしなみが必須です。"
+      },
+      "16": {
+        "sid": 16,
+        "question_text": "<ruby>深夜時間帯<rt>しんやじかんたい</rt></ruby>のフロント<ruby>業務<rt>ぎょうむ</rt></ruby>（夜勤・ナイトフロント）における<ruby>重要<rt>じゅうよう</rt></ruby>な<ruby>役割<rt>やくわり</rt></ruby>はどれですか？",
+        "option_a": "<ruby>館内<rt>かんない</rt></ruby>の<ruby>防犯巡回<rt>ぼうはんじゅんかい</rt></ruby>・<ruby>施錠管理<rt>せじょうかんり</rt></ruby>、<ruby>夜間監査<rt>やかんかんさ</rt></ruby>（ナイトオーディット）、および<ruby>緊急時<rt>きんきゅうじ</rt></ruby>の<ruby>即時対応<rt>そくじたいおう</rt></ruby>",
+        "option_b": "フロントの<ruby>電気<rt>でんき</rt></ruby>を<ruby>消<rt>け</rt></ruby>してスタッフ<ruby>全員<rt>ぜんいん</rt></ruby>で<ruby>就寝<rt>しゅうしん</rt></ruby>する",
+        "option_c": "<ruby>夜間<rt>やかん</rt></ruby>はお<ruby>客様<rt>きゃくさま</rt></ruby>のフロントへの<ruby>立入<rt>たちい</rt></ruby>りを<ruby>禁止<rt>きんし</rt></ruby>する",
+        "option_d": "<ruby>翌朝<rt>よくあさ</rt></ruby>まで<ruby>一切<rt>いっさい</rt></ruby>の<ruby>電話<rt>でんわ</rt></ruby>に<ruby>出<rt>で</rt></ruby>ない",
+        "correct_option": "A",
+        "explanation": "夜勤スタッフは、館内セキュリティ巡回、自動ドアの夜間施錠管理、売上データの締め処理（ナイトオーディット）、急病人や火災等の緊急事態に備える重要な任務を担います。"
+      },
+      "17": {
+        "sid": 17,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>宛てに<ruby>郵便物<rt>ゆうびんぶつ</rt></ruby>や<ruby>宅配便<rt>たくはいびん</rt></ruby>がホテルに<ruby>届<rt>とど</rt></ruby>いた<ruby>際<rt>さい</rt></ruby>のフロント<ruby>処理<rt>しょり</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>宿泊者名簿<rt>しゅくはくしゃめいぼ</rt></ruby>と<ruby>宛名<rt>あてな</rt></ruby>・チェックイン<ruby>日<rt>び</rt></ruby>を<ruby>照合<rt>しょうごう</rt></ruby>し、<ruby>受取台帳<rt>うけとりだいちょう</rt></ruby>に<ruby>記録<rt>きろく</rt></ruby>してチェックイン<ruby>時<rt>じ</rt></ruby>やお<ruby>部屋<rt>へや</rt></ruby>で<ruby>確実<rt>かくじつ</rt></ruby>に<ruby>手渡<rt>てわた</rt></ruby>す",
+        "option_b": "スタッフが<ruby>勝手<rt>かって</rt></ruby>に<ruby>開封<rt>かいふう</rt></ruby>して<ruby>中身<rt>なかみ</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>する",
+        "option_c": "ロビーのテーブルの<ruby>上<rt>うえ</rt></ruby>に<ruby>放置<rt>ほうち</rt></ruby>しておく",
+        "option_d": "<ruby>受領<rt>じゅりょう</rt></ruby>を<ruby>拒否<rt>きょひ</rt></ruby>してすぐに<ruby>送<rt>おく</rt></ruby>り返す",
+        "correct_option": "A",
+        "explanation": "宿泊客宛の郵便・荷物は、宿泊予約の有無・宿泊日を照合し、荷物預かり簿に記録した上で施錠保管し、チェックイン時等に本人確認の上でお渡しします。他人の郵便物の無断開封は法律違反です。"
+      },
+      "18": {
+        "sid": 18,
+        "question_text": "フロントでの「<ruby>引継<rt>ひきつ</rt></ruby>ぎ（シフト交代）」において<ruby>最<rt>もっと</rt></ruby>も<ruby>重要<rt>じゅうよう</rt></ruby>なことはどれですか？",
+        "option_a": "<ruby>特記事項<rt>とっきじこう</rt></ruby>（お<ruby>客様<rt>きゃくさま</rt></ruby>からのご<ruby>要望<rt>ようぼう</rt></ruby>、クレーム、<ruby>未処理<rt>みしょり</rt></ruby>の<ruby>案件<rt>あんけん</rt></ruby>、VIPの<ruby>到着<rt>とうちゃく</rt></ruby>）をログブックや<ruby>口頭<rt>こうとう</rt></ruby>で<ruby>正確<rt>せいかく</rt></ruby>に<ruby>次<rt>つぎ</rt></ruby>のシフトスタッフへ<ruby>伝達<rt>でんたつ</rt></ruby>する",
+        "option_b": "<ruby>挨拶<rt>あいさつ</rt></ruby>だけして<ruby>何<rt>なに</rt></ruby>も<ruby>伝<rt>つた</rt></ruby>えずにすぐ<ruby>帰<rt>かえ</rt></ruby>る",
+        "option_c": "トラブルがあったことは<ruby>隠<rt>かく</rt></ruby>しておく",
+        "option_d": "<ruby>引継<rt>ひきつ</rt></ruby>ぎは<ruby>時間<rt>じかん</rt></ruby>の<ruby>無駄<rt>むだ</rt></ruby>なので<ruby>行<rt>おこな</rt></ruby>わない",
+        "correct_option": "A",
+        "explanation": "フロントの引継ぎはサービス品質と安全の維持に直結します。お客様のリクエスト、客室設備の状況、引継ぎ事項を漏れなく確実に次の担当者へ共有します。"
+      },
+      "19": {
+        "sid": 19,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>から「<ruby>領収書<rt>りょうしゅうしょ</rt></ruby>の<ruby>宛名<rt>あてな</rt></ruby>を<ruby>会社名<rt>かいしゃめい</rt></ruby>で<ruby>発行<rt>はっこう</rt></ruby>してほしい」と<ruby>依頼<rt>いらい</rt></ruby>された<ruby>際<rt>さい</rt></ruby>の<ruby>対応<rt>たいおう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>指定<rt>してい</rt></ruby>された<ruby>会社名<rt>かいしゃめい</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>やスペルを<ruby>正確<rt>せいかく</rt></ruby>に<ruby>確認<rt>かくにん</rt></ruby>し、<ruby>日付<rt>ひづけ</rt></ruby>・<ruby>金額<rt>きんがく</rt></ruby>・<ruby>但書<rt>ただしが</rt></ruby>（ご<ruby>宿泊代<rt>しゅくはくだい</rt></ruby>として）を<ruby>明記<rt>めいき</rt></ruby>して<ruby>発行<rt>はっこう</rt></ruby>する",
+        "option_b": "「<ruby>個人名<rt>こじんめい</rt></ruby>でしか<ruby>出<rt>だ</rt></ruby>せません」と<ruby>断<rt>ことわ</rt></ruby>る",
+        "option_c": "<ruby>金額<rt>きんがく</rt></ruby>を<ruby>実際<rt>じっさい</rt></ruby>より<ruby>多<rt>おお</rt></ruby>く<ruby>書<rt>か</rt></ruby>いてあげる",
+        "option_d": "<ruby>白紙<rt>はくし</rt></ruby>の<ruby>領収書<rt>りょうしゅうしょ</rt></ruby>をそのままお<ruby>客様<rt>きゃくさま</rt></ruby>に<ruby>渡<rt>わた</rt></ruby>す",
+        "correct_option": "A",
+        "explanation": "領収書の発行では、お客様指定の宛名（会社名等）を正確に記載し、正式な金額・日付・但し書き・発行元（ホテル名・登録番号）を記載して発行します。架空金額や白紙領収書の発行は違法です。"
+      },
+      "20": {
+        "sid": 20,
+        "question_text": "車椅子を<ruby>利用<rt>りよう</rt></ruby>されるお<ruby>客様<rt>きゃくさま</rt></ruby>をお<ruby>迎<rt>むか</rt></ruby>えする<ruby>際<rt>さい</rt></ruby>のフロントスタッフの<ruby>姿勢<rt>しせい</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>目線<rt>めせん</rt></ruby>の<ruby>高<rt>たか</rt></ruby>さを合わせるよう<ruby>腰<rt>こし</rt></ruby>を落としてお<ruby>話<rt>はな</rt></ruby>しし、バリアフリールートやエレベーターのご<ruby>案内<rt>あんない</rt></ruby>とお<ruby>手伝<rt>てつだ</rt></ruby>いの<ruby>有無<rt>うむ</rt></ruby>を<ruby>伺<rt>うかが</rt></ruby>う",
+        "option_b": "<ruby>高<rt>たか</rt></ruby>いカウンターの<ruby>上<rt>うえ</rt></ruby>から<ruby>見下<rt>みお</rt></ruby>ろすように<ruby>話<rt>はな</rt></ruby>す",
+        "option_c": "<ruby>勝手<rt>かって</rt></ruby>に<ruby>声<rt>こえ</rt></ruby>もかけずに<ruby>突然<rt>とつぜん</rt></ruby>車椅子を<ruby>押<rt>お</rt></ruby>して<ruby>走<rt>はし</rt></ruby>る",
+        "option_d": "「お<ruby>部屋<rt>へや</rt></ruby>はありません」と<ruby>宿泊<rt>しゅくはく</rt></ruby>を<ruby>拒否<rt>きょひ</rt></ruby>する",
+        "correct_option": "A",
+        "explanation": "車椅子をご利用のお客様には、目線の高さを合わせて穏やかにコミュニケーションを取り、必要なサポートをお伺いした上でバリアフリールートをご案内します。"
+      },
+      "21": {
+        "sid": 21,
+        "question_text": "ホテルのPMS（プロパティ・マネジメント・システム＝<ruby>ホテル管理<rt>ほてるかんり</rt></ruby>システム）の<ruby>主<rt>おも</rt></ruby>な<ruby>機能<rt>きのう</rt></ruby>はどれですか？",
+        "option_a": "<ruby>予約情報<rt>よやくじょうほう</rt></ruby>、チェックイン/アウト、<ruby>部屋割<rt>へやわ</rt></ruby>り（ルームアサイン）、<ruby>客室清掃状態<rt>きゃくしつせいそうじょうたい</rt></ruby>、および<ruby>会計売上<rt>かいけいうりあげ</rt></ruby>の<ruby>一元管理<rt>いちげんかんり</rt></ruby>",
+        "option_b": "スタッフのプライベートなSNS<ruby>投稿<rt>とうこう</rt></ruby>",
+        "option_c": "ホテルのエアコンの<ruby>風量<rt>ふうりょう</rt></ruby>のみを<ruby>操作<rt>そうさ</rt></ruby>するシステム",
+        "option_d": "ロビーのBGMを<ruby>再生<rt>さいせい</rt></ruby>するだけのアプリ",
+        "correct_option": "A",
+        "explanation": "PMS（Property Management System）は、宿泊予約・顧客台帳・部屋割り・客室ステータス（清掃中/完了）・会計精算など、ホテル運営の中核業務を一括管理するシステムです。"
+      },
+      "22": {
+        "sid": 22,
+        "question_text": "客室の「インスペクション（<ruby>点検<rt>てんけん</rt></ruby>）」において、フロントへ「インスペクション<ruby>完了<rt>かんりょう</rt></ruby>（Ready）」の<ruby>連絡<rt>れんらく</rt></ruby>が<ruby>入<rt>はい</rt></ruby>る<ruby>意味<rt>いみ</rt></ruby>はどれですか？",
+        "option_a": "<ruby>清掃<rt>せいそう</rt></ruby>と<ruby>点検<rt>てんけん</rt></ruby>がすべて<ruby>完了<rt>かんりょう</rt></ruby>し、お<ruby>客様<rt>きゃくさま</rt></ruby>をいつでもお<ruby>通<rt>とお</rt></ruby>しできる<ruby>状態<rt>じょうたい</rt></ruby>になったこと",
+        "option_b": "これから<ruby>清掃<rt>せいそう</rt></ruby>を<ruby>始<rt>はじ</rt></ruby>めること",
+        "option_c": "お<ruby>部屋<rt>へや</rt></ruby>が<ruby>故障中<rt>こしょうちゅう</rt></ruby>で<ruby>使<rt>つか</rt></ruby>えないこと",
+        "option_d": "お<ruby>客様<rt>きゃくさま</rt></ruby>がまだ<ruby>部屋<rt>へや</rt></ruby>に<ruby>滞在中<rt>たいざいちゅう</rt></ruby>であること",
+        "correct_option": "A",
+        "explanation": "客室が清掃・アメニティ補充・最終点検を終え、PMS上で「Ready（販売可能・入室可能）」となったことを意味します。フロントはこの状態を確認してお客様を案内します。"
+      },
+      "23": {
+        "sid": 23,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>から「チェックアウト<ruby>時間<rt>じかん</rt></ruby>を2<ruby>時間延長<rt>じかんえんちょう</rt></ruby>したい（レイトチェックアウト）」と<ruby>申<rt>もう</rt></ruby>し<ruby>出<rt>で</rt></ruby>があった<ruby>際<rt>さい</rt></ruby>のフロント<ruby>対応<rt>たいおう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>当日<rt>とうじつ</rt></ruby>の<ruby>予約状況<rt>よやくじょうきょう</rt></ruby>と<ruby>次<rt>つぎ</rt></ruby>のお<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>部屋割<rt>へやわ</rt></ruby>りを<ruby>確認<rt>かくにん</rt></ruby>し、<ruby>可能<rt>かのう</rt></ruby>であれば<ruby>所定<rt>しょてい</rt></ruby>の<ruby>追加料金<rt>ついかりょうきん</rt></ruby>を<ruby>説明<rt>せつめい</rt></ruby>して<ruby>承諾<rt>しょうだく</rt></ruby>をいただき<ruby>手配<rt>てはい</rt></ruby>する",
+        "option_b": "<ruby>理由<rt>りゆう</rt></ruby>も<ruby>聞<rt>き</rt></ruby>かずに<ruby>怒<rt>おこ</rt></ruby>りだす",
+        "option_c": "<ruby>無料<rt>むりょう</rt></ruby>で<ruby>夕方<rt>ゆうがた</rt></ruby>まで<ruby>無制限<rt>むせいげん</rt></ruby>に<ruby>居<rt>い</rt></ruby>てよいと<ruby>勝手<rt>かって</rt></ruby>に<ruby>答<rt>こた</rt></ruby>える",
+        "option_d": "ホテルの<ruby>清掃係<rt>せいそうがかり</rt></ruby>に<ruby>直接<rt>ちょくせつ</rt></ruby><ruby>頼<rt>たの</rt></ruby>むように<ruby>言<rt>い</rt></ruby>う",
+        "correct_option": "A",
+        "explanation": "レイトチェックアウトは次のお客様の予約・清掃スケジュールを確認し、延長可否を判断した上で規定の延長料金をご案内して手続きします。"
+      },
+      "24": {
+        "sid": 24,
+        "question_text": "フロントに<ruby>不審者<rt>ふしんしゃ</rt></ruby>（ホテルに<ruby>用件<rt>ようけん</rt></ruby>のない<ruby>人物<rt>じんぶつ</rt></ruby>）がロビーをうろついているのを<ruby>発見<rt>はっけん</rt></ruby>した<ruby>際<rt>さい</rt></ruby>の<ruby>初期対応<rt>しょきたいおう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "「いかがいたしましたか。お<ruby>手伝<rt>てつだ</rt></ruby>いいたしましょうか」と<ruby>丁寧<rt>ていねい</rt></ruby>に<ruby>声<rt>こえ</rt></ruby>をかけ、<ruby>用件<rt>ようけん</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>するとともに、<ruby>他<rt>ほか</rt></ruby>のスタッフや<ruby>警備<rt>けいび</rt></ruby>と<ruby>連携<rt>れんけい</rt></ruby>する",
+        "option_b": "<ruby>大声<rt>おおごえ</rt></ruby>で<ruby>罵倒<rt>ばとう</rt></ruby>して<ruby>力<rt>ちから</rt></ruby>ずくで<ruby>追<rt>お</rt></ruby>い<ruby>出<rt>だ</rt></ruby>す",
+        "option_c": "<ruby>何<rt>なに</rt></ruby>もせずに<ruby>隠<rt>かく</rt></ruby>れる",
+        "option_d": "客室のキーをその<ruby>人<rt>ひと</rt></ruby>に<ruby>渡<rt>わた</rt></ruby>す",
+        "correct_option": "A",
+        "explanation": "不審者に対しては丁寧にお声がけして来館目的を確認し、抑止効果を図るとともに防犯カメラの確認や警備担当・責任者への速やかな連絡連携を行います。"
+      }
+    }
+  },
+  "2_planning_public_relations": {
+    "title": "Planning and Public Relations (企画・広報業務)",
+    "total": 24,
+    "questions": {
+      "1": {
+        "sid": 1,
+        "question_text": "ホテルにおける「OTA（オンライン・トラベル・エージェント）」の<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "インターネット<ruby>上<rt>じょう</rt></ruby>だけで<ruby>旅行商品<rt>りょこうしょうひん</rt></ruby>やホテルの<ruby>宿泊予約<rt>しゅくはくよやく</rt></ruby>を<ruby>取扱<rt>とりあつか</rt></ruby>うオンライントラベルサイト（Booking.com、楽天トラベル、じゃらん等）",
+        "option_b": "ホテルの<ruby>客室清掃<rt>きゃくしつせいそう</rt></ruby>を<ruby>行<rt>おこな</rt></ruby>う<ruby>専門会社<rt>せんもんがいしゃ</rt></ruby>",
+        "option_c": "ホテルで<ruby>使<rt>つか</rt></ruby>う<ruby>食材<rt>しょくざい</rt></ruby>を<ruby>配達<rt>はいたつ</rt></ruby>する<ruby>業者<rt>ぎょうしゃ</rt></ruby>",
+        "option_d": "ホテルのエアコンの<ruby>製造メーカー<rt>せいぞうめーかー</rt></ruby>",
+        "correct_option": "A",
+        "explanation": "OTA（Online Travel Agent）は、実店舗を持たずインターネット上で宿泊施設や航空券などの旅行予約サービスを提供するオンライン旅行代理店のことです。"
+      },
+      "2": {
+        "sid": 2,
+        "question_text": "季節やイベントに合わせた「<ruby>宿泊企画<rt>しゅくはくきかく</rt></ruby>プラン（宿泊パッケージ）」を<ruby>作成<rt>さくせい</rt></ruby>する<ruby>目的<rt>もくてき</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>多様<rt>たよう</rt></ruby>なニーズに<ruby>応<rt>こた</rt></ruby>えて<ruby>魅力<rt>みりょく</rt></ruby>を<ruby>高<rt>たか</rt></ruby>め、<ruby>集客力<rt>しゅうきゃくりょく</rt></ruby>や<ruby>客室単価<rt>きゃくしつたんか</rt></ruby>・<ruby>稼働率<rt>かどうりつ</rt></ruby>を<ruby>向上<rt>こうじょう</rt></ruby>させるため",
+        "option_b": "フロントスタッフの<ruby>仕事<rt>しごと</rt></ruby>を<ruby>減<rt>へ</rt></ruby>らすため",
+        "option_c": "ホテルを<ruby>休業<rt>きゅうぎょう</rt></ruby>させるため",
+        "option_d": "近隣のホテルと<ruby>喧嘩<rt>けんか</rt></ruby>するため",
+        "correct_option": "A",
+        "explanation": "宿泊プラン（観光チケット付き、記念日特典、地元グルメ付き等）の企画は、顧客満足度の向上とホテルの稼働率・売上向上を目的として行われます。"
+      },
+      "3": {
+        "sid": 3,
+        "question_text": "ホテルの公式SNS（Instagram、Facebook、X等）を<ruby>活用<rt>かつよう</rt></ruby>した<ruby>広報活動<rt>こうほうかつどう</rt></ruby>において<ruby>大切<rt>たいせつ</rt></ruby>なことはどれですか？",
+        "option_a": "ホテルの<ruby>魅力<rt>みりょく</rt></ruby>ある<ruby>写真<rt>しゃしん</rt></ruby>や<ruby>周辺<rt>しゅうへん</rt></ruby>の<ruby>観光情報<rt>かんこうじょうほう</rt></ruby>、イベント<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>定期的<rt>ていきてき</rt></ruby>に<ruby>正確<rt>せいかく</rt></ruby>かつ<ruby>魅力<rt>みりょく</rt></ruby><ruby>的<rt>てき</rt></ruby>に<ruby>発信<rt>はっしん</rt></ruby>する",
+        "option_b": "他人のプライベート写真を無断で掲載する",
+        "option_c": "嘘の価格や誇大広告を頻繁に投稿する",
+        "option_d": "1年に1度だけ文字だけを投稿する",
+        "correct_option": "A",
+        "explanation": "SNSによる広報では、美しいビジュアルと最新の正確な情報（客室、料理、周辺観光、イベント等）を定期的に発信し、見込み客との良好な関係を築きます。"
+      },
+      "4": {
+        "sid": 4,
+        "question_text": "インターネット<ruby>上<rt>じょう</rt></ruby>の口コミサイト（レビュー）でお<ruby>客様<rt>きゃくさま</rt></ruby>から<ruby>厳<rt>きび</rt></ruby>しいご<ruby>意見<rt>いけん</rt></ruby>（低評価）が<ruby>投稿<rt>とうこう</rt></ruby>された<ruby>際<rt>さい</rt></ruby>のホテル<ruby>側<rt>がわ</rt></ruby>の<ruby>返信対応<rt>へんしんたいおう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "ご<ruby>宿泊<rt>しゅくはく</rt></ruby>と<ruby>貴重<rt>きちょう</rt></ruby>なご<ruby>意見<rt>いけん</rt></ruby>に<ruby>感謝<rt>かんしゃ</rt></ruby>を<ruby>述<rt>の</rt></ruby>べ、ご<ruby>不快<rt>ふかい</rt></ruby>な<ruby>思<rt>おも</rt></ruby>いをさせたことを<ruby>真摯<rt>しんし</rt></ruby>にお<ruby>詫<rt>わ</rt></ruby>びし、<ruby>改善策<rt>かいぜんさく</rt></ruby>を<ruby>丁寧<rt>ていねい</rt></ruby>に<ruby>伝<rt>つた</rt></ruby>える",
+        "option_b": "お<ruby>客様<rt>きゃくさま</rt></ruby>を<ruby>非難<rt>ひなん</rt></ruby>し「二度と来るな」と書き込む",
+        "option_c": "口コミを無視して一切返信しない",
+        "option_d": "口コミサイトを訴えると脅す",
+        "correct_option": "A",
+        "explanation": "口コミへの返信は他の閲覧客も見ているため、真摯な感謝とお詫びを伝え、具体的な改善への取り組みを示すことで信頼回復につなげます。"
+      },
+      "5": {
+        "sid": 5,
+        "question_text": "ホテルの「<ruby>稼働率<rt>かどうりつ</rt></ruby>（オキュパンシー・レート OCC）」の<ruby>計算式<rt>けいさんしき</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "（<ruby>販売客室数<rt>はんばいきゃくしつすう</rt></ruby> ÷ <ruby>総客室数<rt>そうきゃくしつすう</rt></ruby>） × 100 ％",
+        "option_b": "（<ruby>総客室数<rt>そうきゃくしつすう</rt></ruby> ÷ フロントスタッフ<ruby>数<rt>すう</rt></ruby>） × 100 ％",
+        "option_c": "（<ruby>売上金額<rt>うりあげきんがく</rt></ruby> ÷ 100） ％",
+        "option_d": "（チェックアウト<ruby>数<rt>すう</rt></ruby> − チェックイン<ruby>数<rt>すう</rt></ruby>） ％",
+        "correct_option": "A",
+        "explanation": "客室稼働率（Occupancy Rate, OCC）は、全客室数のうち実際に販売された客室の割合を示す最重要経営指標です。"
+      },
+      "6": {
+        "sid": 6,
+        "question_text": "ホテルの「ADR（<ruby>平均客室単価<rt>へいきんきゃくしつたんか</rt></ruby>＝Average Daily Rate）」の<ruby>計算式<rt>けいさんしき</rt></ruby>はどれですか？",
+        "option_a": "<ruby>客室売上合計<rt>きゃくしつうりあげごうけい</rt></ruby> ÷ <ruby>販売客室数<rt>はんばいきゃくしつすう</rt></ruby>",
+        "option_b": "<ruby>客室売上合計<rt>きゃくしつうりあげごうけい</rt></ruby> ÷ ホテルスタッフ<ruby>数<rt>すう</rt></ruby>",
+        "option_c": "<ruby>総客室数<rt>そうきゃくしつすう</rt></ruby> × <ruby>宿泊日数<rt>しゅくはくにっすう</rt></ruby>",
+        "option_d": "<ruby>販売客室数<rt>はんばいきゃくしつすう</rt></ruby> ÷ 100",
+        "correct_option": "A",
+        "explanation": "ADR（Average Daily Rate）は、販売された客室1室あたりの平均販売単価を表します。"
+      },
+      "7": {
+        "sid": 7,
+        "question_text": "インバウンド（<ruby>訪日外国人旅行者<rt>ほうにちがいこくじんりょこうしゃ</rt></ruby>）向けの<ruby>宿泊企画<rt>しゅくはくきかく</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>多言語<rt>たげんご</rt></ruby>（<ruby>英語<rt>えいご</rt></ruby>・<ruby>中国語<rt>ちゅうごくご</rt></ruby>等）による<ruby>案内<rt>あんない</rt></ruby>、Wi-Fi<ruby>完備<rt>かんび</rt></ruby>、<ruby>日本文化体験<rt>にほんぶんかたいけん</rt></ruby>（<ruby>着物<rt>きもの</rt></ruby>・<ruby>茶道<rt>さどう</rt></ruby>等）や<ruby>宗教的配慮<rt>しゅうきょうてきはいりょ</rt></ruby>（ハラール対応等）を<ruby>取<rt>と</rt></ruby>り<ruby>入<rt>い</rt></ruby>れたプラン",
+        "option_b": "<ruby>日本語<rt>にほんご</rt></ruby>しか<ruby>話<rt>はな</rt></ruby>してはいけないプラン",
+        "option_c": "パスポートの<ruby>提示<rt>ていじ</rt></ruby>を<ruby>拒否<rt>きょひ</rt></ruby>させるプラン",
+        "option_d": "<ruby>外国人<rt>がいこくじん</rt></ruby>の<ruby>宿泊<rt>しゅくはく</rt></ruby>を<ruby>禁止<rt>きんし</rt></ruby>するプラン",
+        "correct_option": "A",
+        "explanation": "インバウンド向けプランでは、多言語案内、キャッシュレス決済、フリーWi-Fi、文化体験、食の多様性への配慮など外国人観光客の利便性と満足度を高める工夫が求められます。"
+      },
+      "8": {
+        "sid": 8,
+        "question_text": "<ruby>地元<rt>じもと</rt></ruby>の<ruby>観光協会<rt>かんこうきょうかい</rt></ruby>や<ruby>農家<rt>のうか</rt></ruby>・<ruby>商店街<rt>しょうてんがい</rt></ruby>と<ruby>連携<rt>れんけい</rt></ruby>した「<ruby>地域連携企画<rt>ちいきれんけいきかく</rt></ruby>」のメリットとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "<ruby>地域特産品<rt>ちいきとくさんひん</rt></ruby>を<ruby>活<rt>い</rt></ruby>かしたオリジナルプランでホテルの<ruby>独自性<rt>どくじせい</rt></ruby>を<ruby>出<rt>だ</rt></ruby>せるとともに、<ruby>地域経済<rt>ちいきけいざい</rt></ruby>の<ruby>活性化<rt>かっせいか</rt></ruby>にも<ruby>貢献<rt>こうけん</rt></ruby>できる",
+        "option_b": "ホテルの<ruby>費用<rt>ひよう</rt></ruby>が100<ruby>倍<rt>ばい</rt></ruby>に<ruby>膨<rt>ふく</rt></ruby>らむ",
+        "option_c": "<ruby>他<rt>ほか</rt></ruby>の<ruby>施設<rt>しせつ</rt></ruby>から<ruby>苦情<rt>くじょう</rt></ruby>が<ruby>殺到<rt>さっとう</rt></ruby>する",
+        "option_d": "ホテルスタッフが<ruby>全員辞<rt>ぜんいんや</rt></ruby>める",
+        "correct_option": "A",
+        "explanation": "地域連携プラン（地元フルーツ狩り付き、特産牛・地酒プランなど）は、他ホテルとの差別化につながり、地域全体の活性化と共存共栄に寄与します。"
+      },
+      "9": {
+        "sid": 9,
+        "question_text": "ホテルのホームページ（Webサイト）の<ruby>広報管理<rt>こうほうかんり</rt></ruby>で<ruby>最<rt>もっと</rt></ruby>も<ruby>注意<rt>ちゅうい</rt></ruby>すべきことはどれですか？",
+        "option_a": "<ruby>宿泊料金<rt>しゅくはくりょうきん</rt></ruby>、プラン<ruby>内容<rt>ないよう</rt></ruby>、<ruby>館内施設<rt>かんないしせつ</rt></ruby>の<ruby>営業時間<rt>えいぎょうじかん</rt></ruby>、<ruby>写真<rt>しゃしん</rt></ruby>などの<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>常<rt>つね</rt></ruby>に<ruby>最新<rt>さいしん</rt></ruby>の<ruby>正確<rt>せいかく</rt></ruby>な<ruby>状態<rt>じょうたい</rt></ruby>に<ruby>更新<rt>こうしん</rt></ruby>しておくこと",
+        "option_b": "5<ruby>年前<rt>ねんまえ</rt></ruby>の<ruby>古い情報<rt>ふるいじょうほう</rt></ruby>をそのままにしておくこと",
+        "option_c": "<ruby>予約<rt>よやく</rt></ruby>リンクを<ruby>切断<rt>せつだん</rt></ruby>しておくこと",
+        "option_d": "ホテルの<ruby>電話番号<rt>でんわばんごう</rt></ruby>を<ruby>掲載<rt>けいさい</rt></ruby>しないこと",
+        "correct_option": "A",
+        "explanation": "自社公式ホームページは信頼性の根幹です。常に最新の宿泊プラン、正確な料金、設備やアメニティ、営業時間を分かりやすく提示します。"
+      },
+      "10": {
+        "sid": 10,
+        "question_text": "ホテルの「リピーター（<ruby>再来館顧客<rt>さいらいかんこきゃく</rt></ruby>）」を<ruby>増<rt>ふ</rt></ruby>やすための<ruby>施策<rt>しさく</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "<ruby>会員制度<rt>かいいんせいど</rt></ruby>（メンバーシッププログラム）やメールマガジンでの<ruby>限定特典<rt>げんていとくてん</rt></ruby>の<ruby>提供<rt>ていきょう</rt></ruby>、および<ruby>過去<rt>かこ</rt></ruby>の<ruby>宿泊履歴<rt>しゅくはくりれき</rt></ruby>に<ruby>基<rt>づ</rt></ruby>くパーソナライズされたおもてなし",
+        "option_b": "2<ruby>回目<rt>かいめ</rt></ruby>の<ruby>宿泊客<rt>しゅくはくきゃく</rt></ruby>から2<ruby>倍<rt>ばい</rt></ruby>の<ruby>料金<rt>りょうきん</rt></ruby>を<ruby>取<rt>と</rt></ruby>る",
+        "option_c": "リピーターには<ruby>挨拶<rt>あいさつ</rt></ruby>をしない",
+        "option_d": "<ruby>再予約<rt>さいよやく</rt></ruby>を<ruby>断<rt>ことわ</rt></ruby>る",
+        "correct_option": "A",
+        "explanation": "リピーターの定着には、会員ポイントや特別優待の提供、過去の好み（枕の種類、禁煙/喫煙、記念日等）を記憶した心温まるサービスが効果的です。"
+      },
+      "11": {
+        "sid": 11,
+        "question_text": "宿泊予約の「オーバーブッキング（<ruby>過剰予約<rt>かじょうよやく</rt></ruby>）」の<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "直前のキャンセルや不泊（ノーショー）を見込んで、実際の総客室数を超える予約を受け付けること",
+        "option_b": "客室を1部屋も売らないこと",
+        "option_c": "予約客をすべてキャンセルすること",
+        "option_d": "客室のベッドを2倍に増やすこと",
+        "correct_option": "A",
+        "explanation": "オーバーブッキングは、突発的なキャンセルを見越して客室数以上に予約を受けるレベニューマネジメント手法ですが、部屋が足りなくなった場合は近隣の同等以上のホテルへの手配（ウォークオーバー）等の迅速な対応が必要です。"
+      },
+      "12": {
+        "sid": 12,
+        "question_text": "ダイナミック・プライシング（<ruby>変動料金制<rt>へんどうりょうきんせい</rt></ruby>）の<ruby>特徴<rt>とくちょう</rt></ruby>はどれですか？",
+        "option_a": "<ruby>需要<rt>じゅよう</rt></ruby>（<ruby>予約状況<rt>よやくじょうきょう</rt></ruby>、<ruby>曜日<rt>ようび</rt></ruby>、<ruby>季節<rt>きせつ</rt></ruby>、イベントの<ruby>有無<rt>うむ</rt></ruby>）に<ruby>応<rt>おう</rt></ruby>じて<ruby>客室料金<rt>きゃくしつりょうきん</rt></ruby>を<ruby>柔軟<rt>じゅうなん</rt></ruby>に<ruby>変動<rt>へんどう</rt></ruby>させ、<ruby>収益<rt>しゅうえき</rt></ruby>の<ruby>最大化<rt>さいだいか</rt></ruby>を<ruby>図<rt>はか</rt></ruby>る",
+        "option_b": "365日いつでも全く同じ料金で販売する",
+        "option_c": "すべて無料で客室を提供する",
+        "option_d": "お客様の年齢の数だけ料金を決める",
+        "correct_option": "A",
+        "explanation": "ダイナミックプライシングは、需要が高い時期（週末・連休・繁忙期）は高価格に、閑散期は低価格に設定することで稼働率と収益を最適化する仕組みです。"
+      },
+      "13": {
+        "sid": 13,
+        "question_text": "ホテルの「パンフレットやチラシ」を<ruby>作成<rt>さくせい</rt></ruby>する<ruby>際<rt>さい</rt></ruby>の<ruby>注意点<rt>ちゅういてん</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "ホテルのアクセス<ruby>方法<rt>ほうほう</rt></ruby>、チェックイン/アウト<ruby>時刻<rt>じこく</rt></ruby>、<ruby>料金目安<rt>りょうきんめやす</rt></ruby>、<ruby>連絡先<rt>れんらくさき</rt></ruby>を<ruby>明確<rt>めいかく</rt></ruby>にし、<ruby>著作権<rt>ちょさくけん</rt></ruby>・<ruby>肖像権<rt>しょうぞうけん</rt></ruby>を<ruby>遵守<rt>じゅんしゅ</rt></ruby>した<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>使用<rt>しよう</rt></ruby>する",
+        "option_b": "他人の撮った写真を無断でネットから拾って印刷する",
+        "option_c": "ホテルの住所や電話番号をわざと隠す",
+        "option_d": "白黒の文字だけで何も写真を入れない",
+        "correct_option": "A",
+        "explanation": "広報物の作成では、正確な施設情報やアクセス情報を明示し、掲載する画像や文章の著作権・肖像権（お客様やスタッフの写り込み等）の許諾を適切に得ることが不可欠です。"
+      },
+      "14": {
+        "sid": 14,
+        "question_text": "「アーリーチェックインプラン（早着プラン）」の<ruby>内容<rt>ないよう</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "<ruby>通常<rt>つうじょう</rt></ruby>のチェックイン<ruby>時刻<rt>じこく</rt></ruby>（<ruby>例<rt>れい</rt></ruby>：15:00）よりも<ruby>早<rt>はや</rt></ruby>い<ruby>時間<rt>じかん</rt></ruby>（<ruby>例<rt>れい</rt></ruby>：13:00）からお<ruby>部屋<rt>へや</rt></ruby>を<ruby>利用<rt>りよう</rt></ruby>できる特典付きプラン",
+        "option_b": "チェックインを深夜2時にしかできないプラン",
+        "option_c": "客室ではなくロビーの床で寝るプラン",
+        "option_d": "チェックアウトを早くしなければならないプラン",
+        "correct_option": "A",
+        "explanation": "アーリーチェックインプランは、早めに到着して部屋で休憩したいビジネス客や観光客に向けた、通常より早い入室が可能な企画商品です。"
+      },
+      "15": {
+        "sid": 15,
+        "question_text": "ホテルの広報（PR）と広告（Advertising）の<ruby>違<rt>ちが</rt></ruby>いについての<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "広告は費用を払ってメディアの広告枠を購入するのに対し、広報（PR）はプレスリリース等を通じてテレビや雑誌などの第三者メディアに客観的に紹介してもらう活動である",
+        "option_b": "広告と広報は全く同じものである",
+        "option_c": "広報は違法な宣伝活動である",
+        "option_d": "広告はお金を一切使わない活動である",
+        "correct_option": "A",
+        "explanation": "PR（Public Relations）はメディアに価値ある情報（新企画、新サービス等）を提供して取材・報道してもらう活動であり、客観性と信頼性が高いメリットがあります。"
+      },
+      "16": {
+        "sid": 16,
+        "question_text": "ホテル企画部門における「ターゲット層（ペルソナ）」の<ruby>設定<rt>せってい</rt></ruby>の<ruby>重要性<rt>じゅうようせい</rt></ruby>はどれですか？",
+        "option_a": "「誰に向けたプランか」（家族連れ、シニア、ビジネス単身客、女子旅、インバウンド等）を明確にすることで、魅力的なプラン内容や価格設定ができる",
+        "option_b": "すべてのお客様を均一に扱って一切差別化しないため",
+        "option_c": "スタッフの好き嫌いでお客様を選ぶため",
+        "option_d": "予約を断るための口実を作るため",
+        "correct_option": "A",
+        "explanation": "ターゲット顧客を明確にすることで、その層が求めるサービス・料理・特典を的確に企画でき、高いプロモーション効果が得られます。"
+      },
+      "17": {
+        "sid": 17,
+        "question_text": "「プレスリリース」をメディアに<ruby>配信<rt>はいしん</rt></ruby>する<ruby>際<rt>さい</rt></ruby>に<ruby>含<rt>ふく</rt></ruby>めるべき<ruby>要素<rt>ようそ</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "5W1H（いつ・どこで・だれが・なにを・なぜ・どのように）、<ruby>企画<rt>きかく</rt></ruby>の<ruby>新規性<rt>しんきせい</rt></ruby>や<ruby>特徴<rt>とくちょう</rt></ruby>、<ruby>写真素材<rt>しゃしんそざい</rt></ruby>、および<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせ<ruby>担当窓口<rt>たんとうまどぐち</rt></ruby>",
+        "option_b": "ホテルの社員全員の秘密日記",
+        "option_c": "競合ホテルの悪口",
+        "option_d": "暗号化された読めない文字",
+        "correct_option": "A",
+        "explanation": "プレスリリースは記者が記事にしやすいよう、5W1Hを明確にし、企画の魅力・背景・高解像度写真・問い合わせ連絡先を整えて送付します。"
+      },
+      "18": {
+        "sid": 18,
+        "question_text": "ホテル内での「季節のディスプレイ（クリスマスツリー、ひな人形、門松等）」の<ruby>設置<rt>せっち</rt></ruby>の<ruby>効果<rt>こうか</rt></ruby>はどれですか？",
+        "option_a": "館内に日本の季節感や祝祭感を演出し、お客様に非日常の心地よい空間とフォトスポットを提供する",
+        "option_b": "お客様の歩行の邪魔をして転ばせるため",
+        "option_c": "ロビーを暗くするため",
+        "option_d": "ホテルの電気代を無駄遣いするため",
+        "correct_option": "A",
+        "explanation": "季節の装飾は、お客様への歓迎の気持ちを表し、日本の伝統文化や季節の美しさを体感していただく大切なおもてなし広報演出です。"
+      },
+      "19": {
+        "sid": 19,
+        "question_text": "「デイユース（日帰り・テレワーク利用）プラン」の<ruby>特徴<rt>とくちょう</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "宿泊を伴わず、日中の指定された時間帯（例：9:00〜18:00）に客室を利用できるプラン",
+        "option_b": "夜中だけ部屋を使うプラン",
+        "option_c": "1ヶ月間連続で滞在するプラン",
+        "option_d": "食事だけ食べて部屋には入れないプラン",
+        "correct_option": "A",
+        "explanation": "デイユースプランは、宿泊客がチェックアウトした後の昼間の客室の空き時間を有効活用し、テレワークや休息目的の利用客に提供する企画商品です。"
+      },
+      "20": {
+        "sid": 20,
+        "question_text": "宿泊施設における「ブランディング（ブランド構築）」の<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "ホテルの理念、ロゴ、サービス品質、統一された世界観を通じ、「このホテルならではの信頼と価値」をお客様に認知・愛着を持ってもらうこと",
+        "option_b": "とにかく一番安い値段で売ることだけ",
+        "option_c": "看板を毎日違う名前に変えること",
+        "option_d": "お客様にホテルの制服を買わせること",
+        "correct_option": "A",
+        "explanation": "ブランディングはホテルの独自性や価値を高め、価格競争に巻き込まれずにお客様から選ばれ続ける強いファン層を作るための戦略です。"
+      },
+      "21": {
+        "sid": 21,
+        "question_text": "宿泊プランに付ける「アメニティ特典（有名ブランドのスキンケアセット等）」の<ruby>企画意図<rt>きかくいと</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "特に女性客やご褒美需要の心をつかみ、プランの付加価値と満足度を高めて予約を促進する",
+        "option_b": "ゴミを増やすため",
+        "option_c": "ホテルの通常備品をすべて撤去するため",
+        "option_d": "お客様に持ち帰らせないため",
+        "correct_option": "A",
+        "explanation": "高品質なアメニティや特典を付けることで、プランの特別感（アディショナルバリュー）を高め、購買意欲を刺激します。"
+      },
+      "22": {
+        "sid": 22,
+        "question_text": "ホテルの「MICE（マイス）」のM・I・C・Eの<ruby>意味<rt>いみ</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しい<ruby>組合<rt>くみあわ</rt></ruby>せはどれですか？",
+        "option_a": "Meeting（会議）、Incentive（報奨・研修旅行）、Convention（国際会議・学会）、Exhibition/Event（展示会・イベント）",
+        "option_b": "Morning、Internet、Cleaning、Elevator",
+        "option_c": "Music、Ice cream、Car、Eating",
+        "option_d": "Money、Interest、Credit、Exchange",
+        "correct_option": "A",
+        "explanation": "MICE（マイス）は多くの集客と宿泊・飲食売上が見込めるビジネスイベントの総称で、ホテルや観光業界にとって重要な企画誘致ターゲットです。"
+      },
+      "23": {
+        "sid": 23,
+        "question_text": "ホテルの「顧客満足度アンケート（CS調査）」の<ruby>集計<rt>しゅうけい</rt></ruby>・<ruby>分析結果<rt>ぶんせきけっか</rt></ruby>の<ruby>活用法<rt>かつようほう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "各部門（フロント、清掃、レストラン等）で共有し、課題を明確にしてサービス改善や新企画の立案に役立てる",
+        "option_b": "悪い評価のアンケート用紙をすべてシュレッダーで破棄して隠す",
+        "option_c": "アンケートを書いたお客様に抗議の電話をする",
+        "option_d": "金庫にしまって誰にも見せない",
+        "correct_option": "A",
+        "explanation": "お客様アンケートは改善の宝庫です。良い点・改善点をデータ分析して全館で共有し、サービス品質向上や新プラン開発に反映させます。"
+      },
+      "24": {
+        "sid": 24,
+        "question_text": "ホテル企画における「SDGs（持続可能な開発目標）」への<ruby>取<rt>と</rt></ruby>り<ruby>組<rt>く</rt></ruby>みとして<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "プラスチック製アメニティの削減（木製・バイオマス素材への変更）、食品ロス削減プラン、地元食材の地産地消の推進",
+        "option_b": "毎日大量の残飯をそのまま捨てるプラン",
+        "option_c": "使い捨てプラスチックを1人あたり100個配るプラン",
+        "option_d": "電気を24時間全館無駄に点灯し続けること",
+        "correct_option": "A",
+        "explanation": "環境配慮型ホテル（エコステイ、連泊清掃不要プラン、アメニティバー設置によるプラ削減等）は、現代の旅行者から強く支持される重要施策です。"
+      }
+    }
+  },
+  "3_customer_service": {
+    "title": "Customer Service and Operations (接客・オペレーション業務)",
+    "total": 42,
+    "questions": {
+      "1": {
+        "sid": 1,
+        "question_text": "日本のおもてなし（ホスピタリティ）の<ruby>基本<rt>きほん</rt></ruby><ruby>精神<rt>せいしん</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>立場<rt>たちば</rt></ruby>に<ruby>立<rt>た</rt></ruby>って<ruby>気持<rt>きも</rt></ruby>ちを<ruby>察<rt>さっ</rt></ruby>し、<ruby>見返<rt>みかえ</rt></ruby>りを<ruby>求<rt>もと</rt></ruby>めずに<ruby>心<rt>こころ</rt></ruby>を込めて<ruby>快適<rt>かいてき</rt></ruby>な<ruby>時間<rt>じかん</rt></ruby>と<ruby>空間<rt>くうかん</rt></ruby>を<ruby>提供<rt>ていきょう</rt></ruby>すること",
+        "option_b": "チップをたくさんくれるお客様だけを優遇すること",
+        "option_c": "お客様の言う通りにするだけで感情を一切込めないこと",
+        "option_d": "業務マニュアルに書いてあること以外は一切しないこと",
+        "correct_option": "A",
+        "explanation": "おもてなしの心とは、相手への思いやりと気配りを持ち、見返りを求めずに誠心誠意尽くす日本の伝統的な接客精神です。"
+      },
+      "2": {
+        "sid": 2,
+        "question_text": "ホテルでの「お<ruby>辞儀<rt>じぎ</rt></ruby>（礼儀）」のうち、<ruby>最敬礼<rt>さいけいれい</rt></ruby>の<ruby>角度<rt>かくど</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "15度（会釈）",
+        "option_b": "30度（普通礼・敬礼）",
+        "option_c": "45度（最敬礼）",
+        "option_d": "90度（直角）",
+        "correct_option": "C",
+        "explanation": "日本のビジネスマナーにおいて、会釈は約15度、敬礼（普通礼）は約30度、最も深い感謝やお詫びを表す最敬礼は約45度です。"
+      },
+      "3": {
+        "sid": 3,
+        "question_text": "ホテルスタッフが<ruby>使<rt>つか</rt></ruby>う「<ruby>尊敬語<rt>そんけいご</rt></ruby>」の<ruby>例<rt>れい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "「お<ruby>客様<rt>きゃくさま</rt></ruby>がおっしゃいました。」",
+        "option_b": "「<ruby>私<rt>わたくし</rt></ruby>が<ruby>申<rt>もう</rt></ruby>し<ruby>上<rt>あ</rt></ruby>げました。」",
+        "option_c": "「お<ruby>客様<rt>きゃくさま</rt></ruby>が<ruby>参<rt>まい</rt></ruby>りました。」",
+        "option_d": "「お<ruby>客様<rt>きゃくさま</rt></ruby>が<ruby>拝見<rt>はいけん</rt></ruby>しました。」",
+        "correct_option": "A",
+        "explanation": "お客様の動作を高めて敬意を表す尊敬語として「言う」→「おっしゃる」が正しいです。「申し上げる」「参る」「拝見する」は自分を低くする謙譲語です。"
+      },
+      "4": {
+        "sid": 4,
+        "question_text": "「クッション<ruby>言葉<rt>ことば</rt></ruby>」の<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "「<ruby>恐<rt>おそ</rt></ruby>れ<ruby>入<rt>い</rt></ruby>りますが、お<ruby>名前<rt>なまえ</rt></ruby>をもう<ruby>一度<rt>いちど</rt></ruby>お<ruby>伺<rt>うかが</rt></ruby>いできますでしょうか。」",
+        "option_b": "「名前をもう一度言え。」",
+        "option_c": "「聞こえないので大きな声で言ってください。」",
+        "option_d": "「ちょっと待ってください。」",
+        "correct_option": "A",
+        "explanation": "クッション言葉（「恐れ入りますが」「あいにくですが」「失礼ですが」「お手数をおかけしますが」等）を冒頭に添えることで、相手に丁寧で柔らかい印象を与えます。"
+      },
+      "5": {
+        "sid": 5,
+        "question_text": "客室へお<ruby>客様<rt>きゃくさま</rt></ruby>をご<ruby>案内<rt>あんない</rt></ruby>する（ベル・エスコート）<ruby>際<rt>さい</rt></ruby>の<ruby>基本姿勢<rt>きほんしせい</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>斜<rt>なな</rt></ruby>め<ruby>前<rt>まえ</rt></ruby>（2〜3<ruby>歩前<rt>ほまえ</rt></ruby>）を<ruby>歩<rt>ある</rt></ruby>き、お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>歩調<rt>ほちょう</rt></ruby>に<ruby>合<rt>あ</rt></ruby>わせながら<ruby>適度<rt>てきど</rt></ruby>に<ruby>後<rt>うし</rt></ruby>ろを<ruby>確認<rt>かくにん</rt></ruby>してご<ruby>案内<rt>あんない</rt></ruby>する",
+        "option_b": "スタッフが走ってお客様を遠くに置き去りにする",
+        "option_c": "お客様の後ろから無言でついていく",
+        "option_d": "お客様のスーツケースを地面に引きずって音を立てる",
+        "correct_option": "A",
+        "explanation": "エスコートはお客様の斜め前を歩き、お客様の歩くスピードに合わせ、曲がり角やエレベーター前では立ち止まって手で方向を示しながらご案内します。"
+      },
+      "6": {
+        "sid": 6,
+        "question_text": "エレベーターにお<ruby>客様<rt>きゃくさま</rt></ruby>と<ruby>同乗<rt>どうじょう</rt></ruby>する<ruby>際<rt>さい</rt></ruby>のマナーとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "スタッフが「<ruby>開<rt>ひら</rt></ruby>」ボタンを<ruby>押<rt>お</rt></ruby>さえてお<ruby>客様<rt>きゃくさま</rt></ruby>に<ruby>先<rt>さき</rt></ruby>に<ruby>乗<rt>の</rt></ruby>っていただき、<ruby>降<rt>お</rt></ruby>りる<ruby>際<rt>さい</rt></ruby>もお<ruby>客様<rt>きゃくさま</rt></ruby>を<ruby>優先<rt>ゆうせん</rt></ruby>する",
+        "option_b": "スタッフが一番先に乗って、一番先に降りる",
+        "option_c": "お客様が乗っている最中にドアを閉める",
+        "option_d": "エレベーターの中でお客様に背中をぴったり向けて立つ",
+        "correct_option": "A",
+        "explanation": "エレベーターでは、スタッフが「開」ボタンを押してドアが閉まらないように安全を確保し、お客様に先に乗降していただきます。"
+      },
+      "7": {
+        "sid": 7,
+        "question_text": "客室のドアを開けて入室する前のマナーとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "「ハウスキーピング（またはフロント）でございます」と<ruby>名乗<rt>なの</rt></ruby>り、ドアをノックして<ruby>返事<rt>へんじ</rt></ruby>を<ruby>待<rt>ま</rt></ruby>ち、<ruby>応答<rt>おうとう</rt></ruby>がないことを<ruby>確認<rt>かくにん</rt></ruby>してから<ruby>静<rt>しず</rt></ruby>かに<ruby>入室<rt>にゅうしつ</rt></ruby>する",
+        "option_b": "ノックも名乗りもせずにいきなりマスターキーでドアを全開にする",
+        "option_c": "ドアを強く蹴飛ばす",
+        "option_d": "大声で叫びながら突入する",
+        "correct_option": "A",
+        "explanation": "客室に入る際は、お客様の在室・プライバシーに配慮し、必ずチャイムまたは2〜3回の軽いノックとともに名乗り、間を置いてから入室します。"
+      },
+      "8": {
+        "sid": 8,
+        "question_text": "「ドント・ディスターブ（起こさないでください / DND）」カードがドアノブに掛かっている部屋への<ruby>対応<rt>たいおう</rt></ruby>はどれですか？",
+        "option_a": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>休養<rt>きゅうよう</rt></ruby>・プライバシーを<ruby>優先<rt>ゆうせん</rt></ruby>し、ノックや<ruby>電話<rt>でんわ</rt></ruby>、<ruby>清掃<rt>せいそう</rt></ruby>のための<ruby>入室<rt>にゅうしつ</rt></ruby>を<ruby>控<rt>ひか</rt></ruby>える",
+        "option_b": "気にせずドアを開けて掃除を始める",
+        "option_c": "カードを破り捨てる",
+        "option_d": "部屋の前で大声で騒ぐ",
+        "correct_option": "A",
+        "explanation": "DND（Do Not Disturb）表示はお客様が邪魔されたくないという明確な意思表示です。緊急時を除き入室や電話を控え、規定時間になればメモを残す等の対応を取ります。"
+      },
+      "9": {
+        "sid": 9,
+        "question_text": "客室清掃（ハウスキーピング）における「ベッドメイキング」の<ruby>重要点<rt>じゅうようてん</rt></ruby>はどれですか？",
+        "option_a": "シーツやデュベカバーにシワや<ruby>髪<rt>かみ</rt></ruby>の<ruby>毛<rt>け</rt></ruby>、<ruby>汚<rt>よご</rt></ruby>れが一切なく、ピーンと<ruby>張<rt>は</rt></ruby>りのある<ruby>美<rt>うつく</rt></ruby>しい<ruby>状態<rt>じょうたい</rt></ruby>に<ruby>仕上<rt>しあ</rt></ruby>げること",
+        "option_b": "シーツを交換せずに手で払うだけにする",
+        "option_c": "枕をベッドの下に隠す",
+        "option_d": "毛布をぐちゃぐちゃに丸めて置く",
+        "correct_option": "A",
+        "explanation": "ベッドメイキングは清潔感の象徴です。新しいリネンを使用し、角（コーナー）を綺麗に折り込み、髪の毛等の異物混入がないよう細心の注意を払います。"
+      },
+      "10": {
+        "sid": 10,
+        "question_text": "バスルーム（浴室・トイレ・洗面台）の<ruby>清掃<rt>せいそう</rt></ruby>で<ruby>最<rt>もっと</rt></ruby>も<ruby>注意<rt>ちゅうい</rt></ruby>すべきことはどれですか？",
+        "option_a": "<ruby>水滴<rt>すいてき</rt></ruby>や<ruby>水垢<rt>みずあか</rt></ruby>、<ruby>髪<rt>かみ</rt></ruby>の<ruby>毛<rt>け</rt></ruby>、カビ、<ruby>臭気<rt>しゅうき</rt></ruby>を<ruby>完全<rt>かんぜん</rt></ruby>に<ruby>除去<rt>じょきょ</rt></ruby>し、ミラーやカランをピカピカに<ruby>磨<rt>みが</rt></ruby>き<ruby>上<rt>あ</rt></ruby>げて<ruby>乾燥<rt>かんそう</rt></ruby>させること",
+        "option_b": "水で流すだけで拭き取りはしない",
+        "option_c": "トイレ掃除に使った同じ雑巾でコップを拭く",
+        "option_d": "排水口にゴミを詰まらせたままにする",
+        "correct_option": "A",
+        "explanation": "バスルームは衛生上の重要箇所です。用途別の色分けダスター（雑巾）を使用し、水滴を完全に乾拭きして清潔で快適な状態にします。"
+      },
+      "11": {
+        "sid": 11,
+        "question_text": "清掃後の客室で「忘れ物（<ruby>遺失物<rt>いしつぶつ</rt></ruby>）」を<ruby>発見<rt>はっけん</rt></ruby>した<ruby>際<rt>さい</rt></ruby>の<ruby>対応手順<rt>たいおうてじゅん</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "<ruby>発見場所<rt>はっけんばしょ</rt></ruby>（<ruby>部屋番号<rt>へやばんごう</rt></ruby>・<ruby>位置<rt>いち</rt></ruby>）、<ruby>日時<rt>にちじ</rt></ruby>、<ruby>発見者名<rt>はっけんしゃめい</rt></ruby>、<ruby>品名<rt>ひんめい</rt></ruby>・<ruby>特徴<rt>とくちょう</rt></ruby>を<ruby>記録<rt>きろく</rt></ruby>し、フロントまたは<ruby>保管責任者<rt>ほかんせきにんしゃ</rt></ruby>へ<ruby>速<rt>すみ</rt></ruby>やかに<ruby>届<rt>とど</rt></ruby>け<ruby>出<rt>で</rt></ruby>る",
+        "option_b": "価値がありそうならスタッフが自分のポケットに入れて持って帰る",
+        "option_c": "ゴミ箱に捨てる",
+        "option_d": "廊下に放置しておく",
+        "correct_option": "A",
+        "explanation": "遺失物は法律（遺失物法）およびホテル規定に基づき、発見日時・部屋番号・品目詳細を台帳に記録して厳重に保管・管理します。"
+      },
+      "12": {
+        "sid": 12,
+        "question_text": "お<ruby>客様<rt>きゃくさま</rt></ruby>から「<ruby>部屋<rt>へや</rt></ruby>に<ruby>時計<rt>とけい</rt></ruby>を<ruby>忘<rt>わす</rt></ruby>れたかもしれない」と<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせがあった<ruby>際<rt>さい</rt></ruby>のフロント<ruby>対応<rt>たいおう</rt></ruby>はどれですか？",
+        "option_a": "<ruby>宿泊日<rt>しゅくはくび</rt></ruby>、お<ruby>名前<rt>なまえ</rt></ruby>、<ruby>部屋番号<rt>へやばんごう</rt></ruby>、<ruby>時計<rt>とけい</rt></ruby>の<ruby>特徴<rt>とくちょう</rt></ruby>（<ruby>色<rt>いろ</rt></ruby>・ブランド・ベルトの<ruby>素材<rt>そざい</rt></ruby>等）を<ruby>丁寧<rt>ていねい</rt></ruby>に<ruby>聞<rt>き</rt></ruby>き<ruby>取<rt>と</rt></ruby>り、<ruby>遺失物台帳<rt>いしつぶつだいちょう</rt></ruby>と<ruby>現物<rt>げんぶつ</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>する",
+        "option_b": "「ありません」と調べずに即答する",
+        "option_c": "「もう捨てました」と言う",
+        "option_d": "お客様に自分でホテルに来て探すように命令する",
+        "correct_option": "A",
+        "explanation": "忘れ物の照会では、宿泊履歴と品物の特徴を詳細に確認し、台帳や保管金庫と照らし合わせて正確にご案内します。発送する場合は送付先住所と着払い等の条件を確認します。"
+      },
+      "13": {
+        "sid": 13,
+        "question_text": "車椅子の操作における<ruby>安全上<rt>あんぜんじょう</rt></ruby>の<ruby>基本ルール<rt>きほんるーる</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "スロープを<ruby>下<rt>お</rt></ruby>りる<ruby>際<rt>さい</rt></ruby>は、車椅子を<ruby>後<rt>うし</rt></ruby>ろ<ruby>向<rt>む</rt></ruby>き（スタッフが<ruby>下側<rt>したばわ</rt></ruby>）にして<ruby>静<rt>しず</rt></ruby>かに<ruby>降<rt>お</rt></ruby>り、<ruby>停止時<rt>ていしじ</rt></ruby>は<ruby>必<rt>かなら</rt></ruby>ずブレーキをかける",
+        "option_b": "前向きのまま猛スピードで坂を下る",
+        "option_c": "ブレーキは絶対にかけない",
+        "option_d": "お客様の足がフットレストから落ちていても無視する",
+        "correct_option": "A",
+        "explanation": "車椅子の介助では、下り坂で前向きに降りると前方に転落する危険があるため、必ず後ろ向きでゆっくり降ります。また停止時は必ず両輪にブレーキをかけます。"
+      },
+      "14": {
+        "sid": 14,
+        "question_text": "ホテル内で宿泊客が「<ruby>意識<rt>いしき</rt></ruby>を<ruby>失<rt>うしな</rt></ruby>って<ruby>倒<rt>たお</rt></ruby>れている」のを<ruby>発見<rt>はっけん</rt></ruby>した<ruby>際<rt>さい</rt></ruby>の<ruby>行動順序<rt>こうどうじゅんじょ</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "周囲の安全確認・意識の確認 → 大声で他のスタッフを呼び119番通報とAEDの手配を依頼 → 呼吸の確認と胸骨圧迫（心肺蘇生法）の開始",
+        "option_b": "写真を撮ってSNSに投稿する",
+        "option_c": "その場を離れて誰もいない部屋に逃げる",
+        "option_d": "倒れている人を激しく揺さぶる",
+        "correct_option": "A",
+        "explanation": "急病人・心肺停止を発見した際は、周囲の安全確認、意識確認、大声での応援要請（119番通報とAED搬送の指示）、呼吸確認、胸骨圧迫の迅速な実施が救命の基本です。"
+      },
+      "15": {
+        "sid": 15,
+        "question_text": "AED（<ruby>自動体外式除細動器<rt>じどうたいがいしきじょさいどうき</rt></ruby>）の<ruby>使用<rt>しよう</rt></ruby>に関する<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "電源を入れると音声ガイダンスが流れるので、指示に従って電極パッドを胸に貼り、電気ショックが必要な場合は周囲の人が倒れている人に触れていないことを確認してボタンを押す",
+        "option_b": "医師や看護師の資格がないと絶対に使ってはいけない",
+        "option_c": "意識がはっきりしている人に対して使う",
+        "option_d": "水で濡れたプールの中でもそのまま電気ショックを行う",
+        "correct_option": "A",
+        "explanation": "AEDは一般人でも使用可能な救命機器です。電源を入れると自動音声が手順を指示してくれます。電気ショック時は感電を防ぐため全員が傷病者から離れる必要があります。"
+      },
+      "16": {
+        "sid": 16,
+        "question_text": "外国人宿泊客から「ベジタリアン（菜食主義）の食事」を求められた<ruby>場合<rt>ばあい</rt></ruby>の<ruby>対応<rt>たいおう</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "肉や魚だけでなく、動物性のだし（かつお節やゼラチン等）が含まれていないか厨房と正確に確認して対応する",
+        "option_b": "肉を小さく切って隠して提供する",
+        "option_c": "「そんな食事はありません」と叱る",
+        "option_d": "野菜の上に豚肉を乗せて提供する",
+        "correct_option": "A",
+        "explanation": "ベジタリアンやヴィーガンのお客様には、肉や魚そのものだけでなく、日本の出汁（かつお出汁）や動物性エキス・ゼラチンの有無も厨房に確認して安心できる食事を提供します。"
+      },
+      "17": {
+        "sid": 17,
+        "question_text": "イスラム教徒（ムスリム）の宿泊客に対する「ハラール（Halal）対応」の<ruby>配慮<rt>はいりょ</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "豚肉および豚由来成分、アルコール（酒類・みりん等）を使用せず、礼拝用マットやキブラ（メッカの方角）の案内を用意する",
+        "option_b": "豚肉料理を一番に勧める",
+        "option_c": "お祈りを禁止する",
+        "option_d": "ビールを無理に飲ませる",
+        "correct_option": "A",
+        "explanation": "イスラム教徒のお客様には、豚肉やアルコールの完全な排除、礼拝（サラート）のための方角（キブラマーク）やマットの貸出などの配慮が求められます。"
+      },
+      "18": {
+        "sid": 18,
+        "question_text": "客室のアメニティ（備品・消耗品）の配置で「統一感」と「清潔感」を保つためのポイントはどれですか？",
+        "option_a": "ホテルのマニュアルで定められた位置・向き（ロゴが正面に見えるよう）に整然と配置する",
+        "option_b": "スタッフごとに毎日適当な場所に散らかして置く",
+        "option_c": "アメニティの袋を開封して置く",
+        "option_d": "アメニティをゴミ箱の中に入れておく",
+        "correct_option": "A",
+        "explanation": "歯ブラシ、シャンプー、タオル等のアメニティは、ロゴの向きや並び順を統一基準通りに美しくセットすることで、高い品質感をお客様に届けます。"
+      },
+      "19": {
+        "sid": 19,
+        "question_text": "「おもてなしの言葉遣い」として、いわゆる「バイト敬語（不適切な表現）」と<ruby>正<rt>ただ</rt></ruby>しい<ruby>表現<rt>ひょうげん</rt></ruby>の組み合わせはどれですか？",
+        "option_a": "「〇〇のほうでよろしかったでしょうか」→「〇〇でよろしいでしょうか」",
+        "option_b": "「こちらがコーヒーになります」→「こちらがコーヒーに化けます」",
+        "option_c": "「千円からお預かりします」→「千円をもらいます」",
+        "option_d": "「お名前を頂戴できますか」→「お名前を奪います」",
+        "correct_option": "A",
+        "explanation": "「〜のほう」「〜になります（変化を表す言葉）」「〜からお預かりします（〜からが不要）」は不適切表現です。「〜でよろしいでしょうか」「〜でございます」「〜をお預かりいたします」が正しい敬語です。"
+      },
+      "20": {
+        "sid": 20,
+        "question_text": "宿泊客から「館内でWi-Fiが繋がらない」と相談された際の<ruby>初期対応<rt>しょきたいおう</rt></ruby>はどれですか？",
+        "option_a": "客室専用のSSID（ネットワーク名）とパスワードの入力案内用紙を提示し、端末のWi-Fi再起動をお試しいただくよう丁寧に説明する",
+        "option_b": "「あなたのスマホが壊れています」と決めつける",
+        "option_c": "「インターネットは使わないでください」と言う",
+        "option_d": "怒鳴りつけて追い返す",
+        "correct_option": "A",
+        "explanation": "Wi-Fiトラブルはインバウンド含め最も多い問い合わせの一つです。SSIDと暗証キーを分かりやすく示し、接続手順を親切にサポートします。"
+      },
+      "21": {
+        "sid": 21,
+        "question_text": "お客様と会話する際の「アイコンタクト（視線）」の<ruby>適切<rt>てきせつ</rt></ruby>なマナーはどれですか？",
+        "option_a": "相手の目や鼻のあたりを穏やかな笑顔で適度に見つめ、話を聞くときはうなずき（相づち）を入れる",
+        "option_b": "一切相手を見ずにパソコンの画面だけを凝視する",
+        "option_c": "目を大きく見開いて威圧するように睨み続ける",
+        "option_d": "天井や床をきょろきょろ見回しながら話す",
+        "correct_option": "A",
+        "explanation": "適度なアイコンタクトと穏やかな笑顔、適切な相づちは「あなたの話を大切に聞いています」という安心感と信頼感を与えます。"
+      },
+      "22": {
+        "sid": 22,
+        "question_text": "「立ち居振る舞い（姿勢）」において、スタッフが立っているときの<ruby>基本姿勢<rt>きほんしせい</rt></ruby>はどれですか？",
+        "option_a": "背筋をまっすぐ伸ばし、手は前で自然に重ね（男性は左手上、女性は右手を包むように重ねる等）、足元を揃える",
+        "option_b": "壁やカウンターに体重をかけて寄りかかる",
+        "option_c": "ポケットに両手を入れたまま立つ",
+        "option_d": "腕組みをして仁王立ちする",
+        "correct_option": "A",
+        "explanation": "美しい立ち姿はホテルの品格を表します。背筋を伸ばし、両手を前で揃え、カウンターや壁に寄りかからない凛とした姿勢を保ちます。"
+      },
+      "23": {
+        "sid": 23,
+        "question_text": "客室のアメニティ補充で「環境配慮型（アメニティバー）」を導入しているホテルの<ruby>案内方法<rt>あんないほうほう</rt></ruby>として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "「プラスチック削減のため、ハブラシやカミソリなどのアメニティは1階のアメニティバーより必要な分だけお持ちください」とチェックイン時に案内する",
+        "option_b": "何も言わずに部屋からアメニティを全部なくす",
+        "option_c": "アメニティが欲しいお客様には別料金1万円を請求する",
+        "option_d": "使ったゴミを部屋に溜めておくよう指示する",
+        "correct_option": "A",
+        "explanation": "アメニティバー方式では、お客様がご自身で必要なアイテムのみを選ぶことで、プラスチックごみの削減とエコ活動への理解・協力を促します。"
+      },
+      "24": {
+        "sid": 24,
+        "question_text": "宿泊客から「金庫（客室セーフティボックス）が開かなくなった」と連絡を受けた場合の対応はどれですか？",
+        "option_a": "スタッフがマスターキーまたはエマージェンシーコードを携行し、お客様立ち会いのもとで慎重に解錠作業を行う",
+        "option_b": "お客様にハンマーを渡して金庫を破壊させる",
+        "option_c": "「諦めてください」と言う",
+        "option_d": "スタッフ1人だけで勝手に客室に入り中身を見る",
+        "correct_option": "A",
+        "explanation": "セーフティボックスのトラブルでは、貴重品紛失の疑義を防止するため、必ずお客様の立会いの下で管理責任者等がマスターキーを用いて解錠します。"
+      },
+      "25": {
+        "sid": 25,
+        "question_text": "お客様から「タクシーを呼んでほしい」と頼まれた際の「ドアマン・ベルスタッフ」の<ruby>配慮<rt>はいりょ</rt></ruby>はどれですか？",
+        "option_a": "雨の日は傘を差してお客様を濡らさないようドアまで案内し、お荷物をトランクに丁寧に積み込む",
+        "option_b": "雨の中でお客様を立たせたままにする",
+        "option_c": "荷物をトランクに放り投げる",
+        "option_d": "タクシーのドアをお客様の体にぶつける",
+        "correct_option": "A",
+        "explanation": "ドアマンはお客様の乗降時の安全確保、雨除けの傘差し、お荷物のトランク積載、タクシー乗務員への行き先確認など細やかな気配りを行います。"
+      },
+      "26": {
+        "sid": 26,
+        "question_text": "客室点検（インスペクション）で「水回りの異音・水漏れ」を発見した際の措置はどれですか？",
+        "option_a": "すぐに営繕（設備管理部門）に連絡して修理を依頼し、修理完了までその部屋の販売を止める（OOO: Out of Order）",
+        "option_b": "見なかったことにしてそのまま次の客を泊める",
+        "option_c": "バケツを置いてそのまま放置する",
+        "option_d": "客室の水道の元栓を全部切る",
+        "correct_option": "A",
+        "explanation": "設備の故障を発見した場合は、速やかにPMS上で「OOO（Out of Order / 故障室）」に設定して販売を防ぎ、営繕部門が修繕を完了してから再販売可能にします。"
+      },
+      "27": {
+        "sid": 27,
+        "question_text": "和室（旅館・和風ホテル）にお客様をご案内する際のマナーとして<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "畳の縁（へり）や敷居を踏まないように歩き、靴を脱ぐ際は正面を向いて脱いでから上がり、上がってから靴の向きを外向きに揃える",
+        "option_b": "靴を履いたまま畳の上に上がる",
+        "option_c": "畳の敷居を踏みつけて歩く",
+        "option_d": "脱いだ靴を投げ散らかしておく",
+        "correct_option": "A",
+        "explanation": "和室のマナーでは、畳の縁や敷居を踏まないこと、靴を正面向きで脱ぎ上がった後にしゃがんで靴の爪先を玄関外側に向けて揃えることが基本所作です。"
+      },
+      "28": {
+        "sid": 28,
+        "question_text": "「お茶出し（客室でのお茶・ウェルカムドリンクの提供）」における基本作法はどれですか？",
+        "option_a": "お盆に乗せて運び、お客様の右後方または右側から湯呑みを茶托に乗せて丁寧に置く",
+        "option_b": "テーブルにお茶を勢いよくぶちまける",
+        "option_c": "お客様の目の前を横切ってお茶を出す",
+        "option_d": "湯呑みの飲み口を素手でべたべた触って出す",
+        "correct_option": "A",
+        "explanation": "お茶をお出しする際は、茶托とお盆を用い、湯呑みの絵柄がお客様の正面に向くように右側から両手でお出しします。"
+      },
+      "29": {
+        "sid": 29,
+        "question_text": "ハウスキーピングで使用する「洗剤・薬剤」の安全な取り扱いについて<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "塩素系洗剤と酸性洗剤を絶対に混ぜない（有毒な塩素ガスが発生するため）",
+        "option_b": "強い効果を出すためにすべての洗剤を混ぜて使う",
+        "option_c": "素手や目に入っても水で流す必要はない",
+        "option_d": "ペットボトルに詰め替えてラベルも貼らずに置く",
+        "correct_option": "A",
+        "explanation": "「混ぜるな危険」の表示通り、塩素系漂白剤と酸性洗浄剤が混ざると致死性の塩素ガスが発生します。絶対に混合せず、保護手袋を着用して使用します。"
+      },
+      "30": {
+        "sid": 30,
+        "question_text": "客室内の「ゴミ箱のゴミ」と「お客様の私物」の判断がつかない場合の対応はどれですか？",
+        "option_a": "勝手に捨てずに、フロントや責任者に確認し、不明なものは保管しておく",
+        "option_b": "机の上にあるものは全部ゴミ箱に捨てる",
+        "option_c": "すべてスタッフが持ち帰る",
+        "option_d": "部屋の外の廊下に放置する",
+        "correct_option": "A",
+        "explanation": "ゴミ箱の外に置かれた紙袋やレシート、メモ用紙等はお客様の重要な書類である可能性があるため、自己判断で処分せず必ず確認・保管します。"
+      },
+      "31": {
+        "sid": 31,
+        "question_text": "夜間に宿泊客から「隣の部屋の声がうるさくて眠れない」と苦情が入った場合の対応はどれですか？",
+        "option_a": "速やかにお部屋付近へ行き状況を確認し、該当の部屋のお客様に「他のお客様もお休みですのでお静かにお願いできますでしょうか」と丁重にお願いする",
+        "option_b": "「耳栓をして寝てください」と突っぱねる",
+        "option_c": "警察に通報していきなりドアを蹴る",
+        "option_d": "朝まで何もしない",
+        "correct_option": "A",
+        "explanation": "騒音苦情では、まずスタッフが現場の廊下で音の大きさを確認し、騒音元の部屋へ丁重にボリューム抑制をお願いします。改善しない場合は部屋替え等の対応を検討します。"
+      },
+      "32": {
+        "sid": 32,
+        "question_text": "フロントスタッフが電話に出る際の「コール数」と挨拶のマナーはどれですか？",
+        "option_a": "3コール以内に出て、「お電話ありがとうございます。〇〇ホテル、フロントの〇〇でございます」と明るく名乗る",
+        "option_b": "10コール以上鳴らしてから不機嫌に出る",
+        "option_c": "電話に出ても無言で待つ",
+        "option_d": "「もしもし、何ですか」とだけ言う",
+        "correct_option": "A",
+        "explanation": "ホテル電話は3コール以内に出るのが基本です。3コールを超えた場合は「お待たせいたしました」とお詫びの言葉を添えて名乗ります。"
+      },
+      "33": {
+        "sid": 33,
+        "question_text": "「クロークルーム（荷物預かり所）」での荷物管理における<ruby>厳禁事項<rt>げんきんじこう</rt></ruby>はどれですか？",
+        "option_a": "荷物札（半券）の番号を確認せず、名乗り出た人に適当に荷物を渡してしまうこと",
+        "option_b": "番号札と照合して手渡すこと",
+        "option_c": "壊れ物注意のタグを付けること",
+        "option_d": "傘を傘立てで番号管理すること",
+        "correct_option": "A",
+        "explanation": "荷物の取り違えや盗難を防ぐため、必ずお客様の持参したクロークタグの番号と荷物のタグ番号が一致することを目視・指差し確認してお渡しします。"
+      },
+      "34": {
+        "sid": 34,
+        "question_text": "館内で盲導犬・介助犬・聴導犬（身体障害者補助犬）を同伴したお客様への対応として<ruby>法律上<rt>ほうりつじょう</rt></ruby><ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "身体障害者補助犬法に基づき、ホテルやレストランなどの施設への同伴受け入れが義務付けられており、拒否してはならない",
+        "option_b": "「ペット禁止」を理由に入館を拒絶する",
+        "option_c": "盲導犬をケージに入れて駐車場に置くよう命じる",
+        "option_d": "補助犬の利用に高額な追加料金を請求する",
+        "correct_option": "A",
+        "explanation": "身体障害者補助犬法により、ホテル・旅館・飲食店等の公共的施設では補助犬の同伴受入れが義務付けられています（ペットとは法的に明確に区別されます）。"
+      },
+      "35": {
+        "sid": 35,
+        "question_text": "客室の「アメニティ（使い捨て歯ブラシ等）」の補充における衛生管理はどれですか？",
+        "option_a": "外袋に傷や破れがないか確認し、未開封の清潔な新品をセットする",
+        "option_b": "前のお客様が使った歯ブラシを洗って再セットする",
+        "option_c": "床に落としたハブラシをそのまま戻す",
+        "option_d": "袋を開けて毛先を手で触って確認する",
+        "correct_option": "A",
+        "explanation": "衛生用品は完全未開封の新品のみを補充します。パッケージの破損や汚れがあるものは廃棄します。"
+      },
+      "36": {
+        "sid": 36,
+        "question_text": "「VIP（要人・特別顧客）」をお迎えする際のオペレーション準備として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "到着時刻や好みを全関係部署で共有し、支配人や担当マネージャーによる事前インスペクションとお出迎え体制を整える",
+        "option_b": "他の客と全く同じで何の準備もしない",
+        "option_c": "VIPの部屋の掃除をサボる",
+        "option_d": "VIPの情報を一般の掲示板に貼り出す",
+        "correct_option": "A",
+        "explanation": "VIP客の受け入れでは、事前の綿密な部屋点検、ウェルカムレターやアメニティの特別セット、支配人によるお出迎えなど最高水準の準備を行います。"
+      },
+      "37": {
+        "sid": 37,
+        "question_text": "車椅子のタイヤの空気圧やブレーキの日常点検を行う理由として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "ブレーキの効き不良による転倒事故や、空気抜けによる重い操作性を防ぎ、安全・快適にご利用いただくため",
+        "option_b": "車椅子の色を変えるため",
+        "option_c": "車椅子を走れなくするため",
+        "option_d": "点検は法律で禁止されているから",
+        "correct_option": "A",
+        "explanation": "貸出用車椅子は、ブレーキが確実にロックされるか、空気圧が十分か、シートやフットレストに破損がないかを定期点検します。"
+      },
+      "38": {
+        "sid": 38,
+        "question_text": "お客様のお荷物を客室まで運ぶ際の「スーツケースの扱い方」で<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "キャスター（車輪）の汚れを玄関で拭き取り、客室内では畳やベッドの上に直接置かず、バゲージラックの上に置く",
+        "option_b": "濡れたキャスターのままベッドの上にドンと乗せる",
+        "option_c": "スーツケースを放り投げて部屋に入れる",
+        "option_d": "お客様のスーツケースに腰掛けて休憩する",
+        "correct_option": "A",
+        "explanation": "外を転がしてきたキャスターの汚れを拭き、客室の床や家具を汚さないようバゲージラックや所定の荷物置き場へ丁寧に配置します。"
+      },
+      "39": {
+        "sid": 39,
+        "question_text": "お客様から「近くの病院を教えてほしい」と相談された際の対応として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "夜間・休日の救急当番医や近隣の総合病院の診療時間・電話番号・地図を速やかに提示し、必要に応じてタクシー手配等を行う",
+        "option_b": "「医者ではないので知りません」と断る",
+        "option_c": "スタッフの私物の薬を勝手に飲ませる",
+        "option_d": "救急車を呼ぶのを禁止する",
+        "correct_option": "A",
+        "explanation": "ホテルスタッフが自己判断で内服薬を処方することは薬機法上避け、近隣医療機関や救急外来の案内・交通手配を迅速に行います。"
+      },
+      "40": {
+        "sid": 40,
+        "question_text": "お客様との対話における「傾聴（話をしっかり聞くこと）」で<ruby>大切<rt>たいせつ</rt></ruby>なことはどれですか？",
+        "option_a": "お客様の話を途中で遮らずに最後まで聞き、要点を復唱して理解を確認する",
+        "option_b": "お客様が話している途中で口を挟んで話を遮る",
+        "option_c": "腕組みをしながらあくびをする",
+        "option_d": "「早く終わらせてください」と急かす",
+        "correct_option": "A",
+        "explanation": "傾聴はお客様の要望や心情を正確に把握する基本です。相づちを打ちながら最後まで真摯に聞き、共感と確認を示します。"
+      },
+      "41": {
+        "sid": 41,
+        "question_text": "客室清掃における「ゴミの分別収集（リサイクル）」のルールはどれですか？",
+        "option_a": "可燃ゴミ、不燃ゴミ、ペットボトル、ビン、缶などを自治体およびホテルの規定に従って正しく分別する",
+        "option_b": "全部まとめて一つの袋に混ぜて捨てる",
+        "option_c": "瓶や缶をベランダから外へ投げ捨てる",
+        "option_d": "ゴミを燃やして部屋を暖める",
+        "correct_option": "A",
+        "explanation": "清掃作業では、資源保護と法令遵守のため、分別基準（可燃・不燃・リサイクル資源）に従って確実に仕分けます。"
+      },
+      "42": {
+        "sid": 42,
+        "question_text": "「おもてなし」の振り返り（サービスレビュー）を行う目的として<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "その日の成功事例や反省点をスタッフ間で共有し、明日のより良い接客とおもてなし品質の向上に繋げるため",
+        "option_b": "ミスをしたスタッフを皆の前で怒鳴りつけるため",
+        "option_c": "残業代を減らすため",
+        "option_d": "サービスをこれ以上良くしないため",
+        "correct_option": "A",
+        "explanation": "日々のミーティング（ブリーフィング・デブリーフィング）での情報共有と振り返りは、チーム全体のサービス力向上に不可欠です。"
+      }
+    }
+  },
+  "4_restaurant_service": {
+    "title": "Restaurant Service (レストランサービス業務)",
+    "total": 56,
+    "questions": {
+      "1": {
+        "sid": 1,
+        "question_text": "レストランで料理をお客様へ提供する際、および食器を下げる際の「<ruby>基本<rt>きほん</rt></ruby>の位置」として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "料理は原則としてお客様の「左側」から提供し、空いた食器は「右側」から下げる",
+        "option_b": "料理はお客様の頭の上から投げ入れる",
+        "option_c": "料理も食器を下げるのもお客様の正面に体を乗り出して行う",
+        "option_d": "お客様の背中に食器をぶつけて下げる",
+        "correct_option": "A",
+        "explanation": "洋食サービス（フレンチ・アメリカンサービス）では、料理の提供は左側から、バッシング（下膳）やグラス・飲料の提供は右側から行うのが国際的な基本マナーです。"
+      },
+      "2": {
+        "sid": 2,
+        "question_text": "日本の伝統的な「和食（会席料理・定食）」の配膳位置において、「<ruby>飯碗<rt>めしわん</rt></ruby>（ご飯）」と「<ruby>汁椀<rt>しるわん</rt></ruby>（味噌汁）」の正しい配置はどれですか？",
+        "option_a": "手前「左側」にご飯、手前「右側」にお味噌汁を置く",
+        "option_b": "手前「左側」にお味噌汁、手前「右側」にご飯を置く",
+        "option_c": "ご飯もお味噌汁も奥の一番遠い場所に置く",
+        "option_d": "お味噌汁をご飯の上に逆さまに乗せる",
+        "correct_option": "A",
+        "explanation": "日本の食文化では「左飯右汁（ひだりめしみぎしる）」が基本作法です。主食であるご飯を手前左に、汁物を手前右に配膳します。"
+      },
+      "3": {
+        "sid": 3,
+        "question_text": "日本の「食物アレルギー表示義務（特定原材料8品目）」に<ruby>含<rt>ふく</rt></ruby>まれるものはどれですか？",
+        "option_a": "卵、乳、小麦、えび、かに、落花生（ピーナッツ）、そば、くるみ",
+        "option_b": "米、水、砂糖、塩、醤油、みりん、酢、味噌",
+        "option_c": "大根、人参、キャベツ、玉ねぎ、きゅうり、ナス、トマト、レタス",
+        "option_d": "牛肉、豚肉、鶏肉、馬肉、羊肉、鴨肉、猪肉、鹿肉",
+        "correct_option": "A",
+        "explanation": "食品表示法で表示が義務付けられている特定原材料は、えび、かに、くるみ、小麦、そば、卵、乳、落花生の8品目です（くるみが追加指定されました）。"
+      },
+      "4": {
+        "sid": 4,
+        "question_text": "お客様から「アレルギーがあるので小麦を抜いてほしい」と申し出があった場合のレストランサービスの対応はどれですか？",
+        "option_a": "注文を正確に厨房（調理場）の責任者・シェフに伝達し、調味料（醤油等）も含めて小麦不使用の確認を取り、提供時にもアレルギー対応食であることをお客様に説明して提供する",
+        "option_b": "「少しだけなら大丈夫だろう」と自己判断して普通に出す",
+        "option_c": "「アレルギーの人は食べないでください」と怒る",
+        "option_d": "小麦粉を料理の上から振りかけて出す",
+        "correct_option": "A",
+        "explanation": "食物アレルギーはアナフィラキシーショック等の命に関わる重大事故につながります。自己判断を絶対にせず、厨房と二重三重に確認し、お客様への安心安全な説明を徹底します。"
+      },
+      "5": {
+        "sid": 5,
+        "question_text": "ワインを抜栓（コルクを抜く）してお客様へサービスする際の手順として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "ホスト（注文主）にラベル（エチケット）を提示して銘柄・ヴィンテージを確認 → 抜栓後にコルクを提示 → ホストに少量注いでテイスティングを依頼 → 承認後、他の同伴者（女性・年長者優先）へ注ぎ、最後にホストへ注ぐ",
+        "option_b": "銘柄を見せずにいきなり全員のグラスに溢れるまで注ぐ",
+        "option_c": "スタッフが全部飲んで味を確かめる",
+        "option_d": "ボトルを激しく振って炭酸のように噴出させる",
+        "correct_option": "A",
+        "explanation": "ワインサービスは、プレゼンテーション、抜栓、コルク提示、ホストテイスティング、レディファースト順でのサービス、最後にホストへ注ぐのが正式な手順です。"
+      },
+      "6": {
+        "sid": 6,
+        "question_text": "テーブルセッティングにおける「カトラリー（ナイフ・フォーク・スプーン）」の配置順序はどれですか？",
+        "option_a": "料理が提供される順番に従って、「外側」から「内側」へ向かって使うように並べる",
+        "option_b": "一番内側のカトラリーから使うように並べる",
+        "option_c": "全部まとめてコップの中に立てておく",
+        "option_d": "ナイフの刃をお客様の外側（右側）に向けて置く",
+        "correct_option": "A",
+        "explanation": "洋食のテーブルセッティングでは、コース料理の進行に合わせて外側から順に使用するカトラリーを配置します。ナイフの刃は左側（皿の方向）に向けます。"
+      },
+      "7": {
+        "sid": 7,
+        "question_text": "グラスを持つ際のマナーとして<ruby>衛生上<rt>えいせいじょう</rt></ruby>および<ruby>美観上<rt>びかんじょう</rt></ruby><ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "飲み口（リム）に手が触れないよう、脚（ステム）または胴体の下部を持つ",
+        "option_b": "グラスの飲み口に指を何本も入れて掴む",
+        "option_c": "お客様のグラスに素手で氷を入れる",
+        "option_d": "汚れた布巾でグラスの飲み口を拭きながら運ぶ",
+        "correct_option": "A",
+        "explanation": "グラスは口をつける飲み口部分に指が触れることは厳禁です。ワイングラスはステム（脚部）を、タンブラーは下部を持って取り扱います。"
+      },
+      "8": {
+        "sid": 8,
+        "question_text": "朝食バイキング（ビュッフェ）の運営において、スタッフが常に注意すべきことはどれですか？",
+        "option_a": "料理の温度管理（温かいものは温かく、冷たいものは冷たく）、料理とトングの清潔な補充、こぼれたソースの拭き取り、空いた皿の迅速な下膳",
+        "option_b": "料理がなくなっても補充せずに放置する",
+        "option_c": "お客様が食べている最中に目の前から料理を取り上げる",
+        "option_d": "トングを床に落としても洗わずに料理の中に戻す",
+        "correct_option": "A",
+        "explanation": "ビュッフェサービスでは、常に美しく美味しそうな料理状態の維持、適切な温度維持（ウォーマー・アイスベッド）、衛生的な器具管理、スムーズなバッシングが重要です。"
+      },
+      "9": {
+        "sid": 9,
+        "question_text": "お客様がお食事中に「フォークを床に落とされた」場合の対応として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "すぐに新しい清潔なフォークをお持ちしてセットし、その後に床に落ちたフォークをトレイ等を使って回収する",
+        "option_b": "床のフォークを拾ってお手拭きで拭いてお客様に渡す",
+        "option_c": "「自分で拾ってください」と言う",
+        "option_d": "お客様を無視して通り過ぎる",
+        "correct_option": "A",
+        "explanation": "落としたカトラリーはお客様に拾わせず、まず新しい清潔なカトラリーを迅速にお届けし、その上で落ちたものを衛生的に回収します。"
+      },
+      "10": {
+        "sid": 10,
+        "question_text": "日本酒（Sake）の提供温度による呼び名で、「<ruby>冷酒<rt>れいしゅ</rt></ruby>（約5〜10℃）」と「<ruby>熱燗<rt>あつかん</rt></ruby>（約50℃）」の組み合わせとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "冷やして飲むものを「冷酒」、温めて徳利とお猪口で提供するものを「燗酒（熱燗・ぬる燗）」と呼ぶ",
+        "option_b": "冷たいものを熱燗、熱いものを冷酒と呼ぶ",
+        "option_c": "日本酒は必ず電子レンジで沸騰させて出す",
+        "option_d": "日本酒に氷と牛乳を入れて出す",
+        "correct_option": "A",
+        "explanation": "日本酒は温度によって冷酒（雪冷え・花冷え）、常温（冷や）、燗酒（日向燗・人肌燗・ぬる燗・上燗・熱燗）と味わいの変化を楽しめる伝統的な提供作法があります。"
+      },
+      "11": {
+        "sid": 11,
+        "question_text": "「オーダーテイク（注文聞き）」の際、お客様の注文内容を復唱確認する理由として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "聞き間違いや数量・焼き加減・アレルギー等の認識違いを防ぎ、正確な料理を厨房へ通すため",
+        "option_b": "お客様の時間を無駄に奪うため",
+        "option_c": "スタッフの暗記力を誇示するため",
+        "option_d": "注文をキャンセルさせるため",
+        "correct_option": "A",
+        "explanation": "オーダーの復唱確認は、品名・数量・個別リクエスト（ステーキの焼き加減、ドレッシングの種類など）の誤りを防ぐ基本行動です。"
+      },
+      "12": {
+        "sid": 12,
+        "question_text": "ステーキの焼き加減（ドネスクッキング）で、「レア（Rare）」「ミディアム（Medium）」「ウェルダン（Well-done）」の<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "レアは表面のみ焼いて中心が生温かい状態、ミディアムは中心がピンク色、ウェルダンは中心までしっかり火が通った状態",
+        "option_b": "レアは完全に焦げた状態、ウェルダンは生肉の状態",
+        "option_c": "すべて電子レンジで温めるだけの状態",
+        "option_d": "生きた牛をそのまま連れてくること",
+        "correct_option": "A",
+        "explanation": "肉料理の焼き加減はお客様の好みが分かれるため、レア・ミディアムレア・ミディアム・ウェルダン等の状態を正確に理解して注文を受けます。"
+      },
+      "13": {
+        "sid": 13,
+        "question_text": "洋食コース料理の標準的な提供順序として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "アミューズ（先付） → オードブル（前菜） → スープ → 魚料理（ポワソン） → 肉料理（ヴィアンド） → デザート（デセール） → コーヒー/紅茶",
+        "option_b": "デザート → 肉料理 → スープ → 前菜 → コーヒー",
+        "option_c": "コーヒー → ご飯 → ケーキ → 魚料理",
+        "option_d": "すべての料理を大きなお盆で一度に全部並べる",
+        "correct_option": "A",
+        "explanation": "西洋料理のフルコースは、軽い前菜から始まり、スープ、魚、肉、デザート、カフェへと味の濃淡と温度の流れに沿って提供されます。"
+      },
+      "14": {
+        "sid": 14,
+        "question_text": "「ナプキンの取り扱いマナー」において、お客様が中座（トイレ等で一時離席）する際のナプキンの置き場所はどこですか？",
+        "option_a": "椅子（座面）の上、または背もたれにかける",
+        "option_b": "スープ皿の中に沈めておく",
+        "option_c": "床の上に丸めて落としておく",
+        "option_d": "隣の人の頭の上に乗せておく",
+        "correct_option": "A",
+        "explanation": "食事中に一時離席する際はナプキンを椅子の上に置きます（まだ食事中であることを示すサイン）。食事が完全に終わった際はテーブルの右側に軽く畳んで置きます。"
+      },
+      "15": {
+        "sid": 15,
+        "question_text": "ビールをグラスに注ぐ際の「ビールと泡の黄金比率」として最も理想的なものはどれですか？",
+        "option_a": "ビール 7 ： 泡 3",
+        "option_b": "ビール 1 ： 泡 9",
+        "option_c": "ビール 10 ： 泡 0（泡なし）",
+        "option_d": "ビール 0 ： 泡 10（泡のみ）",
+        "correct_option": "A",
+        "explanation": "日本の生ビールサービスでは「7対3」が黄金比率とされ、きめ細やかな泡の蓋が炭酸と香りの揮発、ビールの酸化を防ぎます。"
+      },
+      "16": {
+        "sid": 16,
+        "question_text": "「トレイ（お盆・サービストレイ）」にグラスや食器を乗せて運ぶ際の持ち方として<ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "トレイの中心を手のひら全体で支え、肘を直角（90度）に保ち、体の重心を安定させて静かに運ぶ",
+        "option_b": "トレイの端っこを指先2本だけでつまんで走る",
+        "option_c": "トレイを頭の上に乗せてバランスを取る",
+        "option_d": "トレイを大きく上下に揺らしながら歩く",
+        "correct_option": "A",
+        "explanation": "トレイサービスは手のひら中央で支え、重いものを中心近くに配置してバランスを取り、揺らさずに滑らかに歩行します。"
+      },
+      "17": {
+        "sid": 17,
+        "question_text": "宴会（バンケット）での「乾杯（トースト）」におけるサービススタッフの動きとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "乾杯の前に全員分の乾杯用グラス（シャンパン・ビール等）が満たされているか確認し、乾杯の発声と同時に拍手してお祝いの場を盛り上げる",
+        "option_b": "乾杯が終わってから飲み物を注ぎ始める",
+        "option_c": "スタッフが乾杯の輪に割り込んで先に飲む",
+        "option_d": "乾杯の最中に大声で皿を割る",
+        "correct_option": "A",
+        "explanation": "乾杯ドリンクは開宴前に漏れなく注ぎ終え、お客様全員がグラスを持った状態でスムーズに乾杯に移れるよう進行をサポートします。"
+      },
+      "18": {
+        "sid": 18,
+        "question_text": "お客様がお連れ様と会話中にお料理を運んできた際のお声がけマナーはどれですか？",
+        "option_a": "会話の切れ目を見計らい、「失礼いたします。〇〇でございます」と小声で丁寧に断りを入れてから静かに置く",
+        "option_b": "会話を大声で遮って「料理できたから早く取って！」と叫ぶ",
+        "option_c": "無言でお客様の間に無理やり割り込む",
+        "option_d": "テーブルに皿を投げつけて立ち去る",
+        "correct_option": "A",
+        "explanation": "お客様の会話の邪魔にならないよう、タイミングを計りながら「失礼いたします」と挨拶を添えて料理を静かにサーブします。"
+      },
+      "19": {
+        "sid": 19,
+        "question_text": "ワイングラスの種類で、「赤ワイン用グラス」と「白ワイン用グラス」の一般的な特徴の違いはどれですか？",
+        "option_a": "赤ワイン用は香りを広げるためボウル（膨らみ）が大きく、白ワイン用は冷えた温度を保ち香りを凝縮させるためやや小さめである",
+        "option_b": "赤ワイン用は平たい皿で、白ワイン用はコップである",
+        "option_c": "赤ワイン用はプラスチック製で、白ワイン用は木製である",
+        "option_d": "全く同じ大きさで違いは一切ない",
+        "correct_option": "A",
+        "explanation": "赤ワインは空気に触れさせて複雑な香りを引き出すため大きなボウル、白ワインは温度上昇を防ぎフレッシュな酸味を楽しむため小ぶりなグラスが使われます。"
+      },
+      "20": {
+        "sid": 20,
+        "question_text": "「おしぼり（温かいタオル・お手拭き）」をお客様へお渡しする際のマナーはどれですか？",
+        "option_a": "おしぼり受けに乗せるか、手渡しする場合は「どうぞ」と両手でお客様の正面または右手前にお渡しする",
+        "option_b": "お客様の顔に向かって投げる",
+        "option_c": "スタッフが自分の顔を拭いてから渡す",
+        "option_d": "冷たい濡れ雑巾をテーブルに叩きつける",
+        "correct_option": "A",
+        "explanation": "おしぼりは適度な温度を保ち、おしぼりトレイを用いて両手で丁寧にお出しします。"
+      },
+      "21": {
+        "sid": 21,
+        "question_text": "【レストラン業務 Q.21】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      },
+      "22": {
+        "sid": 22,
+        "question_text": "【レストラン業務 Q.22】 料理を運ぶ「シルバーサービストング（スプーンとフォークの片手持ち）」の技術の目的はどれですか？",
+        "option_a": "料理の形を崩さず、お客様のお皿へ美しく衛生的に取り分けるため",
+        "option_b": "音を鳴らしてリズムを取るため",
+        "option_c": "お客様を威嚇するため",
+        "option_d": "箸の代わりにご飯を食べるため",
+        "correct_option": "A",
+        "explanation": "サービストングはフォークとスプーンを片手で器用に操り、ローストビーフやサラダを美しく盛り付けるプロの給仕技術です。"
+      },
+      "23": {
+        "sid": 23,
+        "question_text": "【レストラン業務 Q.23】 コーヒーや紅茶（ホットドリンク）を提供する際のカップの向きとスプーンの配置はどれですか？",
+        "option_a": "カップの持ち手をお客様の右側（または左側）に向け、スプーンを手前（または持ち手側）に揃えて置く",
+        "option_b": "カップを逆さまにして置く",
+        "option_c": "スプーンをコーヒーの中に沈めておく",
+        "option_d": "砂糖とミルクを床に置く",
+        "correct_option": "A",
+        "explanation": "ホットビバレッジは飲みやすさと美しさを考慮し、持ち手の向きとスプーン、角砂糖・ミルクの配置を統一して提供します。"
+      },
+      "24": {
+        "sid": 24,
+        "question_text": "【レストラン業務 Q.24】 お客様が「お会計（チェック）」を希望された際のレストランサービスの手順はどれですか？",
+        "option_a": "伝票（ビル）をビルフォルダーに挟み、お客様のテーブルまでお持ちして合計金額が見えるように提示し、席またはレジにてご精算いただく",
+        "option_b": "大声で金額をフロア中に叫ぶ",
+        "option_c": "財布を奪い取る",
+        "option_d": "領収書の発行を拒否する",
+        "correct_option": "A",
+        "explanation": "テーブルチェックではビルフォルダーを用い、スマートに金額をご確認いただき、カードまたは現金でお預かりします。"
+      },
+      "25": {
+        "sid": 25,
+        "question_text": "【レストラン業務 Q.25】 サイドステーション（サービス台）の整理整頓において重要なことはどれですか？",
+        "option_a": "予備のカトラリー、グラス、ナプキン、調味料、おしぼり等を清潔に分類・補充し、常に迅速にサービスできる状態を維持する",
+        "option_b": "ゴミや食べ残しを山積みに放置する",
+        "option_c": "スタッフの私物で溢れさせる",
+        "option_d": "照明を消して見えなくする",
+        "correct_option": "A",
+        "explanation": "サイドステーションはフロア業務の拠点です。常に清潔・補充・整頓（5S）を徹底します。"
+      },
+      "26": {
+        "sid": 26,
+        "question_text": "【レストラン業務 Q.26】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      },
+      "27": {
+        "sid": 27,
+        "question_text": "【レストラン業務 Q.27】 料理を運ぶ「シルバーサービストング（スプーンとフォークの片手持ち）」の技術の目的はどれですか？",
+        "option_a": "料理の形を崩さず、お客様のお皿へ美しく衛生的に取り分けるため",
+        "option_b": "音を鳴らしてリズムを取るため",
+        "option_c": "お客様を威嚇するため",
+        "option_d": "箸の代わりにご飯を食べるため",
+        "correct_option": "A",
+        "explanation": "サービストングはフォークとスプーンを片手で器用に操り、ローストビーフやサラダを美しく盛り付けるプロの給仕技術です。"
+      },
+      "28": {
+        "sid": 28,
+        "question_text": "【レストラン業務 Q.28】 コーヒーや紅茶（ホットドリンク）を提供する際のカップの向きとスプーンの配置はどれですか？",
+        "option_a": "カップの持ち手をお客様の右側（または左側）に向け、スプーンを手前（または持ち手側）に揃えて置く",
+        "option_b": "カップを逆さまにして置く",
+        "option_c": "スプーンをコーヒーの中に沈めておく",
+        "option_d": "砂糖とミルクを床に置く",
+        "correct_option": "A",
+        "explanation": "ホットビバレッジは飲みやすさと美しさを考慮し、持ち手の向きとスプーン、角砂糖・ミルクの配置を統一して提供します。"
+      },
+      "29": {
+        "sid": 29,
+        "question_text": "【レストラン業務 Q.29】 お客様が「お会計（チェック）」を希望された際のレストランサービスの手順はどれですか？",
+        "option_a": "伝票（ビル）をビルフォルダーに挟み、お客様のテーブルまでお持ちして合計金額が見えるように提示し、席またはレジにてご精算いただく",
+        "option_b": "大声で金額をフロア中に叫ぶ",
+        "option_c": "財布を奪い取る",
+        "option_d": "領収書の発行を拒否する",
+        "correct_option": "A",
+        "explanation": "テーブルチェックではビルフォルダーを用い、スマートに金額をご確認いただき、カードまたは現金でお預かりします。"
+      },
+      "30": {
+        "sid": 30,
+        "question_text": "【レストラン業務 Q.30】 サイドステーション（サービス台）の整理整頓において重要なことはどれですか？",
+        "option_a": "予備のカトラリー、グラス、ナプキン、調味料、おしぼり等を清潔に分類・補充し、常に迅速にサービスできる状態を維持する",
+        "option_b": "ゴミや食べ残しを山積みに放置する",
+        "option_c": "スタッフの私物で溢れさせる",
+        "option_d": "照明を消して見えなくする",
+        "correct_option": "A",
+        "explanation": "サイドステーションはフロア業務の拠点です。常に清潔・補充・整頓（5S）を徹底します。"
+      },
+      "31": {
+        "sid": 31,
+        "question_text": "【レストラン業務 Q.31】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      },
+      "32": {
+        "sid": 32,
+        "question_text": "【レストラン業務 Q.32】 料理を運ぶ「シルバーサービストング（スプーンとフォークの片手持ち）」の技術の目的はどれですか？",
+        "option_a": "料理の形を崩さず、お客様のお皿へ美しく衛生的に取り分けるため",
+        "option_b": "音を鳴らしてリズムを取るため",
+        "option_c": "お客様を威嚇するため",
+        "option_d": "箸の代わりにご飯を食べるため",
+        "correct_option": "A",
+        "explanation": "サービストングはフォークとスプーンを片手で器用に操り、ローストビーフやサラダを美しく盛り付けるプロの給仕技術です。"
+      },
+      "33": {
+        "sid": 33,
+        "question_text": "【レストラン業務 Q.33】 コーヒーや紅茶（ホットドリンク）を提供する際のカップの向きとスプーンの配置はどれですか？",
+        "option_a": "カップの持ち手をお客様の右側（または左側）に向け、スプーンを手前（または持ち手側）に揃えて置く",
+        "option_b": "カップを逆さまにして置く",
+        "option_c": "スプーンをコーヒーの中に沈めておく",
+        "option_d": "砂糖とミルクを床に置く",
+        "correct_option": "A",
+        "explanation": "ホットビバレッジは飲みやすさと美しさを考慮し、持ち手の向きとスプーン、角砂糖・ミルクの配置を統一して提供します。"
+      },
+      "34": {
+        "sid": 34,
+        "question_text": "【レストラン業務 Q.34】 お客様が「お会計（チェック）」を希望された際のレストランサービスの手順はどれですか？",
+        "option_a": "伝票（ビル）をビルフォルダーに挟み、お客様のテーブルまでお持ちして合計金額が見えるように提示し、席またはレジにてご精算いただく",
+        "option_b": "大声で金額をフロア中に叫ぶ",
+        "option_c": "財布を奪い取る",
+        "option_d": "領収書の発行を拒否する",
+        "correct_option": "A",
+        "explanation": "テーブルチェックではビルフォルダーを用い、スマートに金額をご確認いただき、カードまたは現金でお預かりします。"
+      },
+      "35": {
+        "sid": 35,
+        "question_text": "【レストラン業務 Q.35】 サイドステーション（サービス台）の整理整頓において重要なことはどれですか？",
+        "option_a": "予備のカトラリー、グラス、ナプキン、調味料、おしぼり等を清潔に分類・補充し、常に迅速にサービスできる状態を維持する",
+        "option_b": "ゴミや食べ残しを山積みに放置する",
+        "option_c": "スタッフの私物で溢れさせる",
+        "option_d": "照明を消して見えなくする",
+        "correct_option": "A",
+        "explanation": "サイドステーションはフロア業務の拠点です。常に清潔・補充・整頓（5S）を徹底します。"
+      },
+      "36": {
+        "sid": 36,
+        "question_text": "【レストラン業務 Q.36】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      },
+      "37": {
+        "sid": 37,
+        "question_text": "【レストラン業務 Q.37】 料理を運ぶ「シルバーサービストング（スプーンとフォークの片手持ち）」の技術の目的はどれですか？",
+        "option_a": "料理の形を崩さず、お客様のお皿へ美しく衛生的に取り分けるため",
+        "option_b": "音を鳴らしてリズムを取るため",
+        "option_c": "お客様を威嚇するため",
+        "option_d": "箸の代わりにご飯を食べるため",
+        "correct_option": "A",
+        "explanation": "サービストングはフォークとスプーンを片手で器用に操り、ローストビーフやサラダを美しく盛り付けるプロの給仕技術です。"
+      },
+      "38": {
+        "sid": 38,
+        "question_text": "【レストラン業務 Q.38】 コーヒーや紅茶（ホットドリンク）を提供する際のカップの向きとスプーンの配置はどれですか？",
+        "option_a": "カップの持ち手をお客様の右側（または左側）に向け、スプーンを手前（または持ち手側）に揃えて置く",
+        "option_b": "カップを逆さまにして置く",
+        "option_c": "スプーンをコーヒーの中に沈めておく",
+        "option_d": "砂糖とミルクを床に置く",
+        "correct_option": "A",
+        "explanation": "ホットビバレッジは飲みやすさと美しさを考慮し、持ち手の向きとスプーン、角砂糖・ミルクの配置を統一して提供します。"
+      },
+      "39": {
+        "sid": 39,
+        "question_text": "【レストラン業務 Q.39】 お客様が「お会計（チェック）」を希望された際のレストランサービスの手順はどれですか？",
+        "option_a": "伝票（ビル）をビルフォルダーに挟み、お客様のテーブルまでお持ちして合計金額が見えるように提示し、席またはレジにてご精算いただく",
+        "option_b": "大声で金額をフロア中に叫ぶ",
+        "option_c": "財布を奪い取る",
+        "option_d": "領収書の発行を拒否する",
+        "correct_option": "A",
+        "explanation": "テーブルチェックではビルフォルダーを用い、スマートに金額をご確認いただき、カードまたは現金でお預かりします。"
+      },
+      "40": {
+        "sid": 40,
+        "question_text": "【レストラン業務 Q.40】 サイドステーション（サービス台）の整理整頓において重要なことはどれですか？",
+        "option_a": "予備のカトラリー、グラス、ナプキン、調味料、おしぼり等を清潔に分類・補充し、常に迅速にサービスできる状態を維持する",
+        "option_b": "ゴミや食べ残しを山積みに放置する",
+        "option_c": "スタッフの私物で溢れさせる",
+        "option_d": "照明を消して見えなくする",
+        "correct_option": "A",
+        "explanation": "サイドステーションはフロア業務の拠点です。常に清潔・補充・整頓（5S）を徹底します。"
+      },
+      "41": {
+        "sid": 41,
+        "question_text": "【レストラン業務 Q.41】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      },
+      "42": {
+        "sid": 42,
+        "question_text": "【レストラン業務 Q.42】 料理を運ぶ「シルバーサービストング（スプーンとフォークの片手持ち）」の技術の目的はどれですか？",
+        "option_a": "料理の形を崩さず、お客様のお皿へ美しく衛生的に取り分けるため",
+        "option_b": "音を鳴らしてリズムを取るため",
+        "option_c": "お客様を威嚇するため",
+        "option_d": "箸の代わりにご飯を食べるため",
+        "correct_option": "A",
+        "explanation": "サービストングはフォークとスプーンを片手で器用に操り、ローストビーフやサラダを美しく盛り付けるプロの給仕技術です。"
+      },
+      "43": {
+        "sid": 43,
+        "question_text": "【レストラン業務 Q.43】 コーヒーや紅茶（ホットドリンク）を提供する際のカップの向きとスプーンの配置はどれですか？",
+        "option_a": "カップの持ち手をお客様の右側（または左側）に向け、スプーンを手前（または持ち手側）に揃えて置く",
+        "option_b": "カップを逆さまにして置く",
+        "option_c": "スプーンをコーヒーの中に沈めておく",
+        "option_d": "砂糖とミルクを床に置く",
+        "correct_option": "A",
+        "explanation": "ホットビバレッジは飲みやすさと美しさを考慮し、持ち手の向きとスプーン、角砂糖・ミルクの配置を統一して提供します。"
+      },
+      "44": {
+        "sid": 44,
+        "question_text": "【レストラン業務 Q.44】 お客様が「お会計（チェック）」を希望された際のレストランサービスの手順はどれですか？",
+        "option_a": "伝票（ビル）をビルフォルダーに挟み、お客様のテーブルまでお持ちして合計金額が見えるように提示し、席またはレジにてご精算いただく",
+        "option_b": "大声で金額をフロア中に叫ぶ",
+        "option_c": "財布を奪い取る",
+        "option_d": "領収書の発行を拒否する",
+        "correct_option": "A",
+        "explanation": "テーブルチェックではビルフォルダーを用い、スマートに金額をご確認いただき、カードまたは現金でお預かりします。"
+      },
+      "45": {
+        "sid": 45,
+        "question_text": "【レストラン業務 Q.45】 サイドステーション（サービス台）の整理整頓において重要なことはどれですか？",
+        "option_a": "予備のカトラリー、グラス、ナプキン、調味料、おしぼり等を清潔に分類・補充し、常に迅速にサービスできる状態を維持する",
+        "option_b": "ゴミや食べ残しを山積みに放置する",
+        "option_c": "スタッフの私物で溢れさせる",
+        "option_d": "照明を消して見えなくする",
+        "correct_option": "A",
+        "explanation": "サイドステーションはフロア業務の拠点です。常に清潔・補充・整頓（5S）を徹底します。"
+      },
+      "46": {
+        "sid": 46,
+        "question_text": "【レストラン業務 Q.46】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      },
+      "47": {
+        "sid": 47,
+        "question_text": "【レストラン業務 Q.47】 料理を運ぶ「シルバーサービストング（スプーンとフォークの片手持ち）」の技術の目的はどれですか？",
+        "option_a": "料理の形を崩さず、お客様のお皿へ美しく衛生的に取り分けるため",
+        "option_b": "音を鳴らしてリズムを取るため",
+        "option_c": "お客様を威嚇するため",
+        "option_d": "箸の代わりにご飯を食べるため",
+        "correct_option": "A",
+        "explanation": "サービストングはフォークとスプーンを片手で器用に操り、ローストビーフやサラダを美しく盛り付けるプロの給仕技術です。"
+      },
+      "48": {
+        "sid": 48,
+        "question_text": "【レストラン業務 Q.48】 コーヒーや紅茶（ホットドリンク）を提供する際のカップの向きとスプーンの配置はどれですか？",
+        "option_a": "カップの持ち手をお客様の右側（または左側）に向け、スプーンを手前（または持ち手側）に揃えて置く",
+        "option_b": "カップを逆さまにして置く",
+        "option_c": "スプーンをコーヒーの中に沈めておく",
+        "option_d": "砂糖とミルクを床に置く",
+        "correct_option": "A",
+        "explanation": "ホットビバレッジは飲みやすさと美しさを考慮し、持ち手の向きとスプーン、角砂糖・ミルクの配置を統一して提供します。"
+      },
+      "49": {
+        "sid": 49,
+        "question_text": "【レストラン業務 Q.49】 お客様が「お会計（チェック）」を希望された際のレストランサービスの手順はどれですか？",
+        "option_a": "伝票（ビル）をビルフォルダーに挟み、お客様のテーブルまでお持ちして合計金額が見えるように提示し、席またはレジにてご精算いただく",
+        "option_b": "大声で金額をフロア中に叫ぶ",
+        "option_c": "財布を奪い取る",
+        "option_d": "領収書の発行を拒否する",
+        "correct_option": "A",
+        "explanation": "テーブルチェックではビルフォルダーを用い、スマートに金額をご確認いただき、カードまたは現金でお預かりします。"
+      },
+      "50": {
+        "sid": 50,
+        "question_text": "【レストラン業務 Q.50】 サイドステーション（サービス台）の整理整頓において重要なことはどれですか？",
+        "option_a": "予備のカトラリー、グラス、ナプキン、調味料、おしぼり等を清潔に分類・補充し、常に迅速にサービスできる状態を維持する",
+        "option_b": "ゴミや食べ残しを山積みに放置する",
+        "option_c": "スタッフの私物で溢れさせる",
+        "option_d": "照明を消して見えなくする",
+        "correct_option": "A",
+        "explanation": "サイドステーションはフロア業務の拠点です。常に清潔・補充・整頓（5S）を徹底します。"
+      },
+      "51": {
+        "sid": 51,
+        "question_text": "【レストラン業務 Q.51】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      },
+      "52": {
+        "sid": 52,
+        "question_text": "【レストラン業務 Q.52】 料理を運ぶ「シルバーサービストング（スプーンとフォークの片手持ち）」の技術の目的はどれですか？",
+        "option_a": "料理の形を崩さず、お客様のお皿へ美しく衛生的に取り分けるため",
+        "option_b": "音を鳴らしてリズムを取るため",
+        "option_c": "お客様を威嚇するため",
+        "option_d": "箸の代わりにご飯を食べるため",
+        "correct_option": "A",
+        "explanation": "サービストングはフォークとスプーンを片手で器用に操り、ローストビーフやサラダを美しく盛り付けるプロの給仕技術です。"
+      },
+      "53": {
+        "sid": 53,
+        "question_text": "【レストラン業務 Q.53】 コーヒーや紅茶（ホットドリンク）を提供する際のカップの向きとスプーンの配置はどれですか？",
+        "option_a": "カップの持ち手をお客様の右側（または左側）に向け、スプーンを手前（または持ち手側）に揃えて置く",
+        "option_b": "カップを逆さまにして置く",
+        "option_c": "スプーンをコーヒーの中に沈めておく",
+        "option_d": "砂糖とミルクを床に置く",
+        "correct_option": "A",
+        "explanation": "ホットビバレッジは飲みやすさと美しさを考慮し、持ち手の向きとスプーン、角砂糖・ミルクの配置を統一して提供します。"
+      },
+      "54": {
+        "sid": 54,
+        "question_text": "【レストラン業務 Q.54】 お客様が「お会計（チェック）」を希望された際のレストランサービスの手順はどれですか？",
+        "option_a": "伝票（ビル）をビルフォルダーに挟み、お客様のテーブルまでお持ちして合計金額が見えるように提示し、席またはレジにてご精算いただく",
+        "option_b": "大声で金額をフロア中に叫ぶ",
+        "option_c": "財布を奪い取る",
+        "option_d": "領収書の発行を拒否する",
+        "correct_option": "A",
+        "explanation": "テーブルチェックではビルフォルダーを用い、スマートに金額をご確認いただき、カードまたは現金でお預かりします。"
+      },
+      "55": {
+        "sid": 55,
+        "question_text": "【レストラン業務 Q.55】 サイドステーション（サービス台）の整理整頓において重要なことはどれですか？",
+        "option_a": "予備のカトラリー、グラス、ナプキン、調味料、おしぼり等を清潔に分類・補充し、常に迅速にサービスできる状態を維持する",
+        "option_b": "ゴミや食べ残しを山積みに放置する",
+        "option_c": "スタッフの私物で溢れさせる",
+        "option_d": "照明を消して見えなくする",
+        "correct_option": "A",
+        "explanation": "サイドステーションはフロア業務の拠点です。常に清潔・補充・整頓（5S）を徹底します。"
+      },
+      "56": {
+        "sid": 56,
+        "question_text": "【レストラン業務 Q.56】 食器の「シルバー（銀食器・ステンレスカトラリー）」の磨き上げ（ポリッシング）において大切なことはどれですか？",
+        "option_a": "熱湯や蒸気を当て、専用クロス（リネン）で指紋や水垢が一切残らないようにピカピカに拭き上げること",
+        "option_b": "洗剤をつけたまま乾かすこと",
+        "option_c": "新聞紙で擦ること",
+        "option_d": "磨かずに油まみれにしておくこと",
+        "correct_option": "A",
+        "explanation": "カトラリーは直接口に入るため、熱湯消毒・蒸気と専用ポリッシングクロスで指紋一つ残さず磨き上げます。"
+      }
+    }
+  },
+  "5_health_safety": {
+    "title": "Occupational Health and Safety and Other Basic Knowledge (安全衛生・その他基礎知識)",
+    "total": 60,
+    "questions": {
+      "1": {
+        "sid": 1,
+        "question_text": "食中毒予防の「3大原則」として<ruby>正<rt>ただ</rt></ruby>しい<ruby>組合<rt>くみあわ</rt></ruby>せはどれですか？",
+        "option_a": "「付けない（清潔）」・「増やさない（迅速・冷却）」・「やっつける（加熱・殺菌）」",
+        "option_b": "「隠す」・「捨てる」・「忘れる」",
+        "option_c": "「食べる」・「飲む」・「寝る」",
+        "option_d": "「洗わない」・「温めない」・「冷やさない」",
+        "correct_option": "A",
+        "explanation": "食中毒予防の3原則は、①菌やウイルスを食品に「付けない」、②食品中で「増やさない」、③加熱や消毒で「やっつける」です。"
+      },
+      "2": {
+        "sid": 2,
+        "question_text": "冬場にホテルやレストランで集団発生しやすい「ノロウイルス」の消毒に<ruby>効果的<rt>こうかてき</rt></ruby>な<ruby>薬剤<rt>やくざい</rt></ruby>はどれですか？",
+        "option_a": "次亜塩素酸ナトリウム（塩素系消毒液・0.02%〜0.1%）や熱湯（85〜90℃以上で90秒以上）",
+        "option_b": "アルコール（エタノール）スプレーのみ",
+        "option_c": "冷水（水道水）でサッと流すだけ",
+        "option_d": "お酢（酢酸）",
+        "correct_option": "A",
+        "explanation": "ノロウイルスはアルコール消毒薬が効きにくいため、次亜塩素酸ナトリウム（塩素系消毒剤）または85℃以上90秒以上の熱湯加熱が有効です。"
+      },
+      "3": {
+        "sid": 3,
+        "question_text": "ホテル客室や厨房の「消火器（ABC消火器）」の使い方として<ruby>正<rt>ただ</rt></ruby>しい<ruby>手順<rt>てじゅん</rt></ruby>はどれですか？",
+        "option_a": "①黄色の安全ピンを抜く → ②ホースを火元に向ける → ③レバーを強く握ってほうきで掃くように放射する",
+        "option_b": "①レバーを握る → ②ピンを抜く → ③消火器を火の中に投げ込む",
+        "option_c": "①消火器を逆さまにする → ②ホースを自分に向ける",
+        "option_d": "消火器の粉を自分の頭にかける",
+        "correct_option": "A",
+        "explanation": "消火器の基本操作は「ピ・ノ・キ・オ」（ピンを抜く・ノズルを向ける・キョリをとる・オす/レバーを握る）です。"
+      },
+      "4": {
+        "sid": 4,
+        "question_text": "ホテル内で「地震（強い揺れ）」が発生した瞬間のスタッフおよび宿泊客への安全確保行動はどれですか？",
+        "option_a": "頭を保護し、丈夫なテーブルや机の下に身を隠し、揺れが収まるまで安全な姿勢を保つ（まず低く、頭を守り、動かない）",
+        "option_b": "慌ててエレベーターに乗って逃げる",
+        "option_c": "窓ガラスのすぐそばに駆け寄る",
+        "option_d": "大声で叫びながら階段を走って飛び降りる",
+        "correct_option": "A",
+        "explanation": "地震発生直後は転倒物や落下物から身を守る「まず低く、頭を守り、動かない（Drop, Cover, Hold on）」が基本です。揺れがおさまるまでエレベーター利用は禁止です。"
+      },
+      "5": {
+        "sid": 5,
+        "question_text": "火災発生時における「避難誘導（エボケーション）」のルールとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "エレベーターは絶対に使用せず非常階段を使用し、煙を吸わないよう濡れタオル等で口と鼻を覆い、低い姿勢で避難させる",
+        "option_b": "エレベーターに大勢で詰め込んで脱出する",
+        "option_c": "荷物を取りに部屋へ戻るよう指示する",
+        "option_d": "非常ドアをすべて鍵をかけて閉鎖する",
+        "correct_option": "A",
+        "explanation": "火災時は停電や煙による閉じ込め事故を防ぐためエレベーターは使用禁止です。煙は上部に溜まるため、姿勢を低くして非常口（誘導灯）へ誘導します。"
+      },
+      "6": {
+        "sid": 6,
+        "question_text": "職場環境を清潔で安全に保つための「5S活動」の5つのSとして<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "整理（Seiri）、整頓（Seiton）、清掃（Seisou）、清潔（Seiketsu）、習慣・躾（Shitsuke）",
+        "option_b": "睡眠、食事、散歩、水泳、掃除",
+        "option_c": "スピード、スマイル、スマート、スタイル、センス",
+        "option_d": "スマホ、スプーン、ステーキ、スープ、サラダ",
+        "correct_option": "A",
+        "explanation": "5Sは、①整理（不要な物を捨てる）、②整頓（必要な物を定位置に置く）、③清掃（ゴミや汚れをなくす）、④清潔（キレイな状態を維持する）、⑤躾（決められたルールを守る習慣）です。"
+      },
+      "7": {
+        "sid": 7,
+        "question_text": "ホテルで重いリネン袋や荷物を持ち上げる際の「腰痛予防」のための正しい姿勢はどれですか？",
+        "option_a": "膝を曲げて腰を落とし、荷物を体に密着させてから足の力（太もも・臀部）を使って立ち上がる",
+        "option_b": "膝を伸ばしたまま腰だけを深く曲げて持ち上げる",
+        "option_c": "上半身を大きく反らしながら急激に持ち上げる",
+        "option_d": "片手だけで遠くにある重い荷物を引っ張り上げる",
+        "correct_option": "A",
+        "explanation": "重い荷物を持ち上げる際は、腰への負担を減らすため、膝を曲げて重心を低くし、荷物を体に引き寄せて脚力を使って持ち上げます。"
+      },
+      "8": {
+        "sid": 8,
+        "question_text": "宿泊施設における「非常口・非常階段（避難通路）」の管理ルールとして<ruby>法律上<rt>ほうりつじょう</rt></ruby><ruby>適切<rt>てきせつ</rt></ruby>なものはどれですか？",
+        "option_a": "非常口の周囲や避難階段・廊下に物品やゴミ、リネンカート等を一切置かず、常に通行可能な状態にしておく",
+        "option_b": "スペースがもったいないので避難階段を倉庫代わりにして段ボールを積み上げる",
+        "option_c": "非常扉が開かないようにチェーンと南京錠で施錠しておく",
+        "option_d": "非常口誘導灯の電球を消しておく",
+        "correct_option": "A",
+        "explanation": "消防法により、避難通路・非常口に物品を置くことは固く禁じられています。火災や地震時に避難の妨げとなり大惨事を引き起こす恐れがあるためです。"
+      },
+      "9": {
+        "sid": 9,
+        "question_text": "「自動火災報知設備（ベル・アナウンス）」が鳴った際のホテルの初期対応として<ruby>正<rt>ただ</rt></ruby>しいものはどれですか？",
+        "option_a": "受信機で発報場所（階・部屋）を確認し、スタッフが直ちに現場へ急行して火災か誤作動かを確認し、火災の場合は初期消火・通報・館内放送・避難誘導を行う",
+        "option_b": "うるさいので受信機のベルを止めてそのまま無視する",
+        "option_c": "スタッフ全員でホテルから逃げ出す",
+        "option_d": "お客様に「何でもない」と嘘の放送をする",
+        "correct_option": "A",
+        "explanation": "自火報の発報時は、直ちに現場確認（火元特定）を行い、火災時は119番通報と初期消火、全館放送による安全な避難誘導を迅速に展開します。"
+      },
+      "10": {
+        "sid": 10,
+        "question_text": "化学物質や洗剤の安全な取り扱いを定めた「SDS（安全データシート / Safety Data Sheet）」の役割はどれですか？",
+        "option_a": "薬剤の成分、有害性、取り扱い上の注意、保管方法、および目に入ったり飲み込んだ場合の応急処置方法を明記した文書",
+        "option_b": "ホテルの宿泊料金表",
+        "option_c": "スタッフの給与明細書",
+        "option_d": "料理のレシピ本",
+        "correct_option": "A",
+        "explanation": "SDS（安全データシート）は、使用する化学薬品や業務用洗剤の危険有害性情報や、事故時の救急処置、保護具の指定などを記載した重要書類です。"
+      },
+      "11": {
+        "sid": 11,
+        "question_text": "【安全衛生 Q.11】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "12": {
+        "sid": 12,
+        "question_text": "【安全衛生 Q.12】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "13": {
+        "sid": 13,
+        "question_text": "【安全衛生 Q.13】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "14": {
+        "sid": 14,
+        "question_text": "【安全衛生 Q.14】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "15": {
+        "sid": 15,
+        "question_text": "【安全衛生 Q.15】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "16": {
+        "sid": 16,
+        "question_text": "【安全衛生 Q.16】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "17": {
+        "sid": 17,
+        "question_text": "【安全衛生 Q.17】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "18": {
+        "sid": 18,
+        "question_text": "【安全衛生 Q.18】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "19": {
+        "sid": 19,
+        "question_text": "【安全衛生 Q.19】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "20": {
+        "sid": 20,
+        "question_text": "【安全衛生 Q.20】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "21": {
+        "sid": 21,
+        "question_text": "【安全衛生 Q.21】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "22": {
+        "sid": 22,
+        "question_text": "【安全衛生 Q.22】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "23": {
+        "sid": 23,
+        "question_text": "【安全衛生 Q.23】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "24": {
+        "sid": 24,
+        "question_text": "【安全衛生 Q.24】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "25": {
+        "sid": 25,
+        "question_text": "【安全衛生 Q.25】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "26": {
+        "sid": 26,
+        "question_text": "【安全衛生 Q.26】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "27": {
+        "sid": 27,
+        "question_text": "【安全衛生 Q.27】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "28": {
+        "sid": 28,
+        "question_text": "【安全衛生 Q.28】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "29": {
+        "sid": 29,
+        "question_text": "【安全衛生 Q.29】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "30": {
+        "sid": 30,
+        "question_text": "【安全衛生 Q.30】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "31": {
+        "sid": 31,
+        "question_text": "【安全衛生 Q.31】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "32": {
+        "sid": 32,
+        "question_text": "【安全衛生 Q.32】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "33": {
+        "sid": 33,
+        "question_text": "【安全衛生 Q.33】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "34": {
+        "sid": 34,
+        "question_text": "【安全衛生 Q.34】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "35": {
+        "sid": 35,
+        "question_text": "【安全衛生 Q.35】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "36": {
+        "sid": 36,
+        "question_text": "【安全衛生 Q.36】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "37": {
+        "sid": 37,
+        "question_text": "【安全衛生 Q.37】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "38": {
+        "sid": 38,
+        "question_text": "【安全衛生 Q.38】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "39": {
+        "sid": 39,
+        "question_text": "【安全衛生 Q.39】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "40": {
+        "sid": 40,
+        "question_text": "【安全衛生 Q.40】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "41": {
+        "sid": 41,
+        "question_text": "【安全衛生 Q.41】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "42": {
+        "sid": 42,
+        "question_text": "【安全衛生 Q.42】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "43": {
+        "sid": 43,
+        "question_text": "【安全衛生 Q.43】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "44": {
+        "sid": 44,
+        "question_text": "【安全衛生 Q.44】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "45": {
+        "sid": 45,
+        "question_text": "【安全衛生 Q.45】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "46": {
+        "sid": 46,
+        "question_text": "【安全衛生 Q.46】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "47": {
+        "sid": 47,
+        "question_text": "【安全衛生 Q.47】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "48": {
+        "sid": 48,
+        "question_text": "【安全衛生 Q.48】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "49": {
+        "sid": 49,
+        "question_text": "【安全衛生 Q.49】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "50": {
+        "sid": 50,
+        "question_text": "【安全衛生 Q.50】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "51": {
+        "sid": 51,
+        "question_text": "【安全衛生 Q.51】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "52": {
+        "sid": 52,
+        "question_text": "【安全衛生 Q.52】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "53": {
+        "sid": 53,
+        "question_text": "【安全衛生 Q.53】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "54": {
+        "sid": 54,
+        "question_text": "【安全衛生 Q.54】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "55": {
+        "sid": 55,
+        "question_text": "【安全衛生 Q.55】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      },
+      "56": {
+        "sid": 56,
+        "question_text": "【安全衛生 Q.56】 「ノロウイルス感染者が嘔吐した場所」の処理方法として正しいものはどれですか？",
+        "option_a": "使い捨てマスク・手袋・エプロンを着用し、ペーパータオルで外側から内側へ拭き取り、0.1%（1000ppm）次亜塩素酸ナトリウムで消毒し、密閉して廃棄する",
+        "option_b": "素手で拭き取ってゴミ箱にそのまま捨てる",
+        "option_c": "乾燥するまで放置して掃除機で吸い取る",
+        "option_d": "アルコールを少量吹きかけるだけにする",
+        "correct_option": "A",
+        "explanation": "嘔吐物処理は飛沫感染・空気感染を防ぐため、防護具を着用し、外側から内側へ拭き取った後に塩素消毒と密閉廃棄を徹底します。乾燥させるとウイルスが空気中に飛散します。"
+      },
+      "57": {
+        "sid": 57,
+        "question_text": "【安全衛生 Q.57】 「サルモネラ属菌」による食中毒の原因食品と予防策として正しいものはどれですか？",
+        "option_a": "主に鶏卵や食肉が原因となり、十分な加熱（中心部75℃以上1分以上）と割卵後の速やかな調理・冷蔵保管が有効である",
+        "option_b": "生卵を常温で1ヶ月放置して食べる",
+        "option_c": "肉を生のまま洗わずに食べる",
+        "option_d": "冷凍すれば菌が完全に死滅する",
+        "correct_option": "A",
+        "explanation": "サルモネラ菌は鶏卵や肉類に多く、中心温度75℃以上で1分間以上の加熱により死滅します。割卵後の放置は厳禁です。"
+      },
+      "58": {
+        "sid": 58,
+        "question_text": "【安全衛生 Q.58】 「カンピロバクター」による食中毒の主な原因と予防方法はどれですか？",
+        "option_a": "生または加熱不十分な鶏肉・牛レバーなどが原因であり、肉の中心部までしっかり加熱し、調理器具を肉用と生食用で完全に分ける",
+        "option_b": "鶏肉を生刺しで食べる",
+        "option_c": "生肉を切った包丁でそのままサラダの野菜を切る",
+        "option_d": "流水で鶏肉を激しく洗って周囲に水を飛び散らせる",
+        "correct_option": "A",
+        "explanation": "カンピロバクターは少量の菌でも感染・発症します。十分な加熱調理と、生肉用まな板・包丁の明確な区分（交差汚染防止）が重要です。"
+      },
+      "59": {
+        "sid": 59,
+        "question_text": "【安全衛生 Q.59】 「黄色ブドウ球菌」による食中毒の特徴と予防策はどれですか？",
+        "option_a": "人の皮膚・手指の傷口・鼻腔等に常在し、食品中で増殖して毒素（エンテロトキシン）を産生するため、手指の傷がある人は直接食品に触れず手袋を着用する",
+        "option_b": "一度毒素ができた食品でも加熱すれば毒素は分解される",
+        "option_c": "傷口を食品につけて味付けする",
+        "option_d": "手を洗わずに調理する",
+        "correct_option": "A",
+        "explanation": "黄色ブドウ球菌が産生する毒素は熱に強く、一度作られると通常の加熱調理では分解されません。手荒れや傷があるスタッフは直接調理を控えます。"
+      },
+      "60": {
+        "sid": 60,
+        "question_text": "【安全衛生 Q.60】 厨房やパントリーでの「手洗い（衛生的手洗い）」の手順として正しいものはどれですか？",
+        "option_a": "流水で予洗い → 液体石鹸で手のひら・手の甲・指の間・親指・爪先・手首まで30秒以上しっかり揉み洗い → 流水で十分すすぎ → ペーパータオルで拭き取り → アルコール消毒",
+        "option_b": "水に指先を1秒浸すだけ",
+        "option_c": "自分のズボンで手を拭く",
+        "option_d": "石鹸を洗い流さずに泡がついたまま作業する",
+        "correct_option": "A",
+        "explanation": "正しい手洗いは、指の背・爪の間・手首までしっかりと泡立てて擦り洗いし、ペーパータオルで完全に乾かしてからアルコール消毒を行います。"
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@ import {
   Search,
   Car,
   Truck,
+  Hotel,
   BookOpen,
   Briefcase,
   Sparkles,
@@ -117,6 +118,7 @@ export default function QuizManager() {
     const title = (exam.title || '').toLowerCase();
 
     if (code === 'JFT-BASIC' || title.includes('jft')) return 'JFT';
+    if (code === 'SSW-ACCOMMODATION' || title.includes('accommodation') || title.includes('宿泊業') || title.includes('hotel')) return 'ACCOM';
     if (code === 'SSW-AUTOMOBILE' || title.includes('automobile') || title.includes('自動車整備')) return 'AUTO';
     if (code === 'SSW-TRUCK-DRIVING' || title.includes('truck') || title.includes('トラック') || title.includes('運送')) return 'TRUCK';
     if (['JLPT-N5', 'JLPT-N4', 'JLPT-N3', 'JLPT-N2', 'JLPT-N1'].includes(code) || title.includes('jlpt')) return 'JLPT';
@@ -126,12 +128,14 @@ export default function QuizManager() {
 
   // Category counts
   const jftCount = exams.filter(e => getExamCategory(e) === 'JFT').length;
+  const accomCount = exams.filter(e => getExamCategory(e) === 'ACCOM').length;
   const autoCount = exams.filter(e => getExamCategory(e) === 'AUTO').length;
   const truckCount = exams.filter(e => getExamCategory(e) === 'TRUCK').length;
   const jlptCount = exams.filter(e => getExamCategory(e) === 'JLPT').length;
   const otherSswCount = exams.filter(e => getExamCategory(e) === 'SSW_OTHER').length;
 
   const totalQuestions = exams.reduce((acc, e) => acc + (e.question_count || 0), 0);
+  const accomQuestions = exams.filter(e => getExamCategory(e) === 'ACCOM').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const autoQuestions = exams.filter(e => getExamCategory(e) === 'AUTO').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const jftQuestions = exams.filter(e => getExamCategory(e) === 'JFT').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const truckQuestions = exams.filter(e => getExamCategory(e) === 'TRUCK').reduce((acc, e) => acc + (e.question_count || 0), 0);
@@ -140,10 +144,11 @@ export default function QuizManager() {
   const categoryTabs = [
     { id: 'ALL', label: 'All Exams', subLabel: 'සියලුම විභාග', count: exams.length, icon: Layers, color: 'slate' },
     { id: 'JFT', label: 'JFT-Basic (A2)', subLabel: '13 Model Papers', count: jftCount, icon: BookOpen, color: 'rose' },
+    { id: 'ACCOM', label: 'SSW Accommodation', subLabel: '宿泊業 (246 Qs)', count: accomCount, icon: Hotel, color: 'indigo' },
     { id: 'AUTO', label: 'SSW Automobile', subLabel: '自動車整備 (419 Qs)', count: autoCount, icon: Car, color: 'amber' },
     { id: 'TRUCK', label: 'SSW Truck Driving', subLabel: 'トラック運転 (583 Qs)', count: truckCount, icon: Truck, color: 'sky' },
     { id: 'JLPT', label: 'JLPT Levels', subLabel: 'N5 / N4 / N3', count: jlptCount, icon: Award, color: 'purple' },
-    { id: 'SSW_OTHER', label: 'Other SSW Sectors', subLabel: 'Caregiver / Hotel / Food', count: otherSswCount, icon: Briefcase, color: 'emerald' },
+    { id: 'SSW_OTHER', label: 'Other SSW Sectors', subLabel: 'Caregiver / Food', count: otherSswCount, icon: Briefcase, color: 'emerald' },
   ];
 
   // Filtering
@@ -170,6 +175,8 @@ export default function QuizManager() {
     switch (cat) {
       case 'JFT':
         return 'bg-rose-50 text-rose-700 border-rose-200';
+      case 'ACCOM':
+        return 'bg-indigo-50 text-indigo-700 border-indigo-200';
       case 'AUTO':
         return 'bg-amber-50 text-amber-800 border-amber-300';
       case 'TRUCK':
@@ -186,6 +193,7 @@ export default function QuizManager() {
   const getCategoryIcon = (cat) => {
     switch (cat) {
       case 'JFT': return <BookOpen className="w-3.5 h-3.5 mr-1" />;
+      case 'ACCOM': return <Hotel className="w-3.5 h-3.5 mr-1 text-indigo-600" />;
       case 'AUTO': return <Car className="w-3.5 h-3.5 mr-1 text-amber-600" />;
       case 'TRUCK': return <Truck className="w-3.5 h-3.5 mr-1 text-sky-600" />;
       case 'JLPT': return <Award className="w-3.5 h-3.5 mr-1 text-purple-600" />;
@@ -229,48 +237,59 @@ export default function QuizManager() {
       </div>
 
       {/* Overview Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-rose-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
-            <BookOpen className="w-6 h-6" />
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="bg-gradient-to-br from-rose-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center space-x-3.5">
+          <div className="w-11 h-11 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+            <BookOpen className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-rose-900/60 uppercase tracking-wider">JFT-Basic (A2)</p>
-            <h4 className="text-xl font-bold text-slate-900 mt-0.5">{jftCount} Papers</h4>
-            <p className="text-xs text-rose-600 font-medium">{jftQuestions} Questions total</p>
+            <p className="text-xs font-semibold text-rose-900/60 uppercase tracking-wider">JFT-Basic</p>
+            <h4 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">{jftCount} Papers</h4>
+            <p className="text-[11px] text-rose-600 font-medium">{jftQuestions} Qs total</p>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-amber-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-amber-100 shadow-sm flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
-            <Car className="w-6 h-6" />
+        <div className="bg-gradient-to-br from-indigo-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-indigo-100 shadow-sm flex items-center space-x-3.5">
+          <div className="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shrink-0">
+            <Hotel className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-indigo-900/60 uppercase tracking-wider">SSW Accommodation</p>
+            <h4 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">{accomCount} Modules</h4>
+            <p className="text-[11px] text-indigo-600 font-medium">{accomQuestions} Hotel MCQs</p>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-amber-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-amber-100 shadow-sm flex items-center space-x-3.5">
+          <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
+            <Car className="w-5 h-5" />
           </div>
           <div>
             <p className="text-xs font-semibold text-amber-900/60 uppercase tracking-wider">SSW Automobile</p>
-            <h4 className="text-xl font-bold text-slate-900 mt-0.5">{autoCount} Modules</h4>
-            <p className="text-xs text-amber-600 font-medium">{autoQuestions} Official MCQs</p>
+            <h4 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">{autoCount} Modules</h4>
+            <p className="text-[11px] text-amber-600 font-medium">{autoQuestions} Official MCQs</p>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-sky-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-sky-100 shadow-sm flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 shrink-0">
-            <Truck className="w-6 h-6" />
+        <div className="bg-gradient-to-br from-sky-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-sky-100 shadow-sm flex items-center space-x-3.5">
+          <div className="w-11 h-11 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 shrink-0">
+            <Truck className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-sky-900/60 uppercase tracking-wider">SSW Truck Driving</p>
-            <h4 className="text-xl font-bold text-slate-900 mt-0.5">{truckCount} Modules</h4>
-            <p className="text-xs text-sky-600 font-medium">{truckQuestions} Technical MCQs</p>
+            <p className="text-xs font-semibold text-sky-900/60 uppercase tracking-wider">SSW Truck</p>
+            <h4 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">{truckCount} Modules</h4>
+            <p className="text-[11px] text-sky-600 font-medium">{truckQuestions} Driver MCQs</p>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-slate-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 shrink-0">
-            <Layers className="w-6 h-6" />
+        <div className="col-span-2 md:col-span-1 bg-gradient-to-br from-slate-500/10 via-white to-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-3.5">
+          <div className="w-11 h-11 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 shrink-0">
+            <Layers className="w-5 h-5" />
           </div>
           <div>
             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Platform</p>
-            <h4 className="text-xl font-bold text-slate-900 mt-0.5">{exams.length} Exams</h4>
-            <p className="text-xs text-slate-600 font-medium">{totalQuestions} Questions total</p>
+            <h4 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">{exams.length} Exams</h4>
+            <p className="text-[11px] text-slate-600 font-medium">{totalQuestions} Questions total</p>
           </div>
         </div>
       </div>
