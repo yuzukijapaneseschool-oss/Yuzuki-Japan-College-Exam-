@@ -61,6 +61,7 @@ export default function StudentDashboard() {
   const isActive = Boolean(subscription?.is_active || user?.role === 'student' || user?.role === 'admin');
 
   const isDualTrack = Boolean(user?.allow_dual_track || user?.batch_mode === 'dual_track' || user?.role === 'admin');
+  const isCaregiverStudent = Boolean((user?.student_id && user?.student_id.startsWith('YCG')) || user?.course_code === 'SSW-CAREGIVER' || user?.course_id === 8);
   const isTruckStudent = Boolean((user?.student_id && user?.student_id.startsWith('YTD')) || (!user?.student_id?.startsWith('YJP') && (user?.course_id === 7 || user?.course_code === 'SSW-TRUCK-DRIVING')));
   const isAutoStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAM')) || user?.course_code === 'SSW-AUTOMOBILE' || user?.course_id === 11);
   const isAgriStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAG')) || user?.course_code === 'SSW-AGRICULTURE' || user?.course_id === 12);
@@ -68,6 +69,7 @@ export default function StudentDashboard() {
   const isJapaneseStudent = Boolean((user?.student_id && user?.student_id.startsWith('YJP')) || [1, 2, 3, 4].includes(user?.course_id));
 
   const [selectedCourseFilter, setSelectedCourseFilter] = useState(
+    isCaregiverStudent && !isDualTrack ? 'CAREGIVER' :
     isAgriStudent && !isDualTrack ? 'AGRI' :
     isAccomStudent && !isDualTrack ? 'ACCOM' :
     isTruckStudent && !isDualTrack ? 'TRUCK' :
@@ -75,7 +77,9 @@ export default function StudentDashboard() {
   );
 
   useEffect(() => {
-    if (isAgriStudent && !isDualTrack) {
+    if (isCaregiverStudent && !isDualTrack) {
+      setSelectedCourseFilter('CAREGIVER');
+    } else if (isAgriStudent && !isDualTrack) {
       setSelectedCourseFilter('AGRI');
     } else if (isAccomStudent && !isDualTrack) {
       setSelectedCourseFilter('ACCOM');
@@ -84,12 +88,13 @@ export default function StudentDashboard() {
     } else if (isAutoStudent && !isDualTrack) {
       setSelectedCourseFilter('AUTO');
     }
-  }, [user?.student_id, isAgriStudent, isAccomStudent, isTruckStudent, isAutoStudent, isDualTrack]);
+  }, [user?.student_id, isCaregiverStudent, isAgriStudent, isAccomStudent, isTruckStudent, isAutoStudent, isDualTrack]);
 
   const [selectedTruckCategory, setSelectedTruckCategory] = useState('Driver Basics');
 
   const filteredExams = (exams || []).filter(exam => {
     if (selectedCourseFilter === 'ALL') return true;
+    if (selectedCourseFilter === 'CAREGIVER') return exam.course_code === 'SSW-CAREGIVER' || (exam.title || '').toLowerCase().includes('caregiver') || (exam.title || '').toLowerCase().includes('nursing') || (exam.title || '').includes('介護');
     if (selectedCourseFilter === 'AGRI') return exam.course_code === 'SSW-AGRICULTURE' || (exam.title || '').toLowerCase().includes('agri') || (exam.title || '').includes('農業');
     if (selectedCourseFilter === 'ACCOM') return exam.course_code === 'SSW-ACCOMMODATION' || (exam.title || '').toLowerCase().includes('accom') || (exam.title || '').includes('宿泊');
     if (selectedCourseFilter === 'AUTO') return exam.course_code === 'SSW-AUTOMOBILE' || (exam.title || '').toLowerCase().includes('auto') || (exam.title || '').includes('自動車');
@@ -109,6 +114,7 @@ export default function StudentDashboard() {
   const getCourseBadgeColor = (code = '', title = '') => {
     const c = code.toUpperCase();
     const t = title.toLowerCase();
+    if (c === 'SSW-CAREGIVER' || t.includes('caregiver') || t.includes('nursing') || t.includes('介護')) return 'bg-teal-50 text-teal-800 border-teal-300';
     if (c === 'SSW-AGRICULTURE' || t.includes('agri') || t.includes('農業')) return 'bg-emerald-50 text-emerald-800 border-emerald-300';
     if (c === 'SSW-ACCOMMODATION' || t.includes('accom') || t.includes('宿泊')) return 'bg-indigo-50 text-indigo-700 border-indigo-200';
     if (c === 'SSW-AUTOMOBILE' || t.includes('auto') || t.includes('自動車')) return 'bg-amber-50 text-amber-800 border-amber-300';
@@ -120,6 +126,7 @@ export default function StudentDashboard() {
 
   const availableTabs = [
     { id: 'ALL', label: 'All Exams (සියලුම විභාග)' },
+    { id: 'CAREGIVER', label: '🩺 SSW Caregiving (介護 - 758 Qs)' },
     { id: 'AGRI', label: '🌾 SSW Agriculture (農業・耕種 - 376 Qs)' },
     { id: 'ACCOM', label: '🏨 SSW Accommodation (宿泊業 - 246 Qs)' },
     { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備 - 419 Qs)' },

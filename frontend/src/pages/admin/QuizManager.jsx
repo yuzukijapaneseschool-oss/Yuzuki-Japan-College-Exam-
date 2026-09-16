@@ -20,6 +20,7 @@ import {
   Sprout,
   BookOpen,
   Briefcase,
+  HeartHandshake,
   Sparkles,
   X,
   Filter
@@ -119,6 +120,7 @@ export default function QuizManager() {
     const title = (exam.title || '').toLowerCase();
 
     if (code === 'JFT-BASIC' || title.includes('jft')) return 'JFT';
+    if (code === 'SSW-CAREGIVER' || title.includes('caregiver') || title.includes('介護') || title.includes('nursing')) return 'CAREGIVER';
     if (code === 'SSW-AGRICULTURE' || title.includes('agriculture') || title.includes('農業') || title.includes('耕種')) return 'AGRI';
     if (code === 'SSW-ACCOMMODATION' || title.includes('accommodation') || title.includes('宿泊業') || title.includes('hotel')) return 'ACCOM';
     if (code === 'SSW-AUTOMOBILE' || title.includes('automobile') || title.includes('自動車整備')) return 'AUTO';
@@ -130,6 +132,7 @@ export default function QuizManager() {
 
   // Category counts
   const jftCount = exams.filter(e => getExamCategory(e) === 'JFT').length;
+  const caregiverCount = exams.filter(e => getExamCategory(e) === 'CAREGIVER').length;
   const agriCount = exams.filter(e => getExamCategory(e) === 'AGRI').length;
   const accomCount = exams.filter(e => getExamCategory(e) === 'ACCOM').length;
   const autoCount = exams.filter(e => getExamCategory(e) === 'AUTO').length;
@@ -138,6 +141,7 @@ export default function QuizManager() {
   const otherSswCount = exams.filter(e => getExamCategory(e) === 'SSW_OTHER').length;
 
   const totalQuestions = exams.reduce((acc, e) => acc + (e.question_count || 0), 0);
+  const caregiverQuestions = exams.filter(e => getExamCategory(e) === 'CAREGIVER').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const agriQuestions = exams.filter(e => getExamCategory(e) === 'AGRI').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const accomQuestions = exams.filter(e => getExamCategory(e) === 'ACCOM').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const autoQuestions = exams.filter(e => getExamCategory(e) === 'AUTO').reduce((acc, e) => acc + (e.question_count || 0), 0);
@@ -147,13 +151,14 @@ export default function QuizManager() {
   // Tabs list
   const categoryTabs = [
     { id: 'ALL', label: 'All Exams', subLabel: 'සියලුම විභාග', count: exams.length, icon: Layers, color: 'slate' },
-    { id: 'JFT', label: 'JFT-Basic (A2)', subLabel: '13 Model Papers', count: jftCount, icon: BookOpen, color: 'rose' },
+    { id: 'CAREGIVER', label: 'SSW Caregiving', subLabel: '介護 (758 Qs)', count: caregiverCount, icon: HeartHandshake, color: 'teal' },
     { id: 'AGRI', label: 'SSW Agriculture', subLabel: '農業・耕種 (376 Qs)', count: agriCount, icon: Sprout, color: 'emerald' },
     { id: 'ACCOM', label: 'SSW Accommodation', subLabel: '宿泊業 (246 Qs)', count: accomCount, icon: Hotel, color: 'indigo' },
     { id: 'AUTO', label: 'SSW Automobile', subLabel: '自動車整備 (419 Qs)', count: autoCount, icon: Car, color: 'amber' },
     { id: 'TRUCK', label: 'SSW Truck Driving', subLabel: 'トラック運転 (583 Qs)', count: truckCount, icon: Truck, color: 'sky' },
+    { id: 'JFT', label: 'JFT-Basic (A2)', subLabel: '13 Model Papers', count: jftCount, icon: BookOpen, color: 'rose' },
     { id: 'JLPT', label: 'JLPT Levels', subLabel: 'N5 / N4 / N3', count: jlptCount, icon: Award, color: 'purple' },
-    { id: 'SSW_OTHER', label: 'Other SSW Sectors', subLabel: 'Caregiver / Food', count: otherSswCount, icon: Briefcase, color: 'slate' },
+    { id: 'SSW_OTHER', label: 'Other SSW Sectors', subLabel: 'Food / Others', count: otherSswCount, icon: Briefcase, color: 'slate' },
   ];
 
   // Filtering
@@ -180,6 +185,8 @@ export default function QuizManager() {
     switch (cat) {
       case 'JFT':
         return 'bg-rose-50 text-rose-700 border-rose-200';
+      case 'CAREGIVER':
+        return 'bg-teal-50 text-teal-800 border-teal-300';
       case 'AGRI':
         return 'bg-emerald-50 text-emerald-800 border-emerald-300';
       case 'ACCOM':
@@ -200,6 +207,7 @@ export default function QuizManager() {
   const getCategoryIcon = (cat) => {
     switch (cat) {
       case 'JFT': return <BookOpen className="w-3.5 h-3.5 mr-1" />;
+      case 'CAREGIVER': return <HeartHandshake className="w-3.5 h-3.5 mr-1 text-teal-600" />;
       case 'AGRI': return <Sprout className="w-3.5 h-3.5 mr-1 text-emerald-600" />;
       case 'ACCOM': return <Hotel className="w-3.5 h-3.5 mr-1 text-indigo-600" />;
       case 'AUTO': return <Car className="w-3.5 h-3.5 mr-1 text-amber-600" />;
@@ -245,15 +253,15 @@ export default function QuizManager() {
       </div>
 
       {/* Overview Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-        <div className="bg-gradient-to-br from-rose-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-rose-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
-            <BookOpen className="w-5 h-5" />
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 sm:gap-4">
+        <div className="bg-gradient-to-br from-teal-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-teal-100 shadow-sm flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-600 shrink-0">
+            <HeartHandshake className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[11px] font-semibold text-rose-900/60 uppercase tracking-wider">JFT-Basic</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{jftCount} Papers</h4>
-            <p className="text-[10px] sm:text-[11px] text-rose-600 font-medium">{jftQuestions} Qs</p>
+            <p className="text-[11px] font-semibold text-teal-900/60 uppercase tracking-wider">SSW Caregiver</p>
+            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{caregiverCount} Modules</h4>
+            <p className="text-[10px] sm:text-[11px] text-teal-600 font-medium">{caregiverQuestions} Care MCQs</p>
           </div>
         </div>
 
@@ -298,6 +306,17 @@ export default function QuizManager() {
             <p className="text-[11px] font-semibold text-sky-900/60 uppercase tracking-wider">SSW Truck</p>
             <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{truckCount} Modules</h4>
             <p className="text-[10px] sm:text-[11px] text-sky-600 font-medium">{truckQuestions} MCQs</p>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-rose-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-rose-100 shadow-sm flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+            <BookOpen className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-[11px] font-semibold text-rose-900/60 uppercase tracking-wider">JFT-Basic</p>
+            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{jftCount} Papers</h4>
+            <p className="text-[10px] sm:text-[11px] text-rose-600 font-medium">{jftQuestions} Qs</p>
           </div>
         </div>
 
