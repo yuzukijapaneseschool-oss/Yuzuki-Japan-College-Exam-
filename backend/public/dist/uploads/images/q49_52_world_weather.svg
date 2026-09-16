@@ -1,0 +1,28 @@
+<svg width="600" height="360" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" fill="#ecfeff"/>
+  <rect x="10" y="10" width="580" height="340" fill="#ffffff" stroke="#0284c7" stroke-width="3" rx="8"/>
+  <text x="30" y="40" font-size="18" font-weight="bold" font-family="sans-serif" fill="#0369a1">せかいの てんき (World Weather)</text>
+  <!-- Simplified Continents Outlines -->
+  <path d="M 80 80 Q 150 70 200 110 Q 250 150 160 220 Q 90 170 80 80 Z" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <path d="M 220 80 Q 400 60 520 120 Q 460 220 350 200 Q 260 220 220 80 Z" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <path d="M 380 230 Q 480 230 460 300 Q 380 300 380 230 Z" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <!-- Cities and Icons -->
+  <!-- London (Cloud) -->
+  <text x="90" y="100" font-size="12" font-weight="bold" fill="#334155">ロンドン ☁️</text>
+  <!-- Moscow (Snowman) -->
+  <text x="210" y="100" font-size="12" font-weight="bold" fill="#334155">モスクワ ⛄</text>
+  <!-- Cairo (Sun) -->
+  <text x="140" y="170" font-size="12" font-weight="bold" fill="#334155">カイロ ☀️</text>
+  <!-- Tokyo (Sun/Cloud) -->
+  <text x="380" y="150" font-size="12" font-weight="bold" fill="#334155">東京 ☀️</text>
+  <!-- Jakarta (Rain) -->
+  <text x="280" y="220" font-size="12" font-weight="bold" fill="#334155">ジャカルタ ☔</text>
+  <!-- Sydney (Sun) -->
+  <text x="420" y="260" font-size="12" font-weight="bold" fill="#334155">シドニー ☀️</text>
+  <!-- New York (Cloud) -->
+  <text x="460" y="130" font-size="12" font-weight="bold" fill="#334155">ニューヨーク ☁️</text>
+  <!-- Los Angeles (Sun) -->
+  <text x="380" y="110" font-size="12" font-weight="bold" fill="#334155">ロサンゼルス ☔</text>
+  <!-- Sao Paulo (Cloud) -->
+  <text x="480" y="240" font-size="12" font-weight="bold" fill="#334155">サンパウロ ☁️</text>
+</svg>

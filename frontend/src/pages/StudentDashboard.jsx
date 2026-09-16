@@ -64,24 +64,29 @@ export default function StudentDashboard() {
   const isTruckStudent = Boolean((user?.student_id && user?.student_id.startsWith('YTD')) || (!user?.student_id?.startsWith('YJP') && (user?.course_id === 7 || user?.course_code === 'SSW-TRUCK-DRIVING')));
   const isJapaneseStudent = Boolean((user?.student_id && user?.student_id.startsWith('YJP')) || [1, 2, 3, 4].includes(user?.course_id));
 
+  const isAutoStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAM')) || user?.course_code === 'SSW-AUTOMOBILE');
+
   const [selectedCourseFilter, setSelectedCourseFilter] = useState(
-    isTruckStudent && !isDualTrack ? 'TRUCK' : 'ALL'
+    isTruckStudent && !isDualTrack ? 'TRUCK' : isAutoStudent && !isDualTrack ? 'AUTO' : 'ALL'
   );
 
   useEffect(() => {
     if (isTruckStudent && !isDualTrack) {
       setSelectedCourseFilter('TRUCK');
+    } else if (isAutoStudent && !isDualTrack) {
+      setSelectedCourseFilter('AUTO');
     }
-  }, [user?.student_id, isTruckStudent, isDualTrack]);
+  }, [user?.student_id, isTruckStudent, isAutoStudent, isDualTrack]);
 
   const [selectedTruckCategory, setSelectedTruckCategory] = useState('Driver Basics');
 
   const filteredExams = (exams || []).filter(exam => {
     if (selectedCourseFilter === 'ALL') return true;
-    if (selectedCourseFilter === 'JFT') return exam.course_code === 'JFT-BASIC';
+    if (selectedCourseFilter === 'AUTO') return exam.course_code === 'SSW-AUTOMOBILE';
     if (selectedCourseFilter === 'TRUCK') return exam.course_code === 'SSW-TRUCK-DRIVING';
+    if (selectedCourseFilter === 'JFT') return exam.course_code === 'JFT-BASIC';
     if (selectedCourseFilter === 'JLPT') return ['JLPT-N5', 'JLPT-N4', 'JLPT-N3'].includes(exam.course_code);
-    if (selectedCourseFilter === 'SSW_OTHER') return exam.course_code && exam.course_code.startsWith('SSW-') && exam.course_code !== 'SSW-TRUCK-DRIVING';
+    if (selectedCourseFilter === 'SSW_OTHER') return exam.course_code && exam.course_code.startsWith('SSW-') && !['SSW-TRUCK-DRIVING', 'SSW-AUTOMOBILE'].includes(exam.course_code);
     return true;
   });
 
@@ -95,10 +100,16 @@ export default function StudentDashboard() {
   if (isDualTrack) {
     availableTabs = [
       { id: 'ALL', label: 'All Exams (සියලුම විභාග)' },
+      { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備 - 419 MCQs)' },
       { id: 'TRUCK', label: '🚚 SSW Truck Driving (自動車運送業)' },
       { id: 'JFT', label: 'JFT-Basic (A2)' },
       { id: 'JLPT', label: 'JLPT (N5 / N4 / N3)' },
       { id: 'SSW_OTHER', label: 'Other SSW Vocational' }
+    ];
+  } else if (isAutoStudent) {
+    availableTabs = [
+      { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備 - 419 MCQs)' },
+      { id: 'JFT', label: 'JFT-Basic (A2)' }
     ];
   } else if (isTruckStudent) {
     availableTabs = [
@@ -107,8 +118,10 @@ export default function StudentDashboard() {
   } else {
     availableTabs = [
       { id: 'ALL', label: 'All Japanese Exams (ජපන් භාෂා විභාග)' },
+      { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備)' },
       { id: 'JFT', label: 'JFT-Basic (A2)' },
-      { id: 'JLPT', label: 'JLPT (N5 / N4 / N3)' }
+      { id: 'JLPT', label: 'JLPT (N5 / N4 / N3)' },
+      { id: 'TRUCK', label: '🚚 SSW Truck Driving' }
     ];
   }
 
