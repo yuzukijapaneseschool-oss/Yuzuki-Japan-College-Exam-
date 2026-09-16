@@ -935,4 +935,4 @@ if (require.main === module) {
     .catch(() => process.exit(1));
 }
 
-module.exports = seedJftModelPaper11;
+module.exports = { seedJftModelPaper11 };

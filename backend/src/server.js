@@ -132,21 +132,33 @@ const { seedJftModelPaper10 } = require('./utils/seedJftModelPaper10');
 const { seedJftModelPaper11 } = require('./utils/seedJftModelPaper11');
 const { seedJftModelPaper12 } = require('./utils/seedJftModelPaper12');
 
+async function safeRunSeed(seedFn, name) {
+  try {
+    if (typeof seedFn === 'function') {
+      await seedFn();
+    } else if (seedFn && typeof seedFn[name] === 'function') {
+      await seedFn[name]();
+    }
+  } catch (e) {
+    console.warn(`[Seed Notice] Seed ${name} warning:`, e.message);
+  }
+}
+
 async function start() {
   try {
     await initDatabase();
     await applySecuritySchemaMigrations();
-    await seedJftModelPaper01();
-    await seedJftModelPaper03();
-    await seedJftModelPaper04();
-    await seedJftModelPaper05();
-    await seedJftModelPaper06();
-    await seedJftModelPaper07();
-    await seedJftModelPaper08();
-    await seedJftModelPaper09();
-    await seedJftModelPaper10();
-    await seedJftModelPaper11();
-    await seedJftModelPaper12();
+    await safeRunSeed(seedJftModelPaper01, 'seedJftModelPaper01');
+    await safeRunSeed(seedJftModelPaper03, 'seedJftModelPaper03');
+    await safeRunSeed(seedJftModelPaper04, 'seedJftModelPaper04');
+    await safeRunSeed(seedJftModelPaper05, 'seedJftModelPaper05');
+    await safeRunSeed(seedJftModelPaper06, 'seedJftModelPaper06');
+    await safeRunSeed(seedJftModelPaper07, 'seedJftModelPaper07');
+    await safeRunSeed(seedJftModelPaper08, 'seedJftModelPaper08');
+    await safeRunSeed(seedJftModelPaper09, 'seedJftModelPaper09');
+    await safeRunSeed(seedJftModelPaper10, 'seedJftModelPaper10');
+    await safeRunSeed(seedJftModelPaper11, 'seedJftModelPaper11');
+    await safeRunSeed(seedJftModelPaper12, 'seedJftModelPaper12');
     initAutoBackup();
     app.listen(PORT, () => {
       console.log('========================================================');
