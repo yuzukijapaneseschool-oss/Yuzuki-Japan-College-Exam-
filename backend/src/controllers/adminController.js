@@ -139,7 +139,7 @@ async function deleteStudent(req, res) {
 async function getAdminExams(req, res) {
   try {
     const exams = await query.all(`
-      SELECT e.*, c.name as course_name, c.code as course_code,
+      SELECT e.*, c.name as course_name, c.code as course_code, c.category as course_category,
              (SELECT COUNT(*) FROM questions q WHERE q.exam_id = e.id) as question_count,
              (SELECT COUNT(*) FROM exam_attempts ea WHERE ea.exam_id = e.id) as attempt_count,
              (SELECT AVG(percentage) FROM exam_attempts ea WHERE ea.exam_id = e.id) as avg_percentage
