@@ -68,6 +68,8 @@ app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/inquiries', require('./routes/inquiryRoutes'));
 
 const candidateDistPaths = [
+  path.resolve(__dirname, '../public/dist'),
+  path.resolve(__dirname, '../../backend/public/dist'),
   path.resolve(__dirname, '../../frontend/dist'),
   path.resolve(__dirname, '../frontend/dist'),
   path.resolve(__dirname, '../../dist'),
