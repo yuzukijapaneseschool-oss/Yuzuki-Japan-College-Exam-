@@ -62,31 +62,41 @@ export default function StudentDashboard() {
 
   const isDualTrack = Boolean(user?.allow_dual_track || user?.batch_mode === 'dual_track' || user?.role === 'admin');
   const isTruckStudent = Boolean((user?.student_id && user?.student_id.startsWith('YTD')) || (!user?.student_id?.startsWith('YJP') && (user?.course_id === 7 || user?.course_code === 'SSW-TRUCK-DRIVING')));
+  const isAutoStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAM')) || user?.course_code === 'SSW-AUTOMOBILE' || user?.course_id === 11);
+  const isAgriStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAG')) || user?.course_code === 'SSW-AGRICULTURE' || user?.course_id === 12);
+  const isAccomStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAC')) || user?.course_code === 'SSW-ACCOMMODATION' || user?.course_id === 9);
   const isJapaneseStudent = Boolean((user?.student_id && user?.student_id.startsWith('YJP')) || [1, 2, 3, 4].includes(user?.course_id));
 
-  const isAutoStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAM')) || user?.course_code === 'SSW-AUTOMOBILE');
-
   const [selectedCourseFilter, setSelectedCourseFilter] = useState(
-    isTruckStudent && !isDualTrack ? 'TRUCK' : isAutoStudent && !isDualTrack ? 'AUTO' : 'ALL'
+    isAgriStudent && !isDualTrack ? 'AGRI' :
+    isAccomStudent && !isDualTrack ? 'ACCOM' :
+    isTruckStudent && !isDualTrack ? 'TRUCK' :
+    isAutoStudent && !isDualTrack ? 'AUTO' : 'ALL'
   );
 
   useEffect(() => {
-    if (isTruckStudent && !isDualTrack) {
+    if (isAgriStudent && !isDualTrack) {
+      setSelectedCourseFilter('AGRI');
+    } else if (isAccomStudent && !isDualTrack) {
+      setSelectedCourseFilter('ACCOM');
+    } else if (isTruckStudent && !isDualTrack) {
       setSelectedCourseFilter('TRUCK');
     } else if (isAutoStudent && !isDualTrack) {
       setSelectedCourseFilter('AUTO');
     }
-  }, [user?.student_id, isTruckStudent, isAutoStudent, isDualTrack]);
+  }, [user?.student_id, isAgriStudent, isAccomStudent, isTruckStudent, isAutoStudent, isDualTrack]);
 
   const [selectedTruckCategory, setSelectedTruckCategory] = useState('Driver Basics');
 
   const filteredExams = (exams || []).filter(exam => {
     if (selectedCourseFilter === 'ALL') return true;
-    if (selectedCourseFilter === 'AUTO') return exam.course_code === 'SSW-AUTOMOBILE';
-    if (selectedCourseFilter === 'TRUCK') return exam.course_code === 'SSW-TRUCK-DRIVING';
-    if (selectedCourseFilter === 'JFT') return exam.course_code === 'JFT-BASIC';
-    if (selectedCourseFilter === 'JLPT') return ['JLPT-N5', 'JLPT-N4', 'JLPT-N3'].includes(exam.course_code);
-    if (selectedCourseFilter === 'SSW_OTHER') return exam.course_code && exam.course_code.startsWith('SSW-') && !['SSW-TRUCK-DRIVING', 'SSW-AUTOMOBILE'].includes(exam.course_code);
+    if (selectedCourseFilter === 'AGRI') return exam.course_code === 'SSW-AGRICULTURE' || (exam.title || '').toLowerCase().includes('agri') || (exam.title || '').includes('農業');
+    if (selectedCourseFilter === 'ACCOM') return exam.course_code === 'SSW-ACCOMMODATION' || (exam.title || '').toLowerCase().includes('accom') || (exam.title || '').includes('宿泊');
+    if (selectedCourseFilter === 'AUTO') return exam.course_code === 'SSW-AUTOMOBILE' || (exam.title || '').toLowerCase().includes('auto') || (exam.title || '').includes('自動車');
+    if (selectedCourseFilter === 'TRUCK') return exam.course_code === 'SSW-TRUCK-DRIVING' || (exam.title || '').toLowerCase().includes('truck') || (exam.title || '').includes('トラック');
+    if (selectedCourseFilter === 'JFT') return exam.course_code === 'JFT-BASIC' || (exam.title || '').toLowerCase().includes('jft');
+    if (selectedCourseFilter === 'JLPT') return ['JLPT-N5', 'JLPT-N4', 'JLPT-N3', 'JLPT-N2', 'JLPT-N1'].includes(exam.course_code) || (exam.title || '').toLowerCase().includes('jlpt');
+    if (selectedCourseFilter === 'SSW_OTHER') return exam.course_code && exam.course_code.startsWith('SSW-');
     return true;
   });
 
@@ -96,34 +106,27 @@ export default function StudentDashboard() {
     exam.description.toLowerCase().includes(selectedTruckCategory.toLowerCase())
   );
 
-  let availableTabs = [];
-  if (isDualTrack) {
-    availableTabs = [
-      { id: 'ALL', label: 'All Exams (සියලුම විභාග)' },
-      { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備 - 419 MCQs)' },
-      { id: 'TRUCK', label: '🚚 SSW Truck Driving (自動車運送業)' },
-      { id: 'JFT', label: 'JFT-Basic (A2)' },
-      { id: 'JLPT', label: 'JLPT (N5 / N4 / N3)' },
-      { id: 'SSW_OTHER', label: 'Other SSW Vocational' }
-    ];
-  } else if (isAutoStudent) {
-    availableTabs = [
-      { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備 - 419 MCQs)' },
-      { id: 'JFT', label: 'JFT-Basic (A2)' }
-    ];
-  } else if (isTruckStudent) {
-    availableTabs = [
-      { id: 'TRUCK', label: '🚚 SSW Truck Driving (自動車運送業 - 583 Furigana MCQs)' }
-    ];
-  } else {
-    availableTabs = [
-      { id: 'ALL', label: 'All Japanese Exams (ජපන් භාෂා විභාග)' },
-      { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備)' },
-      { id: 'JFT', label: 'JFT-Basic (A2)' },
-      { id: 'JLPT', label: 'JLPT (N5 / N4 / N3)' },
-      { id: 'TRUCK', label: '🚚 SSW Truck Driving' }
-    ];
-  }
+  const getCourseBadgeColor = (code = '', title = '') => {
+    const c = code.toUpperCase();
+    const t = title.toLowerCase();
+    if (c === 'SSW-AGRICULTURE' || t.includes('agri') || t.includes('農業')) return 'bg-emerald-50 text-emerald-800 border-emerald-300';
+    if (c === 'SSW-ACCOMMODATION' || t.includes('accom') || t.includes('宿泊')) return 'bg-indigo-50 text-indigo-700 border-indigo-200';
+    if (c === 'SSW-AUTOMOBILE' || t.includes('auto') || t.includes('自動車')) return 'bg-amber-50 text-amber-800 border-amber-300';
+    if (c === 'SSW-TRUCK-DRIVING' || t.includes('truck') || t.includes('トラック')) return 'bg-sky-50 text-sky-700 border-sky-200';
+    if (c === 'JFT-BASIC' || t.includes('jft')) return 'bg-rose-50 text-rose-700 border-rose-200';
+    if (c.startsWith('JLPT')) return 'bg-purple-50 text-purple-700 border-purple-200';
+    return 'bg-slate-100 text-slate-700 border-slate-200';
+  };
+
+  const availableTabs = [
+    { id: 'ALL', label: 'All Exams (සියලුම විභාග)' },
+    { id: 'AGRI', label: '🌾 SSW Agriculture (農業・耕種 - 376 Qs)' },
+    { id: 'ACCOM', label: '🏨 SSW Accommodation (宿泊業 - 246 Qs)' },
+    { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備 - 419 Qs)' },
+    { id: 'TRUCK', label: '🚚 SSW Truck Driving (自動車運送業 - 583 Qs)' },
+    { id: 'JFT', label: 'JFT-Basic (A2 - 13 Papers)' },
+    { id: 'JLPT', label: 'JLPT (N5 / N4 / N3)' }
+  ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-japanese">
@@ -443,7 +446,7 @@ export default function StudentDashboard() {
                 >
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">
+                      <span className={`border text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${getCourseBadgeColor(exam.course_code, exam.title)}`}>
                         {exam.course_code}
                       </span>
                       <div className="flex items-center space-x-1 text-slate-500 text-xs font-mono font-medium">
