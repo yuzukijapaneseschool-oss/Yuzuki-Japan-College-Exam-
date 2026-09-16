@@ -115,8 +115,24 @@ async function submitExam(req, res) {
     const exam = await query.get('SELECT * FROM exams WHERE id = ?', [id]);
     if (!exam) return res.status(404).json({ error: 'Exam not found.' });
 
-    if (user.role === 'student' && exam.course_id !== user.course_id) {
-      return res.status(403).json({ error: 'Unauthorized to submit for this course exam.' });
+    if (user.role === 'student') {
+      const studentUser = await query.get('SELECT * FROM users WHERE id = ?', [user.id]);
+      const now = new Date();
+      let hasActiveAccess = false;
+      if (studentUser.subscription_ends_at && new Date(studentUser.subscription_ends_at) > now) {
+        hasActiveAccess = true;
+      } else if (studentUser.trial_ends_at && new Date(studentUser.trial_ends_at) > now) {
+        hasActiveAccess = true;
+      } else if (studentUser.status === 'approved') {
+        hasActiveAccess = true;
+      }
+
+      if (!hasActiveAccess) {
+        return res.status(403).json({
+          error: '🔒 CBT Exam Simulation Room requires an active Exam Pass. Please subscribe or contact your Sensei to activate your pass.',
+          requires_subscription: true
+        });
+      }
     }
 
     const questions = await query.all(`
