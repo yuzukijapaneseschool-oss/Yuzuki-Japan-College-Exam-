@@ -137,6 +137,7 @@ const { seedSSWAutomobile } = require('./utils/seedSSWAutomobile');
 const { seedSSWAccommodation } = require('./utils/seedSSWAccommodation');
 const { seedSSWAgriculture } = require('./utils/seedSSWAgriculture');
 const { seedSSWCaregiver } = require('./utils/seedSSWCaregiver');
+const { seedSSWFoodService } = require('./utils/seedSSWFoodService');
 
 async function safeRunSeed(seedFn, name) {
   try {
@@ -169,6 +170,7 @@ async function start() {
     await safeRunSeed(seedSSWAccommodation, 'seedSSWAccommodation');
     await safeRunSeed(seedSSWAgriculture, 'seedSSWAgriculture');
     await safeRunSeed(seedSSWCaregiver, 'seedSSWCaregiver');
+    await safeRunSeed(seedSSWFoodService, 'seedSSWFoodService');
     initAutoBackup();
     app.listen(PORT, () => {
       console.log('========================================================');
