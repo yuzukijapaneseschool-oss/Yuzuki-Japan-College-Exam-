@@ -124,6 +124,7 @@ export default function QuizManager() {
     const title = (exam.title || '').toLowerCase();
 
     if (code === 'JFT-BASIC' || title.includes('jft')) return 'JFT';
+    if (code === 'SSW2-ACCOMMODATION' || title.includes('ssw 2') || title.includes('特定技能2号') || title.includes('2号')) return 'SSW2_ACCOM';
     if (code === 'SSW-FOOD-MANUFACTURING' || title.includes('food manufacturing') || title.includes('飲食料品製造') || title.includes('製造業') || title.includes('seizougyou')) return 'FOOD_MANU';
     if (code === 'SSW-CONSTRUCTION' || title.includes('construction') || title.includes('建設') || title.includes('土木') || title.includes('型枠') || title.includes('鉄筋') || title.includes('kensetsu')) return 'CONSTRUCTION';
     if (code === 'SSW-AIRPORT-GROUND' || title.includes('aviation') || title.includes('airport') || title.includes('航空') || title.includes('グランドハンドリング')) return 'AVIATION';
@@ -134,12 +135,13 @@ export default function QuizManager() {
     if (code === 'SSW-AUTOMOBILE' || title.includes('automobile') || title.includes('自動車整備')) return 'AUTO';
     if (code === 'SSW-TRUCK-DRIVING' || title.includes('truck') || title.includes('トラック') || title.includes('運送')) return 'TRUCK';
     if (['JLPT-N5', 'JLPT-N4', 'JLPT-N3', 'JLPT-N2', 'JLPT-N1'].includes(code) || title.includes('jlpt')) return 'JLPT';
-    if (code.startsWith('SSW-')) return 'SSW_OTHER';
+    if (code.startsWith('SSW-') || code.startsWith('SSW2-')) return 'SSW_OTHER';
     return 'OTHER';
   };
 
   // Category counts
   const jftCount = exams.filter(e => getExamCategory(e) === 'JFT').length;
+  const ssw2AccomCount = exams.filter(e => getExamCategory(e) === 'SSW2_ACCOM').length;
   const foodManuCount = exams.filter(e => getExamCategory(e) === 'FOOD_MANU').length;
   const constructionCount = exams.filter(e => getExamCategory(e) === 'CONSTRUCTION').length;
   const aviationCount = exams.filter(e => getExamCategory(e) === 'AVIATION').length;
@@ -153,6 +155,7 @@ export default function QuizManager() {
   const otherSswCount = exams.filter(e => getExamCategory(e) === 'SSW_OTHER').length;
 
   const totalQuestions = exams.reduce((acc, e) => acc + (e.question_count || 0), 0);
+  const ssw2AccomQuestions = exams.filter(e => getExamCategory(e) === 'SSW2_ACCOM').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const foodManuQuestions = exams.filter(e => getExamCategory(e) === 'FOOD_MANU').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const constructionQuestions = exams.filter(e => getExamCategory(e) === 'CONSTRUCTION').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const aviationQuestions = exams.filter(e => getExamCategory(e) === 'AVIATION').reduce((acc, e) => acc + (e.question_count || 0), 0);
@@ -167,6 +170,7 @@ export default function QuizManager() {
   // Tabs list
   const categoryTabs = [
     { id: 'ALL', label: 'All Exams', subLabel: 'සියලුම විභාග', count: exams.length, icon: Layers, color: 'slate' },
+    { id: 'SSW2_ACCOM', label: 'SSW 2 Accommodation', subLabel: '特定技能2号 宿泊業 (580 Qs)', count: ssw2AccomCount, icon: Hotel, color: 'fuchsia' },
     { id: 'FOOD_MANU', label: 'SSW Food Manufacturing', subLabel: '飲食料品製造 (371 Qs)', count: foodManuCount, icon: Factory, color: 'lime' },
     { id: 'CONSTRUCTION', label: 'SSW Construction', subLabel: '建設業 (530 Qs)', count: constructionCount, icon: HardHat, color: 'yellow' },
     { id: 'AVIATION', label: 'SSW Aviation', subLabel: '航空業 (297 Qs)', count: aviationCount, icon: Plane, color: 'cyan' },
@@ -205,6 +209,8 @@ export default function QuizManager() {
     switch (cat) {
       case 'JFT':
         return 'bg-rose-50 text-rose-700 border-rose-200';
+      case 'SSW2_ACCOM':
+        return 'bg-fuchsia-50 text-fuchsia-800 border-fuchsia-300';
       case 'FOOD_MANU':
         return 'bg-lime-50 text-lime-800 border-lime-300';
       case 'CONSTRUCTION':
@@ -235,6 +241,7 @@ export default function QuizManager() {
   const getCategoryIcon = (cat) => {
     switch (cat) {
       case 'JFT': return <BookOpen className="w-3.5 h-3.5 mr-1" />;
+      case 'SSW2_ACCOM': return <Hotel className="w-3.5 h-3.5 mr-1 text-fuchsia-600" />;
       case 'FOOD_MANU': return <Factory className="w-3.5 h-3.5 mr-1 text-lime-600" />;
       case 'CONSTRUCTION': return <HardHat className="w-3.5 h-3.5 mr-1 text-yellow-600" />;
       case 'AVIATION': return <Plane className="w-3.5 h-3.5 mr-1 text-cyan-600" />;
