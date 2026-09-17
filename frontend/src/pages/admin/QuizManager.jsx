@@ -167,6 +167,190 @@ export default function QuizManager() {
   const jftQuestions = exams.filter(e => getExamCategory(e) === 'JFT').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const truckQuestions = exams.filter(e => getExamCategory(e) === 'TRUCK').reduce((acc, e) => acc + (e.question_count || 0), 0);
 
+  // Sector Quick Filter Cards configuration
+  const sectorOverviewCards = [
+    {
+      id: 'SSW2_ACCOM',
+      name: 'SSW 2 Accom.',
+      fullName: 'Accommodation (特定技能2号 宿泊業)',
+      sub: '特定技能2号 宿泊',
+      tag: 'SSW 2',
+      tagBg: 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-200',
+      modules: `${ssw2AccomCount} Modules`,
+      questions: `${ssw2AccomQuestions} MCQs`,
+      icon: Hotel,
+      cardBg: 'from-fuchsia-500/10 via-fuchsia-50/40 to-white',
+      border: 'border-fuchsia-200 hover:border-fuchsia-400',
+      iconBg: 'bg-fuchsia-100 border-fuchsia-200 text-fuchsia-700',
+      badgeText: 'text-fuchsia-700'
+    },
+    {
+      id: 'FOOD_MANU',
+      name: 'Food Manu.',
+      fullName: 'Food & Beverage Manufacturing (飲食料品製造)',
+      sub: '飲食料品製造',
+      tag: 'SSW 1',
+      tagBg: 'bg-lime-100 text-lime-800 border-lime-200',
+      modules: `${foodManuCount} Modules`,
+      questions: `${foodManuQuestions} Qs`,
+      icon: Factory,
+      cardBg: 'from-lime-500/10 via-lime-50/40 to-white',
+      border: 'border-lime-200 hover:border-lime-400',
+      iconBg: 'bg-lime-100 border-lime-200 text-lime-700',
+      badgeText: 'text-lime-700'
+    },
+    {
+      id: 'CONSTRUCTION',
+      name: 'Construction',
+      fullName: 'Construction Industry (建設業)',
+      sub: '建設業',
+      tag: 'SSW 1',
+      tagBg: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+      modules: `${constructionCount} Modules`,
+      questions: `${constructionQuestions} Qs`,
+      icon: HardHat,
+      cardBg: 'from-yellow-500/10 via-yellow-50/40 to-white',
+      border: 'border-yellow-200 hover:border-yellow-400',
+      iconBg: 'bg-yellow-100 border-yellow-200 text-yellow-700',
+      badgeText: 'text-yellow-700'
+    },
+    {
+      id: 'AVIATION',
+      name: 'Aviation',
+      fullName: 'Airport Ground Handling (航空・空港)',
+      sub: '航空グランド',
+      tag: 'SSW 1',
+      tagBg: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+      modules: `${aviationCount} Modules`,
+      questions: `${aviationQuestions} Qs`,
+      icon: Plane,
+      cardBg: 'from-cyan-500/10 via-cyan-50/40 to-white',
+      border: 'border-cyan-200 hover:border-cyan-400',
+      iconBg: 'bg-cyan-100 border-cyan-200 text-cyan-700',
+      badgeText: 'text-cyan-700'
+    },
+    {
+      id: 'FOOD',
+      name: 'Food Service',
+      fullName: 'Food Service / Restaurant (外食業)',
+      sub: '外食業',
+      tag: 'SSW 1',
+      tagBg: 'bg-orange-100 text-orange-800 border-orange-200',
+      modules: `${foodCount} Modules`,
+      questions: `${foodQuestions} Qs`,
+      icon: UtensilsCrossed,
+      cardBg: 'from-orange-500/10 via-orange-50/40 to-white',
+      border: 'border-orange-200 hover:border-orange-400',
+      iconBg: 'bg-orange-100 border-orange-200 text-orange-700',
+      badgeText: 'text-orange-700'
+    },
+    {
+      id: 'CAREGIVER',
+      name: 'Caregiving',
+      fullName: 'Nursing Caregiver (介護福祉)',
+      sub: '介護福祉',
+      tag: 'SSW 1',
+      tagBg: 'bg-teal-100 text-teal-800 border-teal-200',
+      modules: `${caregiverCount} Modules`,
+      questions: `${caregiverQuestions} Qs`,
+      icon: HeartHandshake,
+      cardBg: 'from-teal-500/10 via-teal-50/40 to-white',
+      border: 'border-teal-200 hover:border-teal-400',
+      iconBg: 'bg-teal-100 border-teal-200 text-teal-700',
+      badgeText: 'text-teal-700'
+    },
+    {
+      id: 'AGRI',
+      name: 'Agriculture',
+      fullName: 'Agriculture & Crop Cultivation (農業・耕種)',
+      sub: '農業・耕種',
+      tag: 'SSW 1',
+      tagBg: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+      modules: `${agriCount} Modules`,
+      questions: `${agriQuestions} Qs`,
+      icon: Sprout,
+      cardBg: 'from-emerald-500/10 via-emerald-50/40 to-white',
+      border: 'border-emerald-200 hover:border-emerald-400',
+      iconBg: 'bg-emerald-100 border-emerald-200 text-emerald-700',
+      badgeText: 'text-emerald-700'
+    },
+    {
+      id: 'ACCOM',
+      name: 'Accom. (Type 1)',
+      fullName: 'Accommodation (特定技能1号 宿泊業)',
+      sub: '宿泊業 1号',
+      tag: 'SSW 1',
+      tagBg: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+      modules: `${accomCount} Modules`,
+      questions: `${accomQuestions} Qs`,
+      icon: Hotel,
+      cardBg: 'from-indigo-500/10 via-indigo-50/40 to-white',
+      border: 'border-indigo-200 hover:border-indigo-400',
+      iconBg: 'bg-indigo-100 border-indigo-200 text-indigo-700',
+      badgeText: 'text-indigo-700'
+    },
+    {
+      id: 'AUTO',
+      name: 'Automobile',
+      fullName: 'Automobile Maintenance (自動車整備)',
+      sub: '自動車整備',
+      tag: 'SSW 1',
+      tagBg: 'bg-amber-100 text-amber-800 border-amber-200',
+      modules: `${autoCount} Modules`,
+      questions: `${autoQuestions} Qs`,
+      icon: Car,
+      cardBg: 'from-amber-500/10 via-amber-50/40 to-white',
+      border: 'border-amber-200 hover:border-amber-400',
+      iconBg: 'bg-amber-100 border-amber-200 text-amber-700',
+      badgeText: 'text-amber-700'
+    },
+    {
+      id: 'TRUCK',
+      name: 'Truck Driving',
+      fullName: 'Automobile Transportation (トラック運転)',
+      sub: '自動車運送',
+      tag: 'SSW 1',
+      tagBg: 'bg-sky-100 text-sky-800 border-sky-200',
+      modules: `${truckCount} Modules`,
+      questions: `${truckQuestions} Qs`,
+      icon: Truck,
+      cardBg: 'from-sky-500/10 via-sky-50/40 to-white',
+      border: 'border-sky-200 hover:border-sky-400',
+      iconBg: 'bg-sky-100 border-sky-200 text-sky-700',
+      badgeText: 'text-sky-700'
+    },
+    {
+      id: 'JFT',
+      name: 'JFT-Basic (A2)',
+      fullName: 'Japan Foundation Test A2 (国際交流基金)',
+      sub: '国際交流基金 A2',
+      tag: 'JFT',
+      tagBg: 'bg-rose-100 text-rose-800 border-rose-200',
+      modules: `${jftCount} Papers`,
+      questions: `${jftQuestions} Qs`,
+      icon: BookOpen,
+      cardBg: 'from-rose-500/10 via-rose-50/40 to-white',
+      border: 'border-rose-200 hover:border-rose-400',
+      iconBg: 'bg-rose-100 border-rose-200 text-rose-700',
+      badgeText: 'text-rose-700'
+    },
+    {
+      id: 'JLPT',
+      name: 'JLPT Levels',
+      fullName: 'Japanese-Language Proficiency Test (日本語能力試験)',
+      sub: '日本語能力試験',
+      tag: 'JLPT',
+      tagBg: 'bg-purple-100 text-purple-800 border-purple-200',
+      modules: `${jlptCount || 5} Levels`,
+      questions: `${jlptQuestions || 100} Qs`,
+      icon: Award,
+      cardBg: 'from-purple-500/10 via-purple-50/40 to-white',
+      border: 'border-purple-200 hover:border-purple-400',
+      iconBg: 'bg-purple-100 border-purple-200 text-purple-700',
+      badgeText: 'text-purple-700'
+    }
+  ];
+
   // Tabs list
   const categoryTabs = [
     { id: 'ALL', label: 'All Exams', subLabel: 'සියලුම විභාග', count: exams.length, icon: Layers, color: 'slate' },
@@ -291,127 +475,166 @@ export default function QuizManager() {
         </button>
       </div>
 
-      {/* Overview Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-10 gap-3 sm:gap-4">
-        <div className="bg-gradient-to-br from-lime-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-lime-200 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-lime-50 border border-lime-300 flex items-center justify-center text-lime-700 shrink-0">
-            <Factory className="w-5 h-5" />
+      {/* Executive 4-Pillar Metric Summary */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Pillar 1: Total System */}
+        <div 
+          onClick={() => setActiveCategory('ALL')}
+          className={`p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg border border-slate-700/60 cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group ${
+            activeCategory === 'ALL' ? 'ring-2 ring-rose-400 shadow-rose-900/20' : ''
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total System Exams</span>
+            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+              <Layers className="w-4 h-4" />
+            </div>
           </div>
-          <div>
-            <p className="text-[11px] font-semibold text-lime-900/70 uppercase tracking-wider">SSW Food Manu</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{foodManuCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-lime-700 font-medium">{foodManuQuestions} Seizou Qs</p>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-yellow-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-yellow-200 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-yellow-50 border border-yellow-300 flex items-center justify-center text-yellow-700 shrink-0">
-            <HardHat className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-yellow-900/70 uppercase tracking-wider">SSW Construction</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{constructionCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-yellow-700 font-medium">{constructionQuestions} Kensetsu Qs</p>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-cyan-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-cyan-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 shrink-0">
-            <Plane className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-cyan-900/60 uppercase tracking-wider">SSW Aviation</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{aviationCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-cyan-600 font-medium">{aviationQuestions} Aviation Qs</p>
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-black tracking-tight">{exams.length} Exams</div>
+            <p className="text-xs text-slate-300 mt-1 flex items-center gap-1.5">
+              <span className="font-bold text-rose-400">{totalQuestions.toLocaleString()} Total Questions</span>
+              <span className="text-slate-500">•</span>
+              <span>12 Sectors</span>
+            </p>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-orange-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-orange-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-600 shrink-0">
-            <UtensilsCrossed className="w-5 h-5" />
+        {/* Pillar 2: SSW Type 2 */}
+        <div 
+          onClick={() => setActiveCategory(activeCategory === 'SSW2_ACCOM' ? 'ALL' : 'SSW2_ACCOM')}
+          className={`p-5 rounded-2xl bg-gradient-to-br from-fuchsia-950 via-purple-900 to-slate-900 text-white shadow-lg border border-fuchsia-700/40 cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group ${
+            activeCategory === 'SSW2_ACCOM' ? 'ring-2 ring-fuchsia-400 shadow-fuchsia-900/30' : ''
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-fuchsia-300 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              SSW Type 2 (特定技能2号)
+            </span>
+            <div className="w-8 h-8 rounded-lg bg-fuchsia-500/20 text-fuchsia-300 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Hotel className="w-4 h-4" />
+            </div>
           </div>
-          <div>
-            <p className="text-[11px] font-semibold text-orange-900/60 uppercase tracking-wider">SSW Food</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{foodCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-orange-600 font-medium">{foodQuestions} Food MCQs</p>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-teal-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-teal-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-600 shrink-0">
-            <HeartHandshake className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-teal-900/60 uppercase tracking-wider">SSW Caregiver</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{caregiverCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-teal-600 font-medium">{caregiverQuestions} Care MCQs</p>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-emerald-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-emerald-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
-            <Sprout className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-emerald-900/60 uppercase tracking-wider">SSW Agriculture</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{agriCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-emerald-600 font-medium">{agriQuestions} Agri MCQs</p>
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-black tracking-tight">{ssw2AccomCount} Modules</div>
+            <p className="text-xs text-fuchsia-200 mt-1 flex items-center gap-1.5">
+              <span className="font-bold text-amber-300">{ssw2AccomQuestions} MCQs</span>
+              <span className="text-fuchsia-400">•</span>
+              <span>Accommodation Industry</span>
+            </p>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-indigo-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-indigo-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shrink-0">
-            <Hotel className="w-5 h-5" />
+        {/* Pillar 3: SSW Type 1 (9 Sectors) */}
+        <div 
+          onClick={() => setActiveCategory(activeCategory === 'FOOD_MANU' ? 'ALL' : 'FOOD_MANU')}
+          className={`p-5 rounded-2xl bg-gradient-to-br from-indigo-950 via-slate-900 to-cyan-950 text-white shadow-lg border border-indigo-700/40 cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-cyan-300">SSW Type 1 (9 Sectors)</span>
+            <div className="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Briefcase className="w-4 h-4" />
+            </div>
           </div>
-          <div>
-            <p className="text-[11px] font-semibold text-indigo-900/60 uppercase tracking-wider">SSW Accom.</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{accomCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-indigo-600 font-medium">{accomQuestions} MCQs</p>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-amber-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-amber-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
-            <Car className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-amber-900/60 uppercase tracking-wider">SSW Auto</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{autoCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-amber-600 font-medium">{autoQuestions} MCQs</p>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-sky-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-sky-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 shrink-0">
-            <Truck className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-sky-900/60 uppercase tracking-wider">SSW Truck</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{truckCount} Modules</h4>
-            <p className="text-[10px] sm:text-[11px] text-sky-600 font-medium">{truckQuestions} MCQs</p>
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-black tracking-tight">
+              {exams.length - ssw2AccomCount - jftCount - jlptCount} Modules
+            </div>
+            <p className="text-xs text-cyan-200 mt-1 flex items-center gap-1.5">
+              <span className="font-bold text-cyan-300">
+                {(totalQuestions - ssw2AccomQuestions - jftQuestions - (jlptQuestions || 0)).toLocaleString()} MCQs
+              </span>
+              <span className="text-slate-500">•</span>
+              <span>9 Industrial Sectors</span>
+            </p>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-rose-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-rose-100 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
-            <BookOpen className="w-5 h-5" />
+        {/* Pillar 4: JFT-Basic & Language */}
+        <div 
+          onClick={() => setActiveCategory(activeCategory === 'JFT' ? 'ALL' : 'JFT')}
+          className={`p-5 rounded-2xl bg-gradient-to-br from-rose-950 via-slate-900 to-rose-900 text-white shadow-lg border border-rose-700/40 cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group ${
+            activeCategory === 'JFT' ? 'ring-2 ring-rose-400 shadow-rose-900/30' : ''
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-rose-300">JFT-Basic & Language</span>
+            <div className="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-300 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <BookOpen className="w-4 h-4" />
+            </div>
           </div>
-          <div>
-            <p className="text-[11px] font-semibold text-rose-900/60 uppercase tracking-wider">JFT-Basic</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{jftCount} Papers</h4>
-            <p className="text-[10px] sm:text-[11px] text-rose-600 font-medium">{jftQuestions} Qs</p>
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-black tracking-tight">{jftCount} Papers</div>
+            <p className="text-xs text-rose-200 mt-1 flex items-center gap-1.5">
+              <span className="font-bold text-amber-300">{jftQuestions} Qs</span>
+              <span className="text-rose-400">•</span>
+              <span>A2 Foundation & JLPT</span>
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="bg-gradient-to-br from-slate-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 shrink-0">
-            <Layers className="w-5 h-5" />
-          </div>
+      {/* Sector Quick Filter Matrix */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
           <div>
-            <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Total System</p>
-            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{exams.length} Exams</h4>
-            <p className="text-[10px] sm:text-[11px] text-slate-600 font-medium">{totalQuestions} Total Qs</p>
+            <h3 className="text-sm font-bold text-slate-800 tracking-tight flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-rose-600"></span>
+              Curriculum Tracks & Specialized Sectors (විෂය ක්ෂේත්‍ර ප්‍රශ්න පත්‍ර)
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">Click any sector card to filter exams immediately</p>
           </div>
+          {activeCategory !== 'ALL' && (
+            <button
+              type="button"
+              onClick={() => setActiveCategory('ALL')}
+              className="text-xs font-semibold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1 rounded-lg transition-colors border border-rose-200"
+            >
+              Reset Filter (Show All)
+            </button>
+          )}
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-3.5">
+          {sectorOverviewCards.map(sector => {
+            const Icon = sector.icon;
+            const isSelected = activeCategory === sector.id;
+            return (
+              <div 
+                key={sector.id}
+                onClick={() => setActiveCategory(isSelected ? 'ALL' : sector.id)}
+                className={`group relative p-3.5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between bg-gradient-to-br ${sector.cardBg} ${sector.border} ${
+                  isSelected 
+                    ? 'ring-2 ring-rose-500 shadow-md transform -translate-y-0.5 bg-white' 
+                    : 'hover:-translate-y-0.5 hover:shadow-sm shadow-[0_2px_8px_rgba(0,0,0,0.02)]'
+                }`}
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-1.5 mb-2.5">
+                    <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${sector.iconBg} group-hover:scale-105 transition-transform`}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md border tracking-wider uppercase ${sector.tagBg}`}>
+                      {sector.tag}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-rose-600 transition-colors truncate" title={sector.fullName}>
+                      {sector.name}
+                    </h4>
+                    <p className="text-[10px] text-slate-500 font-medium truncate mt-0.5">{sector.sub}</p>
+                  </div>
+                </div>
+
+                <div className="mt-3 pt-2.5 border-t border-slate-200/60 flex items-baseline justify-between gap-1 text-[11px]">
+                  <span className="font-bold text-slate-900">{sector.modules}</span>
+                  <span className={`font-semibold ${sector.badgeText}`}>{sector.questions}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
