@@ -24,6 +24,7 @@ import {
   UtensilsCrossed,
   Plane,
   HardHat,
+  Factory,
   Sparkles,
   X,
   Filter
@@ -123,9 +124,10 @@ export default function QuizManager() {
     const title = (exam.title || '').toLowerCase();
 
     if (code === 'JFT-BASIC' || title.includes('jft')) return 'JFT';
+    if (code === 'SSW-FOOD-MANUFACTURING' || title.includes('food manufacturing') || title.includes('飲食料品製造') || title.includes('製造業') || title.includes('seizougyou')) return 'FOOD_MANU';
     if (code === 'SSW-CONSTRUCTION' || title.includes('construction') || title.includes('建設') || title.includes('土木') || title.includes('型枠') || title.includes('鉄筋') || title.includes('kensetsu')) return 'CONSTRUCTION';
     if (code === 'SSW-AIRPORT-GROUND' || title.includes('aviation') || title.includes('airport') || title.includes('航空') || title.includes('グランドハンドリング')) return 'AVIATION';
-    if (code === 'SSW-FOOD-SERVICE' || title.includes('food') || title.includes('外食') || title.includes('restaurant') || title.includes('cooking')) return 'FOOD';
+    if (code === 'SSW-FOOD-SERVICE' || ((title.includes('food') || title.includes('外食') || title.includes('restaurant') || title.includes('cooking')) && !title.includes('manufacturing') && !title.includes('製造'))) return 'FOOD';
     if (code === 'SSW-CAREGIVER' || title.includes('caregiver') || title.includes('介護') || title.includes('nursing')) return 'CAREGIVER';
     if (code === 'SSW-AGRICULTURE' || title.includes('agriculture') || title.includes('農業') || title.includes('耕種')) return 'AGRI';
     if (code === 'SSW-ACCOMMODATION' || title.includes('accommodation') || title.includes('宿泊業') || title.includes('hotel')) return 'ACCOM';
@@ -138,6 +140,7 @@ export default function QuizManager() {
 
   // Category counts
   const jftCount = exams.filter(e => getExamCategory(e) === 'JFT').length;
+  const foodManuCount = exams.filter(e => getExamCategory(e) === 'FOOD_MANU').length;
   const constructionCount = exams.filter(e => getExamCategory(e) === 'CONSTRUCTION').length;
   const aviationCount = exams.filter(e => getExamCategory(e) === 'AVIATION').length;
   const foodCount = exams.filter(e => getExamCategory(e) === 'FOOD').length;
@@ -150,6 +153,7 @@ export default function QuizManager() {
   const otherSswCount = exams.filter(e => getExamCategory(e) === 'SSW_OTHER').length;
 
   const totalQuestions = exams.reduce((acc, e) => acc + (e.question_count || 0), 0);
+  const foodManuQuestions = exams.filter(e => getExamCategory(e) === 'FOOD_MANU').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const constructionQuestions = exams.filter(e => getExamCategory(e) === 'CONSTRUCTION').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const aviationQuestions = exams.filter(e => getExamCategory(e) === 'AVIATION').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const foodQuestions = exams.filter(e => getExamCategory(e) === 'FOOD').reduce((acc, e) => acc + (e.question_count || 0), 0);
@@ -163,6 +167,7 @@ export default function QuizManager() {
   // Tabs list
   const categoryTabs = [
     { id: 'ALL', label: 'All Exams', subLabel: 'සියලුම විභාග', count: exams.length, icon: Layers, color: 'slate' },
+    { id: 'FOOD_MANU', label: 'SSW Food Manufacturing', subLabel: '飲食料品製造 (371 Qs)', count: foodManuCount, icon: Factory, color: 'lime' },
     { id: 'CONSTRUCTION', label: 'SSW Construction', subLabel: '建設業 (530 Qs)', count: constructionCount, icon: HardHat, color: 'yellow' },
     { id: 'AVIATION', label: 'SSW Aviation', subLabel: '航空業 (297 Qs)', count: aviationCount, icon: Plane, color: 'cyan' },
     { id: 'FOOD', label: 'SSW Food Service', subLabel: '外食業 (325 Qs)', count: foodCount, icon: UtensilsCrossed, color: 'orange' },
@@ -200,6 +205,8 @@ export default function QuizManager() {
     switch (cat) {
       case 'JFT':
         return 'bg-rose-50 text-rose-700 border-rose-200';
+      case 'FOOD_MANU':
+        return 'bg-lime-50 text-lime-800 border-lime-300';
       case 'CONSTRUCTION':
         return 'bg-yellow-50 text-yellow-800 border-yellow-300';
       case 'AVIATION':
@@ -228,6 +235,7 @@ export default function QuizManager() {
   const getCategoryIcon = (cat) => {
     switch (cat) {
       case 'JFT': return <BookOpen className="w-3.5 h-3.5 mr-1" />;
+      case 'FOOD_MANU': return <Factory className="w-3.5 h-3.5 mr-1 text-lime-600" />;
       case 'CONSTRUCTION': return <HardHat className="w-3.5 h-3.5 mr-1 text-yellow-600" />;
       case 'AVIATION': return <Plane className="w-3.5 h-3.5 mr-1 text-cyan-600" />;
       case 'FOOD': return <UtensilsCrossed className="w-3.5 h-3.5 mr-1 text-orange-600" />;
@@ -257,7 +265,7 @@ export default function QuizManager() {
                 Examination & Quiz Management
               </h1>
               <p className="text-sm text-slate-500 mt-0.5">
-                ප්‍රශ්න පත්‍ර සහ විභාග මොඩියුල කළමනාකරණය (JFT, SSW Aviation, SSW Food Service, SSW Caregiving, SSW Agriculture, SSW Accommodation, SSW Automobile, SSW Truck & JLPT)
+                ප්‍රශ්න පත්‍ර සහ විභාග මොඩියුල කළමනාකරණය (JFT, SSW Food Manufacturing, SSW Construction, SSW Aviation, SSW Food Service, SSW Caregiving, SSW Agriculture, SSW Accommodation, SSW Automobile, SSW Truck & JLPT)
               </p>
             </div>
           </div>
@@ -277,7 +285,18 @@ export default function QuizManager() {
       </div>
 
       {/* Overview Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-10 gap-3 sm:gap-4">
+        <div className="bg-gradient-to-br from-lime-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-lime-200 shadow-sm flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-lime-50 border border-lime-300 flex items-center justify-center text-lime-700 shrink-0">
+            <Factory className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-[11px] font-semibold text-lime-900/70 uppercase tracking-wider">SSW Food Manu</p>
+            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{foodManuCount} Modules</h4>
+            <p className="text-[10px] sm:text-[11px] text-lime-700 font-medium">{foodManuQuestions} Seizou Qs</p>
+          </div>
+        </div>
+
         <div className="bg-gradient-to-br from-yellow-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-yellow-200 shadow-sm flex items-center space-x-3">
           <div className="w-10 h-10 rounded-xl bg-yellow-50 border border-yellow-300 flex items-center justify-center text-yellow-700 shrink-0">
             <HardHat className="w-5 h-5" />
