@@ -37,6 +37,12 @@ async function updateCoursesAndExams() {
       name: 'SSW - Food Service & Restaurant Operations (外食業)',
       category: 'Specified Skilled Worker (SSW)',
       description: 'Kitchen safety, culinary terms, food hygiene standards (HACCP), table service, and customer order management in Japanese.'
+    },
+    {
+      code: 'SSW-CONSTRUCTION',
+      name: 'SSW - Construction Industry (特定技能 建設業 - 土木・建築・設備)',
+      category: 'Specified Skilled Worker (SSW)',
+      description: 'Official Japan Construction assessment curriculum covering Site Basics, Laws & Safety Regulations, Types of Construction Work, Site Manners, Civil Engineering, Building Construction, Heavy Equipment, Plumbing/Electrical, and Comprehensive CBT Model Exam.'
     }
   ];
 

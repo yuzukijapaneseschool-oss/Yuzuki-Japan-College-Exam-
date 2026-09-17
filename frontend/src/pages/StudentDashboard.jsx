@@ -61,6 +61,7 @@ export default function StudentDashboard() {
   const isActive = Boolean(subscription?.is_active || user?.role === 'student' || user?.role === 'admin');
 
   const isDualTrack = Boolean(user?.allow_dual_track || user?.batch_mode === 'dual_track' || user?.role === 'admin');
+  const isConstructionStudent = Boolean((user?.student_id && user?.student_id.startsWith('YCN')) || user?.course_code === 'SSW-CONSTRUCTION' || user?.course_id === 13 || user?.registered_course?.includes('Construction') || user?.registered_course?.includes('建設'));
   const isAviationStudent = Boolean((user?.student_id && user?.student_id.startsWith('YAV')) || user?.course_code === 'SSW-AIRPORT-GROUND' || user?.course_id === 10 || user?.registered_course?.includes('Aviation') || user?.registered_course?.includes('Airport') || user?.registered_course?.includes('航空'));
   const isFoodStudent = Boolean((user?.student_id && user?.student_id.startsWith('YFS')) || user?.course_code === 'SSW-FOOD-SERVICE' || user?.course_id === 11);
   const isCaregiverStudent = Boolean((user?.student_id && user?.student_id.startsWith('YCG')) || user?.course_code === 'SSW-CAREGIVER' || user?.course_id === 8);
@@ -71,6 +72,7 @@ export default function StudentDashboard() {
   const isJapaneseStudent = Boolean((user?.student_id && user?.student_id.startsWith('YJP')) || [1, 2, 3, 4].includes(user?.course_id));
 
   const [selectedCourseFilter, setSelectedCourseFilter] = useState(
+    isConstructionStudent && !isDualTrack ? 'CONSTRUCTION' :
     isAviationStudent && !isDualTrack ? 'AVIATION' :
     isFoodStudent && !isDualTrack ? 'FOOD' :
     isCaregiverStudent && !isDualTrack ? 'CAREGIVER' :
@@ -81,7 +83,9 @@ export default function StudentDashboard() {
   );
 
   useEffect(() => {
-    if (isAviationStudent && !isDualTrack) {
+    if (isConstructionStudent && !isDualTrack) {
+      setSelectedCourseFilter('CONSTRUCTION');
+    } else if (isAviationStudent && !isDualTrack) {
       setSelectedCourseFilter('AVIATION');
     } else if (isFoodStudent && !isDualTrack) {
       setSelectedCourseFilter('FOOD');
@@ -96,12 +100,13 @@ export default function StudentDashboard() {
     } else if (isAutoStudent && !isDualTrack) {
       setSelectedCourseFilter('AUTO');
     }
-  }, [user?.student_id, isAviationStudent, isFoodStudent, isCaregiverStudent, isAgriStudent, isAccomStudent, isTruckStudent, isAutoStudent, isDualTrack]);
+  }, [user?.student_id, isConstructionStudent, isAviationStudent, isFoodStudent, isCaregiverStudent, isAgriStudent, isAccomStudent, isTruckStudent, isAutoStudent, isDualTrack]);
 
   const [selectedTruckCategory, setSelectedTruckCategory] = useState('Driver Basics');
 
   const filteredExams = (exams || []).filter(exam => {
     if (selectedCourseFilter === 'ALL') return true;
+    if (selectedCourseFilter === 'CONSTRUCTION') return exam.course_code === 'SSW-CONSTRUCTION' || (exam.title || '').toLowerCase().includes('construction') || (exam.title || '').includes('建設') || (exam.title || '').includes('土木') || (exam.title || '').includes('型枠') || (exam.title || '').includes('鉄筋');
     if (selectedCourseFilter === 'AVIATION') return exam.course_code === 'SSW-AIRPORT-GROUND' || (exam.title || '').toLowerCase().includes('aviation') || (exam.title || '').toLowerCase().includes('airport') || (exam.title || '').includes('航空') || (exam.title || '').includes('グランドハンドリング');
     if (selectedCourseFilter === 'FOOD') return exam.course_code === 'SSW-FOOD-SERVICE' || (exam.title || '').toLowerCase().includes('food') || (exam.title || '').toLowerCase().includes('restaurant') || (exam.title || '').includes('外食');
     if (selectedCourseFilter === 'CAREGIVER') return exam.course_code === 'SSW-CAREGIVER' || (exam.title || '').toLowerCase().includes('caregiver') || (exam.title || '').toLowerCase().includes('nursing') || (exam.title || '').includes('介護');
@@ -124,6 +129,7 @@ export default function StudentDashboard() {
   const getCourseBadgeColor = (code = '', title = '') => {
     const c = code.toUpperCase();
     const t = title.toLowerCase();
+    if (c === 'SSW-CONSTRUCTION' || t.includes('construction') || t.includes('建設') || t.includes('土木') || t.includes('型枠') || t.includes('鉄筋')) return 'bg-yellow-50 text-yellow-800 border-yellow-300';
     if (c === 'SSW-AIRPORT-GROUND' || t.includes('aviation') || t.includes('airport') || t.includes('航空') || t.includes('グランドハンドリング')) return 'bg-cyan-50 text-cyan-800 border-cyan-300';
     if (c === 'SSW-FOOD-SERVICE' || t.includes('food') || t.includes('restaurant') || t.includes('外食')) return 'bg-orange-50 text-orange-800 border-orange-300';
     if (c === 'SSW-CAREGIVER' || t.includes('caregiver') || t.includes('nursing') || t.includes('介護')) return 'bg-teal-50 text-teal-800 border-teal-300';
@@ -138,6 +144,7 @@ export default function StudentDashboard() {
 
   const availableTabs = [
     { id: 'ALL', label: 'All Exams (සියලුම විභාග)' },
+    { id: 'CONSTRUCTION', label: '🏗️ SSW Construction (建設業 - 530 Qs)' },
     { id: 'AVIATION', label: '✈️ SSW Aviation (航空業 - 297 Qs)' },
     { id: 'FOOD', label: '🍽️ SSW Food Service (外食業 - 325 Qs)' },
     { id: 'CAREGIVER', label: '🩺 SSW Caregiving (介護 - 758 Qs)' },
