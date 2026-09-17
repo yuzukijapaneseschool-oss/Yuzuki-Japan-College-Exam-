@@ -22,6 +22,7 @@ import {
   Briefcase,
   HeartHandshake,
   UtensilsCrossed,
+  Plane,
   Sparkles,
   X,
   Filter
@@ -121,6 +122,7 @@ export default function QuizManager() {
     const title = (exam.title || '').toLowerCase();
 
     if (code === 'JFT-BASIC' || title.includes('jft')) return 'JFT';
+    if (code === 'SSW-AIRPORT-GROUND' || title.includes('aviation') || title.includes('airport') || title.includes('航空') || title.includes('グランドハンドリング')) return 'AVIATION';
     if (code === 'SSW-FOOD-SERVICE' || title.includes('food') || title.includes('外食') || title.includes('restaurant') || title.includes('cooking')) return 'FOOD';
     if (code === 'SSW-CAREGIVER' || title.includes('caregiver') || title.includes('介護') || title.includes('nursing')) return 'CAREGIVER';
     if (code === 'SSW-AGRICULTURE' || title.includes('agriculture') || title.includes('農業') || title.includes('耕種')) return 'AGRI';
@@ -134,6 +136,7 @@ export default function QuizManager() {
 
   // Category counts
   const jftCount = exams.filter(e => getExamCategory(e) === 'JFT').length;
+  const aviationCount = exams.filter(e => getExamCategory(e) === 'AVIATION').length;
   const foodCount = exams.filter(e => getExamCategory(e) === 'FOOD').length;
   const caregiverCount = exams.filter(e => getExamCategory(e) === 'CAREGIVER').length;
   const agriCount = exams.filter(e => getExamCategory(e) === 'AGRI').length;
@@ -144,6 +147,7 @@ export default function QuizManager() {
   const otherSswCount = exams.filter(e => getExamCategory(e) === 'SSW_OTHER').length;
 
   const totalQuestions = exams.reduce((acc, e) => acc + (e.question_count || 0), 0);
+  const aviationQuestions = exams.filter(e => getExamCategory(e) === 'AVIATION').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const foodQuestions = exams.filter(e => getExamCategory(e) === 'FOOD').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const caregiverQuestions = exams.filter(e => getExamCategory(e) === 'CAREGIVER').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const agriQuestions = exams.filter(e => getExamCategory(e) === 'AGRI').reduce((acc, e) => acc + (e.question_count || 0), 0);
@@ -155,6 +159,7 @@ export default function QuizManager() {
   // Tabs list
   const categoryTabs = [
     { id: 'ALL', label: 'All Exams', subLabel: 'සියලුම විභාග', count: exams.length, icon: Layers, color: 'slate' },
+    { id: 'AVIATION', label: 'SSW Aviation', subLabel: '航空業 (297 Qs)', count: aviationCount, icon: Plane, color: 'cyan' },
     { id: 'FOOD', label: 'SSW Food Service', subLabel: '外食業 (325 Qs)', count: foodCount, icon: UtensilsCrossed, color: 'orange' },
     { id: 'CAREGIVER', label: 'SSW Caregiving', subLabel: '介護 (758 Qs)', count: caregiverCount, icon: HeartHandshake, color: 'teal' },
     { id: 'AGRI', label: 'SSW Agriculture', subLabel: '農業・耕種 (376 Qs)', count: agriCount, icon: Sprout, color: 'emerald' },
@@ -190,6 +195,8 @@ export default function QuizManager() {
     switch (cat) {
       case 'JFT':
         return 'bg-rose-50 text-rose-700 border-rose-200';
+      case 'AVIATION':
+        return 'bg-cyan-50 text-cyan-800 border-cyan-300';
       case 'FOOD':
         return 'bg-orange-50 text-orange-800 border-orange-300';
       case 'CAREGIVER':
@@ -214,6 +221,7 @@ export default function QuizManager() {
   const getCategoryIcon = (cat) => {
     switch (cat) {
       case 'JFT': return <BookOpen className="w-3.5 h-3.5 mr-1" />;
+      case 'AVIATION': return <Plane className="w-3.5 h-3.5 mr-1 text-cyan-600" />;
       case 'FOOD': return <UtensilsCrossed className="w-3.5 h-3.5 mr-1 text-orange-600" />;
       case 'CAREGIVER': return <HeartHandshake className="w-3.5 h-3.5 mr-1 text-teal-600" />;
       case 'AGRI': return <Sprout className="w-3.5 h-3.5 mr-1 text-emerald-600" />;
@@ -241,7 +249,7 @@ export default function QuizManager() {
                 Examination & Quiz Management
               </h1>
               <p className="text-sm text-slate-500 mt-0.5">
-                ප්‍රශ්න පත්‍ර සහ විභාග මොඩියුල කළමනාකරණය (JFT, SSW Agriculture, SSW Accommodation, SSW Automobile, SSW Truck & JLPT)
+                ප්‍රශ්න පත්‍ර සහ විභාග මොඩියුල කළමනාකරණය (JFT, SSW Aviation, SSW Food Service, SSW Caregiving, SSW Agriculture, SSW Accommodation, SSW Automobile, SSW Truck & JLPT)
               </p>
             </div>
           </div>
@@ -261,7 +269,18 @@ export default function QuizManager() {
       </div>
 
       {/* Overview Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-3 sm:gap-4">
+        <div className="bg-gradient-to-br from-cyan-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-cyan-100 shadow-sm flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 shrink-0">
+            <Plane className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-[11px] font-semibold text-cyan-900/60 uppercase tracking-wider">SSW Aviation</p>
+            <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">{aviationCount} Modules</h4>
+            <p className="text-[10px] sm:text-[11px] text-cyan-600 font-medium">{aviationQuestions} Aviation Qs</p>
+          </div>
+        </div>
+
         <div className="bg-gradient-to-br from-orange-500/10 via-white to-white p-3.5 sm:p-4 rounded-2xl border border-orange-100 shadow-sm flex items-center space-x-3">
           <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-600 shrink-0">
             <UtensilsCrossed className="w-5 h-5" />
