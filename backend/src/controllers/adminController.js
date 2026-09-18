@@ -144,7 +144,7 @@ async function getAdminExams(req, res) {
              (SELECT COUNT(*) FROM exam_attempts ea WHERE ea.exam_id = e.id) as attempt_count,
              (SELECT AVG(percentage) FROM exam_attempts ea WHERE ea.exam_id = e.id) as avg_percentage
       FROM exams e
-      JOIN courses c ON e.course_id = c.id
+      LEFT JOIN courses c ON e.course_id = c.id
       ORDER BY e.id DESC
     `);
     return res.json({ exams });
@@ -242,7 +242,7 @@ async function getExamQuestions(req, res) {
     const exam = await query.get(`
       SELECT e.*, c.name as course_name, c.code as course_code 
       FROM exams e 
-      JOIN courses c ON e.course_id = c.id 
+      LEFT JOIN courses c ON e.course_id = c.id 
       WHERE e.id = ?
     `, [examId]);
 
