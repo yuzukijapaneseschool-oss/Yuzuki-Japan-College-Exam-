@@ -166,6 +166,8 @@ export default function QuizManager() {
   const autoQuestions = exams.filter(e => getExamCategory(e) === 'AUTO').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const jftQuestions = exams.filter(e => getExamCategory(e) === 'JFT').reduce((acc, e) => acc + (e.question_count || 0), 0);
   const truckQuestions = exams.filter(e => getExamCategory(e) === 'TRUCK').reduce((acc, e) => acc + (e.question_count || 0), 0);
+  const jlptQuestions = exams.filter(e => getExamCategory(e) === 'JLPT').reduce((acc, e) => acc + (e.question_count || 0), 0);
+  const otherSswQuestions = exams.filter(e => getExamCategory(e) === 'SSW_OTHER').reduce((acc, e) => acc + (e.question_count || 0), 0);
 
   // Sector Quick Filter Cards configuration
   const sectorOverviewCards = [
@@ -864,12 +866,12 @@ export default function QuizManager() {
                     className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 outline-none bg-white"
                   >
                     <optgroup label="General Japanese Languages">
-                      {courses.filter(c => !c.code?.startsWith('SSW-')).map(c => (
+                      {courses.filter(c => !c.code?.startsWith('SSW-') && !c.code?.startsWith('SSW2-')).map(c => (
                         <option key={c.id} value={c.id}>{c.name}</option>
                       ))}
                     </optgroup>
-                    <optgroup label="Specified Skilled Worker (SSW)">
-                      {courses.filter(c => c.code?.startsWith('SSW-')).map(c => (
+                    <optgroup label="Specified Skilled Worker (SSW 1 & SSW 2)">
+                      {courses.filter(c => c.code?.startsWith('SSW-') || c.code?.startsWith('SSW2-')).map(c => (
                         <option key={c.id} value={c.id}>{c.name}</option>
                       ))}
                     </optgroup>
