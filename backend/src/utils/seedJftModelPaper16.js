@@ -1,0 +1,915 @@
+const { query } = require('../config/database');
+
+async function seedJftModelPaper16() {
+  console.log('Seeding JFT-Basic Official Model Paper 16 (60 Questions, Pass 200/250)...');
+
+  try {
+    let exam = await query.get("SELECT * FROM exams WHERE title LIKE '%Model Paper 16%' OR title LIKE '%Paper 16%'");
+    let examId;
+
+    if (exam) {
+      examId = exam.id;
+      console.log(`Found existing Exam ID: ${examId}, resetting questions...`);
+      await query.run('DELETE FROM questions WHERE exam_id = ?', [examId]);
+      await query.run(`
+        UPDATE exams 
+        SET course_id = 1,
+            title = 'JFT-Basic Official Model Paper 16 (60 Minutes)',
+            description = 'Official JFT-Basic Prometric Computer-Based Examination Paper 16 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
+            duration_minutes = 60,
+            passing_score = 200,
+            is_active = 1
+        WHERE id = ?
+      `, [examId]);
+    } else {
+      const res = await query.run(`
+        INSERT INTO exams (course_id, title, description, duration_minutes, passing_score, is_active)
+        VALUES (
+          1,
+          'JFT-Basic Official Model Paper 16 (60 Minutes)',
+          'Official JFT-Basic Prometric Computer-Based Examination Paper 16 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
+          60,
+          200,
+          1
+        )
+      `);
+      examId = res.id;
+      console.log(`Created new Exam ID: ${examId}`);
+    }
+
+    const questions = [
+      // ================= SECTION 1: Script and Vocabulary (文字・語彙) [Q01 - Q15] =================
+      {
+        order_num: 1,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n<ruby>飛行機<rt>ひこうき</rt></ruby>が<ruby>離着陸<rt>りちゃくりく</rt></ruby>する<ruby>場所<rt>ばしょ</rt></ruby>は何ですか。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'ひこうき',
+        option_b: 'くうこう',
+        option_c: '駅',
+        option_d: '',
+        correct_option: 'B',
+        marks: 1,
+        explanation: 'ගුවන් තොටුපොළ "くうこう (Kuukou / 空港)" වේ.'
+      },
+      {
+        order_num: 2,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n<ruby>電車<rt>でんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>るホームのある<ruby>場所<rt>ばしょ</rt></ruby>は何ですか。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'くうこう',
+        option_b: 'ひこうき',
+        option_c: '駅',
+        option_d: '',
+        correct_option: 'C',
+        marks: 1,
+        explanation: 'දුම්රිය ස්ථානය "駅 (えき - Eki)" වේ.'
+      },
+      {
+        order_num: 3,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\nバスを<ruby>待<rt>ま</rt></ruby>つ<ruby>場所<rt>ばしょ</rt></ruby>は何ですか。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'バス',
+        option_b: 'バスてい',
+        option_c: '駅',
+        option_d: '',
+        correct_option: 'B',
+        marks: 1,
+        explanation: 'බස් නැවතුම්පොළ "バスてい (Basu-tei / バス停)" වේ.'
+      },
+      {
+        order_num: 4,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n<ruby>医者<rt>いしゃ</rt></ruby>や<ruby>看護師<rt>かんごし</rt></ruby>がいる<ruby>建物<rt>たてもの</rt></ruby>は何ですか。',
+        image_url: null,
+        audio_url: null,
+        option_a: '病気',
+        option_b: '病院',
+        option_c: 'ホテル',
+        option_d: '',
+        correct_option: 'B',
+        marks: 1,
+        explanation: 'රෝහල "病院 (びょういん - Byouin)" වේ.'
+      },
+      {
+        order_num: 5,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n<ruby>子<rt>こ</rt></ruby>どもたちが<ruby>遊<rt>あそ</rt></ruby>ぶ<ruby>遊具<rt>ゆうぐ</rt></ruby>のある<ruby>広場<rt>ひろば</rt></ruby>は何ですか。',
+        image_url: null,
+        audio_url: null,
+        option_a: '学校',
+        option_b: '庭',
+        option_c: '公園',
+        option_d: '',
+        correct_option: 'C',
+        marks: 1,
+        explanation: 'උද්‍යානය / පාක් එක "公園 (こうえん - Kouen)" වේ.'
+      },
+      {
+        order_num: 6,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>友達<rt>ともだち</rt></ruby>（ ＿＿ ）やくそく（ ＿＿ ）しました。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'が・が',
+        option_b: 'と・と',
+        option_c: 'と・を',
+        option_d: '',
+        correct_option: 'C',
+        marks: 2,
+        explanation: 'මිතුරෙකු සමඟ පොරොන්දුවක් වීම「友達と 約束を しました」වේ.'
+      },
+      {
+        order_num: 7,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: 'この<ruby>料理<rt>りょうり</rt></ruby>は<ruby>味<rt>あじ</rt></ruby>（ ＿＿ ）うすいですから、もっとしお（ ＿＿ ）<ruby>入<rt>い</rt></ruby>れてください。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'が・に',
+        option_b: 'が・が',
+        option_c: 'が・を',
+        option_d: '',
+        correct_option: 'C',
+        marks: 2,
+        explanation: 'රස අඩු බවට「味がうすい」සහ ලුණු දැමීමට「しおを入れて」නිපාත යෙදේ (が・を).'
+      },
+      {
+        order_num: 8,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: 'あの<ruby>歌手<rt>かしゅ</rt></ruby>はとても<ruby>人気<rt>にんき</rt></ruby>（ ＿＿ ）あります。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'に',
+        option_b: 'が',
+        option_c: 'を',
+        option_d: '',
+        correct_option: 'B',
+        marks: 2,
+        explanation: 'ජනප්‍රියයි යන වාක්‍ය රටාව「〜人気があります (Ninki ga arimasu)」වේ.'
+      },
+      {
+        order_num: 9,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>子供<rt>こども</rt></ruby>は<ruby>公園<rt>こうえん</rt></ruby>の<ruby>中<rt>なか</rt></ruby>（ ＿＿ ）<ruby>走<rt>はし</rt></ruby>りまわっています。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'に',
+        option_b: 'を',
+        option_c: 'が',
+        option_d: '',
+        correct_option: 'B',
+        marks: 2,
+        explanation: 'ස්ථානයක් හරහා චලනය වන ක්‍රියාවක් සඳහා "を" නිපාතය යෙදේ (公園の中を 走りまわっています).'
+      },
+      {
+        order_num: 10,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>母<rt>はは</rt></ruby>（ ＿＿ ）<ruby>作<rt>つく</rt></ruby>ったケーキ（ ＿＿ ）これです。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'の・を',
+        option_b: 'が・は',
+        option_c: 'の・も',
+        option_d: '',
+        correct_option: 'B',
+        marks: 2,
+        explanation: 'නාම විශේෂණ වාක්‍යාංශයේ කර්තෘ සඳහා "が" ද, ප්‍රධාන වාක්‍යයේ මාතෘකාව සඳහා "は" ද යෙදේ (母が作ったケーキはこれです).'
+      },
+      {
+        order_num: 11,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>はどう<ruby>読<rt>よ</rt></ruby>みますか。\n<ruby>私<rt>わたし</rt></ruby>は<u>西洋</u>の<ruby>文学<rt>ぶんがく</rt></ruby>が<ruby>好<rt>す</rt></ruby>きです。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'せいゆう',
+        option_b: 'とうよう',
+        option_c: 'せいよう',
+        option_d: '',
+        correct_option: 'C',
+        marks: 2,
+        explanation: '「西洋」කන්ජි කියවීම "せいよう (Seiyou - බටහිර ලෝකය/Western)" වේ.'
+      },
+      {
+        order_num: 12,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>はどう<ruby>読<rt>よ</rt></ruby>みますか。\n<ruby>妹<rt>いもうと</rt></ruby>の(12)<u>代わり</u>に(13)<u>手紙</u>を<ruby>書<rt>か</rt></ruby>きました。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'わかり',
+        option_b: 'かわり',
+        option_c: 'まわり',
+        option_d: '',
+        correct_option: 'B',
+        marks: 2,
+        explanation: '「代わり」කන්ජි කියවීම "かわり (Kawari - වෙනුවට/instead)" වේ.'
+      },
+      {
+        order_num: 13,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>はどう<ruby>読<rt>よ</rt></ruby>みますか。\n<ruby>妹<rt>いもうと</rt></ruby>の(12)代わりのに(13)<u>手紙</u>を<ruby>書<rt>か</rt></ruby>きました。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'てがみ',
+        option_b: 'はがき',
+        option_c: 'ふうとう',
+        option_d: '',
+        correct_option: 'A',
+        marks: 2,
+        explanation: '「手紙」කන්ජි කියවීම "てがみ (Tegami - ලිපිය/Letter)" වේ.'
+      },
+      {
+        order_num: 14,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>はどう<ruby>読<rt>よ</rt></ruby>みますか。\nもう<ruby>少<rt>すこ</rt></ruby>し(14)<u>低い</u>いすを(15)<u>貸して</u>ください。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'たかい',
+        option_b: 'ひくい',
+        option_c: 'ながい',
+        option_d: '',
+        correct_option: 'B',
+        marks: 2,
+        explanation: '「低い」කන්ජි කියවීම "ひくい (Hikui - මිටි/පහත්)" වේ.'
+      },
+      {
+        order_num: 15,
+        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
+        question_text: '<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>はどう<ruby>読<rt>よ</rt></ruby>みますか。\nもう<ruby>少<rt>すこ</rt></ruby>し(14)低いいすを(15)<u>貸して</u>ください。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'かりて',
+        option_b: 'かして',
+        option_c: 'かいて',
+        option_d: '',
+        correct_option: 'B',
+        marks: 2,
+        explanation: '「貸して」කන්ජි කියවීම "かして (Kashite - ණයට/පාවිච්චියට දෙන්න)" වේ.'
+      },
+
+      // ================= SECTION 2: Conversation and Grammar (会話・文法) [Q16 - Q30] =================
+      {
+        order_num: 16,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>文<rt>ぶん</rt></ruby>と<ruby>同<rt>おな</rt></ruby>じ<ruby>意味<rt>いみ</rt></ruby>の<ruby>文<rt>ぶん</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「てつだいましょうか。」',
+        image_url: null,
+        audio_url: null,
+        option_a: 'てつだえますか',
+        option_b: 'てつだってあげます',
+        option_c: 'てつだってください',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'උදව් කිරීමට ඉදිරිපත් වීම (てつだいましようか / මම උදව් කරන්නද?) යනු「てつだってあげます (උදව් කර දෙන්නම්)」යන්නට සමාන වේ.'
+      },
+      {
+        order_num: 17,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>文<rt>ぶん</rt></ruby>と<ruby>同<rt>おな</rt></ruby>じ<ruby>意味<rt>いみ</rt></ruby>の<ruby>文<rt>ぶん</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「ブラウンさんは留学生です。ドイツから来ました。」',
+        image_url: null,
+        audio_url: null,
+        option_a: 'ブラウンさんはドイツからりょこうに来ました。',
+        option_b: 'ブラウンさんはドイツから働きに来ました。',
+        option_c: 'ブラウンさんはドイツから勉強に来ました。',
+        option_d: '',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'විදේශ ශිෂ්‍යයෙකු (留学生) යනු අධ්‍යාපනය සඳහා පැමිණි අයෙකි (勉強に来ました).'
+      },
+      {
+        order_num: 18,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>文<rt>ぶん</rt></ruby>と<ruby>同<rt>おな</rt></ruby>じ<ruby>意味<rt>いみ</rt></ruby>の<ruby>文<rt>ぶん</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「田中さんは35さいです。どくしんです。」',
+        image_url: null,
+        audio_url: null,
+        option_a: '田中さんは35さいです。けっこんしていません。',
+        option_b: '田中さんは35さいです。しごとをしていません。',
+        option_c: '田中さんは35さいです。子供がいません。',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'අවිවාහක (どくしん / 独身) යනු විවාහ වී නොමැති (けっこんしていません) යන්නයි.'
+      },
+      {
+        order_num: 19,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>文<rt>ぶん</rt></ruby>と<ruby>同<rt>おな</rt></ruby>じ<ruby>意味<rt>いみ</rt></ruby>の<ruby>文<rt>ぶん</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「こんやのパーティーは何時からですか。」',
+        image_url: null,
+        audio_url: null,
+        option_a: 'こんどのパーティーは何時からですか。',
+        option_b: '今日の夜のパーティーは何時からですか。',
+        option_c: '今週のパーティーは何時からですか。',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'අද රාත්‍රිය (こんや / 今夜) යනු "今日の夜" වේ.'
+      },
+      {
+        order_num: 20,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>文<rt>ぶん</rt></ruby>と<ruby>同<rt>おな</rt></ruby>じ<ruby>意味<rt>いみ</rt></ruby>の<ruby>文<rt>ぶん</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「ひまなとき、うちでおんがくを聞きます」',
+        image_url: null,
+        audio_url: null,
+        option_a: 'いそがしくないとき、うちでおんがくをききます。',
+        option_b: 'うるさくないとき、うちでおんがくをききます。',
+        option_c: 'たのしくないとき、うちでおんがくをききます。',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'නිදහස් වේලාව (ひまなとき / 暇な時) යනු කාර්යබහුල නොවන අවස්ථාවයි (いそがしくないとき).'
+      },
+      {
+        order_num: 21,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nA: 明日、どこ（ ＿＿ ）出かけますか。\nB: いいえ、どこも行きません。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'かへ',
+        option_b: 'も',
+        option_c: 'が',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'යම් කිසි තැනකට යනවාදැයි විමසීමට「どこかへ (Doko ka e)」යෙදේ.'
+      },
+      {
+        order_num: 22,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nA: 明日(22)＿＿＿＿＿＿＿＿ といいなあ。\nB: どうして。\nA: 明日(23)＿＿＿＿＿＿＿＿、パパといっしょにゆうえんちに行く予定なんだ。',
+        image_url: null,
+        audio_url: null,
+        option_a: '晴れる',
+        option_b: '晴れます',
+        option_c: '晴れました',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'පැතුමක් ප්‍රකාශ කරන「〜といいなあ」ඉදිරියට Dictionary form එක වන "晴れる" යෙදේ (晴れるといいなあ).'
+      },
+      {
+        order_num: 23,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nA: 明日(23)＿＿＿＿＿＿＿＿、パパといっしょにゆうえんちに行く予定なんだ。',
+        image_url: null,
+        audio_url: null,
+        option_a: '晴れました',
+        option_b: '晴れたら',
+        option_c: '晴れたとき',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'කොන්දේසියක් දැක්වීමට「〜たら (晴れたら - පායනවා නම්)」යෙදේ.'
+      },
+      {
+        order_num: 24,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nA: 富士山に(24)＿＿＿＿＿＿＿＿ ことがありますか。\nB: いいえ、ありません。ぜひ(25)＿＿＿＿＿＿＿＿ みたいです。',
+        image_url: null,
+        audio_url: null,
+        option_a: '登った',
+        option_b: '登りました',
+        option_c: '登る',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'අතීත අත්දැකීම් විමසීමට「Ta-form + ことがありますか (登ったことがありますか)」යෙදේ.'
+      },
+      {
+        order_num: 25,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nB: いいえ、ありません。ぜひ(25)＿＿＿＿＿＿＿＿ みたいです。',
+        image_url: null,
+        audio_url: null,
+        option_a: '登ります',
+        option_b: '登った',
+        option_c: '登って',
+        option_d: '',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'යමක් කර බැලීමට ඇති කැමැත්ත ප්‍රකාශ කරන「〜てみたいです」සඳහා Te-form එක වන "登って" යෙදේ (登ってみたいです).'
+      },
+      {
+        order_num: 26,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nA: 何を飲むか、決めましたか。\nB: 私はビールを ＿＿＿＿＿＿＿＿ しました。',
+        image_url: null,
+        audio_url: null,
+        option_a: '飲むに',
+        option_b: '飲みに',
+        option_c: '飲みすぎ',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'තෝරාගැනීමක් දැක්වීමට「〜にしました (飲みにしました / ビールにしました)」යෙදේ.'
+      },
+      {
+        order_num: 27,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nA: このカメラは以前のより、ずっと使い方が(27)＿＿＿＿＿＿＿＿ ですね。\nB: こんなにかんたんと、みんな使えますね。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'かんたんな',
+        option_b: 'かんたん',
+        option_c: 'かんたんに',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'නාම විශේෂණ ප්‍රකාශය「使い方がかんたんです (භාවිතය පහසුයි)」වේ.'
+      },
+      {
+        order_num: 28,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】\nA: そうです。お年よりも、子供も(28)＿＿＿＿＿＿＿＿ よ。',
+        image_url: null,
+        audio_url: null,
+        option_a: '使う',
+        option_b: '使えます',
+        option_c: '使って',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'හැකියාව (Potential form) ප්‍රකාශ කිරීමට「使えます (Tsukaemasu - පාවිච්චි කළ හැකියි)」යෙදේ.'
+      },
+      {
+        order_num: 29,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>店<rt>みせ</rt></ruby>での<ruby>会話<rt>かいわ</rt></ruby>】\n客: すみません、この服を(29)＿＿＿＿＿＿＿＿ みたいんですが。\n店員: ええ、どうぞ。あちらで(30)＿＿＿＿＿＿＿＿ ください。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'しちゃくする',
+        option_b: 'しちゃく',
+        option_c: 'しちゃくし',
+        option_d: '',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'ඇඳුමක් ඇඳ බැලීමට (Try on)「試着してみたい (しちゃくしてみたい)」යෙදේ.'
+      },
+      {
+        order_num: 30,
+        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
+        question_text: '【<ruby>店<rt>みせ</rt></ruby>での<ruby>会話<rt>かいわ</rt></ruby>】\n店員: ええ、どうぞ。あちらで(30)＿＿＿＿＿＿＿＿ ください。',
+        image_url: null,
+        audio_url: null,
+        option_a: 'しちゃくして',
+        option_b: 'しちゃくし',
+        option_c: 'しちゃくに',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'ආරාධනා කිරීමට Te-form + ください යෙදේ (試着してください - කරුණාකර ඇඳ බලන්න).'
+      },
+
+      // ================= SECTION 3: Listening Comprehension (聴解) [Q31 - Q45] =================
+      {
+        order_num: 31,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\nキムさんのお祝いの品はどれですか。(a: え・とけい / b: ネクタイ・セーター / c: ペン・うでどけい / d: おもちゃ・ふく)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/14UGGU0tHoIR0E_MAWq09XjDt4aOCAOYV/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'ශ්‍රව්‍ය ඛණ්ඩය අනුව කිම් මහත්මියගේ විවාහ තෑග්ග පින්තූර රාමුවක් සහ ඔරලෝසුවකි (a).'
+      },
+      {
+        order_num: 32,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\nジョイさんの出産祝いの品はどれですか。(a: え・とけい / b: ネクタイ・セーター / c: ペン・うでどけい / d: おもちゃ・ふく)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1EsK-60mDrFm_XIdm2UXroetc0qwTNAVV/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'D',
+        marks: 5,
+        explanation: 'ජෝයි මහත්මියගේ දරු උපත වෙනුවෙන් ළමා සෙල්ලම් බඩු සහ ඇඳුම් (d) තෑගි දෙනු ලැබේ.'
+      },
+      {
+        order_num: 33,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\nよしださんの就職祝いの品はどれですか。(a: え・とけい / b: ネクタイ・セーター / c: ペン・うでどけい / d: おもちゃ・ふく)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1wrTQm5iy6f7pSpggS6eeRbeM8i64TvBh/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'යොෂිඩාගේ රැකියා ප්‍රවේශය වෙනුවෙන් පෑනක් සහ අත් ඔරලෝසුවක් (c) තෑගි කෙරේ.'
+      },
+      {
+        order_num: 34,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\nすずきさんの父の日のお祝いの品はどれですか。(a: え・とけい / b: ネクタイ・セーター / c: ペン・うでどけい / d: おもちゃ・ふく)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/15lHR98lMJfU7UFiMUAh7mldfqwFGw_jY/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'පියවරුන්ගේ දිනය වෙනුවෙන් ටයි පටියක් සහ ස්වීටරයක් (b) තෝරා ගැනේ.'
+      },
+      {
+        order_num: 35,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n(a: しゅうしょく / b: ひっこし / c: けっこん / d: しゅっさん)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1r4R2OqdipkzyFAdevUv5Pq_l5Nr-uK9Y/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'විවාහ මංගල්‍යය (c - けっこん) පිළිබඳව සංවාදය සිදුවේ.'
+      },
+      {
+        order_num: 36,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>答<rt>こた</rt></ruby>えなさい】\nけっこんのおいわいのために何をしますか。(e: プレゼント / f: パーティー / g: レストランでしょくじ / h: カードを書く)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1r4R2OqdipkzyFAdevUv5Pq_l5Nr-uK9Y/view?usp=sharing',
+        option_a: 'e',
+        option_b: 'f',
+        option_c: 'g',
+        option_d: 'h',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'සාදයක් පැවැත්වීමට තීරණය කරයි (f - パーティーをします).'
+      },
+      {
+        order_num: 37,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n(a: しゅうしょく / b: ひっこし / c: けっこん / d: しゅっさん)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1A7HfmOiyCWamyxJ6xl58vcTVtQkwry0k/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'නිවසක් මාරු කිරීම (b - ひっこし) පිළිබඳව සාකච්ඡා වේ.'
+      },
+      {
+        order_num: 38,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>答<rt>こた</rt></ruby>えなさい】\nカーラさんのひっこしにおいわいに何をしますか。(e: プレゼント / f: パーティー / g: レストランでしょくじ / h: カードを書く)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1A7HfmOiyCWamyxJ6xl58vcTVtQkwry0k/view?usp=sharing',
+        option_a: 'e',
+        option_b: 'f',
+        option_c: 'g',
+        option_d: 'h',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'ආපනශාලාවකදී ආහාර වේලක් ලබා දේ (g - レストランでしょくじをします).'
+      },
+      {
+        order_num: 39,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n(a: しゅうしょく / b: ひっこし / c: けっこん / d: しゅっさん)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1wV4RAUmV_cIHOvQL5H07mziOABvWXFNU/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'රැකියාවක් ලැබීම (a - しゅうしょく) පිළිබඳව සංවාදය වේ.'
+      },
+      {
+        order_num: 40,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>答<rt>こた</rt></ruby>えなさい】\nパクさんのしゅうしょくおいわいに何をしますか。(e: プレゼント / f: パーティー / g: レストランでしょくじ / h: カードを書く)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1wV4RAUmV_cIHOvQL5H07mziOABvWXFNU/view?usp=sharing',
+        option_a: 'e',
+        option_b: 'f',
+        option_c: 'g',
+        option_d: 'h',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'තෑග්ගක් ලබා දේ (e - プレゼントをあげます).'
+      },
+      {
+        order_num: 41,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しい<ruby>絵<rt>え</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n(a: しゅうしょく / b: ひっこし / c: けっこん / d: しゅっさん)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1C5xxlaGXdlBiTpW8bO6ntaXF3Fve1lCi/view?usp=sharing',
+        option_a: 'a',
+        option_b: 'b',
+        option_c: 'c',
+        option_d: 'd',
+        correct_option: 'D',
+        marks: 5,
+        explanation: 'දරු උපත (d - しゅっさん) පිළිබඳව සංවාදය වේ.'
+      },
+      {
+        order_num: 42,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>答<rt>こた</rt></ruby>えなさい】\nキルスティーナさんのしゅっさんに何をしますか。(e: プレゼント / f: パーティー / g: レストランでしょくじ / h: カードを書く)',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1C5xxlaGXdlBiTpW8bO6ntaXF3Fve1lCi/view?usp=sharing',
+        option_a: 'e',
+        option_b: 'f',
+        option_c: 'g',
+        option_d: 'h',
+        correct_option: 'D',
+        marks: 5,
+        explanation: 'සුබපැතුම් පතක් ලියයි (h - カードを書きます).'
+      },
+      {
+        order_num: 43,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>答<rt>こた</rt></ruby>えなさい】\nなかむらさんはいつ来ますか。',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1rwOtaLjxlfphWjvY687mIxQ4-pEMI4-I/view?usp=sharing',
+        option_a: '18日',
+        option_b: '28日',
+        option_c: '27日',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'නකමුරා මහත්මිය 28 වන දින පැමිණෙයි (28日).'
+      },
+      {
+        order_num: 44,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>答<rt>こた</rt></ruby>えなさい】\nなかむらさんはどこに働いていますか。',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1rwOtaLjxlfphWjvY687mIxQ4-pEMI4-I/view?usp=sharing',
+        option_a: '東京のししゃで',
+        option_b: 'おおさかのししゃで',
+        option_c: '東京のほんしゃで',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'ඇය ඔසාකා ශාඛාවේ සේවය කරයි (おおさかのししゃで).'
+      },
+      {
+        order_num: 45,
+        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
+        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>びなさい】',
+        image_url: null,
+        audio_url: 'https://drive.google.com/file/d/1aPBbqI-bBQac_K3BKVFKXFmwLyem_6ft/view?usp=sharing',
+        option_a: 'いしかわさんは21日に来ます',
+        option_b: 'いしかわさんは朝9時のひこうきで来ます',
+        option_c: 'いしかわさんはシドニーししゃで働いています',
+        option_d: '',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'ඉෂිකාවා මහතා සිඩ්නි ශාඛාවේ සේවය කරයි (いしかわさんはシドニーししゃで働いています).'
+      },
+
+      // ================= SECTION 4: Reading Comprehension (読解) [Q46 - Q60] =================
+      {
+        order_num: 46,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【アランさんの文章を読んで○か×かを選びなさい】\n「私はアランです。おおさかに住んでいるフランス人です。日本人の友達や会社の人、近所の人といつも日本語で話します。」\n\nアランさんは日本人とときどき英語で話します。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'ඇලන් සැමවිටම ජපන් බසින් කතා කරයි (いつも日本語で話します). එබැවින් වැරදිය (×).'
+      },
+      {
+        order_num: 47,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【アランさんの文章を読んで○か×かを選びなさい】\nアランさんは日本語がわかりませんから、日本人は英語で話します。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'ඇලන්ට ජපන් පුළුවන. ජපන් ජාතිකයන් ඔහු විදේශිකයෙකු නිසා ඉංග්‍රීසියෙන් කතා කරයි. එබැවින් වැරදිය (×).'
+      },
+      {
+        order_num: 48,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【アランさんの文章を読んで○か×かを選びなさい】\n駅の前で日本人と話した時、女の人は男の人より親切でした。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'කාන්තාව උපරිමයෙන් පාර පැහැදිලි කර දීමට උත්සාහ කළාය. එබැවින් නිවැරදිය (〇).'
+      },
+      {
+        order_num: 49,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【アランさんの文章を読んで○か×かを選びなさい】\nアランさんが図書館へ行った時、図書館は休みでした。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'නිවාඩු දවසක් නොව, එම පාරේ පුස්තකාලයක් තිබුණේ නැත (図書館はありませんでした). එබැවින් වැරදිය (×).'
+      },
+      {
+        order_num: 50,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【アランさんの文章を読んで○か×かを選びなさい】\nアランさんはアメリカ人です。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'ඔහු ප්‍රංශ ජාතිකයෙකි (フランス人). එබැවින් වැරදිය (×).'
+      },
+      {
+        order_num: 51,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【アランさんの文章を読んで答えなさい】\nアランさんはどうして「日本人のみなさん、日本語でお願いします」と言いましたか。',
+        image_url: null,
+        audio_url: null,
+        option_a: '英語がきらいですから',
+        option_b: '日本語を覚えたいですから',
+        option_c: '日本人の英語より日本語のほうがよくわかりますから',
+        option_d: '',
+        correct_option: 'C',
+        marks: 5,
+        explanation: 'ජපන් ජාතිකයන්ගේ ඉංග්‍රීසිවලට වඩා ඔහුට ජපන් භාෂාව හොඳින් තේරුම් ගත හැකි බැවිනි.'
+      },
+      {
+        order_num: 52,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【手紙を読んで答えなさい】\nよしこさんは困っていることはどれですか。',
+        image_url: null,
+        audio_url: null,
+        option_a: '大学の授業をはじまったんから',
+        option_b: '大学のりょうきんは高いから',
+        option_c: '地理学の勉強がきらいだから',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'විශ්වවිද්‍යාල අධ්‍යාපන ගාස්තු අධික වීම (大学の学費もとても高いですから心配) ගැන කරදර වේ.'
+      },
+      {
+        order_num: 53,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【漢字の成り立ちの会話を読んで答えなさい】\nあきらさんはどんな絵を書きましたか。人（横を向く人）、大（手足を広げて立つ人）、立（地面の上に立つ人）に合うものを選びなさい。',
+        image_url: null,
+        audio_url: null,
+        option_a: '1',
+        option_b: '2',
+        option_c: '3',
+        option_d: '4',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'සංවාදයේ විස්තරයට නිවැරදිවම ගැලපෙන්නේ 1 වන රූප සටහනයි (1).'
+      },
+      {
+        order_num: 54,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【ドラえもんの文章を読んで○か×かを選びなさい】\n「まんがのしゅじんこうでねこのかたちのロボットです。」\n\nドラえもんは動物です。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'දොරේමොන් සතෙකු නොව බළල් හැඩැති රොබෝවරයෙකි (ロボット). එබැවින් වැරදිය (×).'
+      },
+      {
+        order_num: 55,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【ドラえもんの文章を読んで○か×かを選びなさい】\nドラえもんはポケットから便利なものを出します。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'ඔහුගේ සාක්කුවෙන් විවිධ පහසු උපකරණ ලබා දෙයි. එබැවින් නිවැරදිය (〇).'
+      },
+      {
+        order_num: 56,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【ドラえもんの文章を読んで○か×かを選びなさい】\n空をとびたいとき「タケコプター」に乗ります。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'උණ හෙලිකොප්ටරය හිසේ සවි කරයි (あたまにつける); ඒ මත නගින්නේ (乗る) නැත. එබැවින් වැරදිය (×).'
+      },
+      {
+        order_num: 57,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【ドラえもんの文章を読んで○か×かを選びなさい】\n「どこでもドア」があったらどこでも行けます。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'එම දොර ඇරීමෙන් කැමති ඕනෑම තැනකට යා හැක (どこでも行けます). එබැවින් නිවැරදිය (〇).'
+      },
+      {
+        order_num: 58,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【宇宙飛行士へのメールを読んで○か×かを選びなさい】\n田中さんはうちゅうひこうしです。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'A',
+        marks: 5,
+        explanation: 'තනකා මහතා අභ්‍යවකාශගාමියෙකි (うちゅうひこうし). එබැවින් නිවැරදිය (〇).'
+      },
+      {
+        order_num: 59,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【宇宙飛行士へのメールを読んで○か×かを選びなさい】\n田中さんはうちゅうへ行って、うちゅうせんの外へでました。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'අභ්‍යවකාශ යානයෙන් පිටතට ගිය බවක් සඳහන් නොවේ. එබැවින් වැරදිය (×).'
+      },
+      {
+        order_num: 60,
+        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
+        question_text: '【宇宙飛行士へのメールを読んで○か×かを選びなさい】\nでんしメールを送った人はうちゅうについてけんきゅうしています。',
+        image_url: null,
+        audio_url: null,
+        option_a: '〇',
+        option_b: '×',
+        option_c: '',
+        option_d: '',
+        correct_option: 'B',
+        marks: 5,
+        explanation: 'ඊමේල් පණිවිඩය එවූ පුද්ගලයා අනාගතයේ අභ්‍යවකාශගාමියෙකු වීමට කැමති පිරිමි ළමයෙකි (ぼくもうちゅうひこうしになりたい). එබැවින් වැරදිය (×).'
+      }
+    ];
+
+    console.log(`Inserting ${questions.length} questions for JFT Model Paper 16...`);
+    for (const q of questions) {
+      await query.run(`
+        INSERT INTO questions (
+          exam_id, order_num, section_name, question_text, 
+          image_url, audio_url, option_a, option_b, option_c, option_d, 
+          correct_option, marks, explanation
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `, [
+        examId, q.order_num, q.section_name, q.question_text,
+        q.image_url, q.audio_url, q.option_a, q.option_b, q.option_c, q.option_d,
+        q.correct_option, q.marks, q.explanation
+      ]);
+    }
+
+    console.log('✅ JFT Model Paper 16 seeded successfully with 60 questions!');
+  } catch (err) {
+    console.error('❌ Error seeding JFT Model Paper 16:', err);
+    throw err;
+  }
+}
+
+module.exports = { seedJftModelPaper16 };
+if (require.main === module) {
+  seedJftModelPaper16().then(() => process.exit(0)).catch(err => { console.error(err); process.exit(1); });
+}
