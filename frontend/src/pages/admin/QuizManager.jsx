@@ -364,7 +364,7 @@ export default function QuizManager() {
     { id: 'ACCOM', label: 'SSW Accommodation', subLabel: '宿泊業 (246 Qs)', count: accomCount, icon: Hotel, color: 'indigo' },
     { id: 'AUTO', label: 'SSW Automobile', subLabel: '自動車整備 (419 Qs)', count: autoCount, icon: Car, color: 'amber' },
     { id: 'TRUCK', label: 'SSW Truck Driving', subLabel: 'トラック運転 (583 Qs)', count: truckCount, icon: Truck, color: 'sky' },
-    { id: 'JFT', label: 'JFT-Basic (A2)', subLabel: '13 Model Papers', count: jftCount, icon: BookOpen, color: 'rose' },
+    { id: 'JFT', label: 'JFT-Basic (A2)', subLabel: 'Official Model Papers', count: jftCount, icon: BookOpen, color: 'rose' },
     { id: 'JLPT', label: 'JLPT Levels', subLabel: 'N5 / N4 / N3', count: jlptCount, icon: Award, color: 'purple' },
     { id: 'SSW_OTHER', label: 'Other SSW Sectors', subLabel: 'Others', count: otherSswCount, icon: Briefcase, color: 'slate' },
   ];
