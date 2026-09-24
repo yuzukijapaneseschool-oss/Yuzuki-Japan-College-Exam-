@@ -86,8 +86,9 @@ export default function CourseManager() {
     setShowModal(true);
   };
 
-  const generalList = courses.filter(c => !c.code.startsWith('SSW'));
-  const sswList = courses.filter(c => c.code.startsWith('SSW'));
+  const sswList = courses.filter(c => c.code.startsWith('SSW') || c.code.startsWith('SSW2') || c.category === 'Specified Skilled Worker (SSW)');
+  const jlptList = courses.filter(c => c.category === 'JLPT Level' || c.code.startsWith('JLPT'));
+  const generalList = courses.filter(c => !c.code.startsWith('SSW') && !c.code.startsWith('SSW2') && !c.code.startsWith('JLPT') && c.category !== 'JLPT Level' && c.category !== 'Specified Skilled Worker (SSW)');
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
@@ -99,7 +100,7 @@ export default function CourseManager() {
             <span>Course & SSW Sector Management</span>
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            Manage Japanese language exams (JFT / JLPT) and Specified Skilled Worker (特定技能 - SSW) sectors.
+            Manage Japanese language exams (JFT / JLPT Levels) and Specified Skilled Worker (特定技能 - SSW) sectors.
           </p>
         </div>
 
@@ -150,6 +151,59 @@ export default function CourseManager() {
               </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* JLPT Level Courses List */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between border-b pb-2">
+          <div className="flex items-center space-x-2">
+            <BookOpen className="w-5 h-5 text-purple-600" />
+            <h2 className="text-lg font-bold text-slate-900 font-japanese">
+              JLPT Level Examination Tracks (日本語能力試験) ({jlptList.length})
+            </h2>
+          </div>
+          <span className="text-xs bg-purple-100 text-purple-800 font-bold px-2.5 py-0.5 rounded-full">
+            JLPT Level
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {jlptList.map(c => (
+            <div key={c.id} className="bg-white rounded-2xl border border-purple-200/90 p-6 shadow-sm flex flex-col justify-between hover:border-purple-400 hover:shadow-md transition-all">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="bg-purple-50 text-purple-700 text-xs font-bold px-2.5 py-0.5 rounded border border-purple-200 uppercase font-mono">
+                    {c.code}
+                  </span>
+                  <span className="text-xs text-slate-400 font-mono">
+                    {c.student_count || 0} Students • {c.exam_count || 0} Exams
+                  </span>
+                </div>
+                <h3 className="font-bold text-slate-900 text-base font-japanese">{c.name}</h3>
+                <p className="text-xs text-slate-500 mt-2 line-clamp-2">{c.description || 'Official JLPT test preparation curriculum.'}</p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-purple-50 flex items-center justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => openEdit(c)}
+                  className="p-1.5 text-slate-500 hover:text-purple-900 rounded-lg hover:bg-purple-50"
+                  title="Edit Course"
+                >
+                  <Edit className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(c.id, c.name)}
+                  className="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50"
+                  title="Delete Course"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -206,7 +260,7 @@ export default function CourseManager() {
         <div className="flex items-center space-x-2 border-b pb-2">
           <BookOpen className="w-5 h-5 text-indigo-600" />
           <h2 className="text-lg font-bold text-slate-900 font-japanese">
-            General Japanese Language Exam Tracks ({generalList.length})
+            JFT-Basic & Foundation Language Tracks ({generalList.length})
           </h2>
         </div>
 
@@ -288,7 +342,8 @@ export default function CourseManager() {
                   className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 outline-none bg-white"
                 >
                   <option value="Specified Skilled Worker (SSW)">Specified Skilled Worker (SSW / 特定技能)</option>
-                  <option value="General Language">General Japanese Language Track</option>
+                  <option value="JLPT Level">JLPT Level (日本語能力試験 N5 - N1)</option>
+                  <option value="General Language">General Japanese Language / JFT-Basic Track</option>
                 </select>
               </div>
 
