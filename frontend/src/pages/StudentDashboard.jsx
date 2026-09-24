@@ -22,7 +22,9 @@ import {
   Award,
   Printer,
   FileText,
-  CreditCard
+  CreditCard,
+  BarChart2,
+  ExternalLink
 } from 'lucide-react';
 
 export default function StudentDashboard() {
@@ -111,6 +113,22 @@ export default function StudentDashboard() {
   }, [user?.student_id, isSSW2AccomStudent, isFoodManuStudent, isConstructionStudent, isAviationStudent, isFoodStudent, isCaregiverStudent, isAgriStudent, isAccomStudent, isTruckStudent, isAutoStudent, isDualTrack]);
 
   const [selectedTruckCategory, setSelectedTruckCategory] = useState('Driver Basics');
+  const [selectedJlptLevel, setSelectedJlptLevel] = useState('N4');
+  const [selectedJlptTab, setSelectedJlptTab] = useState('study');
+  const [selectedJlptCategory, setSelectedJlptCategory] = useState('Vocabulary');
+
+  const jlptModulesConfig = [
+    { title: 'Kanji Reading', category: 'Vocabulary', total: 200 },
+    { title: 'Notation', category: 'Vocabulary', total: 74 },
+    { title: 'Context-based Expressions', category: 'Vocabulary', total: 92 },
+    { title: 'Paraphrase', category: 'Vocabulary', total: 103 },
+    { title: 'Usage', category: 'Vocabulary', total: 94 },
+    { title: 'Grammar Forms', category: 'Grammar', total: 146 },
+    { title: 'Sentence Construction', category: 'Grammar', total: 55 },
+    { title: 'Text Grammar', category: 'Grammar', total: 16 },
+    { title: 'Reading Comprehension (Short Text)', category: 'Reading', total: 50 },
+    { title: 'Reading Comprehension (Medium Text)', category: 'Reading', total: 19 }
+  ];
 
   const filteredExams = (exams || []).filter(exam => {
     if (selectedCourseFilter === 'ALL') return true;
@@ -166,8 +184,8 @@ export default function StudentDashboard() {
     { id: 'ACCOM', label: '🏨 SSW Accommodation (宿泊業 - 246 Qs)' },
     { id: 'AUTO', label: '🚗 SSW Automobile (自動車整備 - 419 Qs)' },
     { id: 'TRUCK', label: '🚚 SSW Truck Driving (自動車運送業 - 583 Qs)' },
-    { id: 'JFT', label: 'JFT-Basic (A2 - 13 Papers)' },
-    { id: 'JLPT', label: 'JLPT (N5 / N4 / N3)' }
+    { id: 'JFT', label: `JFT-Basic (A2 - ${(exams || []).filter(e => e.course_code === 'JFT-BASIC' || (e.title || '').toLowerCase().includes('jft')).length || 19} Papers)` },
+    { id: 'JLPT', label: '🇯🇵 JLPT Levels (日本語能力試験 - N5 / N4 / N3)' }
   ];
 
   return (
@@ -475,8 +493,590 @@ export default function StudentDashboard() {
           </div>
         )}
 
-        {/* Standard Grid for Other Courses (JFT, JLPT, All) */}
-        {selectedCourseFilter !== 'TRUCK' && (
+        {/* Dedicated JLPT Levels Practice & Examination Portal (N5 / N4 / N3) */}
+        {selectedCourseFilter === 'JLPT' && (
+          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden p-6 sm:p-8 space-y-6">
+            
+            {/* Header: Centered Large Title */}
+            <div className="text-center pt-2 pb-1 space-y-1">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#112340] font-japanese tracking-tight">
+                JLPT Level Examination Portal (日本語能力試験)
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500">
+                Official Computer-Based Practice Modules & Comprehensive Mock Papers for JLPT Levels N5, N4, and N3.
+              </p>
+            </div>
+
+            {/* Level Selector Tabs: N4, N5, N3 */}
+            <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 bg-slate-50/90 border border-slate-200 rounded-2xl max-w-3xl mx-auto shadow-xs">
+              <button
+                type="button"
+                onClick={() => setSelectedJlptLevel('N4')}
+                className={`flex-1 min-w-[200px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center space-x-2 ${
+                  selectedJlptLevel === 'N4'
+                    ? 'bg-[#0da58e] text-white shadow-md shadow-teal-600/30'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <span>🌸 JLPT N4 (Official SSW 10 Modules)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedJlptLevel('N5')}
+                className={`flex-1 min-w-[180px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center space-x-2 ${
+                  selectedJlptLevel === 'N5'
+                    ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <span>🔰 JLPT N5 (Beginner Mock Exam)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedJlptLevel('N3')}
+                className={`flex-1 min-w-[180px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center space-x-2 ${
+                  selectedJlptLevel === 'N3'
+                    ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <span>🏆 JLPT N3 (Intermediate Mock Exam)</span>
+              </button>
+            </div>
+
+            {/* LEVEL: JLPT N4 */}
+            {selectedJlptLevel === 'N4' && (
+              <div className="space-y-6">
+                {/* Sub-tabs: Study, Progress, Information (Segmented Pill) */}
+                <div className="flex border border-slate-200 rounded-2xl overflow-hidden bg-slate-50/70 p-1 max-w-2xl mx-auto shadow-xs">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedJlptTab('study')}
+                    className={`flex-1 py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold transition-all ${
+                      selectedJlptTab === 'study'
+                        ? 'bg-white text-slate-900 shadow-sm border border-slate-200/60'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    <BookOpen className={`w-4 h-4 ${selectedJlptTab === 'study' ? 'text-[#0da58e]' : 'text-slate-400'}`} />
+                    <span>Study</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedJlptTab('progress')}
+                    className={`flex-1 py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold transition-all ${
+                      selectedJlptTab === 'progress'
+                        ? 'bg-white text-slate-900 shadow-sm border border-slate-200/60'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    <BarChart2 className={`w-4 h-4 ${selectedJlptTab === 'progress' ? 'text-indigo-600' : 'text-slate-400'}`} />
+                    <span>Progress</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedJlptTab('information')}
+                    className={`flex-1 py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold transition-all ${
+                      selectedJlptTab === 'information'
+                        ? 'bg-white text-slate-900 shadow-sm border border-slate-200/60'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    <FileText className={`w-4 h-4 ${selectedJlptTab === 'information' ? 'text-amber-600' : 'text-slate-400'}`} />
+                    <span>Information</span>
+                  </button>
+                </div>
+
+                {/* TAB 1: STUDY */}
+                {selectedJlptTab === 'study' && (
+                  <div className="space-y-6">
+                    {/* Notice message */}
+                    <p className="text-xs sm:text-sm font-medium text-slate-700">
+                      You can save incorrect answers for a long time by practicing each section below.
+                    </p>
+
+                    {/* Category Pills (Vocabulary, Grammar, Reading) */}
+                    <div className="flex border-b border-slate-200 text-center font-bold text-sm sm:text-base">
+                      {[
+                        { key: 'Vocabulary', label: 'Vocabulary' },
+                        { key: 'Grammar', label: 'Grammar' },
+                        { key: 'Reading', label: 'Reading' }
+                      ].map(cat => (
+                        <button
+                          key={cat.key}
+                          onClick={() => setSelectedJlptCategory(cat.key)}
+                          className={`flex-1 py-3 px-4 border-b-2 transition-all font-semibold ${
+                            selectedJlptCategory === cat.key
+                              ? 'border-[#0da58e] text-slate-900 font-extrabold bg-slate-50/50'
+                              : 'border-transparent text-slate-500 hover:text-slate-800'
+                          }`}
+                        >
+                          {cat.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Modules List for Selected Category */}
+                    <div className="space-y-3 pt-1">
+                      {jlptModulesConfig
+                        .filter(m => m.category === selectedJlptCategory)
+                        .map(m => {
+                          const dbExam = (exams || []).find(e => 
+                            (e.course_code === 'JLPT-N4' || e.course_id === 3) && 
+                            (e.title || '').toLowerCase() === m.title.toLowerCase()
+                          );
+                          const examId = dbExam?.id;
+                          const examAttempts = (attempts || []).filter(a => a.exam_id === examId);
+                          const hasAttempt = examAttempts.length > 0;
+                          const qCount = dbExam?.question_count || m.total;
+
+                          return (
+                            <div
+                              key={m.title}
+                              className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-teal-400 hover:shadow-xs transition-all"
+                            >
+                              {/* Module Icon & Title */}
+                              <div className="flex items-center space-x-4">
+                                <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+                                  <GraduationCap className="w-6 h-6 text-indigo-600/90" />
+                                </div>
+                                <div>
+                                  <h4 className="font-semibold text-slate-800 text-sm sm:text-base">
+                                    {m.title}
+                                  </h4>
+                                </div>
+                              </div>
+
+                              {/* Action Buttons: Start & Review */}
+                              <div className="flex items-center space-x-4 shrink-0 self-end sm:self-center">
+                                {/* Start Button with Progress */}
+                                <div className="flex flex-col items-center w-36">
+                                  {examId ? (
+                                    <Link
+                                      to={'/exam/' + examId}
+                                      className="w-full py-2 px-4 rounded-xl bg-[#0da58e] hover:bg-[#0b8b78] text-white font-medium text-xs sm:text-sm text-center shadow-xs transition-all active:scale-95"
+                                    >
+                                      Start
+                                    </Link>
+                                  ) : (
+                                    <button
+                                      disabled
+                                      className="w-full py-2 px-4 rounded-xl bg-slate-300 text-white font-medium text-xs sm:text-sm text-center cursor-not-allowed"
+                                    >
+                                      Start
+                                    </button>
+                                  )}
+                                  <div className="flex items-center space-x-2 mt-1 text-[11px] text-slate-500 font-mono w-full justify-between px-1">
+                                    <div className="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden mr-1 border border-slate-200">
+                                      <div
+                                        className="bg-[#0da58e] h-full rounded-full transition-all"
+                                        style={{ width: `${hasAttempt ? 100 : 0}%` }}
+                                      />
+                                    </div>
+                                    <span>{hasAttempt ? `${qCount}/${m.total}` : `0/${m.total}`}</span>
+                                  </div>
+                                </div>
+
+                                {/* Review Button with Count */}
+                                <div className="flex flex-col items-center w-36">
+                                  <Link
+                                    to={hasAttempt ? '/history' : examId ? '/exam/' + examId : '#'}
+                                    className="w-full py-2 px-4 rounded-xl bg-[#2b7a9e] hover:bg-[#236685] text-white font-medium text-xs sm:text-sm text-center shadow-xs transition-all active:scale-95"
+                                  >
+                                    Review
+                                  </Link>
+                                  <div className="mt-1 text-[11px] text-slate-700 font-mono">
+                                    <span className="font-bold">{hasAttempt ? qCount : 0}</span>
+                                    <span className="text-slate-500"> Questions</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
+                )}
+
+                {/* TAB 2: PROGRESS */}
+                {selectedJlptTab === 'progress' && (
+                  <div className="space-y-6 pt-2">
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-800">Learning Progress and History</h3>
+                      <p className="text-xs text-slate-500">You can check your learning status at a glance.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 text-center space-y-1">
+                        <span className="text-xs text-slate-500 font-medium">Overall Progress</span>
+                        <div className="text-2xl font-bold text-teal-700 font-mono">
+                          {Math.round(((attempts || []).filter(a => [159,160,161,162,163,164,165,166,167,168].includes(a.exam_id)).length / 10) * 100)}%
+                        </div>
+                        <span className="text-[11px] text-slate-400 font-mono">
+                          {(attempts || []).filter(a => [159,160,161,162,163,164,165,166,167,168].includes(a.exam_id)).length} / 10 Modules
+                        </span>
+                      </div>
+
+                      <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 text-center space-y-1">
+                        <span className="text-xs text-slate-500 font-medium">Waiting for Review</span>
+                        <div className="text-2xl font-bold text-sky-700 font-mono">
+                          {(attempts || []).filter(a => [159,160,161,162,163,164,165,166,167,168].includes(a.exam_id) && a.passed !== 1).length}
+                        </div>
+                        <span className="text-[11px] text-slate-400">Questions needing practice</span>
+                      </div>
+
+                      <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 text-center space-y-1">
+                        <span className="text-xs text-slate-500 font-medium">Accuracy Rate</span>
+                        <div className="text-2xl font-bold text-emerald-700 font-mono">
+                          {(() => {
+                            const jlptAttempts = (attempts || []).filter(a => [159,160,161,162,163,164,165,166,167,168].includes(a.exam_id));
+                            if (jlptAttempts.length === 0) return '-';
+                            return Math.round(jlptAttempts.reduce((acc, a) => acc + (a.percentage || 0), 0) / jlptAttempts.length) + '%';
+                          })()}
+                        </div>
+                        <span className="text-[11px] text-slate-400">Average Score</span>
+                      </div>
+                    </div>
+
+                    {/* Category Progress Breakdown */}
+                    <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-3">
+                      <h4 className="text-sm font-bold text-slate-800">Progress by Category</h4>
+                      <div className="space-y-2">
+                        {[
+                          { name: 'Vocabulary (言語知識 - 文字・語彙)', total: 563, count: 5 },
+                          { name: 'Grammar (言語知識 - 文法)', total: 217, count: 3 },
+                          { name: 'Reading (読解)', total: 69, count: 2 }
+                        ].map(c => (
+                          <div key={c.name} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl text-xs sm:text-sm">
+                            <span className="font-semibold text-slate-700">{c.name}</span>
+                            <span className="font-mono text-slate-500 font-bold">{c.total} Questions ({c.count} Topics)</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* TAB 3: INFORMATION */}
+                {selectedJlptTab === 'information' && (
+                  <div className="space-y-6 pt-2">
+                    <div className="border-b border-slate-100 pb-3">
+                      <h3 className="text-lg font-bold text-slate-800">Related Information on JLPT N4</h3>
+                      <p className="text-xs text-slate-500">Official guidelines, structure, and official test materials.</p>
+                    </div>
+
+                    {/* Test Structure & Passing Criteria */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-2">
+                        <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                          <Clock className="w-4 h-4 text-rose-600" />
+                          <span>Test Structure & Timing</span>
+                        </h4>
+                        <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                          <li><strong>Language Knowledge (Vocabulary):</strong> 25 minutes (100 pts)</li>
+                          <li><strong>Language Knowledge (Grammar) & Reading:</strong> 55 minutes (100 pts)</li>
+                          <li><strong>Listening Comprehension:</strong> 35 minutes (60 pts)</li>
+                          <li><strong>Total Duration:</strong> 115 minutes</li>
+                        </ul>
+                      </div>
+
+                      <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-2">
+                        <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                          <Award className="w-4 h-4 text-emerald-600" />
+                          <span>Passing Criteria</span>
+                        </h4>
+                        <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                          <li><strong>Overall Pass Mark:</strong> 90 / 180 points (50%)</li>
+                          <li><strong>Language Knowledge (Vocab/Grammar) & Reading Cutoff:</strong> 38 / 120 points</li>
+                          <li><strong>Listening Cutoff:</strong> 19 / 60 points</li>
+                          <li>Both overall and sectional passing marks must be achieved.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Official Practice Workbooks & PDFs */}
+                    <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                          <FileText className="w-4 h-4 text-indigo-600" />
+                          <span>Official JLPT N4 Practice Workbook (PDF Downloads)</span>
+                        </h4>
+                        <span className="text-[11px] bg-indigo-50 text-indigo-700 font-semibold px-2 py-0.5 rounded">
+                          Source: JLPT.jp
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
+                        {[
+                          { label: 'N4 Characters & Vocabulary PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N4V.pdf' },
+                          { label: 'N4 Grammar PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N4G.pdf' },
+                          { label: 'N4 Reading PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N4R.pdf' },
+                          { label: 'N4 Listening PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N4L.pdf' },
+                          { label: 'Official Practice Workbook Online', url: 'https://www.jlpt.jp/samples/sampleindex.html?mode=pc' },
+                          { label: 'JITCO Textbooks & Study Materials', url: 'https://onlineshop.jitco.or.jp/shop/shopbrand.html?search=' }
+                        ].map(res => (
+                          <a
+                            key={res.label}
+                            href={res.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/30 transition-all text-xs font-semibold text-slate-800 group"
+                          >
+                            <span className="truncate pr-2">{res.label}</span>
+                            <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 shrink-0" />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* LEVEL: JLPT N5 */}
+            {selectedJlptLevel === 'N5' && (() => {
+              const n5Exam = (exams || []).find(e => e.course_code === 'JLPT-N5' || e.course_id === 2 || (e.title || '').includes('N5'));
+              const n5Attempts = (attempts || []).filter(a => a.exam_id === n5Exam?.id);
+              const bestScore = n5Attempts.length > 0 ? Math.max(...n5Attempts.map(a => a.percentage || 0)) : null;
+
+              return (
+                <div className="space-y-6">
+                  <div className="bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <span className="bg-purple-500/30 border border-purple-400 text-purple-200 text-xs font-bold px-3 py-1 rounded-full">
+                            Beginner Level (初級)
+                          </span>
+                          <span className="bg-white/10 text-slate-200 text-xs font-mono px-2.5 py-1 rounded-full">
+                            45 Mins Mock Paper
+                          </span>
+                        </div>
+                        <h3 className="text-2xl font-bold font-japanese">
+                          {n5Exam?.title || 'JLPT N5 Comprehensive Mock Exam 2026'}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                          Master basic Japanese kanji (100 characters), essential vocabulary (800 words), and fundamental grammar particles (は, が, を, に, で) for everyday life.
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+                        {n5Exam ? (
+                          <Link
+                            to={'/exam/' + n5Exam.id}
+                            className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white rounded-2xl text-xs sm:text-sm font-extrabold flex items-center justify-center space-x-2 shadow-xl transition-all transform hover:scale-105"
+                          >
+                            <PlayCircle className="w-4 h-4" />
+                            <span>{n5Attempts.length > 0 ? 'Retake JLPT N5 Paper' : 'Start N5 CBT Exam'}</span>
+                          </Link>
+                        ) : (
+                          <span className="text-xs text-slate-400">Exam paper being prepared</span>
+                        )}
+
+                        {n5Attempts.length > 0 && (
+                          <Link
+                            to="/history"
+                            className="w-full sm:w-auto px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-2xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors"
+                          >
+                            <History className="w-4 h-4 text-purple-300" />
+                            <span>Best: {bestScore}%</span>
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Test Structure & Passing Criteria */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-2">
+                      <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                        <Clock className="w-4 h-4 text-purple-600" />
+                        <span>N5 Test Structure & Timing</span>
+                      </h4>
+                      <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                        <li><strong>Language Knowledge (Vocabulary):</strong> 20 minutes (100 pts)</li>
+                        <li><strong>Language Knowledge (Grammar) & Reading:</strong> 40 minutes (100 pts)</li>
+                        <li><strong>Listening Comprehension:</strong> 30 minutes (60 pts)</li>
+                        <li><strong>Total Questions:</strong> 50 Questions in CBT Mode</li>
+                      </ul>
+                    </div>
+
+                    <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-2">
+                      <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                        <Award className="w-4 h-4 text-emerald-600" />
+                        <span>N5 Passing Criteria</span>
+                      </h4>
+                      <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                        <li><strong>Overall Pass Mark:</strong> 80 / 180 points (44.4%)</li>
+                        <li><strong>Language Knowledge & Reading Cutoff:</strong> 38 / 120 points</li>
+                        <li><strong>Listening Cutoff:</strong> 19 / 60 points</li>
+                        <li>Pass rate standard for Japanese Visa requirements.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Official N5 Workbook Downloads */}
+                  <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                        <FileText className="w-4 h-4 text-purple-600" />
+                        <span>Official JLPT N5 Sample Workbooks (PDF Downloads)</span>
+                      </h4>
+                      <span className="text-[11px] bg-purple-50 text-purple-700 font-semibold px-2 py-0.5 rounded">
+                        Source: JLPT.jp
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-1">
+                      {[
+                        { label: 'N5 Kanji & Vocabulary PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N5V.pdf' },
+                        { label: 'N5 Grammar PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N5G.pdf' },
+                        { label: 'N5 Reading PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N5R.pdf' },
+                        { label: 'N5 Listening PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N5L.pdf' }
+                      ].map(res => (
+                        <a
+                          key={res.label}
+                          href={res.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:border-purple-400 hover:bg-purple-50/30 transition-all text-xs font-semibold text-slate-800 group"
+                        >
+                          <span className="truncate pr-2">{res.label}</span>
+                          <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-600 shrink-0" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* LEVEL: JLPT N3 */}
+            {selectedJlptLevel === 'N3' && (() => {
+              const n3Exam = (exams || []).find(e => e.course_code === 'JLPT-N3' || e.course_id === 4 || (e.title || '').includes('N3'));
+              const n3Attempts = (attempts || []).filter(a => a.exam_id === n3Exam?.id);
+              const bestScore = n3Attempts.length > 0 ? Math.max(...n3Attempts.map(a => a.percentage || 0)) : null;
+
+              return (
+                <div className="space-y-6">
+                  <div className="bg-gradient-to-r from-amber-900 via-orange-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <span className="bg-amber-500/30 border border-amber-400 text-amber-200 text-xs font-bold px-3 py-1 rounded-full">
+                            Intermediate Level (中級)
+                          </span>
+                          <span className="bg-white/10 text-slate-200 text-xs font-mono px-2.5 py-1 rounded-full">
+                            60 Mins Mock Paper
+                          </span>
+                        </div>
+                        <h3 className="text-2xl font-bold font-japanese">
+                          {n3Exam?.title || 'JLPT N3 Comprehensive Mock Exam 2026'}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                          Bridge between basic and advanced Japanese. Covers 650 kanji characters, 3,750 vocabulary words, intermediate grammar structures, and workplace communications.
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+                        {n3Exam ? (
+                          <Link
+                            to={'/exam/' + n3Exam.id}
+                            className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-600 hover:to-rose-700 text-slate-950 font-extrabold rounded-2xl text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-xl transition-all transform hover:scale-105"
+                          >
+                            <PlayCircle className="w-4 h-4" />
+                            <span>{n3Attempts.length > 0 ? 'Retake JLPT N3 Paper' : 'Start N3 CBT Exam'}</span>
+                          </Link>
+                        ) : (
+                          <span className="text-xs text-slate-400">Exam paper being prepared</span>
+                        )}
+
+                        {n3Attempts.length > 0 && (
+                          <Link
+                            to="/history"
+                            className="w-full sm:w-auto px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-2xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors"
+                          >
+                            <History className="w-4 h-4 text-amber-300" />
+                            <span>Best: {bestScore}%</span>
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Test Structure & Passing Criteria */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-2">
+                      <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                        <Clock className="w-4 h-4 text-amber-600" />
+                        <span>N3 Test Structure & Timing</span>
+                      </h4>
+                      <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                        <li><strong>Language Knowledge (Vocabulary):</strong> 30 minutes (60 pts)</li>
+                        <li><strong>Language Knowledge (Grammar) & Reading:</strong> 70 minutes (60 pts)</li>
+                        <li><strong>Listening Comprehension:</strong> 40 minutes (60 pts)</li>
+                        <li><strong>Total Duration:</strong> 140 minutes</li>
+                      </ul>
+                    </div>
+
+                    <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-2">
+                      <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                        <Award className="w-4 h-4 text-emerald-600" />
+                        <span>N3 Passing Criteria</span>
+                      </h4>
+                      <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                        <li><strong>Overall Pass Mark:</strong> 95 / 180 points (52.8%)</li>
+                        <li><strong>Vocab / Grammar / Reading / Listening Cutoff:</strong> 19 / 60 points each</li>
+                        <li>Essential for engineering, managerial, and Specified Skilled Worker Type 2 tracks.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Official N3 Workbook Downloads */}
+                  <div className="border border-slate-200 rounded-2xl p-5 bg-white space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                        <FileText className="w-4 h-4 text-amber-600" />
+                        <span>Official JLPT N3 Sample Workbooks (PDF Downloads)</span>
+                      </h4>
+                      <span className="text-[11px] bg-amber-50 text-amber-800 font-semibold px-2 py-0.5 rounded">
+                        Source: JLPT.jp
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-1">
+                      {[
+                        { label: 'N3 Kanji & Vocabulary PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N3V.pdf' },
+                        { label: 'N3 Grammar PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N3G.pdf' },
+                        { label: 'N3 Reading PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N3R.pdf' },
+                        { label: 'N3 Listening PDF', url: 'https://www.jlpt.jp/samples/sample2018/pdf/N3L.pdf' }
+                      ].map(res => (
+                        <a
+                          key={res.label}
+                          href={res.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/30 transition-all text-xs font-semibold text-slate-800 group"
+                        >
+                          <span className="truncate pr-2">{res.label}</span>
+                          <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-600 shrink-0" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+          </div>
+        )}
+
+        {/* Standard Grid for Other Courses (JFT, All) */}
+        {selectedCourseFilter !== 'TRUCK' && selectedCourseFilter !== 'JLPT' && (
           loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[1, 2].map(i => (

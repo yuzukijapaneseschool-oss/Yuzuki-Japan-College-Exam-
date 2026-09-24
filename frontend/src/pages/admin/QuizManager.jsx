@@ -38,6 +38,7 @@ export default function QuizManager() {
   const [editingExam, setEditingExam] = useState(null);
   const [activeCategory, setActiveCategory] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
+  const [highlightedExamId, setHighlightedExamId] = useState(null);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -48,8 +49,22 @@ export default function QuizManager() {
     is_active: true
   });
 
-  const fetchData = async () => {
-    setLoading(true);
+  const scrollToExam = (id) => {
+    if (!id) return;
+    setTimeout(() => {
+      const el = document.getElementById(`exam-${id}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setHighlightedExamId(id);
+        setTimeout(() => {
+          setHighlightedExamId(prev => (prev === id ? null : prev));
+        }, 3000);
+      }
+    }, 150);
+  };
+
+  const fetchData = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const [examsRes, coursesRes] = await Promise.all([
         adminAPI.getExams(),
@@ -63,21 +78,23 @@ export default function QuizManager() {
     } catch (err) {
       console.error('Failed to load exams:', err);
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(false);
   }, []);
 
   const handleCreateOrUpdate = async (e) => {
     e.preventDefault();
     try {
+      let savedId = editingExam?.id;
       if (editingExam) {
         await adminAPI.updateExam(editingExam.id, formData);
       } else {
-        await adminAPI.createExam(formData);
+        const res = await adminAPI.createExam(formData);
+        savedId = res?.data?.examId || res?.data?.id;
       }
       setShowCreateModal(false);
       setEditingExam(null);
@@ -89,7 +106,10 @@ export default function QuizManager() {
         description: '',
         is_active: true
       });
-      fetchData();
+      await fetchData(true);
+      if (savedId) {
+        scrollToExam(savedId);
+      }
     } catch (err) {
       alert('Error saving exam: ' + (err.response?.data?.error || err.message));
     }
@@ -99,7 +119,7 @@ export default function QuizManager() {
     if (!window.confirm(`Are you sure you want to delete exam "${title}"? All associated questions will be removed.`)) return;
     try {
       await adminAPI.deleteExam(id);
-      fetchData();
+      await fetchData(true);
     } catch (err) {
       alert('Delete failed: ' + (err.response?.data?.error || err.message));
     }
@@ -733,8 +753,13 @@ export default function QuizManager() {
 
             return (
               <div
+                id={`exam-${exam.id}`}
                 key={exam.id}
-                className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-slate-300 transition-all p-6 flex flex-col justify-between group"
+                className={`bg-white rounded-2xl border shadow-sm transition-all p-6 flex flex-col justify-between group ${
+                  highlightedExamId === exam.id
+                    ? 'border-emerald-500 ring-4 ring-emerald-400/30 bg-emerald-50/15 shadow-md'
+                    : 'border-slate-200 hover:shadow-xl hover:border-slate-300'
+                }`}
               >
                 <div>
                   {/* Card Header: Course Badge & Duration */}

@@ -935,7 +935,7 @@ const jlptN4Data = [
         exp: 'හදිසි කාර්යයක් නිසාවෙන් මිතුරියට වහාම දන්වා ඊළඟ සතියට දින වෙනස් කළ බව පැහැදිලිය.'
       },
       {
-        text: '【文章】\n田中さんのメモ：\n「明日の会議は、予定通り１０時から第２会議室で行います。各自、先週配った資料を必ず持ってきてください。プロジェクターは私が準備します。」\n\n【設问】会議に参加する人は、何をしなければなりませんか。',
+        text: '【文章】\n田中さんのメモ：\n「明日の会議は、予定通り１０時から第２会議室で行います。各自、先週配った資料を必ず持ってきてください。プロジェクターは私が準備します。」\n\n【設問】会議に参加する人は、何をしなければなりませんか。',
         optA: '先週の資料を自分で持参する。',
         optB: 'プロジェクターを準備する。',
         optC: '第１会議室に集まる。',
@@ -1076,50 +1076,153 @@ const jlptN4Data = [
   }
 ];
 
-async function seedJLPTN4() {
-  const course = await query.get("SELECT id FROM courses WHERE code = 'JLPT-N4'");
-  if (!course) {
-    console.log("Course JLPT-N4 not found, skipping seeder.");
-    return;
+// Additional questions for JLPT N5
+const jlptN5Questions = [
+  {
+    text: '（）の　ただしいよみを　えらんでください。\nきのう　(山)　へ　いきました。',
+    optA: 'やま', optB: 'かわ', optC: 'うみ', optD: 'もり',
+    ans: 'A',
+    exp: '山（やま）යනු කන්ද (mountain) යන්නයි.'
+  },
+  {
+    text: '（）の　ただしいよみを　えらんでください。\n毎朝　(水)　を　のみます。',
+    optA: 'みず', optB: 'おちゃ', optC: 'ぎゅうにゅう', optD: 'さけ',
+    ans: 'A',
+    exp: '水（みず）යනු ජලය (water) යන්නයි.'
+  },
+  {
+    text: '（）に　なにを　いれますか。\nわたしは　バス（　　）学校へ　行きます。',
+    optA: 'で', optB: 'に', optC: 'を', optD: 'へ',
+    ans: 'A',
+    exp: 'ප්‍රවාහන මාධ්‍යය සඳහා「で」යොදයි. バスで行きます (බස් රථයෙන් යනවා).'
+  },
+  {
+    text: '（）に　なにを　いれますか。\n机の　上に　本が　３（　　）あります。',
+    optA: 'さつ', optB: 'まい', optC: 'ほん', optD: 'ひき',
+    ans: 'A',
+    exp: 'පොත් ගණනය කිරීමට「冊（さつ）」භාවිතා වේ.'
+  },
+  {
+    text: '（）に　なにを　いれますか。\n昨日　友達と　映画を（　　）。',
+    optA: '見ました', optB: '見ます', optC: '見ない', optD: '見て',
+    ans: 'A',
+    exp: 'ඊයේ (昨日) අතීත කාලය බැවින්「見ました」නිවැරදි වේ.'
   }
-  const courseId = course.id;
+];
 
-  for (const mod of jlptN4Data) {
-    let exam = await query.get("SELECT id FROM exams WHERE course_id = ? AND title = ?", [courseId, mod.title]);
-    if (!exam) {
+// Additional questions for JLPT N3
+const jlptN3Questions = [
+  {
+    text: '（）に入る最も適切な言葉を一つ選んでください。\n今回の　プロジェクトに（　　）、様々な問題が　発生した。',
+    optA: '関して', optB: '対して', optC: '向かって', optD: 'よって',
+    ans: 'A',
+    exp: '〜に関して（にかんして）＝ 〜について (පිළිබඳව / regarding).'
+  },
+  {
+    text: '（）に入る最も適切な言葉を一つ選んでください。\nどんなに　忙しくても、約束を　破る（　　）はいかない。',
+    optA: 'わけに', optB: 'ことに', optC: 'ように', optD: 'ために',
+    ans: 'A',
+    exp: '〜わけにはいかない යනු සදාචාරාත්මකව හෝ තත්වය අනුව කළ නොහැකි බවයි (cannot afford to break promise).'
+  },
+  {
+    text: '（）に入る最も適切な言葉を一つ選んでください。\n天気予報に（　　）、午後は　大雨に　なるそうだ。',
+    optA: 'よると', optB: 'すれば', optC: 'ついて', optD: 'とって',
+    ans: 'A',
+    exp: 'තොරතුරු මූලාශ්‍රය දැක්වීම: 〜によると (කාලගුණ වාර්තාවට අනුව).'
+  }
+];
+
+async function seedJLPTN4() {
+  // 1. Ensure categories in courses table are updated to 'JLPT Level'
+  await query.run("UPDATE courses SET category = 'JLPT Level' WHERE code LIKE 'JLPT%'");
+  await query.run("UPDATE courses SET category = 'JFT-Basic' WHERE code = 'JFT-BASIC'");
+
+  // 2. Seed JLPT N4 Modules (Course ID 3)
+  const courseN4 = await query.get("SELECT id FROM courses WHERE code = 'JLPT-N4'");
+  if (courseN4) {
+    const courseId = courseN4.id;
+    for (const mod of jlptN4Data) {
+      let exam = await query.get("SELECT id FROM exams WHERE course_id = ? AND title = ?", [courseId, mod.title]);
+      if (!exam) {
+        const ins = await query.run(`
+          INSERT INTO exams (title, course_id, duration_minutes, passing_score, description, is_active)
+          VALUES (?, ?, 0, 70, ?, 1)
+        `, [mod.title, courseId, mod.description]);
+        exam = { id: ins.id };
+      } else {
+        await query.run(`
+          UPDATE exams SET description = ?, is_active = 1 WHERE id = ?
+        `, [mod.description, exam.id]);
+      }
+
+      await query.run("DELETE FROM questions WHERE exam_id = ?", [exam.id]);
+
+      let orderNum = 1;
+      for (const q of mod.questions) {
+        await query.run(`
+          INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
+        `, [
+          exam.id,
+          mod.category,
+          q.text,
+          q.optA,
+          q.optB,
+          q.optC,
+          q.optD,
+          q.ans,
+          q.exp,
+          orderNum++
+        ]);
+      }
+    }
+    console.log(`Successfully seeded all 10 JLPT N4 modules under course ID ${courseId}`);
+  }
+
+  // 3. Seed JLPT N5 (Course ID 2)
+  const courseN5 = await query.get("SELECT id FROM courses WHERE code = 'JLPT-N5'");
+  if (courseN5) {
+    let examN5 = await query.get("SELECT id FROM exams WHERE course_id = ?", [courseN5.id]);
+    if (!examN5) {
       const ins = await query.run(`
         INSERT INTO exams (title, course_id, duration_minutes, passing_score, description, is_active)
-        VALUES (?, ?, 0, 70, ?, 1)
-      `, [mod.title, courseId, mod.description]);
-      exam = { id: ins.id };
-    } else {
-      await query.run(`
-        UPDATE exams SET description = ?, is_active = 1 WHERE id = ?
-      `, [mod.description, exam.id]);
+        VALUES ('JLPT N5 Comprehensive Mock Exam 2026', ?, 45, 50, 'Foundational JLPT N5 Japanese language exam.', 1)
+      `, [courseN5.id]);
+      examN5 = { id: ins.id };
     }
-
-    // Replace questions with fresh structured set
-    await query.run("DELETE FROM questions WHERE exam_id = ?", [exam.id]);
-
-    let orderNum = 1;
-    for (const q of mod.questions) {
-      await query.run(`
-        INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
-      `, [
-        exam.id,
-        mod.category,
-        q.text,
-        q.optA,
-        q.optB,
-        q.optC,
-        q.optD,
-        q.ans,
-        q.exp,
-        orderNum++
-      ]);
+    const qCount = await query.get("SELECT count(*) as count FROM questions WHERE exam_id = ?", [examN5.id]);
+    if (!qCount || qCount.count < 5) {
+      let ord = 1;
+      for (const q of jlptN5Questions) {
+        await query.run(`
+          INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
+          VALUES (?, 'General', ?, ?, ?, ?, ?, ?, 1, ?, ?)
+        `, [examN5.id, q.text, q.optA, q.optB, q.optC, q.optD, q.ans, q.exp, ord++]);
+      }
     }
-    console.log(`Successfully seeded JLPT N4 module: ${mod.title} (${mod.questions.length} questions)`);
+  }
+
+  // 4. Seed JLPT N3 (Course ID 4)
+  const courseN3 = await query.get("SELECT id FROM courses WHERE code = 'JLPT-N3'");
+  if (courseN3) {
+    let examN3 = await query.get("SELECT id FROM exams WHERE course_id = ?", [courseN3.id]);
+    if (!examN3) {
+      const ins = await query.run(`
+        INSERT INTO exams (title, course_id, duration_minutes, passing_score, description, is_active)
+        VALUES ('JLPT N3 Comprehensive Mock Exam 2026', ?, 60, 60, 'Intermediate JLPT N3 mock exam with nuanced grammar and reading.', 1)
+      `, [courseN3.id]);
+      examN3 = { id: ins.id };
+    }
+    const qCount3 = await query.get("SELECT count(*) as count FROM questions WHERE exam_id = ?", [examN3.id]);
+    if (!qCount3 || qCount3.count === 0) {
+      let ord3 = 1;
+      for (const q of jlptN3Questions) {
+        await query.run(`
+          INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
+          VALUES (?, 'General', ?, ?, ?, ?, ?, ?, 1, ?, ?)
+        `, [examN3.id, q.text, q.optA, q.optB, q.optC, q.optD, q.ans, q.exp, ord3++]);
+      }
+    }
   }
 }
 
