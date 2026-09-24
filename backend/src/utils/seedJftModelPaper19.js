@@ -1,22 +1,535 @@
 const path = require('path');
-const db = require(path.resolve('c:/Users/tharu/OneDrive/Documents/Yuzuki Japan College exam/backend/src/config/database'));
+const db = require(path.resolve(__dirname, '../config/database'));
+
+const p19Questions = [
+  // --- 文字・語彙 (Q1-15) ---
+  {
+    order_num: 1, section_name: '文字・語彙',
+    question_text: '絵を見て正しい言葉をえらびなさい。\n\nとうふにしょうゆを＿＿＿＿＿＿＿＿。',
+    option_a: 'かけます', option_b: 'いれます', option_c: 'つけます', option_d: 'ぬります',
+    correct_option: 'A', marks: 1,
+    explanation: '調味料を上からかける動作は「かけます（A）」です。',
+    image_url: '/images/jft_paper19/p19_page_01_img_1.png', audio_url: null
+  },
+  {
+    order_num: 2, section_name: '文字・語彙',
+    question_text: '絵を見て正しい言葉をえらびなさい。\n\n野菜にマヨネーズを＿＿＿＿＿＿＿＿。',
+    option_a: 'かけます', option_b: 'いれます', option_c: 'つけます', option_d: 'やきます',
+    correct_option: 'A', marks: 1,
+    explanation: 'マヨネーズを野菜にかける動作は「かけます（A）」です。',
+    image_url: '/images/jft_paper19/p19_page_01_img_2.png', audio_url: null
+  },
+  {
+    order_num: 3, section_name: '文字・語彙',
+    question_text: '絵を見て正しい言葉をえらびなさい。\n\nコーヒーにミルクを＿＿＿＿＿＿＿＿。',
+    option_a: 'かけます', option_b: 'いれます', option_c: 'ぬります', option_d: 'やきます',
+    correct_option: 'B', marks: 1,
+    explanation: '液体の中に注ぎ入れる動作は「いれます（入れます - B）」です。',
+    image_url: '/images/jft_paper19/p19_page_02_img_3.png', audio_url: null
+  },
+  {
+    order_num: 4, section_name: '文字・語彙',
+    question_text: '絵を見て正しい言葉をえらびなさい。\n\nパンにバターを＿＿＿＿＿＿＿＿。',
+    option_a: 'やけます', option_b: 'ぬります', option_c: 'かけます', option_d: 'いれます',
+    correct_option: 'B', marks: 1,
+    explanation: 'パンの表面にバターを広げる動作は「ぬります（塗ります - B）」です。',
+    image_url: '/images/jft_paper19/p19_page_02_img_4.png', audio_url: null
+  },
+  {
+    order_num: 5, section_name: '文字・語彙',
+    question_text: '絵を見て正しい言葉をえらびなさい。\n\n魚を＿＿＿＿＿＿＿＿。',
+    option_a: 'やきます', option_b: 'かけます', option_c: 'ぬります', option_d: 'いれます',
+    correct_option: 'A', marks: 1,
+    explanation: '魚を加熱調理する動作は「焼きます（やきます - A）」です。',
+    image_url: '/images/jft_paper19/p19_page_02_img_5.png', audio_url: null
+  },
+  {
+    order_num: 6, section_name: '文字・語彙',
+    question_text: '関係がある言葉を選びなさい。\n\nからい',
+    option_a: 'とうがらし', option_b: 'しお', option_c: 'さとう', option_d: 'す',
+    correct_option: 'A', marks: 2,
+    explanation: '辛い味の調味料は「とうがらし（唐辛子 - A）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 7, section_name: '文字・語彙',
+    question_text: '関係がある言葉を選びなさい。\n\nあまい',
+    option_a: 'しお', option_b: 'さとう', option_c: 'レモン', option_d: 'しょうゆ',
+    correct_option: 'B', marks: 2,
+    explanation: '甘い味の調味料は「さとう（砂糖 - B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 8, section_name: '文字・語彙',
+    question_text: '関係がある言葉を選びなさい。\n\nすっぱい',
+    option_a: 'しお', option_b: 'さとう', option_c: 'レモン', option_d: 'みず',
+    correct_option: 'C', marks: 2,
+    explanation: '酸っぱい味の果物は「レモン（C）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 9, section_name: '文字・語彙',
+    question_text: '関係がある言葉を選びなさい。\n\nしょっぱい',
+    option_a: 'とうがらし', option_b: 'しお', option_c: 'くすり', option_d: 'さとう',
+    correct_option: 'B', marks: 2,
+    explanation: '塩辛い味の調味料は「しお（塩 - B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 10, section_name: '文字・語彙',
+    question_text: '関係がある言葉を選びなさい。\n\nにがい',
+    option_a: 'とうがらし', option_b: 'くすり', option_c: 'さとう', option_d: 'レモン',
+    correct_option: 'B', marks: 2,
+    explanation: '苦い味のものは「くすり（薬 - B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 11, section_name: '文字・語彙',
+    question_text: '下線の漢字はどう読みますか。正しいものを選びなさい。\n\n私はコンピューターの<u>会社</u>ではたらいています。',
+    option_a: 'かうしゃ', option_b: 'かいしゃ', option_c: 'かあいしゃ', option_d: 'かいじゃ',
+    correct_option: 'B', marks: 2,
+    explanation: '「会社」の正しい読み方は「かいしゃ（B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 12, section_name: '文字・語彙',
+    question_text: '下線の漢字はどう読みますか。正しいものを選びなさい。\n\nらいしゅう、東京の<u>本社</u>からシドニー支社に出張します。',
+    option_a: 'ぼんしゃかい', option_b: 'ほんしゃかい', option_c: 'ほんしゃ', option_d: 'ほんじゃ',
+    correct_option: 'C', marks: 2,
+    explanation: '「本社」の正しい読み方は「ほんしゃ（C）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 13, section_name: '文字・語彙',
+    question_text: '下線の漢字はどう読みますか。正しいものを選びなさい。\n\nらいしゅう、東京の本社からシドニー<u>支社</u>に出張します。',
+    option_a: 'しいしゃ', option_b: 'ししゃ', option_c: 'じしゃ', option_d: 'しじゃ',
+    correct_option: 'B', marks: 2,
+    explanation: '「支社」の正しい読み方は「ししゃ（B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 14, section_name: '文字・語彙',
+    question_text: '下線の漢字はどう読みますか。正しいものを選びなさい。\n\nらいしゅう、東京の本社からシドニー支社に<u>出張</u>します。',
+    option_a: 'しゅっちょう', option_b: 'しゅうちょう', option_c: 'しゅちょう', option_d: 'すっちょう',
+    correct_option: 'A', marks: 2,
+    explanation: '「出張」の正しい読み方は「しゅっちょう（A）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 15, section_name: '文字・語彙',
+    question_text: '下線の漢字はどう読みますか。正しいものを選びなさい。\n\nシドニー支社の人が<u>空港</u>にむかえに来ます。',
+    option_a: 'えき', option_b: 'くうこう', option_c: 'そらみなと', option_d: 'こうくう',
+    correct_option: 'B', marks: 2,
+    explanation: '「空港」の正しい読み方は「くうこう（B）」です。',
+    image_url: null, audio_url: null
+  },
+
+  // --- 会話・文法 (Q16-30) ---
+  {
+    order_num: 16, section_name: '会話・文法',
+    question_text: '文を読んで、空欄(16)に最もあてはまるものを選びなさい。\n\n私は日本に来て、5年 (16) ＿＿＿＿ なります。日本での生活はとても楽しいです。だんだん生活になれてきました。はじめはいろいろな大変なこともありましたが、今は大丈夫です。',
+    option_a: 'を', option_b: 'に', option_c: 'が', option_d: 'で',
+    correct_option: 'B', marks: 5,
+    explanation: '時間の経過を表す表現は「〜になります（5年になります - B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 17, section_name: '会話・文法',
+    question_text: '文を読んで、空欄(17)に最もあてはまるものを選びなさい。\n\n日本 (17) ＿＿＿＿ の生活はとても楽しいです。',
+    option_a: 'を', option_b: 'は', option_c: 'で', option_d: 'に',
+    correct_option: 'C', marks: 5,
+    explanation: '場所における生活を表す助詞は「で（日本での生活 - C）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 18, section_name: '会話・文法',
+    question_text: '文を読んで、空欄(18)に最もあてはまるものを選びなさい。\n\nだんだん生活 (18) ＿＿＿＿ なれてきました。',
+    option_a: 'に', option_b: 'を', option_c: 'で', option_d: 'へ',
+    correct_option: 'A', marks: 5,
+    explanation: '慣れる対象を表す助詞は「に（生活になれてきました - A）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 19, section_name: '会話・文法',
+    question_text: '文を読んで、空欄(19)に最もあてはまるものを選びなさい。\n\nはじめ (19) ＿＿＿＿ いろいろな大変なことがありましたが、今は大丈夫です。',
+    option_a: 'は', option_b: 'に', option_c: 'で', option_d: 'を',
+    correct_option: 'B', marks: 5,
+    explanation: '時・時点を表す表現は「はじめに（B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 20, section_name: '会話・文法',
+    question_text: '文を読んで、空欄(20)に最もあてはまるものを選びなさい。\n\nはじめはいろいろな大変なこと (20) ＿＿＿＿ ありましたが、今は大丈夫です。',
+    option_a: 'も', option_b: 'で', option_c: 'が', option_d: 'に',
+    correct_option: 'C', marks: 5,
+    explanation: '存在（あります）の主語を表す助詞は「が（大変なことがありました - C）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 21, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄(21)に最もあてはまるものを選びなさい。\n\nジョイ：よしださんは (21) ＿＿＿＿。\nよしだ：東京です。\nジョイ：そうですか。いいところですね。\nよしだ：ええ。',
+    option_a: 'どこに住んでいますか', option_b: 'どこで働いていますか', option_c: 'どこで生んでいますか', option_d: 'どこに行きますか',
+    correct_option: 'A', marks: 5,
+    explanation: '居住地を尋ねる質問は「どこに住んでいますか（A）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 22, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄(22)に最もあてはまるものを選びなさい。\n\nジョイ：(22) ＿＿＿＿。\nよしだ：会社員です。電車の会社で働いています。\nジョイ：そうですか。',
+    option_a: 'お国はなんですか', option_b: 'おいくつですか', option_c: 'お仕事は何ですか', option_d: 'お名前は何ですか',
+    correct_option: 'C', marks: 5,
+    explanation: '職業を尋ねる表現は「お仕事は何ですか（C）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 23, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄に最もあてはまるものを選びなさい。\n\nＡ：今日はさむかったですね。\nＢ：ええ、＿＿＿＿。',
+    option_a: '雪がよくふらなかったね', option_b: '雪がよくふりましたね', option_c: '雪がよくふらないそうね', option_d: '雪があまりふりませんでしたね',
+    correct_option: 'B', marks: 5,
+    explanation: '寒かったことに同意し、過去の事実を述べる「雪がよくふりましたね（B）」が適切です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 24, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄に最もあてはまるものを選びなさい。\n\nＡ：今週は毎日天気がいいですね。\nＢ：ええ、＿＿＿＿ね。',
+    option_a: 'あたたかくなかったです', option_b: 'あたたかかったです', option_c: 'あたたかいです', option_d: 'さむかったです',
+    correct_option: 'B', marks: 5,
+    explanation: '今週の好天を受けて同意する過去形の表現「あたたかかったです（B）」が適切です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 25, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄に最もあてはまるものを選びなさい。\n\nＡ：昨日たいふうは＿＿＿＿ね。\nＢ：ええ、雨と風がつよかったね。',
+    option_a: '大変くかった', option_b: '大変だった', option_c: '大変なだった', option_d: '大変でしたくない',
+    correct_option: 'B', marks: 5,
+    explanation: 'ナ形容詞の過去普通形は「大変だった（B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 26, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄(26)に最もあてはまるものを選びなさい。\n\nＡ：明日午前は雨ですか。(26) ＿＿＿＿ か。\nＢ：いいえ、午前は雨ではないよ。でも午後は (27) ＿＿＿＿。',
+    option_a: '雨です', option_b: '雨じゃない', option_c: '雨だった', option_d: '雨でした',
+    correct_option: 'A', marks: 5,
+    explanation: '丁寧な疑問文を作る「雨ですか（雨です - A）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 27, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄(27)に最もあてはまるものを選びなさい。\n\nＢ：いいえ、午前は雨ではないよ。でも午後は (27) ＿＿＿＿。',
+    option_a: 'ふります', option_b: 'ふりたいです', option_c: 'ふらないそうです', option_d: 'ふりませんでした',
+    correct_option: 'A', marks: 5,
+    explanation: '午後に雨が降るという未来の事実を述べる「ふります（A）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 28, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄に最もあてはまるものを選びなさい。\n\nＡ：見てください。今日はほしがたくさん＿＿＿＿よ。\nＢ：はい、きれいですね。',
+    option_a: '出ていない', option_b: '出ていません', option_c: '出ています', option_d: '出ませんでした',
+    correct_option: 'C', marks: 5,
+    explanation: '現在星が見えている状態を表す「出ています（C）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 29, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄(29)に最もあてはまるものを選びなさい。\n\nＡ：今日は空が (29) ＿＿＿＿ ね。\nＢ：はい。でも、明日はたぶん (30) ＿＿＿＿ よ。',
+    option_a: 'いそぐ', option_b: 'くもっています', option_c: 'いそがない', option_d: 'あれています',
+    correct_option: 'B', marks: 5,
+    explanation: '空の様子を表す表現は「くもっています（B）」です。',
+    image_url: null, audio_url: null
+  },
+  {
+    order_num: 30, section_name: '会話・文法',
+    question_text: '会話を読んで、空欄(30)に最もあてはまるものを選びなさい。\n\nＢ：はい。でも、明日はたぶん (30) ＿＿＿＿ よ。',
+    option_a: '晴れました', option_b: '晴れます', option_c: '晴れています', option_d: '晴れないでした',
+    correct_option: 'B', marks: 5,
+    explanation: '明日の天気を予想する表現は「晴れます（B）」です。',
+    image_url: null, audio_url: null
+  },
+
+  // --- 聴解 (Q31-45) ---
+  {
+    order_num: 31, section_name: '聴解',
+    question_text: 'カールさんから絵はがきが届きました。天気を見て日付を選びなさい。\n\n①「あさ、新幹線で京都に来ました。雨がふっていました。でも、あまりさむくなかったです。私はまちをゆっくり散歩しました。」',
+    option_a: 'a: 5月11日 (木)', option_b: 'b: 5月12日 (金)', option_c: 'c: 5月13日 (土)', option_d: 'd: 5月14日 (日)',
+    correct_option: 'A', marks: 5,
+    explanation: '朝から雨が降っていた日は「5月11日（木 - A）」です。',
+    image_url: '/images/jft_paper19/p19_page_10_img_13.png',
+    audio_url: '/audio/jft_paper19/jft19_q31_q33.mp3'
+  },
+  {
+    order_num: 32, section_name: '聴解',
+    question_text: 'カールさんから絵はがきが届きました。天気を見て日付を選びなさい。\n\n②「今日は午前中くもりでした。でも、午後いい天気になりました。そして、あたたかくなりました。私はお寺を見に行きました。きれいでした！」',
+    option_a: 'a: 5月11日 (木)', option_b: 'b: 5月12日 (金)', option_c: 'c: 5月13日 (土)', option_d: 'd: 5月14日 (日)',
+    correct_option: 'C', marks: 5,
+    explanation: '午前が曇りで午後から晴れて暖かくなった日は「5月13日（土 - C）」です。',
+    image_url: '/images/jft_paper19/p19_page_10_img_14.png',
+    audio_url: '/audio/jft_paper19/jft19_q31_q33.mp3'
+  },
+  {
+    order_num: 33, section_name: '聴解',
+    question_text: 'カールさんから絵はがきが届きました。天気を見て日付を選びなさい。\n\n③「今日はくもっていました。ときどき雨もふりました。私は博物館に行きました。とてもおもしろかったです。」',
+    option_a: 'a: 5月11日 (木)', option_b: 'b: 5月12日 (金)', option_c: 'c: 5月13日 (土)', option_d: 'd: 5月14日 (日)',
+    correct_option: 'B', marks: 5,
+    explanation: '曇りのち雨（ときどき雨）の日は「5月12日（金 - B）」です。',
+    image_url: '/images/jft_paper19/p19_page_11_img_15.png',
+    audio_url: '/audio/jft_paper19/jft19_q31_q33.mp3'
+  },
+  {
+    order_num: 34, section_name: '聴解',
+    question_text: 'ワンさんは二人の友達とうえのについて話しています。音声を聞いて、場所の説明にあてはまるものを選びなさい。\n\n① 上野公園',
+    option_a: 'a: おおきいです', option_b: 'b: おもしろいです', option_c: 'c: ひろいです', option_d: 'd: ふるいまちです',
+    correct_option: 'C', marks: 5,
+    explanation: '上野公園についての説明は「ひろいです（c - C）」です。',
+    image_url: '/images/jft_paper19/p19_page_12_img_17.png',
+    audio_url: '/audio/jft_paper19/jft19_q34_q37.mp3'
+  },
+  {
+    order_num: 35, section_name: '聴解',
+    question_text: 'ワンさんは二人の友達とうえのについて話しています。音声を聞いて、場所の説明にあてはまるものを選びなさい。\n\n② アメ横',
+    option_a: 'a・e (おおきいです・べんりです)', option_b: 'b・e (おもしろいです・べんりです)', option_c: 'e・f (べんりです・安いです)', option_d: 'd・f (ふるいまちです・安いです)',
+    correct_option: 'C', marks: 5,
+    explanation: 'アメ横についての説明は「べんりです・安いです（e・f - C）」です。',
+    image_url: '/images/jft_paper19/p19_page_12_img_18.png',
+    audio_url: '/audio/jft_paper19/jft19_q34_q37.mp3'
+  },
+  {
+    order_num: 36, section_name: '聴解',
+    question_text: 'ワンさんは二人の友達とうえのについて話しています。音声を聞いて、場所の説明にあてはまるものを選びなさい。\n\n③ 上野駅',
+    option_a: 'a: おおきいです', option_b: 'b: おもしろいです', option_c: 'c: ひろいです', option_d: 'd: ふるいまちです',
+    correct_option: 'A', marks: 5,
+    explanation: '上野駅についての説明は「おおきいです（a - A）」です。',
+    image_url: '/images/jft_paper19/p19_page_13_img_19.png',
+    audio_url: '/audio/jft_paper19/jft19_q34_q37.mp3'
+  },
+  {
+    order_num: 37, section_name: '聴解',
+    question_text: 'ワンさんは二人の友達とうえのについて話しています。音声を聞いて、場所の説明にあてはまるものを選びなさい。\n\n④ 下町・古い町並み',
+    option_a: 'a・b (おおきいです・おもしろいです)', option_b: 'b・c (おもしろいです・ひろいです)', option_c: 'c・f (ひろいです・安いです)', option_d: 'd・b (ふるいまちです・おもしろいです)',
+    correct_option: 'D', marks: 5,
+    explanation: '古い町並みについての説明は「ふるいまちです・おもしろいです（d・b - D）」です。',
+    image_url: '/images/jft_paper19/p19_page_13_img_20.png',
+    audio_url: '/audio/jft_paper19/jft19_q34_q37.mp3'
+  },
+  {
+    order_num: 38, section_name: '聴解',
+    question_text: '音声を聞いて、感想にあてはまるものを選びなさい。\n\n① 富士山',
+    option_a: 'a: おもしろいです', option_b: 'b: さむいです', option_c: 'c: たのしいです', option_d: 'd: とおいです',
+    correct_option: 'B', marks: 5,
+    explanation: '富士山についての感想は「さむいです（b - B）」です。',
+    image_url: '/images/jft_paper19/p19_page_14_img_22.png',
+    audio_url: '/audio/jft_paper19/jft19_q38_q41.mp3'
+  },
+  {
+    order_num: 39, section_name: '聴解',
+    question_text: '音声を聞いて、感想にあてはまるものを選びなさい。\n\n② 賑やかな街',
+    option_a: 'a: おもしろいです', option_b: 'b: さむいです', option_c: 'c: たのしいです', option_d: 'd: とおいです',
+    correct_option: 'C', marks: 5,
+    explanation: '賑やかな街についての感想は「たのしいです（c - C）」です。',
+    image_url: '/images/jft_paper19/p19_page_14_img_23.png',
+    audio_url: '/audio/jft_paper19/jft19_q38_q41.mp3'
+  },
+  {
+    order_num: 40, section_name: '聴解',
+    question_text: '音声を聞いて、感想にあてはまるものを選びなさい。\n\n③ お台場・夜景',
+    option_a: 'a: おもしろいです', option_b: 'b: さむいです', option_c: 'c: たのしいです', option_d: 'd: とおいです',
+    correct_option: 'A', marks: 5,
+    explanation: 'お台場の夜景についての感想は「おもしろいです（a - A）」です。',
+    image_url: '/images/jft_paper19/p19_page_15_img_24.png',
+    audio_url: '/audio/jft_paper19/jft19_q38_q41.mp3'
+  },
+  {
+    order_num: 41, section_name: '聴解',
+    question_text: '音声を聞いて、感想にあてはまるものを選びなさい。\n\n④ 古い町並み',
+    option_a: 'a: おもしろいです', option_b: 'b: さむいです', option_c: 'c: たのしいです', option_d: 'd: とおいです',
+    correct_option: 'D', marks: 5,
+    explanation: '古い町並みについての感想は「とおいです（d - D）」です。',
+    image_url: '/images/jft_paper19/p19_page_15_img_25.png',
+    audio_url: '/audio/jft_paper19/jft19_q38_q41.mp3'
+  },
+  {
+    order_num: 42, section_name: '聴解',
+    question_text: '音声を聞いて、地図の場所を選びなさい。\n\nぎんこうはどこですか。',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'B', marks: 5,
+    explanation: '道案内によると銀行は「b（B）」の位置にあります。',
+    image_url: '/images/jft_paper19/p19_page_16_img_26.png',
+    audio_url: '/audio/jft_paper19/jft19_q42.mp3'
+  },
+  {
+    order_num: 43, section_name: '聴解',
+    question_text: '音声を聞いて、地図の場所を選びなさい。\n\nびじゅつかんはどこですか。',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'C', marks: 5,
+    explanation: '道案内によると美術館は「c（C）」の位置にあります。',
+    image_url: '/images/jft_paper19/p19_page_16_img_26.png',
+    audio_url: '/audio/jft_paper19/jft19_q43.mp3'
+  },
+  {
+    order_num: 44, section_name: '聴解',
+    question_text: '音声を聞いて、地図の場所を選びなさい。\n\n駅はどこですか。',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'D', marks: 5,
+    explanation: '道案内によると駅は「d（D）」の位置にあります。',
+    image_url: '/images/jft_paper19/p19_page_16_img_26.png',
+    audio_url: '/audio/jft_paper19/jft19_q44.mp3'
+  },
+  {
+    order_num: 45, section_name: '聴解',
+    question_text: '音声を聞いて、地図の場所を選びなさい。\n\nデパートはどこですか。',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'A', marks: 5,
+    explanation: '道案内によるとデパートは「a（A）」の位置にあります。',
+    image_url: '/images/jft_paper19/p19_page_16_img_26.png',
+    audio_url: '/audio/jft_paper19/jft19_q45.mp3'
+  },
+
+  // --- 読解 (Q46-60) ---
+  {
+    order_num: 46, section_name: '読解',
+    question_text: 'ネットショッピングのサイトを見て答えなさい。\n\nこのサイトで探している商品はどれですか。',
+    option_a: 'でんししょうひん', option_b: 'でんしゃしょうしん', option_c: 'てんきしょうひん', option_d: 'しょくりょうひん',
+    correct_option: 'A', marks: 5,
+    explanation: '掲載されている家電製品はすべて「でんししょうひん（電子商品 - A）」です。',
+    image_url: '/images/jft_paper19/p19_page_20_img_27.png', audio_url: null
+  },
+  {
+    order_num: 47, section_name: '読解',
+    question_text: 'ネットショッピングのサイトを見て答えなさい。\n\nすいはんきとせんぷうきを買うためにいくらかかりますか。',
+    option_a: '29,270円', option_b: '28,270円', option_c: '27,270円', option_d: '26,270円',
+    correct_option: 'B', marks: 5,
+    explanation: '炊飯器（23,500円）＋扇風機（4,770円）＝「28,270円（B）」です。',
+    image_url: '/images/jft_paper19/p19_page_20_img_27.png', audio_url: null
+  },
+  {
+    order_num: 48, section_name: '読解',
+    question_text: '有名な場所のノートを読んで答えなさい。\n\n大阪から来た人はどの人といっしょに来ましたか。',
+    option_a: '外国人の両親と', option_b: '外国人の友人たちと', option_c: '外国人のりょこうしゃと', option_d: '一人で',
+    correct_option: 'B', marks: 5,
+    explanation: '小川さんのノートに「外国人の友だちと来ました」とあるので「外国人の友人たちと（B）」です。',
+    image_url: '/images/jft_paper19/p19_page_21_img_28.png', audio_url: null
+  },
+  {
+    order_num: 49, section_name: '読解',
+    question_text: '有名な場所のノートを読んで答えなさい。\n\n二千十二年十一月に来た人は誰ですか。',
+    option_a: 'カタリーナさん', option_b: 'ケルシさん', option_c: '小川さん', option_d: '田中さん',
+    correct_option: 'A', marks: 5,
+    explanation: '2012年11月3日のノートを書いたのは「カタリーナさん（A）」です。',
+    image_url: '/images/jft_paper19/p19_page_21_img_28.png', audio_url: null
+  },
+  {
+    order_num: 50, section_name: '読解',
+    question_text: '有名な場所のノートを読んで答えなさい。\n\nカタリーナさんはどう書きましたか。',
+    option_a: 'しずかなところだったのできもちがよかった',
+    option_b: '日本のもみじがとてもきれいだったから友達にメールで写真をおくりました',
+    option_c: 'このところにまた春に来たいです',
+    option_d: '外国人の友達と散歩しました',
+    correct_option: 'B', marks: 5,
+    explanation: 'カタリーナさんのコメント「日本のもみじはとてもきれいです。国のともだちにメールでしゃしんをおくりました」より「B」です。',
+    image_url: '/images/jft_paper19/p19_page_21_img_28.png', audio_url: null
+  },
+  {
+    order_num: 51, section_name: '読解',
+    question_text: '「マヨラーのへや」を読んで、内容に合っているものに○、ちがっているものに×を選びなさい。\n\nマヨトーストの作り方はやいてからマヨネーズをぬります。',
+    option_a: '〇', option_b: '×', option_c: 'どちらでもない', option_d: '書いていない',
+    correct_option: 'B', marks: 5,
+    explanation: '「まず、パンにマヨネーズをぬります。それから、オーブントースターでやきます」とあり、焼く前に塗るので「×（B）」です。',
+    image_url: '/images/jft_paper19/p19_page_22_img_29.png', audio_url: null
+  },
+  {
+    order_num: 52, section_name: '読解',
+    question_text: '「マヨラーのへや」を読んで、内容に合っているものに○、ちがっているものに×を選びなさい。\n\n日本のマヨネーズはあまいです。',
+    option_a: '〇', option_b: '×', option_c: 'どちらでもない', option_d: '書いていない',
+    correct_option: 'B', marks: 5,
+    explanation: '「日本のマヨネーズはあまりあまくなくておいしいです」とあるので「×（B）」です。',
+    image_url: '/images/jft_paper19/p19_page_22_img_29.png', audio_url: null
+  },
+  {
+    order_num: 53, section_name: '読解',
+    question_text: '「マヨラーのへや」を読んで、内容に合っているものに○、ちがっているものに×を選びなさい。\n\nマヨラーは何でもマヨネーズをかけてたべます。',
+    option_a: '〇', option_b: '×', option_c: 'どちらでもない', option_d: '書いていない',
+    correct_option: 'A', marks: 5,
+    explanation: '「何にでもマヨネーズをかけて食べています」とあるので「〇（A）」です。',
+    image_url: '/images/jft_paper19/p19_page_22_img_29.png', audio_url: null
+  },
+  {
+    order_num: 54, section_name: '読解',
+    question_text: '「マヨラーのへや」を読んで、内容に合っているものに○、ちがっているものに×を選びなさい。\n\nアメリカのmayosukiさんはインターネットでマヨネーズを買います。',
+    option_a: '〇', option_b: '×', option_c: 'どちらでもない', option_d: '書いていない',
+    correct_option: 'A', marks: 5,
+    explanation: '「いつもインターネットで買って」とあるので「〇（A）」です。',
+    image_url: '/images/jft_paper19/p19_page_22_img_29.png', audio_url: null
+  },
+  {
+    order_num: 55, section_name: '読解',
+    question_text: '「マヨラーのへや」を読んで、内容に合っているものに○、ちがっているものに×を選びなさい。\n\nアメリカのマヨネーズはしおがはいっているのでおいしいです。',
+    option_a: '〇', option_b: '×', option_c: 'どちらでもない', option_d: '書いていない',
+    correct_option: 'B', marks: 5,
+    explanation: '「アメリカのマヨネーズは、さとうが入っているので苦手です」とあるので「×（B）」です。',
+    image_url: '/images/jft_paper19/p19_page_22_img_29.png', audio_url: null
+  },
+  {
+    order_num: 56, section_name: '読解',
+    question_text: '「マヨラーのへや」を読んで、内容に合っているものに○、ちがっているものに×を選びなさい。\n\nマヨトーストにチーズをのせてやくともっとおいしくなります。',
+    option_a: '〇', option_b: '×', option_c: 'どちらでもない', option_d: '書いていない',
+    correct_option: 'A', marks: 5,
+    explanation: '「チーズをのせてやくと、もっとおいしくなります」とあるので「〇（A）」です。',
+    image_url: '/images/jft_paper19/p19_page_22_img_29.png', audio_url: null
+  },
+  {
+    order_num: 57, section_name: '読解',
+    question_text: '質問にあうアドバイスを [ a, b, c, d ] から選びなさい。\n\n①「この夏、友だちといっしょに沖縄にダイビングに行きます。どうぐは買ったほうがいいですか。」',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'B', marks: 5,
+    explanation: '「借りたほうがいいと思います。買わないほうがいいです」のアドバイス「b（B）」が合致します。',
+    image_url: '/images/jft_paper19/p19_page_23_img_30.png', audio_url: null
+  },
+  {
+    order_num: 58, section_name: '読解',
+    question_text: '質問にあうアドバイスを [ a, b, c, d ] から選びなさい。\n\n②「沖縄の海でシュノーケリングをしてみたいです。泳ぐのは苦手ですが、しないほうがいいですか。」',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'C', marks: 5,
+    explanation: '「もんだいありません。インストラクターがいますから」のアドバイス「c（C）」が合致します。',
+    image_url: '/images/jft_paper19/p19_page_23_img_30.png', audio_url: null
+  },
+  {
+    order_num: 59, section_name: '読解',
+    question_text: '質問にあうアドバイスを [ a, b, c, d ] から選びなさい。\n\n③「夏休みに沖縄に行きます。ドライブをしたいんですが、車は空港で借りたほうがいいですか。おしえてください。」',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'D', marks: 5,
+    explanation: '「それがいいと思います。車をかえすときもらくです」のアドバイス「d（D）」が合致します。',
+    image_url: '/images/jft_paper19/p19_page_23_img_30.png', audio_url: null
+  },
+  {
+    order_num: 60, section_name: '読解',
+    question_text: '質問にあうアドバイスを [ a, b, c, d ] から選びなさい。\n\n④「ふだんあまり車を運転しません。レンタカーは運転しないほうがいいですか。あぶないですか。」',
+    option_a: 'a', option_b: 'b', option_c: 'c', option_d: 'd',
+    correct_option: 'A', marks: 5,
+    explanation: '「だいじょうぶだと思います。かいがんの近くの道はすいています」のアドバイス「a（A）」が合致します。',
+    image_url: '/images/jft_paper19/p19_page_23_img_30.png', audio_url: null
+  }
+];
 
 async function seedJftModelPaper19() {
   console.log('Seeding JFT-Basic Official Model Paper 19 (60 Questions, Pass 200/250)...');
-
   try {
     let exam = await db.query.get("SELECT * FROM exams WHERE (title LIKE '%Model Paper 19%' OR title LIKE '%Paper 19%') AND course_id = 1");
     let examId;
-
     if (exam) {
       examId = exam.id;
-      console.log(`Found existing Exam ID: ${examId}, resetting questions...`);
+      const countRes = await db.query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
+      if (countRes && countRes.count >= 60) {
+        await db.query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200, is_active = 1 WHERE id = ?', [examId]);
+        await db.query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
+        await db.query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
+        await db.query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
+        return;
+      }
       await db.query.run('DELETE FROM questions WHERE exam_id = ?', [examId]);
       await db.query.run(`
         UPDATE exams 
         SET course_id = 1,
-            title = 'JFT-Basic Official Model Paper 19 (60 Minutes)',
-            description = 'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
+            title = '${title}',
+            description = 'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Authentic Japanese Prometric Format)',
             duration_minutes = 60,
             passing_score = 200,
             is_active = 1
@@ -27,892 +540,32 @@ async function seedJftModelPaper19() {
         INSERT INTO exams (course_id, title, description, duration_minutes, passing_score, is_active)
         VALUES (
           1,
-          'JFT-Basic Official Model Paper 19 (60 Minutes)',
-          'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
+          '${title}',
+          'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Authentic Japanese Prometric Format)',
           60,
           200,
           1
         )
       `);
       examId = res.id;
-      console.log(`Created new Exam ID: ${examId}`);
     }
 
-    const questions = [
-      // ================= SECTION 1: Script and Vocabulary (文字・語彙) [Q01 - Q15] =================
-      {
-        order_num: 1,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\nとうふにしょうゆを____________。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'かけます',
-        option_b: 'いれます',
-        option_c: 'つけます',
-        option_d: '',
-        correct_option: 'A',
-        marks: 2,
-        explanation: 'ටෝෆු (Tofu) මතට සෝයා සෝස් වත් කිරීමට/ඉසීමට "しょうゆをかけます" යෙදේ.'
-      },
-      {
-        order_num: 2,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n<ruby>野菜<rt>やさい</rt></ruby>にマヨネーズを____________。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'かけます',
-        option_b: 'いれます',
-        option_c: 'つけます',
-        option_d: '',
-        correct_option: 'A',
-        marks: 2,
-        explanation: 'එළවළු මතට මෙයොනීස් දැමීමට/ඉසීමට "マヨネーズをかけます" යෙදේ.'
-      },
-      {
-        order_num: 3,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\nコーヒーにミルクを____________。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'かけます',
-        option_b: 'いれます',
-        option_c: 'ぬります',
-        option_d: '',
-        correct_option: 'B',
-        marks: 2,
-        explanation: 'කෝපි කෝප්පය තුළට කිරි දැමීමට "ミルクをいれます" යෙදේ.'
-      },
-      {
-        order_num: 4,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\nパンにバターを____________。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'やけます',
-        option_b: 'ぬります',
-        option_c: 'かけます',
-        option_d: '',
-        correct_option: 'B',
-        marks: 2,
-        explanation: 'පාන් මත බටර් තැවරීමට "バターをぬります" යෙදේ.'
-      },
-      {
-        order_num: 5,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>正<rt>ただ</rt></ruby>しい<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n<ruby>魚<rt>さかな</rt></ruby>を____________。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'やきます',
-        option_b: 'かけます',
-        option_c: 'ぬります',
-        option_d: '',
-        correct_option: 'A',
-        marks: 2,
-        explanation: 'මාළු ග්‍රිල් කිරීමට/පිළිස්සීමට "魚をやきます (焼きます)" යෙදේ.'
-      },
-      {
-        order_num: 6,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【かんけいがある<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「からい (Spicy / සැර)」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'とうがらし',
-        option_b: 'しお',
-        option_c: 'さとう',
-        option_d: '',
-        correct_option: 'A',
-        marks: 1,
-        explanation: 'සැර රසය ඇති ආහාර ද්‍රව්‍යය "とうがらし (මිරිස් කරල්)" වේ.'
-      },
-      {
-        order_num: 7,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【かんけいがある<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「あまい (Sweet / පැණිරස)」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'しお',
-        option_b: 'さとう',
-        option_c: 'レモン',
-        option_d: '',
-        correct_option: 'B',
-        marks: 1,
-        explanation: 'පැණිරස ද්‍රව්‍යය "さとう (සීනි)" වේ.'
-      },
-      {
-        order_num: 8,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【かんけいがある<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「すっぱい (Sour / ඇඹුල්)」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'しお',
-        option_b: 'さとう',
-        option_c: 'レモン',
-        option_d: '',
-        correct_option: 'C',
-        marks: 1,
-        explanation: 'ඇඹුල් රසය ඇති පලතුර "レモン (ලෙමන් / දෙහි)" වේ.'
-      },
-      {
-        order_num: 9,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【かんけいがある<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「しょっぱい (Salty / ලුණු රස)」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'とうがらし',
-        option_b: 'しお',
-        option_c: 'くすり',
-        option_d: '',
-        correct_option: 'B',
-        marks: 1,
-        explanation: 'ලුණු රසය ඇති ද්‍රව්‍යය "しお (ලුණු)" වේ.'
-      },
-      {
-        order_num: 10,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【かんけいがある<ruby>言葉<rt>ことば</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びなさい】\n「にがい (Bitter / තිත්ත)」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'とうがらし',
-        option_b: 'くすり',
-        option_c: 'さとう',
-        option_d: '',
-        correct_option: 'B',
-        marks: 1,
-        explanation: 'තිත්ත රසය ඇති ද්‍රව්‍යය "くすり (බෙහෙත්)" වේ.'
-      },
-      {
-        order_num: 11,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>んでください】\n<ruby>私<rt>わたし</rt></ruby>はコンピューターの<u><ruby>会社<rt>かいしゃ</rt></ruby></u>ではたらいています。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'かうしゃ',
-        option_b: 'かいしゃ',
-        option_c: 'かあいしゃ',
-        option_d: '',
-        correct_option: 'B',
-        marks: 2,
-        explanation: '「会社」හී හිරගන කියවීම "かいしゃ (Kaisha - සමාගම/ආයතනය)" වේ.'
-      },
-      {
-        order_num: 12,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>んでください】\nらいしゅう、<ruby>東京<rt>とうきょう</rt></ruby>の<u><ruby>本社<rt>ほんしゃ</rt></ruby></u>からシドニー<ruby>支社<rt>ししゃ</rt></ruby>に<ruby>出張<rt>しゅっちょう</rt></ruby>します。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'ぼんしゃかい',
-        option_b: 'ほんしゃかい',
-        option_c: 'ほんしゃ',
-        option_d: '',
-        correct_option: 'C',
-        marks: 2,
-        explanation: '「本社」හී හිරගන කියවීම "ほんしゃ (Honsha - ප්‍රධාන කාර්යාලය)" වේ.'
-      },
-      {
-        order_num: 13,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>んでください】\nらいしゅう、<ruby>東京<rt>とうきょう</rt></ruby>の<ruby>本社<rt>ほんしゃ</rt></ruby>からシドニー<u><ruby>支社<rt>ししゃ</rt></ruby></u>に<ruby>出張<rt>しゅっちょう</rt></ruby>します。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'しいしゃ',
-        option_b: 'ししゃ',
-        option_c: 'じしゃ',
-        option_d: '',
-        correct_option: 'B',
-        marks: 2,
-        explanation: '「支社」හී හිරගන කියවීම "ししゃ (Shisha - ශාඛා කාර්යාලය)" වේ.'
-      },
-      {
-        order_num: 14,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>んでください】\nらいしゅう、<ruby>東京<rt>とうきょう</rt></ruby>の<ruby>本社<rt>ほんしゃ</rt></ruby>からシドニー<ruby>支社<rt>ししゃ</rt></ruby>に<u><ruby>出張<rt>しゅっちょう</rt></ruby></u>します。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'しゅっちょう',
-        option_b: 'しゅうちょう',
-        option_c: 'しゅちょう',
-        option_d: '',
-        correct_option: 'A',
-        marks: 2,
-        explanation: '「出張」හී හිරගන කියවීම "しゅっちょう (Shucchou - නිල ව්‍යාපාරික ගමන)" වේ.'
-      },
-      {
-        order_num: 15,
-        section_name: 'Section 1: Script and Vocabulary (文字・語彙 - Moji & Goi)',
-        question_text: '【<ruby>下線<rt>かせん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものを<ruby>選<rt>えら</rt></ruby>んでください】\nシドニー<ruby>支社<rt>ししゃ</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>が<u><ruby>空港<rt>くうこう</rt></ruby></u>にむかえに<ruby>来<rt>き</rt></ruby>ます。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'えき',
-        option_b: 'くうこう',
-        option_c: 'そらみなと',
-        option_d: '',
-        correct_option: 'B',
-        marks: 2,
-        explanation: '「空港」හී හිරගන කියවීම "くうこう (Kuukou - ගුවන් තොටුපළ)" වේ.'
-      },
-
-      // ================= SECTION 2: Conversation and Grammar (会話・文法) [Q16 - Q30] =================
-      {
-        order_num: 16,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>文<rt>ぶん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\n<ruby>私<rt>わたし</rt></ruby>は<ruby>日本<rt>にほん</rt></ruby>に<ruby>来<rt>き</rt></ruby>て、5<ruby>年<rt>ねん</rt></ruby>（ 16 ）............なります。<ruby>日本<rt>にほん</rt></ruby>（ 17 ）............の<ruby>生活<rt>せいかつ</rt></ruby>はとても<ruby>楽<rt>たの</rt></ruby>しいです。だんだん<ruby>生活<rt>せいかつ</rt></ruby>（ 18 ）............なれてきました。はじめ（ 19 ）............いろいろな<ruby>大変<rt>たいへん</rt></ruby>なこと（ 20 ）............ありましたが、<ruby>今<rt>いま</rt></ruby>は<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。\n\n(16) に入る言葉：',
-        image_url: null,
-        audio_url: null,
-        option_a: 'を',
-        option_b: 'に',
-        option_c: 'が',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'කාලයක් ගතවී යම් කාලසීමාවක් සපිරුණු බව දැක්වීමට "...になります" (5年になります) යෙදේ.'
-      },
-      {
-        order_num: 17,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '(17) に入る言葉：\n「日本（ 17 ）............の生活はとても楽しいです。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'を',
-        option_b: 'は',
-        option_c: 'で',
-        option_d: '',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'යම් ස්ථානයක ගතකරන ජීවිතය දැක්වීමට "日本での生活 (ජපානය තුළ ජීවිතය)" ලෙස "での" යෙදේ.'
-      },
-      {
-        order_num: 18,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '(18) に入る言葉：\n「だんだん生活（ 18 ）............なれてきました。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'に',
-        option_b: 'を',
-        option_c: 'で',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'යමකට හුරුවීම දැක්වීමට "...に慣れる (〜になれる)" යෙදේ: 生活になれてきました.'
-      },
-      {
-        order_num: 19,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '(19) に入る言葉：\n「はじめ（ 19 ）............いろいろな大変なことがありましたが」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'は',
-        option_b: 'に',
-        option_c: 'で',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'ආරම්භයේදී යන්න දැක්වීමට "はじめに / はじめには (මුලදී)" යෙදේ.'
-      },
-      {
-        order_num: 20,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '(20) に入る言葉：\n「いろいろな大変なこと（ 20 ）............ありましたが、今は大丈夫です。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'も',
-        option_b: 'で',
-        option_c: 'が',
-        option_d: '',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'පැවතීම/තිබීම (あります) සඳහා විෂය පදය දැක්වීමට "が" යෙදේ: 大変なことがありましたが.'
-      },
-      {
-        order_num: 21,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\nジョイ：よしださんは（ 21 ）............。\nよしだ：<ruby>東京<rt>とうきょう</rt></ruby>です。\nジョイ：そうですか。いいところですね。\nよしだ：ええ。\nジョイ：（ 22 ）............。\nよしだ：<ruby>会社員<rt>かいしゃいん</rt></ruby>です。<ruby>電車<rt>でんしゃ</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>で<ruby>働<rt>はたら</rt></ruby>いています。\nジョイ：そうですか。\n\n(21) に入る言葉：',
-        image_url: null,
-        audio_url: null,
-        option_a: 'どこに住んでいますか',
-        option_b: 'どこで働いていますか',
-        option_c: 'どこで生んでいますか',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'පිළිතුර "東京です (ටෝකියෝවේ)" වන බැවින් පදිංචි ස්ථානය අසන "どこに住んでいますか" නිවැරදිය.'
-      },
-      {
-        order_num: 22,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '(22) に入る言葉：\n「よしだ：会社員です。電車の会社で働いています。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'お国はなんですか',
-        option_b: 'おいくつですか',
-        option_c: 'お仕事は何ですか',
-        option_d: '',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'රැකියාව ගැන විමසීමට "お仕事は何ですか (ඔබේ රැකියාව කුමක්ද?)" යෙදේ.'
-      },
-      {
-        order_num: 23,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\nＡ：<ruby>今日<rt>きょう</rt></ruby>はさむかったですね。\nＢ：ええ、____________。',
-        image_url: null,
-        audio_url: null,
-        option_a: '雪がよくふらなかったね',
-        option_b: '雪がよくふりましたね',
-        option_c: '雪がよくふらないそうね',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'සීතල බව තහවුරු කරමින් අතීත කාලයෙන් හිම වැටුණු බව කීමට "雪がよくふりましたね" යෙදේ.'
-      },
-      {
-        order_num: 24,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\nＡ：<ruby>今週<rt>こんしゅう</rt></ruby>は<ruby>毎日<rt>まいにち</rt></ruby><ruby>天気<rt>てんき</rt></ruby>がいいですね。\nＢ：ええ、____________ね。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'あたたかくなかったです',
-        option_b: 'あたたかかったです',
-        option_c: 'あたたかいです',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'කාලගුණය හොඳ බවට එකඟවෙමින් උණුසුම් වූ බව පැවසීමට "あたたかかったです" යෙදේ.'
-      },
-      {
-        order_num: 25,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\nＡ：<ruby>昨日<rt>きのう</rt></ruby>たいふうは____________ね。\nＢ：ええ、<ruby>雨<rt>あめ</rt></ruby>と<ruby>風<rt>かぜ</rt></ruby>がつよかったね。',
-        image_url: null,
-        audio_url: null,
-        option_a: '大変くかった',
-        option_b: '大変だった',
-        option_c: '大変なだった',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'නා-විශේෂණ (Na-adjective) අතීත කාල සාමාන්‍ය ස්වරූපය "大変だった (අමාරු වුණා/භයානක වුණා)" වේ.'
-      },
-      {
-        order_num: 26,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\nＡ：<ruby>明日<rt>あした</rt></ruby><ruby>午前<rt>ごぜん</rt></ruby>は<ruby>雨<rt>あめ</rt></ruby>ですか。（ 26 ）............か。\nＢ：いいえ、<ruby>午前<rt>ごぜん</rt></ruby>は<ruby>雨<rt>あめ</rt></ruby>ではないよ。でも<ruby>午後<rt>ごご</rt></ruby>は（ 27 ）............。\n\n(26) に入る言葉：',
-        image_url: null,
-        audio_url: null,
-        option_a: '雨です',
-        option_b: '雨じゃない',
-        option_c: '雨だった',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'හෙට උදෑසන වැස්සදැයි අසන ප්‍රශ්නාර්ථ වාක්‍යය "雨ですか" වේ.'
-      },
-      {
-        order_num: 27,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '(27) に入る言葉：\n「でも午後は（ 27 ）............。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'ふります',
-        option_b: 'ふりたいです',
-        option_c: 'ふらないそうです',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'සවසට වැස්ස වසින බව ප්‍රකාශ කිරීමට "ふります (වහිනවා)" යෙදේ.'
-      },
-      {
-        order_num: 28,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\nＡ：<ruby>見<rt>み</rt></ruby>てください。<ruby>今日<rt>きょう</rt></ruby>はほしがたくさん____________よ。\nＢ：はい、きれいですね。',
-        image_url: null,
-        audio_url: null,
-        option_a: '出ていない',
-        option_b: '出ていません',
-        option_c: '出ています',
-        option_d: '',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'තරු රාශියක් අහසේ පායා ඇති බව ප්‍රකාශ කිරීමට ධනාත්මකව "出ています" යෙදේ.'
-      },
-      {
-        order_num: 29,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '【<ruby>会話<rt>かいわ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んで、<ruby>空欄<rt>くうらん</rt></ruby>に<ruby>最<rt>もっと</rt></ruby>もあてはまるものを<ruby>選<rt>えら</rt></ruby>んでください】\n\nＡ：<ruby>今日<rt>きょう</rt></ruby>は<ruby>空<rt>そら</rt></ruby>が（ 29 ）............ね。\nＢ：はい。でも、<ruby>明日<rt>あした</rt></ruby>はたぶん（ 30 ）............よ。\n\n(29) に入る言葉：',
-        image_url: null,
-        audio_url: null,
-        option_a: 'いそぐ',
-        option_b: 'くもっています',
-        option_c: 'いそがない',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'අහස වළාකුලින් බරවී ඇති බව දැක්වීමට "くもっています (වළාකුළු පිරිලා)" යෙදේ.'
-      },
-      {
-        order_num: 30,
-        section_name: 'Section 2: Conversation and Grammar (会話・文法 - Kaiwa & Bunpou)',
-        question_text: '(30) に入る言葉：\n「はい。でも、明日はたぶん（ 30 ）............よ。」',
-        image_url: null,
-        audio_url: null,
-        option_a: '晴れました',
-        option_b: '晴れます',
-        option_c: '晴れています',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'හෙට දිනයේදී පායනු ඇතැයි අනාගත කාලයෙන් ප්‍රකාශ කිරීමට "晴れます (පායයි)" යෙදේ.'
-      },
-
-      // ================= SECTION 3: Listening Comprehension (聴解) [Q31 - Q45] =================
-      {
-        order_num: 31,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>はがきと<ruby>天気<rt>てんき</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>日付<rt>ひづけ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\nカールさんから絵はがきがきました。天気を見て日付を選びなさい。\n\n[天気予報]\na: 5月11日 (木) - 雨 23℃/19℃\nb: 5月12日 (金) - 雨のち曇り 21℃/17℃\nc: 5月13日 (土) - 曇りのち晴れ 25℃/18℃\nd: 5月14日 (日) - 晴れ 24℃/12℃\n\n①「あさ、しんかんせんで京都に来ました。雨がふっていました。でも、あまりさむくなかったです。私はまちをゆっくりさんぽしました。」',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1D-p4nQH_hEBXcrAL3769C77yWTW-_sll/view?usp=sharing',
-        option_a: 'a: 5月11日 (木)',
-        option_b: 'b: 5月12日 (金)',
-        option_c: 'c: 5月13日 (土)',
-        option_d: 'd: 5月14日 (日)',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'උදෑසන වැසි පැවති දිනය "5月11日 (木)" වේ.'
-      },
-      {
-        order_num: 32,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>はがきと<ruby>天気<rt>てんき</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>日付<rt>ひづけ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n②「今日はごぜんちゅう くもりでした。でも、午後いい天気になりました。そして、あたたかくなりました。私はおてらを見に行きました。きれいでした！」',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1D-p4nQH_hEBXcrAL3769C77yWTW-_sll/view?usp=sharing',
-        option_a: 'a: 5月11日 (木)',
-        option_b: 'b: 5月12日 (金)',
-        option_c: 'c: 5月13日 (土)',
-        option_d: 'd: 5月14日 (日)',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'උදෑසන වළාකුළු පිරි පසුව පායා උණුසුම් වූ දිනය "5月13日 (土)" වේ.'
-      },
-      {
-        order_num: 33,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>絵<rt>え</rt></ruby>はがきと<ruby>天気<rt>てんき</rt></ruby>を<ruby>見<rt>み</rt></ruby>て<ruby>日付<rt>ひづけ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください】\n③「今日は くもっていました。ときどき 雨も ふりました。私は はくぶつかんに 行きました。とても おもしろかったです。」',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1D-p4nQH_hEBXcrAL3769C77yWTW-_sll/view?usp=sharing',
-        option_a: 'a: 5月11日 (木)',
-        option_b: 'b: 5月12日 (金)',
-        option_c: 'c: 5月13日 (土)',
-        option_d: 'd: 5月14日 (日)',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'වළාකුළු පිරි අතරින් පතර වැසි වැටුණු දිනය "5月12日 (金)" වේ.'
-      },
-      {
-        order_num: 34,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>場所<rt>ばしょ</rt></ruby>にあうものを<ruby>選<rt>えら</rt></ruby>びなさい】\nワンさんは二人の友達とうえのについて話しています。\n\n[選択肢]\na: おおきいです\nb: おもしろいです\nc: ひろいです\nd: ふるいまちです\ne: べんりです\nf: やすいです\n\n① 上野公園 (Ueno Park with fountain)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1km2YF4lTHAu2F1ZSAbsmqarmUD37zlCo/view?usp=sharing',
-        option_a: 'a: おおきいです',
-        option_b: 'b: おもしろいです',
-        option_c: 'c: ひろいです',
-        option_d: 'd: ふるいまちです',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'උවෙනෝ උද්‍යානය (Ueno Park) ඉතා විශාල/පුළුල් බව (c: ひろいです) විස්තර වේ.'
-      },
-      {
-        order_num: 35,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>場所<rt>ばしょ</rt></ruby>にあうものを<ruby>選<rt>えら</rt></ruby>びなさい】\n② アメ横 (Ameyoko Shopping Street)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1km2YF4lTHAu2F1ZSAbsmqarmUD37zlCo/view?usp=sharing',
-        option_a: 'a・e',
-        option_b: 'b・e',
-        option_c: 'e・f (べんりです・安いです)',
-        option_d: 'd・f',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'අමේයොකෝ සාප්පු වීදිය පහසු මෙන්ම බඩු මිළෙන් අඩු බව (e・f: べんりです・安いです) විස්තර වේ.'
-      },
-      {
-        order_num: 36,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>場所<rt>ばしょ</rt></ruby>にあうものを<ruby>選<rt>えら</rt></ruby>びなさい】\n③ 上野駅 (Ueno Station)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1km2YF4lTHAu2F1ZSAbsmqarmUD37zlCo/view?usp=sharing',
-        option_a: 'a: おおきいです',
-        option_b: 'b: おもしろいです',
-        option_c: 'c: ひろいです',
-        option_d: 'd: ふるいまちです',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'උවෙනෝ දුම්රිය ස්ථානය විශාල බව (a: おおきいです) විස්තර වේ.'
-      },
-      {
-        order_num: 37,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>場所<rt>ばしょ</rt></ruby>にあうものを<ruby>選<rt>えら</rt></ruby>びなさい】\n④ 下町・古い町並み (Old traditional neighborhood)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1km2YF4lTHAu2F1ZSAbsmqarmUD37zlCo/view?usp=sharing',
-        option_a: 'a・b',
-        option_b: 'b・c',
-        option_c: 'c・f',
-        option_d: 'd・b (ふるいまちです・おもしろいです)',
-        correct_option: 'D',
-        marks: 5,
-        explanation: 'පැරණි නගර ප්‍රදේශය සිත්ගන්නා සුළු බව (d・b: ふるいまちです・おもしろいです) විස්තර වේ.'
-      },
-      {
-        order_num: 38,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>選<rt>えら</rt></ruby>びなさい】\n\n[選択肢]\na: おもしろいです\nb: さむいです\nc: たのしいです\nd: とおいです\ne: ふべんです\n\n① 富士山 (Mount Fuji Lake)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1lvC64FyLqGhg_jc8-8Lfky4mHLnrd0mj/view?usp=sharing',
-        option_a: 'a: おもしろいです',
-        option_b: 'b: さむいです',
-        option_c: 'c: たのしいです',
-        option_d: 'd: とおいです',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'ෆූජි කන්ද අසල පරිසරය සීතල බව (b: さむいです) විස්තර වේ.'
-      },
-      {
-        order_num: 39,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>選<rt>えら</rt></ruby>びなさい】\n② 賑やかな街 (Crowded shopping street)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1lvC64FyLqGhg_jc8-8Lfky4mHLnrd0mj/view?usp=sharing',
-        option_a: 'a: おもしろいです',
-        option_b: 'b: さむいです',
-        option_c: 'c: たのしいです',
-        option_d: 'd: とおいです',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'ජනාකීර්ණ සාප්පු වීදිය විනෝදජනක බව (c: たのしいです) විස්තර වේ.'
-      },
-      {
-        order_num: 40,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>選<rt>えら</rt></ruby>びなさい】\n③ お台場・夜景 (Odaiba illuminations)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1lvC64FyLqGhg_jc8-8Lfky4mHLnrd0mj/view?usp=sharing',
-        option_a: 'a: おもしろいです',
-        option_b: 'b: さむいです',
-        option_c: 'c: たのしいです',
-        option_d: 'd: とおいです',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'රාත්‍රී විදුලි ආලෝක සංදර්ශන සිත්ගන්නා සුළු බව (a: おもしろいです) විස්තර වේ.'
-      },
-      {
-        order_num: 41,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>選<rt>えら</rt></ruby>びなさい】\n④ 古い町並み (Traditional old town)',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1lvC64FyLqGhg_jc8-8Lfky4mHLnrd0mj/view?usp=sharing',
-        option_a: 'a: おもしろいです',
-        option_b: 'b: さむいです',
-        option_c: 'c: たのしいです',
-        option_d: 'd: とおいです',
-        correct_option: 'D',
-        marks: 5,
-        explanation: 'පැරණි ගම්බද නගරය දුර බැවින් (d: とおいです) විස්තර වේ.'
-      },
-      {
-        order_num: 42,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>地図<rt>ちず</rt></ruby>から<ruby>選<rt>えら</rt></ruby>んでください】\nぎんこうはどこですか。',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1_jIJdiBxYGE2FYu8JzwRLDslLQwC3FkW/view?usp=sharing',
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'සිතියමේ උපදෙස් අනුව බැංකුව පිහිටා ඇත්තේ b ස්ථානයේය.'
-      },
-      {
-        order_num: 43,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>地図<rt>ちず</rt></ruby>から<ruby>選<rt>えら</rt></ruby>んでください】\nびじゅつかんはどこですか。',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1MaqrPeLA2FJP9x8DJw8DmveDNiinHu0N/view?usp=sharing',
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'සිතියමේ උපදෙස් අනුව කලාගාරය පිහිටා ඇත්තේ c ස්ථානයේය.'
-      },
-      {
-        order_num: 44,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>地図<rt>ちず</rt></ruby>から<ruby>選<rt>えら</rt></ruby>んでください】\n駅はどこですか。',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1d11K0Nu0kWd68d8VXeNRfcNFO5i8P_g4/view?usp=sharing',
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'D',
-        marks: 5,
-        explanation: 'සිතියමේ උපදෙස් අනුව දුම්රිය ස්ථානය පිහිටා ඇත්තේ d ස්ථානයේය.'
-      },
-      {
-        order_num: 45,
-        section_name: 'Section 3: Listening Comprehension (聴解 - Choukai)',
-        question_text: '【<ruby>音声<rt>おんせい</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いて<ruby>地図<rt>ちず</rt></ruby>から<ruby>選<rt>えら</rt></ruby>んでください】\nデパートはどこですか。',
-        image_url: null,
-        audio_url: 'https://drive.google.com/file/d/1_uJOsj7bCUuDYmPBEs6nJfuA7CGPpl79/view?usp=sharing',
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'සිතියමේ උපදෙස් අනුව සාප්පු සංකීර්ණය පිහිටා ඇත්තේ a ස්ථානයේය.'
-      },
-
-      // ================= SECTION 4: Reading Comprehension (読解) [Q46 - Q60] =================
-      {
-        order_num: 46,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '【ネットショッピングのサイトを<ruby>見<rt>み</rt></ruby>て<ruby>答<rt>こた</rt></ruby>えなさい】\n\n[商品一覧]\n・そうじき：11,980円\n・れいぞうこ：118,000円\n・せんたくき：52,900円\n・音楽プレーヤー：14,400円\n・テレビ：128,000円\n・ラジオ：5,830円\n・せんぷうき：4,770円\n・アイロン：8,900円\n・でんしレンジ：10,600円\n・エアコン：79,800円\n・すいはんき：23,500円\n\n46. このサイトで探している商品はどれですか。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'でんししょうひん (電子商品/電化製品)',
-        option_b: 'でんしゃしょうしん',
-        option_c: 'てんきしょうひん',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'වෙබ් අඩවියේ ඇති සියලු භාණ්ඩ විදුලි සහ ඉලෙක්ට්‍රොනික උපකරණ (でんししょうひん) වේ.'
-      },
-      {
-        order_num: 47,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '47. すいはんき(23,500円)とせんぷうき(4,770円)を買うためにいくらかかりますか。',
-        image_url: null,
-        audio_url: null,
-        option_a: '29,270円',
-        option_b: '28,270円',
-        option_c: '27,270円',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'රයිස් කුකර් (23,500円) + විදුලි පංකාව (4,770円) = මුළු එකතුව 28,270円 වේ.'
-      },
-      {
-        order_num: 48,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '【<ruby>有名<rt>ゆうめい</rt></ruby>な<ruby>場所<rt>ばしょ</rt></ruby>のノートを<ruby>読<rt>よ</rt></ruby>んで<ruby>答<rt>こた</rt></ruby>えなさい】\n\n[ノート 1]\n月日: 2012年10月31日 | 名前: 小川 | 場所: 大阪\nコメント: 「今日は外国人の友だちと来ました。しずかで きもちがいい にわですね。つぎは 春に来たいです。」\n\n[ノート 2]\n月日: 2012年11月3日 | 名前: カタリーナ | 場所: ケルン(ドイツ)\nコメント: 「ドイツから来ました。日本のもみじはとてもきれいです。国のともだちに見せたいです。メールでしゃしんをおくりました。」\n\n48. 大阪から来た人はどの人といっしょに来ましたか。',
-        image_url: null,
-        audio_url: null,
-        option_a: '外国人の両親と',
-        option_b: '外国人の友人たちと',
-        option_c: '外国人のりょこうしゃと',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'ඔගාවා මහතා විදේශික යහළුවන් සමග පැමිණි බව ("外国人の友だちと来ました") සඳහන් වේ.'
-      },
-      {
-        order_num: 49,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '49. 二千十二年十一月に来た人は誰ですか。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'カタリーナさん',
-        option_b: 'ケルシさん',
-        option_c: '小川さん',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: '2012 නොවැම්බර් 3 දින සටහන තබා ඇත්තේ කැතරිනා (カタリーナ) මහත්මියයි.'
-      },
-      {
-        order_num: 50,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '50. カタリーナさんはどう書きましたか。',
-        image_url: null,
-        audio_url: null,
-        option_a: 'しずかなところだったのできもちがよかった',
-        option_b: '日本のもみじがとてもきれいだったから友達にメールで写真をおくりました',
-        option_c: 'このところにまた春に来たいです',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'කැතරිනා මහත්මිය ජපානයේ මොමිජි කොළ ඉතා ලස්සන බැවින් රටේ යහළුවන්ට ඊමේල් මගින් ඡායාරූප යැවූ බව ලියා ඇත.'
-      },
-      {
-        order_num: 51,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '【＜マヨラーのへや＞を<ruby>読<rt>よ</rt></ruby>んで、〇か×を<ruby>選<rt>えら</rt></ruby>んでください】\n\n1. 日本のマヨはすごい！ (20XX/4/3 Mayosukiさん)\n「私はマヨネーズが大好きなアメリカ人です。アメリカのマヨネーズは、さとうが入っているので、苦手です。日本のマヨネーズは あまりあまくなくて おいしいです！ いつも インターネットで 買って、野菜につけたり、ピザにかけたりして 食べています。」\n\n2. マヨトースト (20XX/4/5 マヨマヨさん)\n「私のおすすめは マヨトーストです。作り方: まず、パンにマヨネーズをぬります。それから、オーブントースターでやきます。チーズをのせてやくと、もっとおいしくなります。こしょうをかけてどうぞ！」\n\n3. おっとは マヨラー (20XX/4/5 マヨラーのつまさん)\n「私はマヨラーです。ごくさい結婚して、今パリに住んでいます。おっとも日本に留学中にマヨネーズが好きになって、今はマヨラーになりました。ご飯やパスタなど、何にでもマヨネーズをかけて食べています。」\n\n51. マヨトーストの作り方はやいてからマヨネーズをぬります。',
-        image_url: null,
-        audio_url: null,
-        option_a: '〇 (正しい)',
-        option_b: '× (正しくない)',
-        option_c: '',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'මුලින්ම පාන් මත මෙයොනීස් තවරා පසුව ටෝස්ටරයේ පිළිස්සිය යුතුය.'
-      },
-      {
-        order_num: 52,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '52. 日本のマヨネーズはあまいです。',
-        image_url: null,
-        audio_url: null,
-        option_a: '〇 (正しい)',
-        option_b: '× (正しくない)',
-        option_c: '',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'ජපානයේ මෙයොනීස් එතරම් පැණිරස නැති බව ("あまりあまくなくて") සඳහන් වේ.'
-      },
-      {
-        order_num: 53,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '53. マヨラーは何でもマヨネーズをかけてたべます。',
-        image_url: null,
-        audio_url: null,
-        option_a: '〇 (正しい)',
-        option_b: '× (正しくない)',
-        option_c: '',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'මයෝලර්වරුන් ඕනෑම කෑමකට මෙයොනීස් දමා කෑමට කැමතිය ("何にでもマヨネーズをかけて食べています").'
-      },
-      {
-        order_num: 54,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '54. アメリカのmayosukiさんはインターネットでマヨネーズを買います。',
-        image_url: null,
-        audio_url: null,
-        option_a: '〇 (正しい)',
-        option_b: '× (正しくない)',
-        option_c: '',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'ඇමරිකාවේ Mayosuki මහතා අන්තර්ජාලය හරහා මෙයොනීස් මිලදී ගන්නා බව සඳහන් වේ.'
-      },
-      {
-        order_num: 55,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '55. アメリカのマヨネーズはしおがはいっているのでおいしいです。',
-        image_url: null,
-        audio_url: null,
-        option_a: '〇 (正しい)',
-        option_b: '× (正しくない)',
-        option_c: '',
-        option_d: '',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'ඇමරිකාවේ මෙයොනීස් වල සීනි අඩංගු නිසා ඔහු ඊට අකමැති බව ("さとうが入っているので苦手です") සඳහන් වේ.'
-      },
-      {
-        order_num: 56,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '56. マヨトーストにチーズをのせてやくともっとおいしくなります。',
-        image_url: null,
-        audio_url: null,
-        option_a: '〇 (正しい)',
-        option_b: '× (正しくない)',
-        option_c: '',
-        option_d: '',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'චීස් දමා පිළිස්සූ විට වඩාත් රසවත් වන බව ("チーズをのせてやくと、もっとおいしくなります") සඳහන් වේ.'
-      },
-      {
-        order_num: 57,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '【<ruby>質問<rt>しつもん</rt></ruby>にあうアドバイスを<ruby>選<rt>えら</rt></ruby>んでください】\n\n[アドバイス一覧]\na: だいじょうぶだと思います。かいがんの近くの道はすいています。でも、町の中はバイクに気をつけてください。\nb: 借りたほうがいいと思います。買わないほうがいいです。買うと10万円ぐらいします。\nc: もんだいありません。インストラクターがいますから。\nd: それがいいと思います。車をかえすときもらくです。\n\n57. ①「この夏、友だちといっしょに沖縄にダイビングに行きます。どうぐは買ったほうがいいですか。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'B',
-        marks: 5,
-        explanation: 'මිලදී ගැනීමට වඩා කුලියට ගැනීම වඩා සුදුසු බවත්, මිලදී ගතහොත් යෙන් ලක්ෂයක් පමණ වන බවත් (b) උපදෙස් දෙයි.'
-      },
-      {
-        order_num: 58,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '58. ②「沖縄の海でシュノーケリングをしてみたいです。泳ぐのは苦手ですが、しないほうがいいですか。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'C',
-        marks: 5,
-        explanation: 'පිහිනීමට අපහසු වුවද පුහුණු උපදේශකයින් (Instructor) සිටින බැවින් ගැටළුවක් නැති බව (c) උපදෙස් දෙයි.'
-      },
-      {
-        order_num: 59,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '59. ③「夏休みに沖縄に行きます。ドライブをしたいんですが、車は空港で借りたほうがいいですか。おしえてください。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'D',
-        marks: 5,
-        explanation: 'ගුවන් තොටුපළෙන්ම කුලියට ගැනීම හොඳ බවත් ආපසු භාරදීමේදීද පහසු වන බවත් (d) උපදෙස් දෙයි.'
-      },
-      {
-        order_num: 60,
-        section_name: 'Section 4: Reading Comprehension (読解 - Dokkai)',
-        question_text: '60. ④「ふだんあまり車を運転しません。レンタカーは運転しないほうがいいですか。あぶないですか。」',
-        image_url: null,
-        audio_url: null,
-        option_a: 'a',
-        option_b: 'b',
-        option_c: 'c',
-        option_d: 'd',
-        correct_option: 'A',
-        marks: 5,
-        explanation: 'වෙරළබඩ පාරවල් වල වාහන අඩු නිසා අවුලක් නැති බවත්, නගරය තුළදී යතුරුපැදි ගැන සැලකිලිමත් වන ලෙසත් (a) උපදෙස් දෙයි.'
-      }
-    ];
-
-    for (const q of questions) {
+    for (const q of p19Questions) {
       await db.query.run(`
         INSERT INTO questions (
-          exam_id, section_name, question_text, image_url, audio_url,
-          option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          exam_id, section_name, question_text, question_type,
+          image_url, audio_url,
+          option_a, option_b, option_c, option_d,
+          correct_option, marks, explanation, order_num
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `, [
-        examId,
-        q.section_name,
-        q.question_text,
-        q.image_url,
-        q.audio_url,
-        q.option_a,
-        q.option_b,
-        q.option_c,
-        q.option_d,
-        q.correct_option,
-        q.marks,
-        q.explanation,
-        q.order_num
+        examId, q.section_name, q.question_text, 'multiple_choice',
+        q.image_url, q.audio_url,
+        q.option_a, q.option_b, q.option_c, q.option_d,
+        q.correct_option, q.marks, q.explanation, q.order_num
       ]);
     }
-
-    console.log(`✅ Successfully seeded JFT-Basic Official Model Paper 19 (${questions.length} questions, Exam ID: ${examId})!`);
-    return { success: true, examId, totalQuestions: questions.length };
+    console.log(`Successfully seeded Model Paper 19!`);
   } catch (err) {
     console.error('Error seeding Model Paper 19:', err);
     throw err;
