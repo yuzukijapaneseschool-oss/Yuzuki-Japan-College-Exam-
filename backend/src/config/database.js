@@ -446,6 +446,21 @@ async function seedInitialData() {
       }
     }
   }
+
+  // Ensure JLPT N4 and JLPT N3 Official Modules are seeded & active
+  try {
+    const { seedJLPTN4 } = require('../utils/seedJLPTN4');
+    await seedJLPTN4();
+  } catch (err) {
+    console.error('Error auto-seeding JLPT N4:', err.message);
+  }
+
+  try {
+    const { seedJLPTN3 } = require('../utils/seedJLPTN3');
+    await seedJLPTN3();
+  } catch (err) {
+    console.error('Error auto-seeding JLPT N3:', err.message);
+  }
 }
 
 module.exports = {
@@ -453,3 +468,4 @@ module.exports = {
   query,
   initDatabase
 };
+
