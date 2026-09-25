@@ -474,7 +474,18 @@ export default function QuestionEditor() {
 
               {q.image_url && (
                 <div>
-                  <img src={q.image_url} alt="Attached diagram" className="max-h-48 rounded-xl border object-contain" />
+                  <img
+                    src={q.image_url}
+                    alt="Attached diagram"
+                    className="max-h-56 rounded-xl border border-slate-200 bg-white p-1 object-contain shadow-xs"
+                    onError={(e) => {
+                      if (!e.target.dataset.tried) {
+                        e.target.dataset.tried = '1';
+                        const filename = q.image_url.split('/').pop();
+                        e.target.src = `/images/${filename}`;
+                      }
+                    }}
+                  />
                 </div>
               )}
 
@@ -775,7 +786,18 @@ export default function QuestionEditor() {
 
                   {formData.image_url && (
                     <div className="mt-2 flex items-center justify-between text-xs bg-white p-2 rounded-lg border">
-                      <img src={formData.image_url} alt="Thumbnail" className="w-8 h-8 object-cover rounded" />
+                      <img
+                        src={formData.image_url}
+                        alt="Thumbnail"
+                        className="w-10 h-10 object-contain rounded border bg-slate-50"
+                        onError={(e) => {
+                          if (!e.target.dataset.tried) {
+                            e.target.dataset.tried = '1';
+                            const filename = formData.image_url.split('/').pop();
+                            e.target.src = `/images/${filename}`;
+                          }
+                        }}
+                      />
                       <button
                         type="button"
                         onClick={() => setFormData({ ...formData, image_url: '' })}
