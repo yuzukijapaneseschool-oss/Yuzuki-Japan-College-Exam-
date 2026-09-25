@@ -97,9 +97,25 @@ async function applyPaymentTableMigration() {
   `);
 }
 
+async function applyCourseTableMigrations() {
+  const courseColumns = [
+    { name: 'category', sql: "ALTER TABLE courses ADD COLUMN category TEXT DEFAULT 'General Language'" }
+  ];
+
+  for (const col of courseColumns) {
+    try {
+      await query.run(col.sql);
+      console.log(`[DB Migration] Added column ${col.name} to courses table.`);
+    } catch (e) {
+      // Column already exists, safe to ignore
+    }
+  }
+}
+
 async function initDatabase() {
   await applyPaymentTableMigration();
   await applyUserTableMigrations();
+  await applyCourseTableMigrations();
   // Create tables
   await query.exec(`
     CREATE TABLE IF NOT EXISTS courses (
