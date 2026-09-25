@@ -99,4 +99,11 @@ export const inquiryAPI = {
   updateStatus: (id, status) => api.put(`/inquiries/${id}/status`, { status }),
 };
 
+export const settingsAPI = {
+  getPublic: () => api.get('/settings/public'),
+  getAdmin: () => api.get('/settings/admin'),
+  updateAdmin: (data) => api.put('/settings/admin', data),
+  createBackup: () => api.post('/settings/admin/backup'),
+};
+
 export default api;

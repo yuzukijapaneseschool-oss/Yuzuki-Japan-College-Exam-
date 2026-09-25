@@ -66,6 +66,7 @@ app.use('/api/exams', require('./routes/examRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/inquiries', require('./routes/inquiryRoutes'));
+app.use('/api/settings', require('./routes/settingsRoutes'));
 
 const candidateDistPaths = [
   path.resolve(__dirname, '../public/dist'),

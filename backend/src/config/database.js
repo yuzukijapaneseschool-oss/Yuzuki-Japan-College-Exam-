@@ -119,10 +119,45 @@ async function applyCourseTableMigrations() {
   }
 }
 
+async function applySystemSettingsTableMigration() {
+  await query.run(`
+    CREATE TABLE IF NOT EXISTS system_settings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      setting_key TEXT UNIQUE NOT NULL,
+      setting_value TEXT,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  const defaultSettings = [
+    { key: 'maintenance_mode', value: 'false' },
+    { key: 'maintenance_title', value: 'YUZUKI Japan College - System Maintenance (පද්ධති නඩත්තු කටයුත්තක්)' },
+    { key: 'maintenance_message', value: 'පද්ධතියේ නඩත්තු කටයුත්තක් සිදුවෙමින් පවතී. ඔබගේ සියලුම ගිණුම් විස්තර, ලියාපදිංචි සහ විභාග ලකුණු 100% ක් සුරක්ෂිතව ඇත. ඉතා ඉක්මනින් විභාග පද්ධතිය නැවත සක්‍රීය වනු ඇත.' },
+    { key: 'maintenance_start_time', value: '' },
+    { key: 'maintenance_end_time', value: '' },
+    { key: 'maintenance_duration_minutes', value: '60' },
+    { key: 'show_banner_alert', value: 'false' },
+    { key: 'banner_alert_text', value: '📢 දැනුම්දීමයි: ඉදිරි පැය කිහිපය තුළ පද්ධතියේ නඩත්තු කටයුත්තක් සිදු කෙරේ. ඔබගේ ගිණුම් සහ විභාග දත්ත 100% ක් සුරක්ෂිතයි.' },
+    { key: 'allow_admin_bypass', value: 'true' }
+  ];
+
+  for (const s of defaultSettings) {
+    try {
+      const existing = await query.get('SELECT id FROM system_settings WHERE setting_key = ?', [s.key]);
+      if (!existing) {
+        await query.run('INSERT INTO system_settings (setting_key, setting_value) VALUES (?, ?)', [s.key, s.value]);
+      }
+    } catch (e) {
+      // Ignore
+    }
+  }
+}
+
 async function initDatabase() {
   await applyPaymentTableMigration();
   await applyUserTableMigrations();
   await applyCourseTableMigrations();
+  await applySystemSettingsTableMigration();
   // Create tables
   await query.exec(`
     CREATE TABLE IF NOT EXISTS courses (
