@@ -424,12 +424,21 @@ export default function ExamSession() {
 
             {currentQ.image_url && (
               <div className="my-4">
-                <div className="relative inline-block border rounded-xl overflow-hidden shadow-sm bg-slate-50">
+                <div
+                  className="relative inline-block border rounded-xl overflow-hidden shadow-sm bg-slate-50 cursor-pointer hover:border-rose-300 transition-all"
+                  onClick={() => setSelectedImage(currentQ.image_url)}
+                >
                   <img
                     src={currentQ.image_url}
                     alt="Question Diagram"
-                    className="max-h-72 object-contain cursor-pointer hover:opacity-90 pointer-events-none"
-                    onClick={() => setSelectedImage(currentQ.image_url)}
+                    className="max-h-72 object-contain hover:opacity-95"
+                    onError={(e) => {
+                      if (!e.target.dataset.tried) {
+                        e.target.dataset.tried = '1';
+                        const filename = currentQ.image_url.split('/').pop();
+                        e.target.src = `/images/${filename}`;
+                      }
+                    }}
                   />
                   <div className="text-[11px] text-slate-500 p-1.5 bg-slate-50 border-t flex items-center space-x-1">
                     <ImageIcon className="w-3.5 h-3.5 text-slate-400" />

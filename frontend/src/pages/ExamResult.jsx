@@ -186,7 +186,14 @@ export default function ExamResult() {
                 <img
                   src={q.image_url}
                   alt="Diagram"
-                  className="max-h-60 rounded-xl border shadow-sm object-contain pointer-events-none"
+                  className="max-h-60 rounded-xl border border-slate-200 shadow-sm object-contain bg-white p-1"
+                  onError={(e) => {
+                    if (!e.target.dataset.tried) {
+                      e.target.dataset.tried = '1';
+                      const filename = q.image_url.split('/').pop();
+                      e.target.src = `/images/${filename}`;
+                    }
+                  }}
                 />
               </div>
             )}
