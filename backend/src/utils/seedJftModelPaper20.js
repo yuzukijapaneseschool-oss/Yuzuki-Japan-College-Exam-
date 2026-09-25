@@ -1,5 +1,5 @@
 const path = require('path');
-const db = require(path.resolve('c:/Users/tharu/OneDrive/Documents/Yuzuki Japan College exam/backend/src/config/database'));
+const db = require('../config/database');
 
 async function seedJftModelPaper20() {
   console.log('Seeding JFT-Basic Official Model Paper 20 (60 Questions, Pass 200/250)...');

@@ -22,7 +22,12 @@ import {
   Bold,
   Eye,
   Sparkles,
-  Type
+  Type,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  Save,
+  Check
 } from 'lucide-react';
 
 export default function QuestionEditor() {
@@ -35,6 +40,13 @@ export default function QuestionEditor() {
   const [optionCount, setOptionCount] = useState(3);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingAudio, setUploadingAudio] = useState(false);
+  const [highlightedId, setHighlightedId] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccessMsg, setSaveSuccessMsg] = useState('');
+  const [activeSectionFilter, setActiveSectionFilter] = useState('all');
+
+  const formRef = useRef(null);
+  const questionTextareaRef = useRef(null);
 
   const [formData, setFormData] = useState({
     section_name: 'Section 1: Vocabulary (文字・語彙)',
@@ -51,7 +63,32 @@ export default function QuestionEditor() {
     order_num: 0
   });
 
-  const questionTextareaRef = useRef(null);
+  const scrollToQuestion = (id) => {
+    if (!id) return;
+    const performScroll = () => {
+      const el = document.getElementById(`question-${id}`);
+      if (el) {
+        const yOffset = -90; // offset for sticky navbar
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        setHighlightedId(id);
+        setTimeout(() => {
+          setHighlightedId(prev => (prev === id ? null : prev));
+        }, 4000);
+        return true;
+      }
+      return false;
+    };
+
+    // Use requestAnimationFrame to wait for React paint, then retry aggressively
+    // so the scroll survives full re-renders from fetchQuestions setState
+    requestAnimationFrame(() => {
+      if (!performScroll()) {
+        const delays = [50, 150, 300, 500, 800, 1200, 1800];
+        delays.forEach(d => setTimeout(performScroll, d));
+      }
+    });
+  };
 
   const applyFormatting = (targetField, tagStart, tagEnd, defaultText = 'word') => {
     let currentVal = formData[targetField] || '';
@@ -81,21 +118,23 @@ export default function QuestionEditor() {
     }, 15);
   };
 
-  const fetchQuestions = async () => {
-    setLoading(true);
+  const fetchQuestions = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const res = await adminAPI.getQuestions(examId);
       setExam(res.data.exam);
       setQuestions(res.data.questions || []);
+      return res.data.questions || [];
     } catch (err) {
       console.error('Failed to load questions:', err);
+      return [];
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchQuestions();
+    fetchQuestions(false);
   }, [examId]);
 
   const handleImageUpload = async (e) => {
@@ -130,44 +169,9 @@ export default function QuestionEditor() {
     }
   };
 
-  const handleSaveQuestion = async (e) => {
-    e.preventDefault();
-    try {
-      const payload = {
-        ...formData,
-        option_d: optionCount === 4 ? (formData.option_d || '') : '',
-        correct_option: (optionCount === 3 && formData.correct_option === 'D') ? 'A' : formData.correct_option
-      };
-
-      if (editingQ) {
-        await adminAPI.updateQuestion(editingQ.id, payload);
-      } else {
-        await adminAPI.createQuestion(examId, {
-          ...payload,
-          order_num: questions.length + 1
-        });
-      }
-      setShowModal(false);
-      setEditingQ(null);
-      resetForm();
-      fetchQuestions();
-    } catch (err) {
-      alert('Failed to save question: ' + (err.response?.data?.error || err.message));
-    }
-  };
-
-  const handleDeleteQuestion = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this question?')) return;
-    try {
-      await adminAPI.deleteQuestion(id);
-      fetchQuestions();
-    } catch (err) {
-      alert('Delete failed: ' + (err.response?.data?.error || err.message));
-    }
-  };
-
   const openEdit = (q) => {
     setEditingQ(q);
+    setSaveSuccessMsg('');
     const hasD = q.option_d && q.option_d.trim() !== '';
     setOptionCount(hasD ? 4 : 3);
     setFormData({
@@ -185,6 +189,113 @@ export default function QuestionEditor() {
       order_num: q.order_num || 0
     });
     setShowModal(true);
+  };
+
+  const currentQIndex = editingQ ? questions.findIndex(q => q.id === editingQ.id) : -1;
+  const hasPrevQ = currentQIndex > 0;
+  const hasNextQ = currentQIndex >= 0 && currentQIndex < questions.length - 1;
+
+  const handleSaveQuestion = async (mode = 'close') => {
+    if (formRef.current && !formRef.current.checkValidity()) {
+      formRef.current.reportValidity();
+      return;
+    }
+
+    setIsSaving(true);
+    setSaveSuccessMsg('');
+    try {
+      const payload = {
+        ...formData,
+        option_d: optionCount === 4 ? (formData.option_d || '') : '',
+        correct_option: (optionCount === 3 && formData.correct_option === 'D') ? 'A' : formData.correct_option
+      };
+
+      const savedId = editingQ?.id;
+
+      if (editingQ) {
+        await adminAPI.updateQuestion(editingQ.id, payload);
+        // Optimistic update so list reflects changes immediately
+        setQuestions(prev => prev.map(q => q.id === editingQ.id ? { ...q, ...payload } : q));
+        const updatedQuestions = await fetchQuestions(true);
+        const list = updatedQuestions.length > 0 ? updatedQuestions : questions;
+
+        if (mode === 'next') {
+          const currIdx = list.findIndex(q => q.id === editingQ.id);
+          if (currIdx >= 0 && currIdx < list.length - 1) {
+            const nextQ = list[currIdx + 1];
+            openEdit(nextQ);
+            setTimeout(() => scrollToQuestion(nextQ.id), 0);
+            setSaveSuccessMsg(`Question #${currIdx + 1} saved! Now editing #${currIdx + 2}`);
+            return;
+          } else {
+            setSaveSuccessMsg('✓ Saved! (You reached the last question)');
+            setTimeout(() => scrollToQuestion(savedId), 0);
+            return;
+          }
+        }
+
+        if (mode === 'stay') {
+          setSaveSuccessMsg('✓ Saved successfully! (සාර්ථකව save විය - මෙතනම රැඳී සිටියි)');
+          if (savedId) setTimeout(() => scrollToQuestion(savedId), 0);
+          setTimeout(() => setSaveSuccessMsg(''), 4000);
+          return;
+        }
+
+        // Close modal and focus smoothly on saved question
+        setShowModal(false);
+        setEditingQ(null);
+        resetForm();
+        if (savedId) {
+          // Defer scroll to next tick so React finishes re-rendering the list
+          setTimeout(() => scrollToQuestion(savedId), 0);
+        }
+      } else {
+        const res = await adminAPI.createQuestion(examId, {
+          ...payload,
+          order_num: questions.length + 1
+        });
+        const newId = res.data?.questionId || res.data?.id;
+        const updatedQuestions = await fetchQuestions(true);
+
+        if (mode === 'next') {
+          setFormData(prev => ({
+            ...prev,
+            question_text: '',
+            image_url: '',
+            audio_url: '',
+            option_a: '',
+            option_b: '',
+            option_c: '',
+            option_d: '',
+            correct_option: 'A',
+            explanation: '',
+            order_num: (updatedQuestions.length || questions.length) + 1
+          }));
+          setSaveSuccessMsg('Question saved! Ready for next question.');
+          if (newId) setTimeout(() => scrollToQuestion(newId), 0);
+        } else {
+          setShowModal(false);
+          setEditingQ(null);
+          resetForm();
+          if (newId) setTimeout(() => scrollToQuestion(newId), 0);
+        }
+      }
+    } catch (err) {
+      alert('Failed to save question: ' + (err.response?.data?.error || err.message));
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDeleteQuestion = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this question?')) return;
+    try {
+      await adminAPI.deleteQuestion(id);
+      setQuestions(prev => prev.filter(q => q.id !== id));
+      await fetchQuestions(true);
+    } catch (err) {
+      alert('Delete failed: ' + (err.response?.data?.error || err.message));
+    }
   };
 
   const resetForm = () => {
@@ -240,6 +351,57 @@ export default function QuestionEditor() {
         </button>
       </div>
 
+      {/* Quick Jump Navigator */}
+      {questions.length > 0 && (
+        <div className="bg-white rounded-2xl border border-slate-200 p-3 shadow-xs flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-1.5 text-xs font-semibold">
+            <span className="text-slate-500 mr-1 flex items-center gap-1">
+              <Layers className="w-3.5 h-3.5 text-rose-600" />
+              <span>Quick Jump:</span>
+            </span>
+            {[
+              { label: 'Top (#1)', order: 1 },
+              { label: 'Sec 1 (Moji #1-15)', order: 1 },
+              { label: 'Sec 2 (Bunpou #16-30)', order: 16 },
+              { label: 'Sec 3 (Choukai #31-45)', order: 31 },
+              { label: 'Sec 4 (Dokkai #46-60)', order: 46 }
+            ].map(sec => (
+              <button
+                key={sec.label}
+                type="button"
+                onClick={() => {
+                  const targetQ = questions.find(q => q.order_num === sec.order) || questions[sec.order - 1];
+                  if (targetQ) scrollToQuestion(targetQ.id);
+                }}
+                className="px-3 py-1.5 rounded-xl border border-slate-200 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700 text-slate-700 transition-all font-japanese text-xs cursor-pointer active:scale-95"
+              >
+                {sec.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center space-x-1.5 text-xs">
+            <span className="text-slate-500 font-semibold">Jump to #</span>
+            <select
+              value=""
+              onChange={(e) => {
+                const val = parseInt(e.target.value, 10);
+                const targetQ = questions.find(q => q.id === val);
+                if (targetQ) scrollToQuestion(targetQ.id);
+              }}
+              className="px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg font-mono font-bold text-slate-800 outline-none cursor-pointer"
+            >
+              <option value="">Choose Question...</option>
+              {questions.map((q, idx) => (
+                <option key={q.id} value={q.id}>
+                  Question #{idx + 1}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
+
       {/* Questions List */}
       <div className="space-y-4">
         {loading ? (
@@ -251,23 +413,36 @@ export default function QuestionEditor() {
             <p className="text-xs text-slate-500 mt-1">Click "Add New Question" above to attach text, audio tracks, and images.</p>
           </div>
         ) : (
-          questions.map((q, idx) => (
-            <div
-              key={q.id}
-              className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4 hover:border-slate-300 transition-colors"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs font-bold font-mono px-2.5 py-1 rounded-lg bg-slate-900 text-white">
-                    #{idx + 1}
-                  </span>
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 font-japanese">
-                    {q.section_name}
-                  </span>
-                  <span className="text-xs text-slate-400">
-                    ({q.marks} {q.marks === 1 ? 'mark' : 'marks'})
-                  </span>
-                </div>
+          questions.map((q, idx) => {
+            const isHighlighted = highlightedId === q.id;
+            return (
+              <div
+                id={`question-${q.id}`}
+                key={q.id}
+                className={`bg-white rounded-2xl border shadow-sm p-6 space-y-4 transition-all duration-300 ${
+                  isHighlighted
+                    ? 'border-emerald-500 ring-4 ring-emerald-400/30 bg-emerald-50/15'
+                    : 'border-slate-200 hover:border-slate-300'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs font-bold font-mono px-2.5 py-1 rounded-lg bg-slate-900 text-white">
+                      #{idx + 1}
+                    </span>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 font-japanese">
+                      {q.section_name}
+                    </span>
+                    <span className="text-xs text-slate-400">
+                      ({q.marks} {q.marks === 1 ? 'mark' : 'marks'})
+                    </span>
+                    {isHighlighted && (
+                      <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                        <Check className="w-3 h-3" />
+                        <span>Saved / Current</span>
+                      </span>
+                    )}
+                  </div>
 
                 <div className="flex items-center space-x-2">
                   <button
@@ -346,7 +521,8 @@ export default function QuestionEditor() {
                 </div>
               )}
             </div>
-          ))
+          );
+        })
         )}
       </div>
 
@@ -355,19 +531,79 @@ export default function QuestionEditor() {
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b pb-3">
-              <h3 className="text-lg font-bold text-slate-900 font-japanese">
-                {editingQ ? 'Edit Question' : 'Add New Question to Exam Paper'}
-              </h3>
+              <div className="flex items-center space-x-3">
+                {editingQ && (
+                  <div className="flex items-center space-x-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button
+                      type="button"
+                      disabled={!hasPrevQ || isSaving}
+                      onClick={() => {
+                        if (hasPrevQ) {
+                          const prevQ = questions[currentQIndex - 1];
+                          openEdit(prevQ);
+                          scrollToQuestion(prevQ.id);
+                        }
+                      }}
+                      className="p-1 rounded-lg text-slate-600 hover:bg-white hover:text-slate-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                      title="Previous Question"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+
+                    <select
+                      value={editingQ.id}
+                      onChange={(e) => {
+                        const targetId = parseInt(e.target.value, 10);
+                        const targetQ = questions.find(q => q.id === targetId);
+                        if (targetQ) {
+                          openEdit(targetQ);
+                          scrollToQuestion(targetQ.id);
+                        }
+                      }}
+                      className="text-xs font-mono font-bold bg-white text-slate-800 border border-slate-200 rounded-lg px-2 py-1 outline-none cursor-pointer max-w-[120px] sm:max-w-none"
+                      title="Jump directly to question"
+                    >
+                      {questions.map((q, idx) => (
+                        <option key={q.id} value={q.id}>
+                          #{idx + 1} ({q.section_name ? q.section_name.split(':')[0] : `Q${idx + 1}`})
+                        </option>
+                      ))}
+                    </select>
+
+                    <button
+                      type="button"
+                      disabled={!hasNextQ || isSaving}
+                      onClick={() => {
+                        if (hasNextQ) {
+                          const nextQ = questions[currentQIndex + 1];
+                          openEdit(nextQ);
+                          scrollToQuestion(nextQ.id);
+                        }
+                      }}
+                      className="p-1 rounded-lg text-slate-600 hover:bg-white hover:text-slate-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                      title="Next Question"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 font-japanese">
+                  {editingQ ? `Edit Question #${currentQIndex + 1}` : `Add New Question (#${questions.length + 1})`}
+                </h3>
+              </div>
               <button
                 type="button"
-                onClick={() => setShowModal(false)}
-                className="text-slate-400 hover:text-slate-600 p-1"
+                onClick={() => {
+                  setShowModal(false);
+                  if (editingQ) scrollToQuestion(editingQ.id);
+                }}
+                className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveQuestion} className="space-y-4">
+            <form ref={formRef} onSubmit={(e) => { e.preventDefault(); handleSaveQuestion(false); }} className="space-y-4">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
@@ -673,20 +909,84 @@ export default function QuestionEditor() {
                 />
               </div>
 
-              <div className="flex items-center justify-end space-x-3 pt-3 border-t">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 text-xs font-semibold bg-rose-600 text-white rounded-xl hover:bg-rose-700 shadow-md"
-                >
-                  {editingQ ? 'Save Question' : 'Add Question'}
-                </button>
+              {saveSuccessMsg && (
+                <div className="p-2.5 bg-emerald-50 border border-emerald-300 rounded-xl text-xs font-bold text-emerald-800 flex items-center justify-between shadow-xs animate-pulse">
+                  <span className="flex items-center space-x-1.5">
+                    <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>{saveSuccessMsg}</span>
+                  </span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-100 font-mono px-2 py-0.5 rounded font-extrabold">Saved in DB</span>
+                </div>
+              )}
+
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t">
+                <div className="text-xs text-slate-500 order-2 sm:order-1 font-mono">
+                  {editingQ 
+                    ? `Editing Question #${currentQIndex + 1} of ${questions.length}` 
+                    : `New Question #${questions.length + 1}`
+                  }
+                </div>
+                <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end order-1 sm:order-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowModal(false);
+                      if (editingQ) scrollToQuestion(editingQ.id);
+                    }}
+                    className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                  >
+                    Close
+                  </button>
+
+                  {editingQ && (
+                    <button
+                      type="button"
+                      disabled={isSaving}
+                      onClick={() => handleSaveQuestion('stay')}
+                      className="px-3.5 py-2 text-xs font-semibold bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 shadow-md transition-all flex items-center space-x-1.5 disabled:opacity-60 cursor-pointer"
+                      title="Save changes and keep editing this exact question"
+                    >
+                      <Save className="w-3.5 h-3.5" />
+                      <span>{isSaving ? 'Saving...' : 'Save (Stay Here)'}</span>
+                    </button>
+                  )}
+
+                  {editingQ && hasNextQ && (
+                    <button
+                      type="button"
+                      disabled={isSaving}
+                      onClick={() => handleSaveQuestion('next')}
+                      className="px-3.5 py-2 text-xs font-semibold bg-rose-600 text-white rounded-xl hover:bg-rose-700 shadow-md transition-all flex items-center space-x-1.5 disabled:opacity-60 cursor-pointer"
+                      title="Save this question and immediately edit the next question"
+                    >
+                      <span>{isSaving ? 'Saving...' : 'Save & Next (ඊළඟ)'}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+
+                  <button
+                    type="button"
+                    disabled={isSaving}
+                    onClick={() => handleSaveQuestion('close')}
+                    className="px-3.5 py-2 text-xs font-semibold bg-slate-800 text-white rounded-xl hover:bg-slate-900 shadow-md transition-all flex items-center space-x-1.5 disabled:opacity-60 cursor-pointer"
+                    title="Save changes and close the editor modal"
+                  >
+                    <span>{isSaving ? 'Saving...' : (editingQ ? 'Save & Close' : 'Save Question')}</span>
+                  </button>
+
+                  {!editingQ && (
+                    <button
+                      type="button"
+                      disabled={isSaving}
+                      onClick={() => handleSaveQuestion('next')}
+                      className="px-3.5 py-2 text-xs font-semibold bg-rose-600 text-white rounded-xl hover:bg-rose-700 shadow-md transition-all flex items-center space-x-1.5 disabled:opacity-60 cursor-pointer"
+                      title="Save this question and add another question"
+                    >
+                      <span>{isSaving ? 'Saving...' : 'Save & Add Next'}</span>
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
               </div>
 
             </form>

@@ -142,6 +142,17 @@ export default function Navbar() {
                     <CreditCard className="w-4 h-4" />
                     <span>Payments</span>
                   </Link>
+
+                  <Link
+                    to="/dashboard"
+                    className={'px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-1.5 ' + (
+                      location.pathname === '/dashboard' ? 'bg-rose-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                    )}
+                    title="Preview CBT Exams as seen by students"
+                  >
+                    <BookOpen className="w-4 h-4 text-emerald-400" />
+                    <span>CBT Exams</span>
+                  </Link>
                 </>
               )}
             </nav>
