@@ -22,12 +22,13 @@ import {
 export default function StudentApprovals() {
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [activeTab, setActiveTab] = useState('pending'); // 'pending' | 'approved' | 'all'
+  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'pending' | 'approved'
   const [search, setSearch] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [loading, setLoading] = useState(true);
   const [editingStudent, setEditingStudent] = useState(null);
   const [viewingSlipUrl, setViewingSlipUrl] = useState(null);
+  const [counts, setCounts] = useState({ pending: 0, approved: 0, all: 0 });
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -37,12 +38,22 @@ export default function StudentApprovals() {
       if (search) params.search = search;
       if (selectedCourse) params.course_id = selectedCourse;
 
-      const [stuRes, crsRes] = await Promise.all([
+      const [stuRes, crsRes, allStuRes] = await Promise.all([
         adminAPI.getStudents(params),
-        courseAPI.getAll()
+        courseAPI.getAll(),
+        adminAPI.getStudents({})
       ]);
       setStudents(stuRes.data.students || []);
       setCourses(crsRes.data.courses || []);
+
+      const allList = allStuRes.data.students || [];
+      const pCount = allList.filter(s => s.status === 'pending').length;
+      const aCount = allList.filter(s => s.status === 'approved').length;
+      setCounts({
+        pending: pCount,
+        approved: aCount,
+        all: allList.length
+      });
     } catch (err) {
       console.error('Failed to load students:', err);
     } finally {
@@ -104,21 +115,24 @@ export default function StudentApprovals() {
           {/* Status Tabs */}
           <div className="flex space-x-2">
             {[
-              { key: 'pending', label: 'Pending Approvals' },
-              { key: 'approved', label: 'Approved Students' },
-              { key: 'all', label: 'All Students' }
+              { key: 'pending', label: 'Pending Approvals', count: counts.pending, badgeColor: 'bg-amber-500 text-white' },
+              { key: 'approved', label: 'Approved Students', count: counts.approved, badgeColor: 'bg-emerald-600 text-white' },
+              { key: 'all', label: 'All Students', count: counts.all, badgeColor: 'bg-slate-700 text-white' }
             ].map(tab => (
               <button
                 key={tab.key}
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
-                className={'px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ' + (
+                className={'px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center space-x-2 ' + (
                   activeTab === tab.key
                     ? 'bg-rose-600 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 )}
               >
-                {tab.label}
+                <span>{tab.label}</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${activeTab === tab.key ? 'bg-white text-rose-700' : tab.badgeColor}`}>
+                  {tab.count}
+                </span>
               </button>
             ))}
           </div>
