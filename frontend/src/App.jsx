@@ -83,11 +83,11 @@ function AppLayout() {
           <Route path="/activate" element={<ExistingStudentRegister />} />
           <Route path="/activate-student" element={<ExistingStudentRegister />} />
 
-          {/* Student Exam Routes */}
+          {/* Student Exam Routes (Accessible to both Students and Admins for testing) */}
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute requiredRole="student">
+              <ProtectedRoute>
                 <StudentDashboard />
               </ProtectedRoute>
             }
@@ -95,7 +95,7 @@ function AppLayout() {
           <Route
             path="/exam/:id"
             element={
-              <ProtectedRoute requiredRole="student">
+              <ProtectedRoute>
                 <ExamSession />
               </ProtectedRoute>
             }
@@ -111,7 +111,7 @@ function AppLayout() {
           <Route
             path="/history"
             element={
-              <ProtectedRoute requiredRole="student">
+              <ProtectedRoute>
                 <StudentHistory />
               </ProtectedRoute>
             }
