@@ -66,5 +66,5 @@ module.exports = {
   createBackup,
   initAutoBackup,
   backupDir,
-  dbPath
+  getActiveDbPath
 };
