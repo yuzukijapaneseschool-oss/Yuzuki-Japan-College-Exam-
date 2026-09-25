@@ -1,8 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const dbPath = path.resolve(__dirname, '../../data/yuzuki.db');
-const backupDir = path.resolve(__dirname, '../../data/backups');
+const possibleDbPaths = [
+  path.resolve(__dirname, '../data/yuzuki.db'),
+  path.resolve(__dirname, '../../data/yuzuki.db'),
+  path.resolve(__dirname, '../../../data/yuzuki.db'),
+  path.resolve(__dirname, '../../backend/data/yuzuki.db')
+];
+
+function getActiveDbPath() {
+  return possibleDbPaths.find(p => fs.existsSync(p)) || possibleDbPaths[0];
+}
+
+const backupDir = path.resolve(__dirname, '../data/backups');
 
 function ensureBackupDir() {
   if (!fs.existsSync(backupDir)) {
@@ -13,6 +23,7 @@ function ensureBackupDir() {
 function createBackup() {
   try {
     ensureBackupDir();
+    const dbPath = getActiveDbPath();
     if (!fs.existsSync(dbPath)) return null;
 
     const dateStr = new Date().toISOString().replace(/[:.]/g, '-');

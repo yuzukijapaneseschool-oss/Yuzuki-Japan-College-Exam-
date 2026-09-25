@@ -11,7 +11,8 @@ import {
   XCircle, 
   Clock, 
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Sliders
 } from 'lucide-react';
 
 export default function AdminDashboard() {
@@ -74,7 +75,15 @@ export default function AdminDashboard() {
           </p>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            to="/admin/settings"
+            className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm shadow-md transition-all flex items-center space-x-2 backdrop-blur-md"
+          >
+            <Sliders className="w-4 h-4 text-amber-400" />
+            <span>Settings & Maintenance</span>
+          </Link>
+
           <Link
             to="/admin/quizzes"
             className="px-5 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm shadow-md transition-all flex items-center space-x-2"

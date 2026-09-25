@@ -30,6 +30,10 @@ import ExamResultsList from './pages/admin/ExamResultsList';
 import CourseManager from './pages/admin/CourseManager';
 import PaymentManager from './pages/admin/PaymentManager';
 import InquiryManager from './pages/admin/InquiryManager';
+import SystemSettings from './pages/admin/SystemSettings';
+import MaintenancePage from './components/MaintenancePage';
+import MaintenanceBanner from './components/MaintenanceBanner';
+import { settingsAPI } from './services/api';
 
 function ProtectedRoute({ children, requiredRole = null }) {
   const { user, loading } = useAuth();
@@ -53,15 +57,56 @@ function ProtectedRoute({ children, requiredRole = null }) {
   return children;
 }
 
-// Helper wrapper to conditionally render footer and floating WhatsApp
+// Helper wrapper to conditionally render footer, floating WhatsApp, and maintenance overlay
 function AppLayout() {
+  const { user } = useAuth();
   const location = useLocation();
+  const [publicSettings, setPublicSettings] = React.useState(null);
+
+  const fetchPublicSettings = async () => {
+    try {
+      const res = await settingsAPI.getPublic();
+      setPublicSettings(res.data);
+    } catch (err) {
+      // Quiet failover
+    }
+  };
+
+  useEffect(() => {
+    fetchPublicSettings();
+    const interval = setInterval(fetchPublicSettings, 30000); // 30s poll
+    return () => clearInterval(interval);
+  }, [location.pathname]);
+
   const publicPaths = ['/', '/about', '/courses', '/visa-pathways', '/contact'];
   const isPublicPage = publicPaths.includes(location.pathname);
   const isExamSession = location.pathname.startsWith('/exam/');
+  const isAdmin = user?.role === 'admin';
+  const isLoginOrAdminRoute = location.pathname.startsWith('/admin') || location.pathname === '/login';
+
+  // If maintenance mode is active AND user is not an admin, show full Maintenance screen!
+  if (publicSettings?.maintenance_mode && !isAdmin && !isLoginOrAdminRoute) {
+    return <MaintenancePage settings={publicSettings} onRefresh={fetchPublicSettings} />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 selection:bg-transparent selection:text-slate-900 select-none">
+      {/* Advance Maintenance Warning Alert Banner */}
+      {publicSettings?.show_banner_alert && (
+        <MaintenanceBanner
+          bannerText={publicSettings.banner_alert_text}
+          endTime={publicSettings.maintenance_end_time}
+        />
+      )}
+
+      {/* Floating Admin Maintenance Mode Indicator */}
+      {publicSettings?.maintenance_mode && isAdmin && (
+        <div className="fixed bottom-4 left-4 z-50 bg-rose-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-2xl border border-white/20 flex items-center space-x-1.5 animate-pulse">
+          <span className="w-2 h-2 rounded-full bg-white" />
+          <span>🔧 Maintenance Mode Active (Admin Bypass)</span>
+        </div>
+      )}
+
       {!isExamSession && <Navbar />}
       
       <main className="flex-1">
@@ -179,6 +224,14 @@ function AppLayout() {
             element={
               <ProtectedRoute requiredRole="admin">
                 <CourseManager />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <SystemSettings />
               </ProtectedRoute>
             }
           />
