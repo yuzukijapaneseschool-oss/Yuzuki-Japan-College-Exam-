@@ -1133,12 +1133,37 @@ const jlptN3Questions = [
 ];
 
 async function seedJLPTN4() {
-  // 1. Ensure categories in courses table are updated to 'JLPT Level'
+  // 1. Ensure category column exists in courses table
+  try {
+    await query.run("ALTER TABLE courses ADD COLUMN category TEXT DEFAULT 'General Language'");
+  } catch (e) {
+    // Column already exists
+  }
+
+  // 2. Helper to ensure courses exist
+  async function ensureCourse(code, name, description) {
+    let course = await query.get("SELECT id FROM courses WHERE code = ?", [code]);
+    if (!course) {
+      const ins = await query.run(`
+        INSERT INTO courses (code, name, category, description)
+        VALUES (?, ?, 'JLPT Level', ?)
+      `, [code, name, description]);
+      course = { id: ins.id };
+    } else {
+      await query.run("UPDATE courses SET category = 'JLPT Level' WHERE id = ?", [course.id]);
+    }
+    return course;
+  }
+
+  const courseN5 = await ensureCourse('JLPT-N5', 'JLPT N5 (Beginner Level)', 'Foundational Japanese vocabulary, kanji, grammar, and listening comprehension for beginners.');
+  const courseN4 = await ensureCourse('JLPT-N4', 'JLPT N4 (Elementary Level)', 'Elementary Japanese grammar, kanji (300+), daily conversation, and listening mock tests.');
+  const courseN3 = await ensureCourse('JLPT-N3', 'JLPT N3 (Intermediate Level)', 'Bridge to advanced Japanese with complex reading comprehension, kanji, and nuanced grammar.');
+
+  // Update categories in courses table
   await query.run("UPDATE courses SET category = 'JLPT Level' WHERE code LIKE 'JLPT%'");
   await query.run("UPDATE courses SET category = 'JFT-Basic' WHERE code = 'JFT-BASIC'");
 
-  // 2. Seed JLPT N4 Modules (Course ID 3)
-  const courseN4 = await query.get("SELECT id FROM courses WHERE code = 'JLPT-N4'");
+  // 3. Seed JLPT N4 Modules (10 Topics)
   if (courseN4) {
     const courseId = courseN4.id;
     for (const mod of jlptN4Data) {
@@ -1155,32 +1180,33 @@ async function seedJLPTN4() {
         `, [mod.description, exam.id]);
       }
 
-      await query.run("DELETE FROM questions WHERE exam_id = ?", [exam.id]);
-
-      let orderNum = 1;
-      for (const q of mod.questions) {
-        await query.run(`
-          INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
-        `, [
-          exam.id,
-          mod.category,
-          q.text,
-          q.optA,
-          q.optB,
-          q.optC,
-          q.optD,
-          q.ans,
-          q.exp,
-          orderNum++
-        ]);
+      const qCount = await query.get("SELECT count(*) as count FROM questions WHERE exam_id = ?", [exam.id]);
+      if (!qCount || qCount.count < mod.questions.length) {
+        await query.run("DELETE FROM questions WHERE exam_id = ?", [exam.id]);
+        let orderNum = 1;
+        for (const q of mod.questions) {
+          await query.run(`
+            INSERT INTO questions (exam_id, section_name, question_text, option_a, option_b, option_c, option_d, correct_option, marks, explanation, order_num)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
+          `, [
+            exam.id,
+            mod.category,
+            q.text,
+            q.optA,
+            q.optB,
+            q.optC,
+            q.optD,
+            q.ans,
+            q.exp,
+            orderNum++
+          ]);
+        }
       }
     }
-    console.log(`Successfully seeded all 10 JLPT N4 modules under course ID ${courseId}`);
+    console.log(`Successfully verified and seeded all 10 JLPT N4 modules under course ID ${courseId}`);
   }
 
-  // 3. Seed JLPT N5 (Course ID 2)
-  const courseN5 = await query.get("SELECT id FROM courses WHERE code = 'JLPT-N5'");
+  // 4. Seed JLPT N5 (Course ID 2 / JLPT-N5)
   if (courseN5) {
     let examN5 = await query.get("SELECT id FROM exams WHERE course_id = ?", [courseN5.id]);
     if (!examN5) {
@@ -1202,8 +1228,7 @@ async function seedJLPTN4() {
     }
   }
 
-  // 4. Seed JLPT N3 (Course ID 4)
-  const courseN3 = await query.get("SELECT id FROM courses WHERE code = 'JLPT-N3'");
+  // 5. Seed JLPT N3 (Course ID 4 / JLPT-N3)
   if (courseN3) {
     let examN3 = await query.get("SELECT id FROM exams WHERE course_id = ?", [courseN3.id]);
     if (!examN3) {

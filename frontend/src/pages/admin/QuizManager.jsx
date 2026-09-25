@@ -142,8 +142,10 @@ export default function QuizManager() {
   const getExamCategory = (exam) => {
     const code = exam.course_code || '';
     const title = (exam.title || '').toLowerCase();
+    const courseCat = (exam.course_category || '').toLowerCase();
+    const courseName = (exam.course_name || '').toLowerCase();
 
-    if (code === 'JFT-BASIC' || title.includes('jft')) return 'JFT';
+    if (code === 'JFT-BASIC' || title.includes('jft') || courseName.includes('jft')) return 'JFT';
     if (code === 'SSW2-ACCOMMODATION' || title.includes('ssw 2') || title.includes('特定技能2号') || title.includes('2号')) return 'SSW2_ACCOM';
     if (code === 'SSW-FOOD-MANUFACTURING' || title.includes('food manufacturing') || title.includes('飲食料品製造') || title.includes('製造業') || title.includes('seizougyou')) return 'FOOD_MANU';
     if (code === 'SSW-CONSTRUCTION' || title.includes('construction') || title.includes('建設') || title.includes('土木') || title.includes('型枠') || title.includes('鉄筋') || title.includes('kensetsu')) return 'CONSTRUCTION';
@@ -154,7 +156,7 @@ export default function QuizManager() {
     if (code === 'SSW-ACCOMMODATION' || title.includes('accommodation') || title.includes('宿泊業') || title.includes('hotel')) return 'ACCOM';
     if (code === 'SSW-AUTOMOBILE' || title.includes('automobile') || title.includes('自動車整備')) return 'AUTO';
     if (code === 'SSW-TRUCK-DRIVING' || title.includes('truck') || title.includes('トラック') || title.includes('運送')) return 'TRUCK';
-    if (['JLPT-N5', 'JLPT-N4', 'JLPT-N3', 'JLPT-N2', 'JLPT-N1'].includes(code) || title.includes('jlpt')) return 'JLPT';
+    if (['JLPT-N5', 'JLPT-N4', 'JLPT-N3', 'JLPT-N2', 'JLPT-N1'].includes(code) || title.includes('jlpt') || courseCat === 'jlpt level' || courseName.includes('jlpt') || [2, 3, 4].includes(exam.course_id)) return 'JLPT';
     if (code.startsWith('SSW-') || code.startsWith('SSW2-')) return 'SSW_OTHER';
     return 'OTHER';
   };
