@@ -133,6 +133,7 @@ const { seedJftModelPaper09 } = require('./utils/seedJftModelPaper09');
 const { seedJftModelPaper10 } = require('./utils/seedJftModelPaper10');
 const { seedJftModelPaper11 } = require('./utils/seedJftModelPaper11');
 const { seedJftModelPaper12 } = require('./utils/seedJftModelPaper12');
+const { seedJftModelPaper13 } = require('./utils/seedJftModelPaper13');
 const seedJftModelPaper20 = require('./utils/seedJftModelPaper20');
 const { seedSSWAutomobile } = require('./utils/seedSSWAutomobile');
 const { seedSSWAccommodation } = require('./utils/seedSSWAccommodation');
@@ -172,6 +173,7 @@ async function start() {
     await safeRunSeed(seedJftModelPaper10, 'seedJftModelPaper10');
     await safeRunSeed(seedJftModelPaper11, 'seedJftModelPaper11');
     await safeRunSeed(seedJftModelPaper12, 'seedJftModelPaper12');
+    await safeRunSeed(seedJftModelPaper13, 'seedJftModelPaper13');
     await safeRunSeed(seedJftModelPaper20, 'seedJftModelPaper20');
     await safeRunSeed(seedSSWAutomobile, 'seedSSWAutomobile');
     await safeRunSeed(seedSSWAccommodation, 'seedSSWAccommodation');
