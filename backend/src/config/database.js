@@ -3,7 +3,14 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
-const dbPath = path.resolve(__dirname, '../../data/yuzuki.db');
+const possiblePaths = [
+  path.resolve(__dirname, '../../backend/data/yuzuki.db'),
+  path.resolve(__dirname, '../../data/yuzuki.db'),
+  path.resolve(__dirname, '../../../data/yuzuki.db'),
+  path.resolve(__dirname, '../data/yuzuki.db')
+];
+
+let dbPath = possiblePaths.find(p => fs.existsSync(p)) || possiblePaths[0];
 const dbDir = path.dirname(dbPath);
 
 if (!fs.existsSync(dbDir)) {
