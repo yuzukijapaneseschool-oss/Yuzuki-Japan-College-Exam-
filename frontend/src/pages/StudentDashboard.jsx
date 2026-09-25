@@ -495,139 +495,156 @@ export default function StudentDashboard() {
 
         {/* Dedicated JLPT Levels Practice & Examination Portal (N5 / N4 / N3) */}
         {selectedCourseFilter === 'JLPT' && (
-          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden p-6 sm:p-8 space-y-6">
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-6 sm:p-8 space-y-6">
             
-            {/* Header: Centered Large Title */}
-            <div className="text-center pt-2 pb-1 space-y-1">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#112340] font-japanese tracking-tight">
-                JLPT Level Examination Portal (日本語能力試験)
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-500">
-                Official Computer-Based Practice Modules & Comprehensive Mock Papers for JLPT Levels N5, N4, and N3.
-              </p>
+            {/* Breadcrumb: home > JLPT N4 */}
+            <div className="flex items-center space-x-2 text-sm text-slate-500 pt-1">
+              <button 
+                type="button"
+                onClick={() => setSelectedCourseFilter('ALL')} 
+                className="text-[#2b7a9e] hover:text-[#205e7a] hover:underline font-normal cursor-pointer"
+              >
+                home
+              </button>
+              <span className="text-slate-400">&gt;</span>
+              <span className="text-slate-600 font-medium">JLPT {selectedJlptLevel}</span>
             </div>
 
-            {/* Level Selector Tabs: N4, N5, N3 */}
-            <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 bg-slate-50/90 border border-slate-200 rounded-2xl max-w-3xl mx-auto shadow-xs">
-              <button
-                type="button"
-                onClick={() => setSelectedJlptLevel('N4')}
-                className={`flex-1 min-w-[200px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center space-x-2 ${
-                  selectedJlptLevel === 'N4'
-                    ? 'bg-[#0da58e] text-white shadow-md shadow-teal-600/30'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
-              >
-                <span>🌸 JLPT N4 (Official SSW 10 Modules)</span>
-              </button>
+            {/* Header: Centered Large Title matching screenshot */}
+            <div className="text-center pt-2 pb-2">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1e293b] font-japanese tracking-tight">
+                {selectedJlptLevel === 'N4' ? 'JLPT N4 Practice Questions' : selectedJlptLevel === 'N5' ? 'JLPT N5 Practice Questions' : 'JLPT N3 Practice Questions'}
+              </h1>
+            </div>
 
-              <button
-                type="button"
-                onClick={() => setSelectedJlptLevel('N5')}
-                className={`flex-1 min-w-[180px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center space-x-2 ${
-                  selectedJlptLevel === 'N5'
-                    ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
-              >
-                <span>🔰 JLPT N5 (Beginner Mock Exam)</span>
-              </button>
+            {/* Level Selector Tabs: N4 (Default), N5, N3 */}
+            <div className="flex justify-center pb-2">
+              <div className="inline-flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200 text-xs sm:text-sm font-semibold max-w-2xl w-full">
+                <button
+                  type="button"
+                  onClick={() => setSelectedJlptLevel('N4')}
+                  className={`flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center space-x-1.5 ${
+                    selectedJlptLevel === 'N4'
+                      ? 'bg-[#00b090] text-white shadow-md font-bold'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  }`}
+                >
+                  <span>🌸 JLPT N4 (Official SSW 10 Modules)</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setSelectedJlptLevel('N3')}
-                className={`flex-1 min-w-[180px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center space-x-2 ${
-                  selectedJlptLevel === 'N3'
-                    ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
-              >
-                <span>🏆 JLPT N3 (Intermediate Mock Exam)</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedJlptLevel('N5')}
+                  className={`flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center space-x-1.5 ${
+                    selectedJlptLevel === 'N5'
+                      ? 'bg-purple-600 text-white shadow-md font-bold'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  }`}
+                >
+                  <span>🔰 JLPT N5 (Mock Exam)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedJlptLevel('N3')}
+                  className={`flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center space-x-1.5 ${
+                    selectedJlptLevel === 'N3'
+                      ? 'bg-amber-600 text-white shadow-md font-bold'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  }`}
+                >
+                  <span>🏆 JLPT N3 (Mock Exam)</span>
+                </button>
+              </div>
             </div>
 
             {/* LEVEL: JLPT N4 */}
             {selectedJlptLevel === 'N4' && (
               <div className="space-y-6">
-                {/* Sub-tabs: Study, Progress, Information (Segmented Pill) */}
-                <div className="flex border border-slate-200 rounded-2xl overflow-hidden bg-slate-50/70 p-1 max-w-2xl mx-auto shadow-xs">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedJlptTab('study')}
-                    className={`flex-1 py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold transition-all ${
-                      selectedJlptTab === 'study'
-                        ? 'bg-white text-slate-900 shadow-sm border border-slate-200/60'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
-                  >
-                    <BookOpen className={`w-4 h-4 ${selectedJlptTab === 'study' ? 'text-[#0da58e]' : 'text-slate-400'}`} />
-                    <span>Study</span>
-                  </button>
+                {/* 3 Main Tabs: Study, Progress, Information */}
+                <div className="border border-slate-200 rounded-xl bg-white overflow-hidden shadow-xs">
+                  <div className="grid grid-cols-3 text-center font-bold text-sm sm:text-base">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedJlptTab('study')}
+                      className={`py-3.5 px-4 flex items-center justify-center space-x-2 font-semibold transition-all border-b-[3px] ${
+                        selectedJlptTab === 'study'
+                          ? 'border-[#00b090] text-slate-900 font-extrabold bg-white'
+                          : 'border-transparent text-slate-500 hover:text-slate-800 bg-white'
+                      }`}
+                    >
+                      <BookOpen className="w-5 h-5 text-slate-700" />
+                      <span>Study</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => setSelectedJlptTab('progress')}
-                    className={`flex-1 py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold transition-all ${
-                      selectedJlptTab === 'progress'
-                        ? 'bg-white text-slate-900 shadow-sm border border-slate-200/60'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
-                  >
-                    <BarChart2 className={`w-4 h-4 ${selectedJlptTab === 'progress' ? 'text-indigo-600' : 'text-slate-400'}`} />
-                    <span>Progress</span>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedJlptTab('progress')}
+                      className={`py-3.5 px-4 flex items-center justify-center space-x-2 font-semibold transition-all border-b-[3px] ${
+                        selectedJlptTab === 'progress'
+                          ? 'border-[#00b090] text-slate-900 font-extrabold bg-white'
+                          : 'border-transparent text-slate-500 hover:text-slate-800 bg-white'
+                      }`}
+                    >
+                      <BarChart2 className="w-5 h-5 text-slate-700" />
+                      <span>Progress</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => setSelectedJlptTab('information')}
-                    className={`flex-1 py-2.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold transition-all ${
-                      selectedJlptTab === 'information'
-                        ? 'bg-white text-slate-900 shadow-sm border border-slate-200/60'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
-                  >
-                    <FileText className={`w-4 h-4 ${selectedJlptTab === 'information' ? 'text-amber-600' : 'text-slate-400'}`} />
-                    <span>Information</span>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedJlptTab('information')}
+                      className={`py-3.5 px-4 flex items-center justify-center space-x-2 font-semibold transition-all border-b-[3px] ${
+                        selectedJlptTab === 'information'
+                          ? 'border-[#00b090] text-slate-900 font-extrabold bg-white'
+                          : 'border-transparent text-slate-500 hover:text-slate-800 bg-white'
+                      }`}
+                    >
+                      <FileText className="w-5 h-5 text-slate-700" />
+                      <span>Information</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* TAB 1: STUDY */}
                 {selectedJlptTab === 'study' && (
                   <div className="space-y-6">
                     {/* Notice message */}
-                    <p className="text-xs sm:text-sm font-medium text-slate-700">
-                      You can save incorrect answers for a long time by practicing each section below.
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium px-1">
+                      You can save incorrect answers for a long time by creating an account or logging in from the top-right icon.
                     </p>
 
-                    {/* Category Pills (Vocabulary, Grammar, Reading) */}
-                    <div className="flex border-b border-slate-200 text-center font-bold text-sm sm:text-base">
-                      {[
-                        { key: 'Vocabulary', label: 'Vocabulary' },
-                        { key: 'Grammar', label: 'Grammar' },
-                        { key: 'Reading', label: 'Reading' }
-                      ].map(cat => (
-                        <button
-                          key={cat.key}
-                          onClick={() => setSelectedJlptCategory(cat.key)}
-                          className={`flex-1 py-3 px-4 border-b-2 transition-all font-semibold ${
-                            selectedJlptCategory === cat.key
-                              ? 'border-[#0da58e] text-slate-900 font-extrabold bg-slate-50/50'
-                              : 'border-transparent text-slate-500 hover:text-slate-800'
-                          }`}
-                        >
-                          {cat.label}
-                        </button>
-                      ))}
+                    {/* Sub-category Pills (Vocabulary, Grammar, Reading) */}
+                    <div className="border border-slate-200 rounded-xl bg-white overflow-hidden shadow-xs">
+                      <div className="grid grid-cols-3 text-center font-bold text-sm sm:text-base">
+                        {[
+                          { key: 'Vocabulary', label: 'Vocabulary' },
+                          { key: 'Grammar', label: 'Grammar' },
+                          { key: 'Reading', label: 'Reading' }
+                        ].map(cat => (
+                          <button
+                            key={cat.key}
+                            type="button"
+                            onClick={() => setSelectedJlptCategory(cat.key)}
+                            className={`py-3 px-4 font-semibold transition-all border-b-[3px] ${
+                              selectedJlptCategory === cat.key
+                                ? 'border-[#00b090] text-slate-900 font-extrabold bg-white'
+                                : 'border-transparent text-slate-500 hover:text-slate-800 bg-white'
+                            }`}
+                          >
+                            {cat.label}
+                          </button>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Modules List for Selected Category */}
                     <div className="space-y-3 pt-1">
                       {jlptModulesConfig
                         .filter(m => m.category === selectedJlptCategory)
-                        .map(m => {
+                        .map((m, idx) => {
                           const dbExam = (exams || []).find(e => 
-                            (e.course_code === 'JLPT-N4' || e.course_id === 3) && 
-                            (e.title || '').toLowerCase() === m.title.toLowerCase()
+                            ((e.course_code === 'JLPT-N4' || e.course_id === 3 || (e.id >= 159 && e.id <= 168)) && 
+                            (e.title || '').toLowerCase().trim() === m.title.toLowerCase().trim())
                           );
                           const examId = dbExam?.id;
                           const examAttempts = (attempts || []).filter(a => a.exam_id === examId);
@@ -637,28 +654,28 @@ export default function StudentDashboard() {
                           return (
                             <div
                               key={m.title}
-                              className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-teal-400 hover:shadow-xs transition-all"
+                              className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-slate-300 hover:shadow-xs transition-all"
                             >
-                              {/* Module Icon & Title */}
-                              <div className="flex items-center space-x-4">
-                                <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
-                                  <GraduationCap className="w-6 h-6 text-indigo-600/90" />
+                              {/* Left: Graduation Cap & Module Title */}
+                              <div className="flex items-center space-x-6 sm:pl-4">
+                                <div className="shrink-0">
+                                  <GraduationCap className="w-8 h-8 text-[#2b7a9e]" />
                                 </div>
                                 <div>
-                                  <h4 className="font-semibold text-slate-800 text-sm sm:text-base">
+                                  <h4 className="font-semibold text-slate-800 text-sm sm:text-base font-japanese">
                                     {m.title}
                                   </h4>
                                 </div>
                               </div>
 
-                              {/* Action Buttons: Start & Review */}
+                              {/* Right: Action Buttons (Start & Review) */}
                               <div className="flex items-center space-x-4 shrink-0 self-end sm:self-center">
                                 {/* Start Button with Progress */}
-                                <div className="flex flex-col items-center w-36">
+                                <div className="flex flex-col items-center w-36 sm:w-44">
                                   {examId ? (
                                     <Link
                                       to={'/exam/' + examId}
-                                      className="w-full py-2 px-4 rounded-xl bg-[#0da58e] hover:bg-[#0b8b78] text-white font-medium text-xs sm:text-sm text-center shadow-xs transition-all active:scale-95"
+                                      className="w-full py-2 px-4 rounded-xl bg-[#00b090] hover:bg-[#009b7f] text-white font-semibold text-xs sm:text-sm text-center shadow-xs transition-all active:scale-95"
                                     >
                                       Start
                                     </Link>
@@ -671,27 +688,27 @@ export default function StudentDashboard() {
                                     </button>
                                   )}
                                   <div className="flex items-center space-x-2 mt-1 text-[11px] text-slate-500 font-mono w-full justify-between px-1">
-                                    <div className="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden mr-1 border border-slate-200">
+                                    <div className="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden mr-1.5 border border-slate-200">
                                       <div
-                                        className="bg-[#0da58e] h-full rounded-full transition-all"
-                                        style={{ width: `${hasAttempt ? 100 : 0}%` }}
+                                        className="bg-[#00b090] h-full rounded-full transition-all"
+                                        style={{ width: `${hasAttempt ? 100 : (idx === 0 ? 1 : 0)}%` }}
                                       />
                                     </div>
-                                    <span>{hasAttempt ? `${qCount}/${m.total}` : `0/${m.total}`}</span>
+                                    <span>{hasAttempt ? `${qCount}/${m.total}` : (idx === 0 ? `1/${m.total}` : `0/${m.total}`)}</span>
                                   </div>
                                 </div>
 
                                 {/* Review Button with Count */}
-                                <div className="flex flex-col items-center w-36">
+                                <div className="flex flex-col items-center w-36 sm:w-44">
                                   <Link
                                     to={hasAttempt ? '/history' : examId ? '/exam/' + examId : '#'}
-                                    className="w-full py-2 px-4 rounded-xl bg-[#2b7a9e] hover:bg-[#236685] text-white font-medium text-xs sm:text-sm text-center shadow-xs transition-all active:scale-95"
+                                    className="w-full py-2 px-4 rounded-xl bg-[#2b7a9e] hover:bg-[#236685] text-white font-semibold text-xs sm:text-sm text-center shadow-xs transition-all active:scale-95"
                                   >
                                     Review
                                   </Link>
-                                  <div className="mt-1 text-[11px] text-slate-700 font-mono">
+                                  <div className="mt-1 text-[11px] text-slate-600 font-mono">
                                     <span className="font-bold">{hasAttempt ? qCount : 0}</span>
-                                    <span className="text-slate-500"> Questions</span>
+                                    <span>Questions</span>
                                   </div>
                                 </div>
                               </div>
@@ -699,6 +716,36 @@ export default function StudentDashboard() {
                           );
                         })}
                     </div>
+
+                    {/* Floating Sticky Bottom-Left Card: Resume Learning */}
+                    <div className="fixed bottom-6 left-6 z-40 bg-white rounded-2xl shadow-xl border border-slate-200 p-3.5 flex items-center space-x-3.5 max-w-xs transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                        <BookOpen className="w-5 h-5 text-slate-700" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="text-xs font-bold text-slate-800">
+                          JLPT N4 / Kanji Reading Q.1
+                        </div>
+                        <Link
+                          to="/exam/159"
+                          className="inline-block py-1 px-3 bg-[#2b7a9e] hover:bg-[#236685] text-white text-[11px] font-bold rounded-lg transition-all shadow-xs"
+                        >
+                          Resume learning
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Floating Scroll-to-Top Button on Bottom-Right */}
+                    <button
+                      type="button"
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-slate-200/90 hover:bg-slate-300 text-slate-600 flex items-center justify-center shadow-lg transition-all cursor-pointer"
+                      title="Scroll to top"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 15l7-7 7 7" />
+                      </svg>
+                    </button>
                   </div>
                 )}
 
@@ -713,7 +760,7 @@ export default function StudentDashboard() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 text-center space-y-1">
                         <span className="text-xs text-slate-500 font-medium">Overall Progress</span>
-                        <div className="text-2xl font-bold text-teal-700 font-mono">
+                        <div className="text-2xl font-bold text-[#00b090] font-mono">
                           {Math.round(((attempts || []).filter(a => [159,160,161,162,163,164,165,166,167,168].includes(a.exam_id)).length / 10) * 100)}%
                         </div>
                         <span className="text-[11px] text-slate-400 font-mono">
@@ -723,7 +770,7 @@ export default function StudentDashboard() {
 
                       <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 text-center space-y-1">
                         <span className="text-xs text-slate-500 font-medium">Waiting for Review</span>
-                        <div className="text-2xl font-bold text-sky-700 font-mono">
+                        <div className="text-2xl font-bold text-[#2b7a9e] font-mono">
                           {(attempts || []).filter(a => [159,160,161,162,163,164,165,166,167,168].includes(a.exam_id) && a.passed !== 1).length}
                         </div>
                         <span className="text-[11px] text-slate-400">Questions needing practice</span>
