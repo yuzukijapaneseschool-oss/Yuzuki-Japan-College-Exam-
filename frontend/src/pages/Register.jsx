@@ -262,13 +262,15 @@ export default function Register() {
 
         {/* Header Branding */}
         <div className="text-center space-y-3">
-          <Link to="/" className="inline-flex items-center space-x-3 group mb-2">
-            <img src={logoImg} alt="YUZUKI Logo" className="w-12 h-12 rounded-2xl object-contain border border-rose-500/40 shadow-lg group-hover:scale-105 transition-transform" />
+          <Link to="/" className="inline-flex items-center space-x-3.5 group mb-2">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white p-1.5 rounded-2xl border-2 border-rose-500/50 shadow-xl shadow-rose-950/60 group-hover:scale-105 group-hover:border-rose-400 transition-all flex items-center justify-center shrink-0">
+              <img src={logoImg} alt="YUZUKI Logo" className="w-full h-full object-contain" />
+            </div>
             <div className="text-left">
-              <span className="font-extrabold text-xl tracking-tight text-white block">
+              <span className="font-extrabold text-2xl sm:text-3xl tracking-tight text-white block font-japanese leading-tight">
                 YUZUKI <span className="text-rose-500">Japan College</span>
               </span>
-              <span className="text-xs text-rose-300 font-mono">Kandy Campus • 2026 Batch Admissions</span>
+              <span className="text-xs sm:text-sm text-rose-300 font-mono">Kandy Campus • 2026 Batch Admissions</span>
             </div>
           </Link>
           

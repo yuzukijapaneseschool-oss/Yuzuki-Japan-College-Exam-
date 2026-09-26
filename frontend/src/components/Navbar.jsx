@@ -43,18 +43,18 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          <Link to={isAdmin ? "/admin" : "/dashboard"} className="flex items-center space-x-3 group">
-            <div className="w-11 h-11 rounded-xl overflow-hidden border-2 border-rose-600/60 shadow-md shadow-rose-600/30 group-hover:scale-105 transition-transform bg-white/90 p-0.5 flex items-center justify-center">
+          <Link to={isAdmin ? "/admin" : "/dashboard"} className="flex items-center space-x-3.5 group py-1">
+            <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl overflow-hidden border-2 border-rose-500/50 shadow-lg shadow-rose-950/40 group-hover:scale-105 group-hover:border-rose-400 transition-all bg-white p-1 flex items-center justify-center shrink-0">
               <img src={logoImg} alt="Yuzuki Japan College Logo" className="w-full h-full object-contain" />
             </div>
             <div>
-              <div className="flex items-center space-x-1.5">
-                <span className="font-extrabold text-lg tracking-tight text-white font-japanese">YUZUKI</span>
-                <span className="text-amber-400 font-bold text-xs uppercase tracking-widest px-1.5 py-0.5 bg-amber-500/10 border border-amber-500/30 rounded font-mono">
+              <div className="flex items-center space-x-2">
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white font-japanese leading-none">YUZUKI</span>
+                <span className="text-amber-300 font-bold text-xs uppercase tracking-widest px-2 py-0.5 bg-amber-500/20 border border-amber-400/40 rounded-md font-mono shadow-xs">
                   Exam Portal
                 </span>
               </div>
-              <p className="text-[11px] text-rose-300 font-japanese">ゆづき日本カレッジ • Kandy</p>
+              <p className="text-[11px] sm:text-xs text-rose-200 font-japanese mt-1">ゆづき日本カレッジ • Kandy</p>
             </div>
           </Link>
 

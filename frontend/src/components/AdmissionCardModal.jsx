@@ -72,13 +72,15 @@ export default function AdmissionCardModal({ isOpen, onClose, studentData }) {
           
           {/* Card Header with Logo */}
           <div className="flex items-center justify-between pb-4 border-b-2 border-rose-600 gap-4">
-            <div className="flex items-center space-x-3">
-              <img src={logoImg} alt="YUZUKI Logo" className="w-14 h-14 object-contain rounded-xl border border-slate-300 p-1 bg-white shadow-sm shrink-0" />
+            <div className="flex items-center space-x-3.5">
+              <div className="w-16 h-16 rounded-2xl border-2 border-rose-600/40 p-1 bg-white shadow-md flex items-center justify-center shrink-0">
+                <img src={logoImg} alt="YUZUKI Logo" className="w-full h-full object-contain" />
+              </div>
               <div>
-                <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight font-japanese leading-tight">
                   YUZUKI JAPAN COLLEGE
                 </h2>
-                <span className="text-xs text-rose-700 font-bold block">ゆづき日本カレッジ • Kandy Campus</span>
+                <span className="text-xs sm:text-sm text-rose-700 font-bold block font-japanese">ゆづき日本カレッジ • Kandy Campus</span>
                 <span className="text-[10px] text-slate-500 font-mono">Official Batch Admission & Student Registration</span>
               </div>
             </div>
