@@ -70,22 +70,24 @@ export default function PublicNavbar() {
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between">
         {/* Brand Logo & Title */}
-        <Link to="/" className="flex items-center space-x-3 group">
-          <img 
-            src={logoImg} 
-            alt="YUZUKI Japan College Logo" 
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-contain shadow-md border border-rose-500/30 group-hover:scale-105 transition-transform" 
-          />
+        <Link to="/" className="flex items-center space-x-3.5 group py-1">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white p-1 shadow-lg shadow-rose-950/40 border-2 border-rose-500/50 group-hover:scale-105 group-hover:border-rose-400 transition-all flex items-center justify-center shrink-0">
+            <img 
+              src={logoImg} 
+              alt="YUZUKI Japan College Logo" 
+              className="w-full h-full object-contain" 
+            />
+          </div>
           <div>
-            <div className="flex items-center space-x-1.5">
-              <span className="font-bold text-base sm:text-lg tracking-tight text-white font-japanese">
+            <div className="flex items-center space-x-2">
+              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white font-japanese leading-none">
                 YUZUKI <span className="text-rose-500">Japan College</span>
               </span>
-              <span className="text-[10px] bg-rose-900/60 text-rose-300 border border-rose-700/50 px-1.5 py-0.5 rounded font-mono font-semibold">
+              <span className="text-[10px] bg-rose-900/70 text-rose-200 border border-rose-600/60 px-2 py-0.5 rounded-md font-mono font-bold tracking-wider">
                 KANDY
               </span>
             </div>
-            <p className="text-[10px] sm:text-[11px] text-slate-400 font-japanese tracking-wider">
+            <p className="text-[11px] sm:text-xs text-slate-300 font-japanese tracking-wide mt-1">
               ゆづき日本カレッジ • Japanese Language & Visa Institute
             </p>
           </div>

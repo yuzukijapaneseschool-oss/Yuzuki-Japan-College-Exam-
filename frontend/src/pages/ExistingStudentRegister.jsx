@@ -224,11 +224,11 @@ export default function ExistingStudentRegister() {
         
         {/* Header Branding */}
         <div className="text-center mb-6">
-          <div className="inline-block p-2 bg-white/95 backdrop-blur-md rounded-3xl border-2 border-rose-600/40 shadow-2xl mb-3">
+          <div className="inline-block p-3 bg-white rounded-3xl border-2 border-rose-500/50 shadow-2xl shadow-rose-950/70 mb-4 hover:scale-105 transition-transform">
             <img 
               src={logoImg} 
               alt="YUZUKI Japan College Logo" 
-              className="w-20 h-20 object-contain mx-auto"
+              className="w-24 h-24 sm:w-28 sm:h-28 object-contain mx-auto"
             />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-japanese drop-shadow-lg">

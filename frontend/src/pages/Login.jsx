@@ -53,11 +53,11 @@ export default function Login() {
       <div className="max-w-md w-full relative z-10 py-6">
         
         <div className="text-center mb-6">
-          <div className="inline-block p-2 bg-white/95 backdrop-blur-md rounded-3xl border-2 border-rose-600/40 shadow-2xl shadow-rose-950/60 mb-3">
+          <div className="inline-block p-3 bg-white rounded-3xl border-2 border-rose-500/50 shadow-2xl shadow-rose-950/70 mb-4 hover:scale-105 transition-transform">
             <img 
               src={logoImg} 
               alt="YUZUKI Japan College Logo" 
-              className="w-24 h-24 object-contain mx-auto"
+              className="w-28 h-28 sm:w-32 sm:h-32 object-contain mx-auto"
             />
           </div>
           <h1 className="text-3xl font-extrabold text-white tracking-tight font-japanese drop-shadow-lg">
