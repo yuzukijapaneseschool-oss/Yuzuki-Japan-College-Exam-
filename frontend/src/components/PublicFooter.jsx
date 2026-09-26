@@ -20,13 +20,11 @@ export default function PublicFooter() {
         
         {/* Brand & About */}
         <div className="space-y-4">
-          <div className="flex items-center space-x-3.5">
-            <div className="w-14 h-14 bg-white p-1 rounded-2xl border-2 border-rose-500/50 shadow-lg shadow-rose-950/40 flex items-center justify-center shrink-0">
-              <img src={logoImg} alt="YUZUKI Logo" className="w-full h-full object-contain" />
-            </div>
+          <div className="flex items-center space-x-3">
+            <img src={logoImg} alt="YUZUKI Logo" className="w-12 h-12 rounded-full object-contain drop-shadow-md shrink-0" />
             <div>
-              <h3 className="font-extrabold text-base sm:text-lg text-white font-japanese tracking-tight">YUZUKI Japan College</h3>
-              <p className="text-xs text-rose-300 font-japanese">ゆづき日本カレッジ • Kandy</p>
+              <h3 className="font-bold text-base text-white font-japanese">YUZUKI Japan College</h3>
+              <p className="text-xs text-rose-400 font-japanese">ゆづき日本カレッジ • Kandy</p>
             </div>
           </div>
           <p className="text-xs text-slate-400 leading-relaxed font-japanese">

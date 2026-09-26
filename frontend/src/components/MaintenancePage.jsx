@@ -67,10 +67,8 @@ export default function MaintenancePage({ settings, onRefresh }) {
 
       {/* Header with College Brand */}
       <div className="max-w-4xl mx-auto w-full flex items-center justify-between z-10 pt-2 pb-4">
-        <div className="flex items-center space-x-3.5">
-          <div className="w-14 h-14 rounded-2xl bg-white p-1 border-2 border-rose-500/50 shadow-xl shadow-rose-950/60 flex items-center justify-center shrink-0">
-            <img src={logoImg} alt="Yuzuki Japan College Logo" className="w-full h-full object-contain" />
-          </div>
+        <div className="flex items-center space-x-3">
+          <img src={logoImg} alt="Yuzuki Japan College Logo" className="w-12 h-12 rounded-full object-contain drop-shadow-md shrink-0" />
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-extrabold text-xl tracking-tight text-white font-japanese">YUZUKI</span>
