@@ -511,43 +511,39 @@ const p19Questions = [
 
 async function seedJftModelPaper19() {
   console.log('Seeding JFT-Basic Official Model Paper 19 (60 Questions, Pass 200/250)...');
+  const title = 'JFT-Basic Official Model Paper 19 (60 Minutes)';
+
   try {
-    let exam = await db.query.get("SELECT * FROM exams WHERE (title LIKE '%Model Paper 19%' OR title LIKE '%Paper 19%') AND course_id = 1");
+    let exam = await db.query.get("SELECT id FROM exams WHERE (title LIKE '%Model Paper 19%' OR title LIKE '%Paper 19%') AND course_id = 1");
     let examId;
     if (exam) {
       examId = exam.id;
-      const countRes = await db.query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
-      if (countRes && countRes.count >= 60) {
-        await db.query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200, is_active = 1 WHERE id = ?', [examId]);
-        await db.query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
-        await db.query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
-        await db.query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
-        return;
-      }
+      console.log(`Found existing Exam ID: ${examId}, resetting questions...`);
       await db.query.run('DELETE FROM questions WHERE exam_id = ?', [examId]);
       await db.query.run(`
         UPDATE exams 
         SET course_id = 1,
-            title = '${title}',
-            description = 'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Authentic Japanese Prometric Format)',
+            title = ?,
+            description = 'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
             duration_minutes = 60,
             passing_score = 200,
             is_active = 1
         WHERE id = ?
-      `, [examId]);
+      `, [title, examId]);
     } else {
       const res = await db.query.run(`
         INSERT INTO exams (course_id, title, description, duration_minutes, passing_score, is_active)
         VALUES (
           1,
-          '${title}',
-          'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Authentic Japanese Prometric Format)',
+          ?,
+          'Official JFT-Basic Prometric Computer-Based Examination Paper 19 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
           60,
           200,
           1
         )
-      `);
+      `, [title]);
       examId = res.id;
+      console.log(`Created new Exam ID: ${examId}`);
     }
 
     for (const q of p19Questions) {
@@ -565,7 +561,8 @@ async function seedJftModelPaper19() {
         q.correct_option, q.marks, q.explanation, q.order_num
       ]);
     }
-    console.log(`Successfully seeded Model Paper 19!`);
+    console.log(`🎉 SUCCESS: Seeded ${p19Questions.length} questions for Model Paper 19!`);
+    return { success: true, examId, count: p19Questions.length };
   } catch (err) {
     console.error('Error seeding Model Paper 19:', err);
     throw err;
@@ -576,4 +573,5 @@ if (require.main === module) {
   seedJftModelPaper19().then(() => process.exit(0)).catch(() => process.exit(1));
 }
 
-module.exports = seedJftModelPaper19;
+module.exports = { seedJftModelPaper19 };
+
