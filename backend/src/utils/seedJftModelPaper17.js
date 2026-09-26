@@ -2,46 +2,38 @@ const { query } = require('../config/database');
 
 async function seedJftModelPaper17() {
   console.log('Seeding JFT-Basic Official Model Paper 17 (60 Questions, Pass 200/250)...');
+  const title = 'JFT-Basic Official Model Paper 17 (60 Minutes)';
 
   try {
-    let exam = await query.get("SELECT * FROM exams WHERE id = 156 OR title LIKE '%Model Paper 17%'");
-    let examId = 156;
+    let exam = await query.get("SELECT id FROM exams WHERE title = ? OR title LIKE '%Paper 17%'", [title]);
+    let examId;
 
     if (exam) {
       examId = exam.id;
-      const countRes = await query.get("SELECT COUNT(*) as count FROM questions WHERE exam_id = ?", [examId]);
-      if (countRes && countRes.count >= 60) {
-        await query.run('UPDATE exams SET duration_minutes = 60, passing_score = 200, is_active = 1 WHERE id = ?', [examId]);
-        await query.run('UPDATE questions SET marks = 1 WHERE exam_id = ? AND order_num >= 1 AND order_num <= 5', [examId]);
-        await query.run('UPDATE questions SET marks = 2 WHERE exam_id = ? AND order_num >= 6 AND order_num <= 15', [examId]);
-        await query.run('UPDATE questions SET marks = 5 WHERE exam_id = ? AND order_num >= 16 AND order_num <= 60', [examId]);
-        return;
-      }
       console.log(`Found existing Exam ID: ${examId}, resetting questions...`);
       await query.run('DELETE FROM questions WHERE exam_id = ?', [examId]);
       await query.run(`
         UPDATE exams 
         SET course_id = 1,
-            title = 'JFT-Basic Official Model Paper 17 (60 Minutes)',
+            title = ?,
             description = 'Official JFT-Basic Prometric Computer-Based Examination Paper 17 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
             duration_minutes = 60,
             passing_score = 200,
             is_active = 1
         WHERE id = ?
-      `, [examId]);
+      `, [title, examId]);
     } else {
       const res = await query.run(`
-        INSERT INTO exams (id, course_id, title, description, duration_minutes, passing_score, is_active)
+        INSERT INTO exams (course_id, title, description, duration_minutes, passing_score, is_active)
         VALUES (
-          156,
           1,
-          'JFT-Basic Official Model Paper 17 (60 Minutes)',
+          ?,
           'Official JFT-Basic Prometric Computer-Based Examination Paper 17 (Full 60 Questions, 250 Total Marks, 200 Passing Marks, Complete Listening Audio Tracks and Sinhala Explanations)',
           60,
           200,
           1
         )
-      `);
+      `, [title]);
       examId = res.id;
       console.log(`Created new Exam ID: ${examId}`);
     }
@@ -58,7 +50,7 @@ async function seedJftModelPaper17() {
     "option_c": "いたまえ",
     "option_d": "",
     "correct_option": "C",
-    "marks": 2,
+    "marks": 1,
     "explanation": "ජපන් ආහාර හා සුෂි සකසන ප්‍රවීණ සූපවේදියා හඳුන්වන්නේ \"いたまえ\" (板前 - Itamae) යනුවෙනි."
   },
   {
@@ -72,7 +64,7 @@ async function seedJftModelPaper17() {
     "option_c": "せいそういん",
     "option_d": "",
     "correct_option": "C",
-    "marks": 2,
+    "marks": 1,
     "explanation": "පිරිසිදු කිරීම් සිදු කරන සේවකයා හඳුන්වන්නේ \"せいそういん\" (清掃員 - Seisouin) යනුවෙනි."
   },
   {
@@ -86,7 +78,7 @@ async function seedJftModelPaper17() {
     "option_c": "ピザ",
     "option_d": "",
     "correct_option": "A",
-    "marks": 2,
+    "marks": 1,
     "explanation": "පින්තූරයේ දැක්වෙන්නේ ජපන් සාම්ප්‍රදායික කෑමක් වන \"おこのみやき\" (お好み焼き - Okonomiyaki) ය."
   },
   {
@@ -100,7 +92,7 @@ async function seedJftModelPaper17() {
     "option_c": "やさい",
     "option_d": "",
     "correct_option": "B",
-    "marks": 2,
+    "marks": 1,
     "explanation": "දැලක් මත මස් පුළුස්සන ක්‍රමය හඳුන්වන්නේ \"やきにく\" (焼肉 - Yakiniku) යනුවෙනි."
   },
   {
@@ -114,7 +106,7 @@ async function seedJftModelPaper17() {
     "option_c": "やきずし",
     "option_d": "",
     "correct_option": "B",
-    "marks": 2,
+    "marks": 1,
     "explanation": "අතින් ඔතන ලද කේතු හැඩැති සුෂි හඳුන්වන්නේ \"てまきずし\" (手巻き寿司 - Temakizushi) යනුවෙනි."
   },
   {
@@ -128,7 +120,7 @@ async function seedJftModelPaper17() {
     "option_c": "うみ",
     "option_d": "",
     "correct_option": "A",
-    "marks": 1,
+    "marks": 2,
     "explanation": "පින්තූරයේ දැක්වෙන්නේ ෆුජි කන්ද පාමුල පිහිටි විලක් (みずうみ - 湖) වේ."
   },
   {
@@ -142,7 +134,7 @@ async function seedJftModelPaper17() {
     "option_c": "山",
     "option_d": "",
     "correct_option": "B",
-    "marks": 1,
+    "marks": 2,
     "explanation": "ගස් විශාල සංඛ්‍යාවක් එකට පිහිටි වනාන්තරය හඳුන්වන්නේ \"森\" (もり - Mori) යනුවෙනි."
   },
   {
@@ -156,7 +148,7 @@ async function seedJftModelPaper17() {
     "option_c": "かわ",
     "option_d": "",
     "correct_option": "C",
-    "marks": 1,
+    "marks": 2,
     "explanation": "පින්තූරයේ ගලා බසින ගංගාවක් (かわ - 川) දැක්වේ."
   },
   {
@@ -170,7 +162,7 @@ async function seedJftModelPaper17() {
     "option_c": "あきゅう",
     "option_d": "",
     "correct_option": "B",
-    "marks": 1,
+    "marks": 2,
     "explanation": "වැලි කඳු (තොත්තරී වැලි කඳු) හඳුන්වන්නේ \"さきゅう\" (砂丘 - Sakyuu) යනුවෙනි."
   },
   {
@@ -184,7 +176,7 @@ async function seedJftModelPaper17() {
     "option_c": "みずうみ",
     "option_d": "",
     "correct_option": "B",
-    "marks": 1,
+    "marks": 2,
     "explanation": "දිය ඇල්ල හඳුන්වන්නේ \"たき\" (滝 - Taki) යනුවෙනි."
   },
   {
