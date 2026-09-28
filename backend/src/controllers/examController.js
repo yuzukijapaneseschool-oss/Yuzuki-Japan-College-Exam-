@@ -6,25 +6,37 @@ function resolveExamCategory(exam) {
   const code = (exam.course_code || '').toUpperCase();
   const title = (exam.title || '').toUpperCase();
 
-  // JLPT Levels (FREE)
-  if (code === 'JLPT-N5' || title.includes('JLPT N5') || (title.includes('N5') && title.includes('JLPT'))) return 'JLPT-N5';
-  if (code === 'JLPT-N4' || title.includes('JLPT N4') || (title.includes('N4') && title.includes('JLPT')) || (exam.id >= 159 && exam.id <= 168)) return 'JLPT-N4';
-  if (code === 'JLPT-N3' || title.includes('JLPT N3') || (title.includes('N3') && title.includes('JLPT'))) return 'JLPT-N3';
+  // 1. Authoritative Course Code Matches (Explicit Mapping)
+  if (code === 'JLPT-N5') return 'JLPT-N5';
+  if (code === 'JLPT-N4') return 'JLPT-N4';
+  if (code === 'JLPT-N3') return 'JLPT-N3';
+  if (code === 'JFT-BASIC') return 'JFT-BASIC';
+  if (code === 'SSW2-ACCOMMODATION') return 'SSW2-ACCOMMODATION';
+  if (code === 'SSW-FOOD-MANUFACTURING') return 'SSW-FOOD-MANUFACTURING';
+  if (code === 'SSW-CONSTRUCTION') return 'SSW-CONSTRUCTION';
+  if (code === 'SSW-AIRPORT-GROUND') return 'SSW-AIRPORT-GROUND';
+  if (code === 'SSW-FOOD-SERVICE') return 'SSW-FOOD-SERVICE';
+  if (code === 'SSW-CAREGIVER') return 'SSW-CAREGIVER';
+  if (code === 'SSW-AGRICULTURE') return 'SSW-AGRICULTURE';
+  if (code === 'SSW-ACCOMMODATION') return 'SSW-ACCOMMODATION';
+  if (code === 'SSW-AUTOMOBILE') return 'SSW-AUTOMOBILE';
+  if (code === 'SSW-TRUCK-DRIVING') return 'SSW-TRUCK-DRIVING';
 
-  // JFT-Basic (PAID)
-  if (code === 'JFT-BASIC' || title.includes('JFT')) return 'JFT-BASIC';
-
-  // SSW Categories (PAID INDEPENDENT CATEGORIES)
-  if (code === 'SSW2-ACCOMMODATION' || title.includes('SSW 2') || title.includes('特定技能2号') || title.includes('2号')) return 'SSW2-ACCOMMODATION';
-  if (code === 'SSW-FOOD-MANUFACTURING' || title.includes('FOOD MANUFACTURING') || title.includes('飲食料品製造') || title.includes('製造業')) return 'SSW-FOOD-MANUFACTURING';
-  if (code === 'SSW-CONSTRUCTION' || title.includes('CONSTRUCTION') || title.includes('建設') || title.includes('土木') || title.includes('型枠') || title.includes('鉄筋')) return 'SSW-CONSTRUCTION';
-  if (code === 'SSW-AIRPORT-GROUND' || title.includes('AVIATION') || title.includes('AIRPORT') || title.includes('航空') || title.includes('グランドハンドリング')) return 'SSW-AIRPORT-GROUND';
-  if (code === 'SSW-FOOD-SERVICE' || (title.includes('FOOD') && !title.includes('MANUFACTURING')) || title.includes('RESTAURANT') || title.includes('外食')) return 'SSW-FOOD-SERVICE';
-  if (code === 'SSW-CAREGIVER' || title.includes('CAREGIVER') || title.includes('NURSING') || title.includes('介護')) return 'SSW-CAREGIVER';
-  if (code === 'SSW-AGRICULTURE' || title.includes('AGRI') || title.includes('農業')) return 'SSW-AGRICULTURE';
-  if (code === 'SSW-ACCOMMODATION' || title.includes('ACCOM') || title.includes('宿泊')) return 'SSW-ACCOMMODATION';
-  if (code === 'SSW-AUTOMOBILE' || title.includes('AUTO') || title.includes('自動車')) return 'SSW-AUTOMOBILE';
-  if (code === 'SSW-TRUCK-DRIVING' || title.includes('TRUCK') || title.includes('トラック')) return 'SSW-TRUCK-DRIVING';
+  // 2. Fallback Title Matching for dynamic or unmapped records
+  if (title.includes('JLPT N5') || (title.includes('N5') && title.includes('JLPT'))) return 'JLPT-N5';
+  if (title.includes('JLPT N4') || (title.includes('N4') && title.includes('JLPT')) || (exam.id >= 159 && exam.id <= 168)) return 'JLPT-N4';
+  if (title.includes('JLPT N3') || (title.includes('N3') && title.includes('JLPT'))) return 'JLPT-N3';
+  if (title.includes('JFT')) return 'JFT-BASIC';
+  if (title.includes('SSW 2') || title.includes('特定技能2号') || title.includes('2号')) return 'SSW2-ACCOMMODATION';
+  if (title.includes('FOOD MANUFACTURING') || title.includes('飲食料品製造') || title.includes('製造業')) return 'SSW-FOOD-MANUFACTURING';
+  if (title.includes('CONSTRUCTION') || title.includes('建設') || title.includes('土木') || title.includes('型枠') || title.includes('鉄筋')) return 'SSW-CONSTRUCTION';
+  if (title.includes('AVIATION') || title.includes('AIRPORT') || title.includes('航空') || title.includes('グランドハンドリング')) return 'SSW-AIRPORT-GROUND';
+  if ((title.includes('FOOD') && !title.includes('MANUFACTURING')) || title.includes('RESTAURANT') || title.includes('外食')) return 'SSW-FOOD-SERVICE';
+  if (title.includes('CAREGIVER') || title.includes('NURSING') || title.includes('介護')) return 'SSW-CAREGIVER';
+  if (title.includes('AGRI') || title.includes('農業')) return 'SSW-AGRICULTURE';
+  if (title.includes('ACCOM') || title.includes('宿泊')) return 'SSW-ACCOMMODATION';
+  if (title.includes('AUTO') || title.includes('自動車整備')) return 'SSW-AUTOMOBILE';
+  if (title.includes('TRUCK') || title.includes('トラック') || title.includes('運送')) return 'SSW-TRUCK-DRIVING';
 
   return code || 'UNKNOWN';
 }
