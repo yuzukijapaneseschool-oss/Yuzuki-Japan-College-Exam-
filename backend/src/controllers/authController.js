@@ -319,6 +319,13 @@ async function register(req, res) {
       message: `Batch Registration & Deposit Slip received! Your official Student ID is ${assignedStudentId}. Course materials and timetables will be provided by Kandy campus. CBT Exam platform will be unlocked upon course completion.`,
       userId: userResult.id,
       student_id: assignedStudentId,
+      user: {
+        id: userResult.id,
+        student_id: assignedStudentId,
+        name: name.trim(),
+        email: cleanEmail,
+        status: 'pending'
+      },
       status: 'pending'
     });
 
@@ -330,12 +337,13 @@ async function register(req, res) {
 
 async function login(req, res) {
   try {
-    const { identifier, password } = req.body;
-    if (!identifier || !password) {
+    const rawIdentifier = req.body.identifier || req.body.emailOrStudentId || req.body.email || req.body.student_id;
+    const password = req.body.password;
+    if (!rawIdentifier || !password) {
       return res.status(400).json({ error: 'Student ID / Email and Password are required.' });
     }
 
-    const cleanIdentifier = identifier.trim();
+    const cleanIdentifier = String(rawIdentifier).trim();
     const user = await query.get(`
       SELECT u.*, c.name as course_name, c.code as course_code
       FROM users u

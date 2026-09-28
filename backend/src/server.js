@@ -43,6 +43,25 @@ const authLimiter = rateLimit({
 });
 app.use('/api/auth/login', authLimiter);
 
+// Strict Security Barrier: Block sensitive files, logs, databases & configs
+app.use((req, res, next) => {
+  const blockedPatterns = [
+    /\.env/i,
+    /\.db(-shm|-wal)?$/i,
+    /\.sqlite(-shm|-wal)?$/i,
+    /\.log$/i,
+    /\.bak$/i,
+    /\.sql$/i,
+    /\.git/i,
+    /\/data\//i,
+    /\/backups\//i
+  ];
+  if (blockedPatterns.some(p => p.test(req.path))) {
+    return res.status(404).json({ error: 'Not Found' });
+  }
+  next();
+});
+
 app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')));
 app.use('/images', express.static(path.resolve(__dirname, '../uploads/images')));
 app.use('/images', express.static(path.resolve(__dirname, '../public/images')));

@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /courses
+Allow: /visa-pathways
+Allow: /contact
+Allow: /portal
+Allow: /exams
+Allow: /login
+Allow: /exam-register
+Allow: /batch-register
+Allow: /existing-student
+Allow: /refund-policy
+Allow: /privacy-policy
+Allow: /terms-and-conditions
+
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /dashboard
+Disallow: /history
+Disallow: /api/*
+
+Sitemap: https://yuzukijapancollege.edu.lk/sitemap.xml
