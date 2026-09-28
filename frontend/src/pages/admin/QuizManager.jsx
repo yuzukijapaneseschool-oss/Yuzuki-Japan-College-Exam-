@@ -509,17 +509,19 @@ export default function QuizManager() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total System Exams</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Exams</span>
             <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
               <Layers className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-black tracking-tight">{exams.length} Exams</div>
-            <p className="text-xs text-slate-300 mt-1 flex items-center gap-1.5">
-              <span className="font-bold text-rose-400">{totalQuestions.toLocaleString()} Total Questions</span>
+            <div className="text-2xl sm:text-3xl font-black tracking-tight">{exams.length} Total Exams</div>
+            <p className="text-xs text-slate-300 mt-1 flex items-center gap-1.5 flex-wrap">
+              <span className="font-bold text-emerald-400">160 Active</span>
               <span className="text-slate-500">•</span>
-              <span>12 Sectors</span>
+              <span className="text-slate-400">1 Archived Ref</span>
+              <span className="text-slate-500">•</span>
+              <span className="font-bold text-rose-400">{totalQuestions.toLocaleString()} Qs</span>
             </p>
           </div>
         </div>

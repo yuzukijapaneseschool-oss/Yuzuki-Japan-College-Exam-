@@ -38,6 +38,7 @@ api.interceptors.response.use((response) => {
 export const authAPI = {
   login: (identifier, password) => api.post('/auth/login', { identifier, password }),
   register: (userData) => api.post('/auth/register', userData),
+  registerExamPractice: (userData) => api.post('/auth/register-exam-practice', userData),
   registerExisting: (userData) => api.post('/auth/register-existing', userData),
   getMe: () => api.get('/auth/me'),
   subscribe: (data) => api.post('/auth/subscribe', data || {}),
@@ -92,6 +93,7 @@ export const paymentAPI = {
   checkout: (data) => api.post('/payments/checkout', data),
   checkoutPracticePass: (data) => api.post('/payments/practice-pass/checkout', data),
   confirmPracticePassPayment: (data) => api.post('/payments/practice-pass/confirm', data),
+  simulatePayment: (data) => api.post('/payments/practice-pass/simulate', data),
   getMy: () => api.get('/payments/my'),
   getAdminAll: () => api.get('/payments/admin/all'),
 };

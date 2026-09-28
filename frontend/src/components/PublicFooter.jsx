@@ -149,9 +149,15 @@ export default function PublicFooter() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-slate-900 pt-6 max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-japanese">
-        <p>&copy; 2026 YUZUKI Japan College (ゆづき日本カレッジ). All Rights Reserved.</p>
-        <div className="flex items-center space-x-4 mt-2 sm:mt-0">
+      <div className="border-t border-slate-900 pt-6 max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 font-japanese gap-4">
+        <p>&copy; 2026 YUZUKI Japan College (ゆづき日本カレッジ • YUZUKI (PVT) LTD). All Rights Reserved.</p>
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-slate-400">
+          <Link to="/refund-policy" className="hover:text-rose-400 transition-colors">Refund Policy</Link>
+          <span>•</span>
+          <Link to="/privacy-policy" className="hover:text-rose-400 transition-colors">Privacy Policy</Link>
+          <span>•</span>
+          <Link to="/terms-and-conditions" className="hover:text-rose-400 transition-colors">Terms & Conditions</Link>
+          <span className="hidden sm:inline">•</span>
           <Link to="/portal" className="hover:text-slate-300">CBT Exam Room</Link>
           <span>•</span>
           <Link to="/contact" className="hover:text-slate-300">Admissions</Link>

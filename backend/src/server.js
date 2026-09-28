@@ -108,6 +108,62 @@ async function applySecuritySchemaMigrations() {
   } catch (e) {}
 
   try {
+    // 1. Ensure exam_categories master table exists
+    await query.run(`
+      CREATE TABLE IF NOT EXISTS exam_categories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        category_code TEXT UNIQUE NOT NULL,
+        title TEXT NOT NULL,
+        title_ja TEXT,
+        title_si TEXT,
+        sector TEXT NOT NULL,
+        ssw_type INTEGER,
+        description TEXT,
+        is_free INTEGER DEFAULT 0,
+        price_usd REAL DEFAULT 9.99,
+        price_cents INTEGER DEFAULT 999,
+        currency TEXT DEFAULT 'USD',
+        duration_days INTEGER DEFAULT 30,
+        display_order INTEGER DEFAULT 0,
+        is_active INTEGER DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    const { ALL_PORTAL_CATEGORIES, resolveExamCategory } = require('./controllers/examController');
+    for (const cat of ALL_PORTAL_CATEGORIES) {
+      const existing = await query.get('SELECT id FROM exam_categories WHERE category_code = ?', [cat.category_code]);
+      if (!existing) {
+        await query.run(`
+          INSERT INTO exam_categories (
+            category_code, title, title_ja, title_si, sector, ssw_type,
+            description, is_free, price_usd, price_cents, currency, duration_days, display_order, is_active
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+        `, [
+          cat.category_code, cat.title, cat.title_ja, cat.title_si, cat.sector, cat.ssw_type,
+          cat.description, cat.is_free ? 1 : 0, cat.price_usd, cat.price_cents, cat.currency, cat.duration_days, cat.display_order
+        ]);
+      }
+    }
+
+    // 2. Normalize exams.category column across all exams
+    const allExams = await query.all(`
+      SELECT e.id, e.title, e.course_id, e.category, c.code as course_code
+      FROM exams e
+      JOIN courses c ON e.course_id = c.id
+    `);
+
+    for (const exam of allExams) {
+      if (!exam.category || exam.category === 'JFT' || exam.category === 'UNKNOWN') {
+        const resolved = resolveExamCategory(exam);
+        await query.run('UPDATE exams SET category = ? WHERE id = ?', [resolved, exam.id]);
+      }
+    }
+  } catch (e) {
+    console.warn('[Category Architecture Notice]:', e.message);
+  }
+
+  try {
     // Unconditional point migration for all JFT exams to standard 250 Total Marks (200 Pass)
     const jftExams = await query.all("SELECT id FROM exams WHERE course_id = 1 OR title LIKE '%JFT%'");
     for (const e of jftExams) {

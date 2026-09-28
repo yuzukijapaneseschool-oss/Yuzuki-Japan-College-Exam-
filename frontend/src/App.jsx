@@ -12,6 +12,9 @@ import Courses from './pages/public/Courses';
 import VisaPathways from './pages/public/VisaPathways';
 import Contact from './pages/public/Contact';
 import ExamPortal from './pages/public/ExamPortal';
+import RefundPolicy from './pages/public/RefundPolicy';
+import PrivacyPolicy from './pages/public/PrivacyPolicy';
+import TermsAndConditions from './pages/public/TermsAndConditions';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -79,7 +82,21 @@ function AppLayout() {
     return () => clearInterval(interval);
   }, [location.pathname]);
 
-  const publicPaths = ['/', '/about', '/courses', '/visa-pathways', '/contact', '/portal', '/exams'];
+  const publicPaths = [
+    '/', 
+    '/about', 
+    '/courses', 
+    '/visa-pathways', 
+    '/contact', 
+    '/portal', 
+    '/exams',
+    '/refund-policy',
+    '/privacy-policy',
+    '/terms-and-conditions',
+    '/refund',
+    '/privacy',
+    '/terms'
+  ];
   const isPublicPage = publicPaths.includes(location.pathname);
   const isExamSession = location.pathname.startsWith('/exam/');
   const isAdmin = user?.role === 'admin';
@@ -118,6 +135,14 @@ function AppLayout() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/visa-pathways" element={<VisaPathways />} />
           <Route path="/contact" element={<Contact />} />
+          
+          {/* Legal & PayHere Policy Pages */}
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/refund" element={<RefundPolicy />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
           
           {/* Public Exam Practice Portal & Auth */}
           <Route path="/portal" element={<ExamPortal />} />
@@ -237,10 +262,17 @@ function AppLayout() {
         isPublicPage ? (
           <PublicFooter />
         ) : (
-          <footer className="bg-slate-950 border-t border-slate-800 text-slate-400 py-6 text-center text-xs">
-            <p className="font-japanese">
-              &copy; 2026 YUZUKI Japan College (ゆづき日本カレッジ • Kandy) • All Rights Reserved.
-            </p>
+          <footer className="bg-slate-950 border-t border-slate-800 text-slate-400 py-6 text-xs">
+            <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left font-japanese">
+              <p>&copy; 2026 YUZUKI Japan College (ゆづき日本カレッジ • YUZUKI (PVT) LTD) • All Rights Reserved.</p>
+              <div className="flex items-center space-x-3 text-slate-400">
+                <Link to="/refund-policy" className="hover:text-rose-400 transition-colors">Refund Policy</Link>
+                <span>•</span>
+                <Link to="/privacy-policy" className="hover:text-rose-400 transition-colors">Privacy Policy</Link>
+                <span>•</span>
+                <Link to="/terms-and-conditions" className="hover:text-rose-400 transition-colors">Terms & Conditions</Link>
+              </div>
+            </div>
           </footer>
         )
       )}

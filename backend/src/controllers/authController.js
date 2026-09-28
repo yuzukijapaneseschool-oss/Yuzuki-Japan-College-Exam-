@@ -96,6 +96,148 @@ async function getNextStudentId(courseId) {
   return candidateId;
 }
 
+// Sequential Student ID Generator for Exam Practice Candidates ('YEP00101', 'YEP00102'...)
+async function getNextExamPracticeStudentId() {
+  const prefix = 'YEP';
+  const minStart = 100;
+  const prefixLen = prefix.length;
+  const result = await query.get(`
+    SELECT MAX(CAST(SUBSTR(student_id, ${prefixLen + 1}) AS INTEGER)) as max_num 
+    FROM users 
+    WHERE student_id LIKE '${prefix}%' AND student_id NOT LIKE '${prefix}-%'
+  `);
+
+  const currentMax = (result && result.max_num && Number(result.max_num) >= minStart) 
+    ? Number(result.max_num) 
+    : minStart;
+  const nextNum = currentMax + 1;
+  const padded = String(nextNum).padStart(5, '0');
+  const candidateId = `${prefix}${padded}`;
+
+  const exists = await query.get('SELECT id FROM users WHERE UPPER(student_id) = ?', [candidateId.toUpperCase()]);
+  if (exists) {
+    const fallbackNum = nextNum + 1;
+    return `${prefix}${String(fallbackNum).padStart(5, '0')}`;
+  }
+
+  return candidateId;
+}
+
+// Dedicated Registration for Exam Practice Candidates (No Academic/Deposit Slip requirements)
+async function registerExamPractice(req, res) {
+  try {
+    const {
+      name,
+      email,
+      phone,
+      password,
+      confirmPassword,
+      dob,
+      nic_number
+    } = req.body;
+
+    // 1. Required fields presence & format
+    if (!name || typeof name !== 'string' || !name.trim()) {
+      return res.status(400).json({ error: 'Full Name is required.' });
+    }
+    if (name.trim().length < 2) {
+      return res.status(400).json({ error: 'Full Name must be at least 2 characters.' });
+    }
+
+    if (!email || typeof email !== 'string' || !email.trim()) {
+      return res.status(400).json({ error: 'Email Address is required.' });
+    }
+    const cleanEmail = email.trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return res.status(400).json({ error: 'Please provide a valid email address.' });
+    }
+
+    if (!phone || typeof phone !== 'string' || !phone.trim()) {
+      return res.status(400).json({ error: 'Phone number is required.' });
+    }
+    const cleanPhone = phone.trim();
+    const phoneRegex = /^[+]?[0-9\s\-()]{7,25}$/;
+    if (!phoneRegex.test(cleanPhone)) {
+      return res.status(400).json({ error: 'Please provide a valid phone number.' });
+    }
+
+    if (!password || typeof password !== 'string' || !password.trim()) {
+      return res.status(400).json({ error: 'Password is required.' });
+    }
+    if (password.trim().length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters long.' });
+    }
+
+    if (confirmPassword !== undefined && password.trim() !== confirmPassword.trim()) {
+      return res.status(400).json({ error: 'Passwords do not match.' });
+    }
+
+    // Optional DOB validation
+    let cleanDob = null;
+    if (dob && typeof dob === 'string' && dob.trim()) {
+      const parsedDate = new Date(dob.trim());
+      if (isNaN(parsedDate.getTime())) {
+        return res.status(400).json({ error: 'Invalid Date of Birth format.' });
+      }
+      cleanDob = dob.trim();
+    }
+
+    const cleanNic = (nic_number && typeof nic_number === 'string') ? nic_number.trim() : null;
+
+    // 2. Email uniqueness check
+    const existingUser = await query.get('SELECT id, student_id, role, name FROM users WHERE LOWER(email) = ?', [cleanEmail]);
+    if (existingUser) {
+      return res.status(400).json({ 
+        error: 'An account with this email already exists. Please log in instead.' 
+      });
+    }
+
+    // 3. Hash password
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+
+    // 4. Generate unique student ID (YEP00101, YEP00102...)
+    const assignedStudentId = await getNextExamPracticeStudentId();
+
+    // 5. Insert user (Role: student, Status: approved, Subscription: locked by default)
+    const userResult = await query.run(`
+      INSERT INTO users (
+        name, email, password, student_id, course_id, phone, nic_number, dob,
+        city, batch_mode, bank_slip_url, role, status, subscription_status,
+        trial_ends_at, subscription_ends_at, monthly_price, allow_dual_track
+      ) VALUES (?, ?, ?, ?, NULL, ?, ?, ?, 'Online Practice', 'exam_practice_only', NULL, 'student', 'approved', 'locked', NULL, NULL, 9.99, 0)
+    `, [
+      name.trim(),
+      cleanEmail,
+      hashedPassword,
+      assignedStudentId,
+      cleanPhone,
+      cleanNic,
+      cleanDob
+    ]);
+
+    console.log(`[Exam Practice Registration] New candidate registered: ${assignedStudentId} - ${name.trim()} (${cleanEmail})`);
+
+    return res.status(201).json({
+      success: true,
+      message: `Account created successfully! Your Student ID is ${assignedStudentId}. Please log in to continue.`,
+      user: {
+        id: userResult.id,
+        name: name.trim(),
+        email: cleanEmail,
+        student_id: assignedStudentId,
+        role: 'student',
+        status: 'approved'
+      },
+      student_id: assignedStudentId
+    });
+
+  } catch (err) {
+    console.error('Exam practice registration error:', err);
+    return res.status(500).json({ error: 'Internal server error during registration: ' + err.message });
+  }
+}
+
 // Backwards compatibility alias
 const getNextYjpStudentId = () => getNextStudentId(1);
 
@@ -260,6 +402,14 @@ async function login(req, res) {
       { expiresIn: '7d' }
     );
 
+    const activePasses = await query.all(`
+      SELECT category_code, valid_from, valid_until, is_active,
+             CAST(MAX(0, ROUND((julianday(valid_until) - julianday('now')))) AS INTEGER) as days_remaining
+      FROM exam_practice_passes
+      WHERE user_id = ? AND is_active = 1 AND datetime(valid_until) > datetime('now')
+      ORDER BY valid_until DESC
+    `, [user.id]);
+
     return res.json({
       success: true,
       token,
@@ -272,7 +422,8 @@ async function login(req, res) {
         course_id: user.course_id,
         course_name: user.course_name,
         course_code: user.course_code,
-        subscription
+        subscription,
+        active_passes: activePasses || []
       }
     });
   } catch (err) {
@@ -286,6 +437,13 @@ async function getMe(req, res) {
     const user = req.user;
     const subscription = getSubscriptionDetails(user);
     const course = await query.get('SELECT name, code FROM courses WHERE id = ?', [user.course_id]);
+    const activePasses = await query.all(`
+      SELECT category_code, valid_from, valid_until, is_active,
+             CAST(MAX(0, ROUND((julianday(valid_until) - julianday('now')))) AS INTEGER) as days_remaining
+      FROM exam_practice_passes
+      WHERE user_id = ? AND is_active = 1 AND datetime(valid_until) > datetime('now')
+      ORDER BY valid_until DESC
+    `, [user.id]);
 
     return res.json({
       user: {
@@ -298,7 +456,8 @@ async function getMe(req, res) {
         course_name: course?.name,
         course_code: course?.code,
         allow_dual_track: Boolean(user.allow_dual_track === 1 || user.batch_mode === 'dual_track'),
-        subscription
+        subscription,
+        active_passes: activePasses || []
       }
     });
   } catch (err) {
@@ -507,10 +666,12 @@ async function registerExistingStudent(req, res) {
 
 module.exports = {
   register,
+  registerExamPractice,
   registerExistingStudent,
   login,
   getMe,
   subscribe,
   getNextStudentId,
-  getNextYjpStudentId
+  getNextYjpStudentId,
+  getNextExamPracticeStudentId
 };

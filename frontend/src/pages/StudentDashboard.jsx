@@ -34,6 +34,23 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(true);
   const [showAdmissionModal, setShowAdmissionModal] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
+  const [modalCategory, setModalCategory] = useState('JFT-BASIC');
+
+  const isExamPracticeCandidate = Boolean(user?.student_id?.startsWith('YEP') || user?.batch_mode === 'exam_practice_only');
+  const activePasses = user?.active_passes || [];
+
+  const getPassInfo = (categoryCode = '') => {
+    const cat = (categoryCode || '').toUpperCase();
+    return activePasses.find(p => p.category_code === cat && Boolean(p.is_active));
+  };
+
+  const hasCategoryPass = (categoryCode = '', isFree = false) => {
+    if (user?.role === 'admin') return true;
+    const cat = (categoryCode || '').toUpperCase();
+    if (isFree || ['JLPT-N5', 'JLPT-N4', 'JLPT-N3', 'JLPT'].includes(cat)) return true;
+    if (!isExamPracticeCandidate && user?.role === 'student' && user?.subscription?.is_active) return true;
+    return Boolean(getPassInfo(cat));
+  };
 
   useEffect(() => {
     async function loadDashboardData() {
@@ -270,7 +287,11 @@ export default function StudentDashboard() {
                   <span className="font-mono font-bold">Student ID: {user?.student_id}</span>
                 </div>
 
-                {isDualTrack ? (
+                {isExamPracticeCandidate ? (
+                  <div className="inline-flex items-center space-x-1 bg-amber-500/30 border border-amber-400 text-amber-200 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md">
+                    <span>🎯 Exam Practice Candidate (CBT Portal)</span>
+                  </div>
+                ) : isDualTrack ? (
                   <div className="inline-flex items-center space-x-1 bg-purple-500/30 border border-purple-400 text-purple-200 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md shadow-sm">
                     <span>🌟 Dual Track Active (YJP + SSW)</span>
                   </div>
@@ -296,7 +317,12 @@ export default function StudentDashboard() {
                   </div>
                 )}
 
-                {isActive ? (
+                {activePasses.length > 0 ? (
+                  <div className="inline-flex items-center space-x-1 bg-emerald-500/25 border border-emerald-400/60 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md">
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{activePasses.length} Practice {activePasses.length === 1 ? 'Pass' : 'Passes'} Active</span>
+                  </div>
+                ) : isActive ? (
                   <div className="inline-flex items-center space-x-1 bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md">
                     <CheckCircle className="w-3.5 h-3.5" />
                     <span>CBT Exam Pass Active ({subscription?.days_remaining || 30} Days Left)</span>
@@ -304,19 +330,21 @@ export default function StudentDashboard() {
                 ) : (
                   <div className="inline-flex items-center space-x-1 bg-indigo-500/20 border border-indigo-400/50 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-md">
                     <Lock className="w-3.5 h-3.5" />
-                    <span>CBT Simulator (Unlocks upon Course Completion)</span>
+                    <span>Free JLPT Active • Paid Pass $9.99</span>
                   </div>
                 )}
 
-                <button
-                  type="button"
-                  onClick={() => setShowAdmissionModal(true)}
-                  className="inline-flex items-center space-x-1 bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow-md transition-all transform hover:scale-105"
-                  title="View and print official YUZUKI admission card"
-                >
-                  <Printer className="w-3 h-3" />
-                  <span>My Admission Card 📄</span>
-                </button>
+                {!isExamPracticeCandidate && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAdmissionModal(true)}
+                    className="inline-flex items-center space-x-1 bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow-md transition-all transform hover:scale-105"
+                    title="View and print official YUZUKI admission card"
+                  >
+                    <Printer className="w-3 h-3" />
+                    <span>My Admission Card 📄</span>
+                  </button>
+                )}
               </div>
 
               <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-japanese drop-shadow-md">
@@ -324,7 +352,7 @@ export default function StudentDashboard() {
               </h1>
               <p className="text-slate-200 text-xs sm:text-sm mt-1 flex items-center space-x-2">
                 <Layers className="w-4 h-4 text-rose-400" />
-                <span>Enrolled Track: <strong className="text-amber-300">{user?.course_name || (isTruckStudent ? 'SSW Truck Driving' : 'Japanese Language Studies')}</strong></span>
+                <span>Enrolled Track: <strong className="text-amber-300">{isExamPracticeCandidate ? 'CBT Exam Practice Portal (Self-Paced)' : (user?.course_name || (isTruckStudent ? 'SSW Truck Driving' : 'Japanese Language Studies'))}</strong></span>
               </p>
             </div>
           </div>
@@ -343,6 +371,145 @@ export default function StudentDashboard() {
               <div className="text-[11px] text-slate-300 uppercase tracking-wider mt-0.5">Avg Score</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Active Category Passes & Access Status Strip */}
+      <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900 font-japanese flex items-center space-x-2">
+              <Sparkles className="w-5 h-5 text-amber-500" />
+              <span>Category Passes & Access Status (විභාග කාණ්ඩ සහ අවසර පත්‍ර)</span>
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Each 30-day pass unlocks full access to all official CBT mock exams and practice papers in that category.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              setModalCategory('JFT-BASIC');
+              setShowSubscriptionModal(true);
+            }}
+            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 rounded-2xl text-xs font-extrabold shadow-md transition-all transform hover:scale-105 shrink-0 self-start sm:self-center"
+          >
+            <CreditCard className="w-4 h-4" />
+            <span>Unlock Any Category ($9.99 / 30 Days)</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* Always Active Free JLPT Card */}
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-purple-900 uppercase">JLPT N5 / N4 / N3</span>
+              <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                100% Free
+              </span>
+            </div>
+            <p className="text-xs text-slate-600 mt-2">
+              All official mock papers and practice modules included.
+            </p>
+            <button
+              type="button"
+              onClick={() => setSelectedCourseFilter('JLPT')}
+              className="mt-3 text-xs font-bold text-purple-700 hover:text-purple-900 flex items-center space-x-1"
+            >
+              <span>View Free JLPT Exams</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Active Passes */}
+          {activePasses.map(pass => (
+            <div key={pass.category_code} className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-950 uppercase">{pass.category_code}</span>
+                <span className="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-full">
+                  Active ({pass.days_remaining}d left)
+                </span>
+              </div>
+              <p className="text-xs text-emerald-800 mt-2">
+                Valid until {new Date(pass.valid_until).toLocaleDateString()}
+              </p>
+              <div className="mt-3 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const mapped = pass.category_code === 'JFT-BASIC' ? 'JFT' : (pass.category_code.replace('SSW-', '').replace('SSW2-', 'SSW2_'));
+                    setSelectedCourseFilter(mapped);
+                  }}
+                  className="text-xs font-bold text-emerald-800 hover:underline flex items-center space-x-1"
+                >
+                  <span>Go to Exams</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModalCategory(pass.category_code);
+                    setShowSubscriptionModal(true);
+                  }}
+                  className="text-[11px] font-bold text-amber-700 hover:text-amber-800 underline"
+                >
+                  Renew (+30d)
+                </button>
+              </div>
+            </div>
+          ))}
+
+          {/* Quick Unlock Suggestions if user has < 3 active passes */}
+          {activePasses.length === 0 && (
+            <>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-800 uppercase">JFT-Basic A2</span>
+                  <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full">
+                    $9.99 / 30d
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">
+                  20 Official A2 Prometric CBT Exam Papers (250 Marks).
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModalCategory('JFT-BASIC');
+                    setShowSubscriptionModal(true);
+                  }}
+                  className="mt-3 text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center space-x-1"
+                >
+                  <span>Unlock JFT-Basic</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-800 uppercase">SSW Skills (19 Fields)</span>
+                  <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full">
+                    $9.99 / 30d
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">
+                  Truck Driving, Food Service, Caregiver, Construction & more.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModalCategory('SSW-TRUCK-DRIVING');
+                    setShowSubscriptionModal(true);
+                  }}
+                  className="mt-3 text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center space-x-1"
+                >
+                  <span>Browse SSW Passes</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
@@ -464,23 +631,37 @@ export default function StudentDashboard() {
 
                     <div className="flex items-center space-x-4 shrink-0 self-end sm:self-center">
                       {/* Start Button with Progress */}
-                      <div className="flex flex-col items-center w-36">
-                        <Link
-                          to={'/exam/' + tExam.id}
-                          className="w-full py-2 px-4 rounded-xl bg-[#0da58e] hover:bg-[#0b8b78] text-white font-medium text-xs sm:text-sm text-center shadow-sm transition-all active:scale-95"
-                        >
-                          Start
-                        </Link>
-                        <div className="flex items-center space-x-2 mt-1 text-[11px] text-slate-500 font-mono w-full justify-between px-1">
-                          <div className="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden mr-1 border border-slate-200">
-                            <div
-                              className="bg-[#0da58e] h-full rounded-full"
-                              style={{ width: `${tExam.user_attempts_count > 0 ? 100 : 0}%` }}
-                            />
+                      {hasCategoryPass('SSW-TRUCK-DRIVING', tExam.is_free) ? (
+                        <div className="flex flex-col items-center w-36">
+                          <Link
+                            to={'/exam/' + tExam.id}
+                            className="w-full py-2 px-4 rounded-xl bg-[#0da58e] hover:bg-[#0b8b78] text-white font-medium text-xs sm:text-sm text-center shadow-sm transition-all active:scale-95"
+                          >
+                            Start
+                          </Link>
+                          <div className="flex items-center space-x-2 mt-1 text-[11px] text-slate-500 font-mono w-full justify-between px-1">
+                            <div className="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden mr-1 border border-slate-200">
+                              <div
+                                className="bg-[#0da58e] h-full rounded-full"
+                                style={{ width: `${tExam.user_attempts_count > 0 ? 100 : 0}%` }}
+                              />
+                            </div>
+                            <span>{tExam.user_attempts_count > 0 ? `${tExam.question_count}/${tExam.question_count}` : `0/${tExam.question_count || 31}`}</span>
                           </div>
-                          <span>{tExam.user_attempts_count > 0 ? `${tExam.question_count}/${tExam.question_count}` : `0/${tExam.question_count || 31}`}</span>
                         </div>
-                      </div>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setModalCategory('SSW-TRUCK-DRIVING');
+                            setShowSubscriptionModal(true);
+                          }}
+                          className="w-36 py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-xs text-center shadow-sm transition-all flex items-center justify-center space-x-1"
+                        >
+                          <Lock className="w-3.5 h-3.5 shrink-0" />
+                          <span>Unlock ($9.99)</span>
+                        </button>
+                      )}
 
                       {/* Review Button */}
                       <div className="flex flex-col items-center w-36">
@@ -1356,63 +1537,99 @@ export default function StudentDashboard() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredExams.map(exam => (
-                <div
-                  key={exam.id}
-                  className="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
-                >
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className={`border text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${getCourseBadgeColor(exam.course_code, exam.title)}`}>
-                        {exam.course_code}
-                      </span>
-                      <div className="flex items-center space-x-1 text-slate-500 text-xs font-mono font-medium">
-                        <Clock className="w-3.5 h-3.5 text-rose-600" />
-                        <span>{exam.duration_minutes > 0 ? `${exam.duration_minutes} Mins` : 'Untimed'}</span>
+              {filteredExams.map(exam => {
+                const examCat = exam.course_code || exam.category || 'JFT-BASIC';
+                const isFree = Boolean(exam.is_free || ['JLPT-N5', 'JLPT-N4', 'JLPT-N3', 'JLPT'].includes(examCat));
+                const canAccess = hasCategoryPass(examCat, isFree);
+                const pass = getPassInfo(examCat);
+
+                return (
+                  <div
+                    key={exam.id}
+                    className="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+                  >
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-1.5">
+                          <span className={`border text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${getCourseBadgeColor(exam.course_code, exam.title)}`}>
+                            {exam.course_code}
+                          </span>
+                          {isFree ? (
+                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-md">
+                              Free
+                            </span>
+                          ) : canAccess ? (
+                            <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-md border border-emerald-300">
+                              Pass Active {pass ? `(${pass.days_remaining}d)` : ''}
+                            </span>
+                          ) : (
+                            <span className="bg-amber-50 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded-md border border-amber-200">
+                              $9.99 / 30d
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center space-x-1 text-slate-500 text-xs font-mono font-medium">
+                          <Clock className="w-3.5 h-3.5 text-rose-600" />
+                          <span>{exam.duration_minutes > 0 ? `${exam.duration_minutes} Mins` : 'Untimed'}</span>
+                        </div>
                       </div>
+
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-rose-600 transition-colors font-japanese leading-snug">
+                        {exam.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 mt-2 line-clamp-2">
+                        {exam.description || 'Full Computer-Based mock examination.'}
+                      </p>
+
+                      <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs text-slate-600">
+                        <div>
+                          <span className="text-slate-400">Questions:</span>{' '}
+                          <strong className="text-slate-800">{exam.question_count} MCQs</strong>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">Pass Mark:</span>{' '}
+                          <strong className="text-slate-800">
+                            {exam.passing_score >= 100 || exam.course_code === 'JFT-BASIC' ? '200 / 250 (80%)' : `${exam.passing_score}%`}
+                          </strong>
+                        </div>
+                      </div>
+
+                      {exam.user_attempts_count > 0 && (
+                        <div className="mt-3 p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs flex items-center justify-between">
+                          <span className="text-slate-500">Best Score:</span>
+                          <span className="font-bold text-emerald-600 font-mono">
+                            {exam.user_best_percentage}% ({exam.user_attempts_count} {exam.user_attempts_count === 1 ? 'attempt' : 'attempts'})
+                          </span>
+                        </div>
+                      )}
                     </div>
 
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-rose-600 transition-colors font-japanese leading-snug">
-                      {exam.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 mt-2 line-clamp-2">
-                      {exam.description || 'Full Computer-Based mock examination.'}
-                    </p>
-
-                    <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs text-slate-600">
-                      <div>
-                        <span className="text-slate-400">Questions:</span>{' '}
-                        <strong className="text-slate-800">{exam.question_count} MCQs</strong>
-                      </div>
-                      <div>
-                        <span className="text-slate-400">Pass Mark:</span>{' '}
-                        <strong className="text-slate-800">
-                          {exam.passing_score >= 100 || exam.course_code === 'JFT-BASIC' ? '200 / 250 (80%)' : `${exam.passing_score}%`}
-                        </strong>
-                      </div>
+                    <div className="p-4 bg-slate-50 border-t border-slate-100">
+                      {canAccess ? (
+                        <Link
+                          to={'/exam/' + exam.id}
+                          className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-rose-600 text-white font-semibold text-sm transition-colors flex items-center justify-center space-x-2 shadow-sm"
+                        >
+                          <PlayCircle className="w-4 h-4" />
+                          <span>{exam.user_attempts_count > 0 ? 'Retake Exam Paper' : (exam.duration_minutes > 0 ? `Start ${exam.duration_minutes}-Min Exam` : 'Start Practice Module')}</span>
+                        </Link>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setModalCategory(examCat);
+                            setShowSubscriptionModal(true);
+                          }}
+                          className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-sm transition-all flex items-center justify-center space-x-2 shadow-sm transform hover:scale-[1.01]"
+                        >
+                          <Lock className="w-4 h-4" />
+                          <span>Unlock 30-Day Pass ($9.99)</span>
+                        </button>
+                      )}
                     </div>
-
-                    {exam.user_attempts_count > 0 && (
-                      <div className="mt-3 p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs flex items-center justify-between">
-                        <span className="text-slate-500">Best Score:</span>
-                        <span className="font-bold text-emerald-600 font-mono">
-                          {exam.user_best_percentage}% ({exam.user_attempts_count} {exam.user_attempts_count === 1 ? 'attempt' : 'attempts'})
-                        </span>
-                      </div>
-                    )}
                   </div>
-
-                  <div className="p-4 bg-slate-50 border-t border-slate-100">
-                    <Link
-                      to={'/exam/' + exam.id}
-                      className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-rose-600 text-white font-semibold text-sm transition-colors flex items-center justify-center space-x-2 shadow-sm"
-                    >
-                      <PlayCircle className="w-4 h-4" />
-                      <span>{exam.user_attempts_count > 0 ? 'Retake Exam Paper' : (exam.duration_minutes > 0 ? `Start ${exam.duration_minutes}-Min Exam` : 'Start Practice Module')}</span>
-                    </Link>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )
         )}
@@ -1499,6 +1716,7 @@ export default function StudentDashboard() {
       {/* Online 30-Day CBT Exam Pass Subscription Modal ($9.99 / Mo) */}
       <SubscriptionModal
         isOpen={showSubscriptionModal}
+        defaultCategory={modalCategory}
         onClose={() => setShowSubscriptionModal(false)}
         onSubscribed={() => {
           if (refreshUser) refreshUser();

@@ -4,13 +4,34 @@ const { query } = require('../config/database');
 // Admin Dashboard Summary Metrics
 async function getStats(req, res) {
   try {
-    const totalStudents = await query.get("SELECT COUNT(*) as count FROM users WHERE role = 'student'");
+    const totalUsers = await query.get("SELECT COUNT(*) as count FROM users");
+    const authenticLearners = await query.get("SELECT COUNT(*) as count FROM users WHERE role = 'student'");
+    const adminBridges = await query.get("SELECT COUNT(*) as count FROM users WHERE role = 'admin'");
     const pendingStudents = await query.get("SELECT COUNT(*) as count FROM users WHERE role = 'student' AND status = 'pending'");
     const approvedStudents = await query.get("SELECT COUNT(*) as count FROM users WHERE role = 'student' AND status = 'approved'");
+
+    // Academic registrations breakdown
+    const yjpRegs = await query.get("SELECT COUNT(*) as count FROM program_registrations pr JOIN programs p ON pr.program_id = p.id WHERE p.program_code = 'YJP'");
+    const ytdRegs = await query.get("SELECT COUNT(*) as count FROM program_registrations pr JOIN programs p ON pr.program_id = p.id WHERE p.program_code = 'YTD'");
+    const yagRegs = await query.get("SELECT COUNT(*) as count FROM program_registrations pr JOIN programs p ON pr.program_id = p.id WHERE p.program_code = 'YAG'");
+
+    // Exam split
     const totalExams = await query.get("SELECT COUNT(*) as count FROM exams");
+    const activeExams = await query.get("SELECT COUNT(*) as count FROM exams WHERE is_active = 1");
+    const archivedExams = await query.get("SELECT COUNT(*) as count FROM exams WHERE is_active = 0");
+    const totalQuestions = await query.get("SELECT COUNT(*) as count FROM questions");
+
+    // Attempts
     const totalAttempts = await query.get("SELECT COUNT(*) as count FROM exam_attempts");
     const passedAttempts = await query.get("SELECT COUNT(*) as count FROM exam_attempts WHERE passed = 1");
     const totalCourses = await query.get("SELECT COUNT(*) as count FROM courses");
+
+    // Practice passes & finance
+    const paymentsUsd = await query.get("SELECT SUM(amount_cents) as total_cents, COUNT(*) as count FROM payments WHERE currency = 'USD' AND payment_status = 'completed'");
+    const paymentsLkr = await query.get("SELECT SUM(amount_cents) as total_cents, COUNT(*) as count FROM payments WHERE currency = 'LKR' AND payment_status = 'completed'");
+    const outstandingInvoices = await query.get("SELECT SUM(balance_due_cents) as total_balance, COUNT(*) as count FROM invoices WHERE status != 'paid'");
+    const practiceUsers = await query.get("SELECT COUNT(DISTINCT user_id) as count FROM payments WHERE currency = 'USD' AND payment_status = 'completed'");
+    const activePasses = await query.get("SELECT COUNT(*) as count FROM payments WHERE currency = 'USD' AND payment_status = 'completed'");
 
     const recentRegistrations = await query.all(`
       SELECT u.id, u.name, u.email, u.student_id, u.status, u.created_at, c.name as course_name
@@ -35,14 +56,37 @@ async function getStats(req, res) {
 
     return res.json({
       stats: {
-        totalStudents: totalStudents ? totalStudents.count : 0,
+        // Business Overview
+        registeredUsers: totalUsers ? totalUsers.count : 0,
+        authenticLearners: authenticLearners ? authenticLearners.count : 0,
+        adminBridges: adminBridges ? adminBridges.count : 0,
+        totalStudents: authenticLearners ? authenticLearners.count : 0, // backwards compatibility
         pendingApprovals: pendingStudents ? pendingStudents.count : 0,
         approvedStudents: approvedStudents ? approvedStudents.count : 0,
+        activePracticeUsers: practiceUsers ? practiceUsers.count : 0,
+        activePracticePasses: activePasses ? activePasses.count : 0,
+
+        // Academic Breakdown
+        academicYJP: yjpRegs ? yjpRegs.count : 0,
+        academicYTD: ytdRegs ? ytdRegs.count : 0,
+        academicYAG: yagRegs ? yagRegs.count : 0,
+        totalAcademicEnrollments: (yjpRegs?.count || 0) + (ytdRegs?.count || 0) + (yagRegs?.count || 0),
+
+        // Exam Portal
         totalExams: totalExams ? totalExams.count : 0,
+        activeExams: activeExams ? activeExams.count : 0,
+        archivedExams: archivedExams ? archivedExams.count : 0,
+        totalQuestions: totalQuestions ? totalQuestions.count : 0,
         totalAttempts: totalAttempts ? totalAttempts.count : 0,
         passedAttempts: passedAttempts ? passedAttempts.count : 0,
         totalCourses: totalCourses ? totalCourses.count : 0,
-        passRate: totalAttempts.count > 0 ? Math.round((passedAttempts.count / totalAttempts.count) * 100) : 0
+        passRate: totalAttempts && totalAttempts.count > 0 ? Math.round((passedAttempts.count / totalAttempts.count) * 100) : 0,
+
+        // Finance
+        practiceRevenueUsd: ((paymentsUsd?.total_cents || 0) / 100).toFixed(2),
+        practiceSalesCount: paymentsUsd?.count || 0,
+        academicRevenueLkr: ((paymentsLkr?.total_cents || 0) / 100).toFixed(2),
+        outstandingFeesLkr: ((outstandingInvoices?.total_balance || 0) / 100).toFixed(2)
       },
       recentRegistrations,
       recentAttempts

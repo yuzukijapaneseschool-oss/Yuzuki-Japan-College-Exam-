@@ -3,7 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logoImg from '../assets/logo.png';
 import samuraiBg from '../assets/samurai_bg.jpg';
-import { LogIn, Key, User, AlertCircle, ShieldAlert, Sparkles, CheckCircle2, MessageCircle } from 'lucide-react';
+import { 
+  LogIn, 
+  Key, 
+  User, 
+  AlertCircle, 
+  ShieldAlert, 
+  Sparkles, 
+  CheckCircle2, 
+  MessageCircle, 
+  GraduationCap, 
+  ArrowRight 
+} from 'lucide-react';
 
 export default function Login() {
   const { login } = useAuth();
@@ -42,7 +53,6 @@ export default function Login() {
     await performLogin(identifier, password);
   };
 
-
   return (
     <div 
       className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 bg-cover bg-center bg-no-repeat relative"
@@ -68,7 +78,7 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/40">
+        <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-8 border border-white/40">
           <h2 className="text-2xl font-bold text-slate-900 mb-1 font-japanese">Welcome Back</h2>
           <p className="text-xs text-slate-600 mb-5">
             Enter your <strong>Student ID</strong> or <strong>Registered Email</strong> to enter the exam room.
@@ -158,27 +168,81 @@ export default function Login() {
             </button>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-200/80 space-y-3 text-center text-xs text-slate-600">
-            <div className="bg-rose-50 border border-rose-200 rounded-2xl p-3 text-center">
-              <p className="font-bold text-slate-900 text-xs mb-1">
-                🏛️ දැනටමත් Yuzuki Student ID එකක් තිබේද?
+          {/* Registration Section */}
+          <div className="mt-6 pt-5 border-t border-slate-200/80 space-y-3.5">
+            
+            <div className="text-center">
+              <span className="text-xs font-bold text-slate-800 uppercase tracking-wider font-japanese block">
+                Don't have an account? (ගිණුමක් නොමැතිද?)
+              </span>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Choose your registration pathway below:
               </p>
+            </div>
+
+            <div className="space-y-2.5">
+              {/* Option 1: Exam Practice Registration */}
+              <Link 
+                to="/exam-register"
+                className="group block p-3.5 rounded-2xl bg-gradient-to-r from-rose-50 via-white to-rose-50/60 border border-rose-200/90 hover:border-rose-400 hover:shadow-md transition-all text-left"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform shrink-0">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 group-hover:text-rose-700 transition-colors font-japanese flex items-center space-x-1.5">
+                        <span>Register for Exam Practice</span>
+                        <span className="text-[10px] bg-rose-100 text-rose-700 px-1.5 py-0.2 rounded font-semibold font-mono">Online CBT</span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 leading-tight mt-0.5">
+                        JFT-Basic, SSW skill tests & Free JLPT mock exams
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-rose-500 group-hover:translate-x-1 transition-transform shrink-0 ml-2" />
+                </div>
+              </Link>
+
+              {/* Option 2: Classroom / Japanese Language Course Registration */}
+              <Link 
+                to="/batch-register"
+                className="group block p-3.5 rounded-2xl bg-gradient-to-r from-slate-50 via-white to-slate-50 border border-slate-200 hover:border-slate-400 hover:shadow-md transition-all text-left"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform shrink-0">
+                      <GraduationCap className="w-4 h-4 text-amber-300" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 group-hover:text-rose-700 transition-colors font-japanese flex items-center space-x-1.5">
+                        <span>Apply for Japanese Language Course</span>
+                        <span className="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded font-semibold font-mono">Kandy Campus</span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 leading-tight mt-0.5">
+                        Physical & Online Zoom batch admissions (Rs. 5,000 deposit)
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform shrink-0 ml-2" />
+                </div>
+              </Link>
+            </div>
+
+            {/* Existing Student ID Activation Helper */}
+            <div className="pt-1 text-center text-xs text-slate-500">
+              <span>Already an enrolled YUZUKI college student? </span>
               <Link 
                 to="/existing-student" 
-                className="inline-flex items-center justify-center space-x-1 font-extrabold text-rose-700 hover:text-rose-800 text-xs bg-white px-3 py-1.5 rounded-xl border border-rose-300 shadow-sm transition-all hover:bg-rose-100"
+                className="font-bold text-rose-600 hover:text-rose-700 hover:underline inline-flex items-center space-x-0.5"
               >
-                <span>Activate Existing Student ID (සක්‍රීය කරන්න) &rarr;</span>
+                <span>Activate Student ID &rarr;</span>
               </Link>
             </div>
 
-            <div className="flex items-center justify-between text-xs pt-1">
-              <span>New student for Batch 01?</span>
-              <Link to="/batch-register" className="font-bold text-rose-600 hover:text-rose-700 underline">
-                Enroll in Batch 01 &rarr;
-              </Link>
-            </div>
-
-            <div className="pt-2 border-t border-slate-100">
+            {/* WhatsApp Assistance */}
+            <div className="pt-2 border-t border-slate-100 text-center">
               <a
                 href="https://wa.me/94773539800?text=Hello%20Sensei,%20I%20need%20assistance%20logging%20into%20the%20Yuzuki%20Exam%20Portal."
                 target="_blank"
@@ -189,6 +253,7 @@ export default function Login() {
                 <span>Contact Sensei on WhatsApp (උදව් ලබාගන්න)</span>
               </a>
             </div>
+
           </div>
 
         </div>

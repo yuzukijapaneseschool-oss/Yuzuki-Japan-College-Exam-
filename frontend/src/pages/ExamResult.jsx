@@ -3,7 +3,7 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { examAPI } from '../services/api';
 import confetti from 'canvas-confetti';
 import AudioPlayer from '../components/AudioPlayer';
-import { CheckCircle2, XCircle, Home, Clock, HelpCircle, Sparkles, Layers, Lock } from 'lucide-react';
+import { CheckCircle2, XCircle, Home, Clock, HelpCircle, Sparkles, Layers, Lock, ArrowRight, GraduationCap, BookOpen } from 'lucide-react';
 import JapaneseText from '../components/JapaneseText';
 
 export default function ExamResult() {
@@ -126,6 +126,39 @@ export default function ExamResult() {
             <Layers className="w-4 h-4 text-rose-400" />
             <span>Pass Requirement: <strong>{result.total_marks === 250 || result.passing_score >= 100 ? '200 / 250 Marks (80%)' : `${result.passing_score}%`}</strong></span>
           </div>
+        </div>
+      </div>
+
+      {/* Academic / SSW Conversion Funnel CTA */}
+      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-2">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-semibold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Next Steps in Japan • 進路・試験対策</span>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold font-japanese tracking-tight">
+            Want to continue your Japan journey?
+          </h3>
+          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed">
+            Take the next step towards your career in Japan. Unlock comprehensive JFT-Basic & SSW Prometric question banks (USD 9.99 for 1 month) or explore accredited career diploma programs at YUZUKI Japan College.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+          <Link
+            to="/portal"
+            className="px-5 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-semibold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-2"
+          >
+            <span>Explore JFT / SSW Practice</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            to="/courses"
+            className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-2 backdrop-blur-md"
+          >
+            <GraduationCap className="w-4 h-4 text-amber-400" />
+            <span>Learn About YUZUKI Courses</span>
+          </Link>
         </div>
       </div>
 

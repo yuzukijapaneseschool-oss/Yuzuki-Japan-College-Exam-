@@ -5,6 +5,7 @@ const { authenticate } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
 router.post('/register', authController.register);
+router.post('/register-exam-practice', authController.registerExamPractice);
 router.post('/register-existing', authController.registerExistingStudent);
 router.post('/login', authController.login);
 router.get('/me', authenticate, authController.getMe);

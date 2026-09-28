@@ -23,7 +23,19 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const publicPaths = ['/', '/about', '/courses', '/visa-pathways', '/contact'];
+  const publicPaths = [
+    '/', 
+    '/about', 
+    '/courses', 
+    '/visa-pathways', 
+    '/contact',
+    '/refund-policy',
+    '/privacy-policy',
+    '/terms-and-conditions',
+    '/terms',
+    '/refund',
+    '/privacy'
+  ];
   const isPublicPage = publicPaths.includes(location.pathname);
 
   // If user is on a public college website page, show the rich PublicNavbar!

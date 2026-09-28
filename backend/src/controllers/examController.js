@@ -3,10 +3,15 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../middleware/authMiddleware');
 
 function resolveExamCategory(exam) {
+  // 1. If exam.category is already set to a canonical category code, return it directly
+  if (exam.category && exam.category !== 'JFT' && exam.category !== 'UNKNOWN') {
+    return exam.category.toUpperCase();
+  }
+
   const code = (exam.course_code || '').toUpperCase();
   const title = (exam.title || '').toUpperCase();
 
-  // 1. Authoritative Course Code Matches (Explicit Mapping)
+  // 2. Authoritative Course Code Matches
   if (code === 'JLPT-N5') return 'JLPT-N5';
   if (code === 'JLPT-N4') return 'JLPT-N4';
   if (code === 'JLPT-N3') return 'JLPT-N3';
@@ -21,8 +26,18 @@ function resolveExamCategory(exam) {
   if (code === 'SSW-ACCOMMODATION') return 'SSW-ACCOMMODATION';
   if (code === 'SSW-AUTOMOBILE') return 'SSW-AUTOMOBILE';
   if (code === 'SSW-TRUCK-DRIVING') return 'SSW-TRUCK-DRIVING';
+  if (code === 'SSW-BUILDING-CLEANING') return 'SSW-BUILDING-CLEANING';
+  if (code === 'SSW-INDUSTRIAL-MACHINERY') return 'SSW-INDUSTRIAL-MACHINERY';
+  if (code === 'SSW-SHIPBUILDING') return 'SSW-SHIPBUILDING';
+  if (code === 'SSW-FISHERIES') return 'SSW-FISHERIES';
+  if (code === 'SSW-TAXI-DRIVING') return 'SSW-TAXI-DRIVING';
+  if (code === 'SSW-BUS-DRIVING') return 'SSW-BUS-DRIVING';
+  if (code === 'SSW-RAILWAY') return 'SSW-RAILWAY';
+  if (code === 'SSW-FORESTRY') return 'SSW-FORESTRY';
+  if (code === 'SSW-WOOD-INDUSTRY') return 'SSW-WOOD-INDUSTRY';
+  if (code === 'SSW-TEXTILES') return 'SSW-TEXTILES';
 
-  // 2. Fallback Title Matching for dynamic or unmapped records
+  // 3. Fallback Title Matching for dynamic records
   if (title.includes('JLPT N5') || (title.includes('N5') && title.includes('JLPT'))) return 'JLPT-N5';
   if (title.includes('JLPT N4') || (title.includes('N4') && title.includes('JLPT')) || (exam.id >= 159 && exam.id <= 168)) return 'JLPT-N4';
   if (title.includes('JLPT N3') || (title.includes('N3') && title.includes('JLPT'))) return 'JLPT-N3';
@@ -37,6 +52,16 @@ function resolveExamCategory(exam) {
   if (title.includes('ACCOM') || title.includes('宿泊')) return 'SSW-ACCOMMODATION';
   if (title.includes('AUTO') || title.includes('自動車整備')) return 'SSW-AUTOMOBILE';
   if (title.includes('TRUCK') || title.includes('トラック') || title.includes('運送')) return 'SSW-TRUCK-DRIVING';
+  if (title.includes('CLEANING') || title.includes('ビルクリーニング')) return 'SSW-BUILDING-CLEANING';
+  if (title.includes('MACHINERY') || title.includes('素形材') || title.includes('産業機械')) return 'SSW-INDUSTRIAL-MACHINERY';
+  if (title.includes('SHIPBUILDING') || title.includes('造船')) return 'SSW-SHIPBUILDING';
+  if (title.includes('FISHERY') || title.includes('漁業')) return 'SSW-FISHERIES';
+  if (title.includes('TAXI') || title.includes('タクシー')) return 'SSW-TAXI-DRIVING';
+  if (title.includes('BUS') || title.includes('バス')) return 'SSW-BUS-DRIVING';
+  if (title.includes('RAILWAY') || title.includes('鉄道')) return 'SSW-RAILWAY';
+  if (title.includes('FORESTRY') || title.includes('林業')) return 'SSW-FORESTRY';
+  if (title.includes('WOOD') || title.includes('木材')) return 'SSW-WOOD-INDUSTRY';
+  if (title.includes('TEXTILE') || title.includes('繊維')) return 'SSW-TEXTILES';
 
   return code || 'UNKNOWN';
 }
@@ -50,160 +75,368 @@ const ALL_PORTAL_CATEGORIES = [
   {
     category_code: 'JLPT-N5',
     title: 'JLPT N5 (Beginner Level)',
+    title_ja: '日本語能力試験 N5',
+    title_si: 'JLPT N5 මූලික මට්ටම',
     sector: 'JLPT Language',
+    ssw_type: null,
     description: 'Foundational Japanese vocabulary, kanji (100+), basic grammar, and listening comprehension.',
     is_free: true,
     price_cents: 0,
     price_usd: 0.00,
     currency: 'USD',
-    duration_days: null
+    duration_days: null,
+    display_order: 1
   },
   {
     category_code: 'JLPT-N4',
     title: 'JLPT N4 (Elementary Level)',
+    title_ja: '日本語能力試験 N4',
+    title_si: 'JLPT N4 ප්‍රාථමික මට්ටම',
     sector: 'JLPT Language',
+    ssw_type: null,
     description: 'Elementary Japanese grammar, kanji (300+), daily conversation, and 10 official SSW mock modules.',
     is_free: true,
     price_cents: 0,
     price_usd: 0.00,
     currency: 'USD',
-    duration_days: null
+    duration_days: null,
+    display_order: 2
   },
   {
     category_code: 'JLPT-N3',
     title: 'JLPT N3 (Intermediate Level)',
+    title_ja: '日本語能力試験 N3',
+    title_si: 'JLPT N3 මධ්‍යම මට්ටම',
     sector: 'JLPT Language',
+    ssw_type: null,
     description: 'Bridge to advanced Japanese with complex reading comprehension, kanji (650+), and nuanced grammar.',
     is_free: true,
     price_cents: 0,
     price_usd: 0.00,
     currency: 'USD',
-    duration_days: null
+    duration_days: null,
+    display_order: 3
   },
 
   // 2. JFT-Basic - Paid Practice Category ($9.99 / 30 Days)
   {
     category_code: 'JFT-BASIC',
     title: 'JFT-Basic (A2 Exam Simulation)',
+    title_ja: '国際交流基金日本語基礎テスト (JFT-Basic A2)',
+    title_si: 'JFT-Basic A2 නිල විභාග පුහුණුව',
     sector: 'JFT Language',
+    ssw_type: null,
     description: 'Official JFT-Basic A2 preparation with 21 mock papers, audio listening (Choukai) and reading tests.',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 4
   },
 
   // 3. SSW Categories - Independent Paid Practice Categories ($9.99 / 30 Days each)
   {
     category_code: 'SSW-CAREGIVER',
     title: 'SSW Caregiver / Nursing Care (特定技能 介護)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title_ja: '特定技能1号 介護分野 (Nursing Care)',
+    title_si: 'SSW සාත්තු සේවක (Caregiver)',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Specialized vocational Japanese and caregiving skill practice (758 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 5
   },
   {
     category_code: 'SSW-FOOD-SERVICE',
-    title: 'SSW Food Service & Restaurant (外食業)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title: 'SSW Food Service & Restaurant Operations (外食業)',
+    title_ja: '特定技能1号 外食業分野 (Food Service)',
+    title_si: 'SSW ආපනශාලා හා ආහාර සේවා (Food Service)',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Food hygiene, customer service, cooking management, and safety regulations (325 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 6
   },
   {
     category_code: 'SSW-AGRICULTURE',
     title: 'SSW Agriculture & Crop Farming (農業・耕種)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title_ja: '特定技能1号 農業分野 (Agriculture)',
+    title_si: 'SSW කෘෂිකර්මාන්තය හා වගා පාලනය',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Crop cultivation, greenhouse management, livestock basics, and farm safety (376 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 7
   },
   {
     category_code: 'SSW-ACCOMMODATION',
     title: 'SSW Accommodation & Hospitality (宿泊業)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title_ja: '特定技能1号 宿泊業分野 (Accommodation)',
+    title_si: 'SSW හෝටල් හා නවාතැන් කළමනාකරණය',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Front desk operations, guest service, hotel etiquette, and hygiene (246 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 8
   },
   {
     category_code: 'SSW-TRUCK-DRIVING',
-    title: 'SSW Truck Driving & Logistics (自動車運送業)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title: 'SSW Truck Driving & Automobile Transport (自動車運送業・トラック)',
+    title_ja: '特定技能1号 自動車運送業分野 (トラック運転)',
+    title_si: 'SSW ට්‍රක් රථ රියදුරු හා ප්‍රවාහන සේවා',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Driver basics, vehicle inspection, roll call, cargo safety, and road rules (583 Furigana Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 9
   },
   {
     category_code: 'SSW-AIRPORT-GROUND',
-    title: 'SSW Airport Ground Handling (航空業)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title: 'SSW Airport Ground Handling & Aviation (航空業)',
+    title_ja: '特定技能1号 航空分野 (空港グランドハンドリング)',
+    title_si: 'SSW ගුවන් තොටුපළ බිම් මෙහෙයුම් හා ගුවන් සේවා',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Ramp handling, baggage sorting, aircraft marshalling, and aviation safety (297 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 10
   },
   {
     category_code: 'SSW-AUTOMOBILE',
     title: 'SSW Automobile Maintenance (自動車整備)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title_ja: '特定技能1号 自動車整備分野 (Automobile Repair)',
+    title_si: 'SSW මෝටර් රථ නඩත්තුව හා අලුත්වැඩියාව',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Automotive engine maintenance, chassis inspection, electronic diagnostics (419 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 11
   },
   {
     category_code: 'SSW-CONSTRUCTION',
     title: 'SSW Construction Industry (建設業)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title_ja: '特定技能1号 建設分野 (Construction)',
+    title_si: 'SSW ඉදිකිරීම් ක්ෂේත්‍රය (Construction)',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Civil engineering, framework, rebar, equipment operation, and site safety (530 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 12
   },
   {
     category_code: 'SSW-FOOD-MANUFACTURING',
-    title: 'SSW Food Manufacturing (飲食料品製造業)',
-    sector: 'Specified Skilled Worker (SSW)',
+    title: 'SSW Food & Beverage Manufacturing (飲食料品製造業)',
+    title_ja: '特定技能1号 飲食料品製造業分野 (Food Manufacturing)',
+    title_si: 'SSW ආහාර හා පාන නිෂ්පාදන කර්මාන්තය',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
     description: 'Food processing lines, HACCP sanitary management, packaging, and factory safety (371 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 13
   },
+  {
+    category_code: 'SSW-BUILDING-CLEANING',
+    title: 'SSW Building Cleaning Management (ビルクリーニング)',
+    title_ja: '特定技能1号 ビルクリーニング分野',
+    title_si: 'SSW ගොඩනැගිලි පිරිසිදු කිරීමේ කළමනාකරණය',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Building sanitization, floor and carpet cleaning machinery, chemicals, and safety.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 14
+  },
+  {
+    category_code: 'SSW-INDUSTRIAL-MACHINERY',
+    title: 'SSW Industrial Machinery & Electrical Electronics (素形材・産業機械・電気電子)',
+    title_ja: '特定技能1号 素形材・産業機械・電気電子情報関連製造業分野',
+    title_si: 'SSW කාර්මික යන්ත්‍රෝපකරණ හා විදුලි ඉලෙක්ට්‍රොනික නිෂ්පාදන',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Casting, machining, metal pressing, electronic assembly, welding, and industrial maintenance.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 15
+  },
+  {
+    category_code: 'SSW-SHIPBUILDING',
+    title: 'SSW Shipbuilding & Marine Machinery (造船・舶用工業)',
+    title_ja: '特定技能1号 造船・舶用工業分野',
+    title_si: 'SSW නැව් තැනීම හා සමුද්‍රීය යන්ත්‍රෝපකරණ',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Welding, painting, metal fitting, electrical equipment installation, and shipyard safety.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 16
+  },
+  {
+    category_code: 'SSW-FISHERIES',
+    title: 'SSW Fisheries & Aquaculture (漁業・養殖業)',
+    title_ja: '特定技能1号 漁業分野 (漁業・養殖業)',
+    title_si: 'SSW ධීවර හා ජලජීවී වගාව',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Coastal fishing operations, net handling, aquaculture cultivation, and maritime safety.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 17
+  },
+  {
+    category_code: 'SSW-TAXI-DRIVING',
+    title: 'SSW Taxi Driver Operations (自動車運送業・タクシー)',
+    title_ja: '特定技能1号 自動車運送業分野 (タクシー運転手)',
+    title_si: 'SSW ටැක්සි රියදුරු සේවා',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Passenger service, route navigation, electronic payment, Japanese etiquette, and safety rules.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 18
+  },
+  {
+    category_code: 'SSW-BUS-DRIVING',
+    title: 'SSW Bus Driver Operations (自動車運送業・バス)',
+    title_ja: '特定技能1号 自動車運送業分野 (バス運転手)',
+    title_si: 'SSW බස් රථ රියදුරු සේවා',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Public bus navigation, safety inspections, passenger announcement Japanese, and emergency protocols.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 19
+  },
+  {
+    category_code: 'SSW-RAILWAY',
+    title: 'SSW Railway Operations & Maintenance (鉄道分野)',
+    title_ja: '特定技能1号 鉄道分野',
+    title_si: 'SSW දුම්රිය මෙහෙයුම් හා නඩත්තුව',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Track maintenance, rolling stock inspection, station operations, and railway safety standards.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 20
+  },
+  {
+    category_code: 'SSW-FORESTRY',
+    title: 'SSW Forestry & Logging Operations (林業分野)',
+    title_ja: '特定技能1号 林業分野',
+    title_si: 'SSW වන විද්‍යාව හා දැව කැපීම',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Silviculture, timber harvesting, chainsaw safety, and forestry machinery operations.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 21
+  },
+  {
+    category_code: 'SSW-WOOD-INDUSTRY',
+    title: 'SSW Timber & Wood Processing (木材産業分野)',
+    title_ja: '特定技能1号 木材産業分野',
+    title_si: 'SSW දැව සැකසීම හා ලී නිෂ්පාදනය',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Sawmilling, lumber drying, plywood manufacturing, wood quality inspection, and machine safety.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 22
+  },
+  {
+    category_code: 'SSW-TEXTILES',
+    title: 'SSW Textiles & Apparel Industry (繊維・衣服分野)',
+    title_ja: '特定技能1号 繊維・衣服・染色分野',
+    title_si: 'SSW රෙදිපිළි හා ඇඟලුම් කර්මාන්තය',
+    sector: 'Specified Skilled Worker (SSW 1)',
+    ssw_type: 1,
+    description: 'Spinning, weaving, dyeing, industrial garment sewing, and apparel quality inspection.',
+    is_free: false,
+    price_cents: 999,
+    price_usd: 9.99,
+    currency: 'USD',
+    duration_days: 30,
+    display_order: 23
+  },
+
+  // 4. SSW 2 (Type 2 Category)
   {
     category_code: 'SSW2-ACCOMMODATION',
     title: 'SSW 2 Accommodation Management (特定技能2号 宿泊業)',
+    title_ja: '特定技能2号 宿泊分野 (Supervisory Hotel Management)',
+    title_si: 'SSW 2 හෝටල් හා සංචාරක කළමනාකාරිත්වය',
     sector: 'Specified Skilled Worker (SSW 2)',
+    ssw_type: 2,
     description: 'Advanced hotel management, supervisory operations, safety compliance (580 Qs).',
     is_free: false,
     price_cents: 999,
     price_usd: 9.99,
     currency: 'USD',
-    duration_days: 30
+    duration_days: 30,
+    display_order: 24
   }
 ];
 
@@ -251,11 +484,43 @@ async function getPortalCategories(req, res) {
       }
     }
 
-    const categories = ALL_PORTAL_CATEGORIES.map(cat => {
+    // Dynamic counts from database
+    let dbCategories = [];
+    try {
+      dbCategories = await query.all(`
+        SELECT ec.*,
+          (SELECT COUNT(*) FROM exams e WHERE e.is_active = 1 AND (e.category = ec.category_code OR e.course_id IN (SELECT id FROM courses WHERE code = ec.category_code))) as active_exam_count,
+          (SELECT COUNT(q.id) FROM questions q JOIN exams e ON q.exam_id = e.id WHERE e.is_active = 1 AND (e.category = ec.category_code OR e.course_id IN (SELECT id FROM courses WHERE code = ec.category_code))) as question_count
+        FROM exam_categories ec
+        WHERE ec.is_active = 1
+        ORDER BY ec.display_order ASC
+      `);
+    } catch (e) {
+      console.warn('Fallback to ALL_PORTAL_CATEGORIES in-memory array:', e.message);
+    }
+
+    const baseCategories = (dbCategories && dbCategories.length > 0) ? dbCategories : ALL_PORTAL_CATEGORIES;
+
+    const categories = baseCategories.map(cat => {
+      const isFree = Boolean(cat.is_free);
+
       // JLPT is completely FREE for all users
-      if (cat.is_free) {
+      if (isFree) {
         return {
-          ...cat,
+          category_code: cat.category_code,
+          title: cat.title,
+          title_ja: cat.title_ja,
+          title_si: cat.title_si,
+          sector: cat.sector,
+          ssw_type: cat.ssw_type,
+          description: cat.description,
+          is_free: true,
+          price_cents: 0,
+          price_usd: 0.00,
+          currency: 'USD',
+          duration_days: null,
+          active_exam_count: cat.active_exam_count || 0,
+          question_count: cat.question_count || 0,
           has_active_pass: Boolean(user), // Authenticated users can practice free
           status: 'free_access',
           valid_until: null,
@@ -304,7 +569,20 @@ async function getPortalCategories(req, res) {
       const isUserRegisteredSector = registeredCourseCode === cat.category_code || isAcademicCovered || Boolean(activePass) || Boolean(expiredPass);
 
       return {
-        ...cat,
+        category_code: cat.category_code,
+        title: cat.title,
+        title_ja: cat.title_ja,
+        title_si: cat.title_si,
+        sector: cat.sector,
+        ssw_type: cat.ssw_type,
+        description: cat.description,
+        is_free: false,
+        price_cents: cat.price_cents || 999,
+        price_usd: cat.price_usd || 9.99,
+        currency: 'USD',
+        duration_days: cat.duration_days || 30,
+        active_exam_count: cat.active_exam_count || 0,
+        question_count: cat.question_count || 0,
         has_active_pass: hasActivePass,
         status,
         valid_until: validUntil,
@@ -898,6 +1176,7 @@ async function getAttemptDetail(req, res) {
 }
 
 module.exports = {
+  ALL_PORTAL_CATEGORIES,
   resolveExamCategory,
   isJlptFreeCategory,
   getPortalCategories,

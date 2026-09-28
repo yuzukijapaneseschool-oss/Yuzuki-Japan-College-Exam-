@@ -116,8 +116,8 @@ export default function StudentApprovals() {
           <div className="flex space-x-2">
             {[
               { key: 'pending', label: 'Pending Approvals', count: counts.pending, badgeColor: 'bg-amber-500 text-white' },
-              { key: 'approved', label: 'Approved Students', count: counts.approved, badgeColor: 'bg-emerald-600 text-white' },
-              { key: 'all', label: 'All Students', count: counts.all, badgeColor: 'bg-slate-700 text-white' }
+              { key: 'approved', label: 'Approved Learners', count: counts.approved, badgeColor: 'bg-emerald-600 text-white' },
+              { key: 'all', label: 'Authentic Academic Learners', count: counts.all, badgeColor: 'bg-slate-700 text-white' }
             ].map(tab => (
               <button
                 key={tab.key}
