@@ -15,6 +15,7 @@ router.get('/students', adminController.getStudents);
 router.patch('/students/:id/status', adminController.updateStudentStatus);
 router.patch('/students/:id/dual-track', adminController.toggleDualTrack);
 router.post('/students/:studentId/extend-subscription', adminController.extendSubscription);
+router.post('/users/:id/reset-device', adminController.resetDeviceBinding);
 router.delete('/students/:id', adminController.deleteStudent);
 
 // Exam management

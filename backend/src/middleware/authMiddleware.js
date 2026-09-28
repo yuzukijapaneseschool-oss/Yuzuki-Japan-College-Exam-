@@ -41,6 +41,41 @@ async function authenticate(req, res, next) {
   }
 }
 
+async function optionalAuth(req, res, next) {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      req.user = null;
+      return next();
+    }
+
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const targetId = decoded.id || decoded.userId;
+
+    if (!targetId) {
+      req.user = null;
+      return next();
+    }
+
+    const user = await query.get(
+      'SELECT id, name, email, student_id, course_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at FROM users WHERE id = ?',
+      [targetId]
+    );
+
+    if (!user || (user.role !== 'admin' && user.status === 'rejected')) {
+      req.user = null;
+      return next();
+    }
+
+    req.user = user;
+    next();
+  } catch (err) {
+    req.user = null;
+    next();
+  }
+}
+
 function requireAdmin(req, res, next) {
   if (!req.user || req.user.role !== 'admin') {
     return res.status(403).json({ error: 'Admin privileges required to perform this action.' });
@@ -51,5 +86,6 @@ function requireAdmin(req, res, next) {
 module.exports = {
   JWT_SECRET,
   authenticate,
+  optionalAuth,
   requireAdmin
 };

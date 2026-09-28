@@ -52,6 +52,7 @@ export const courseAPI = {
 
 export const examAPI = {
   getAvailable: () => api.get('/exams'),
+  getPortalCategories: () => api.get('/exams/portal/categories'),
   getSession: (id) => api.get(`/exams/${id}/session`),
   submit: (id, data) => api.post(`/exams/${id}/submit`, data),
   getMyAttempts: () => api.get('/exams/attempts/my'),
@@ -63,6 +64,7 @@ export const adminAPI = {
   getStudents: (params) => api.get('/admin/students', { params }),
   updateStudentStatus: (id, data) => api.patch(`/admin/students/${id}/status`, data),
   toggleDualTrack: (id) => api.patch(`/admin/students/${id}/dual-track`),
+  resetDeviceBinding: (id, reason) => api.post(`/admin/users/${id}/reset-device`, { reason }),
   deleteStudent: (id) => api.delete(`/admin/students/${id}`),
   
   getExams: () => api.get('/admin/exams'),
@@ -86,9 +88,10 @@ export const adminAPI = {
   extendSubscription: (studentId, data) => api.post(`/admin/students/${studentId}/extend-subscription`, data || {}),
 };
 
-
 export const paymentAPI = {
   checkout: (data) => api.post('/payments/checkout', data),
+  checkoutPracticePass: (data) => api.post('/payments/practice-pass/checkout', data),
+  confirmPracticePassPayment: (data) => api.post('/payments/practice-pass/confirm', data),
   getMy: () => api.get('/payments/my'),
   getAdminAll: () => api.get('/payments/admin/all'),
 };

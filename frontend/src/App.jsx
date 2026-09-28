@@ -11,6 +11,7 @@ import About from './pages/public/About';
 import Courses from './pages/public/Courses';
 import VisaPathways from './pages/public/VisaPathways';
 import Contact from './pages/public/Contact';
+import ExamPortal from './pages/public/ExamPortal';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -78,7 +79,7 @@ function AppLayout() {
     return () => clearInterval(interval);
   }, [location.pathname]);
 
-  const publicPaths = ['/', '/about', '/courses', '/visa-pathways', '/contact'];
+  const publicPaths = ['/', '/about', '/courses', '/visa-pathways', '/contact', '/portal', '/exams'];
   const isPublicPage = publicPaths.includes(location.pathname);
   const isExamSession = location.pathname.startsWith('/exam/');
   const isAdmin = user?.role === 'admin';
@@ -118,8 +119,9 @@ function AppLayout() {
           <Route path="/visa-pathways" element={<VisaPathways />} />
           <Route path="/contact" element={<Contact />} />
           
-          {/* Exam Portal Entry */}
-          <Route path="/portal" element={<Navigate to="/login" replace />} />
+          {/* Public Exam Practice Portal & Auth */}
+          <Route path="/portal" element={<ExamPortal />} />
+          <Route path="/exams" element={<ExamPortal />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<BatchRegister />} />
           <Route path="/exam-register" element={<ExamRegister />} />
@@ -128,7 +130,7 @@ function AppLayout() {
           <Route path="/activate" element={<ExistingStudentRegister />} />
           <Route path="/activate-student" element={<ExistingStudentRegister />} />
 
-          {/* Student Exam Routes (Accessible to both Students and Admins for testing) */}
+          {/* Student Exam Routes (ExamSession & ExamResult handle public free exams & protected paid exams seamlessly) */}
           <Route
             path="/dashboard"
             element={
@@ -137,22 +139,8 @@ function AppLayout() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/exam/:id"
-            element={
-              <ProtectedRoute>
-                <ExamSession />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/result/:id"
-            element={
-              <ProtectedRoute>
-                <ExamResult />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/exam/:id" element={<ExamSession />} />
+          <Route path="/result/:id" element={<ExamResult />} />
           <Route
             path="/history"
             element={

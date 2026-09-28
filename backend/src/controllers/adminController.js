@@ -542,9 +542,54 @@ async function toggleDualTrack(req, res) {
   }
 }
 
+async function resetDeviceBinding(req, res) {
+  try {
+    const { id } = req.params;
+    const { reason = 'Admin authorized device reset request' } = req.body;
+
+    const user = await query.get('SELECT * FROM users WHERE id = ?', [id]);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Deactivate existing active bindings
+    await query.run(`
+      UPDATE user_device_bindings
+      SET is_active = 0,
+          reset_at = CURRENT_TIMESTAMP,
+          reset_by_admin_id = ?,
+          reset_reason = ?
+      WHERE user_id = ? AND is_active = 1
+    `, [req.user.id, reason, id]);
+
+    // Insert Audit Log
+    await query.run(`
+      INSERT INTO audit_logs (
+        actor_id, actor_role, action, target_entity, target_id, details_json, ip_address
+      ) VALUES (?, ?, 'DEVICE_RESET', 'users', ?, ?, ?)
+    `, [
+      req.user.id,
+      req.user.role,
+      String(id),
+      JSON.stringify({ reason, target_email: user.email, target_student_id: user.student_id }),
+      req.ip || '127.0.0.1'
+    ]);
+
+    return res.json({
+      success: true,
+      message: `Device binding for user ${user.name} (${user.student_id || user.email}) has been reset. Next login will bind to new device.`,
+      user_id: user.id
+    });
+  } catch (err) {
+    console.error('resetDeviceBinding error:', err);
+    return res.status(500).json({ error: 'Failed to reset device binding: ' + err.message });
+  }
+}
+
 module.exports = {
   extendSubscription,
   toggleDualTrack,
+  resetDeviceBinding,
   getStats,
   getStudents,
   updateStudentStatus,

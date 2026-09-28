@@ -257,7 +257,7 @@ export default function ExamSession() {
             onClick={() => setShowSubModal(true)}
             className="px-6 py-2.5 bg-rose-600 text-white rounded-xl font-bold hover:bg-rose-700 transition-colors text-sm shadow-md"
           >
-            Unlock Access ($9.99/Mo)
+            Unlock Access (USD 9.99 — 1 Month Access)
           </button>
         </div>
 

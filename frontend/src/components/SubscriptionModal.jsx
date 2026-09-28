@@ -93,7 +93,7 @@ export default function SubscriptionModal({ isOpen, onClose, onSubscribed }) {
             <div>
               <div className="flex items-center space-x-1.5 text-xs font-bold text-rose-700 uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Online Exam Pass ($9.99 / Mo)</span>
+                <span>Online Exam Pass (USD 9.99 — 1 Month Access)</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-bold font-japanese text-slate-900">
                 {successData ? 'Payment Confirmed (領収書)' : 'Secure Online Checkout'}
@@ -150,7 +150,7 @@ export default function SubscriptionModal({ isOpen, onClose, onSubscribed }) {
               <div className="flex justify-between">
                 <span className="text-slate-500">Pass Valid Until:</span>
                 <strong className="text-slate-900">
-                  {new Date(successData.subscription?.expires_at).toLocaleDateString()} (30 Days)
+                  {new Date(successData.subscription?.expires_at).toLocaleDateString()} (1 Month Access)
                 </strong>
               </div>
             </div>
@@ -186,7 +186,7 @@ export default function SubscriptionModal({ isOpen, onClose, onSubscribed }) {
                   YUZUKI College Exam Pass
                 </span>
                 <div className="text-3xl font-extrabold font-mono mt-0.5">
-                  $9.99 <span className="text-xs font-normal text-slate-300 font-sans">/ 30 Days</span>
+                  $9.99 <span className="text-xs font-normal text-slate-300 font-sans">— 1 Month Access</span>
                 </div>
                 <div className="text-[11px] text-amber-300 font-medium mt-0.5">
                   ≈ LKR 3,050 (Sri Lankan Rupees)
@@ -306,7 +306,7 @@ export default function SubscriptionModal({ isOpen, onClose, onSubscribed }) {
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
-                  <span>Pay $9.99 USD & Activate 30 Days</span>
+                  <span>Pay USD 9.99 & Activate 1 Month Access</span>
                 </>
               )}
             </button>

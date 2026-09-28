@@ -216,6 +216,36 @@ async function login(req, res) {
       });
     }
 
+    // One-Device Rule Enforcement for Students
+    if (user.role === 'student') {
+      const clientDeviceId = (req.headers['x-device-id'] || req.body.deviceId || req.body.device_fingerprint || '').trim();
+      const effectiveDeviceId = clientDeviceId || ('DEV_' + Buffer.from((req.ip || '127.0.0.1') + '_' + (req.headers['user-agent'] || 'device')).toString('base64').substring(0, 16));
+
+      try {
+        const activeBinding = await query.get(
+          'SELECT * FROM user_device_bindings WHERE user_id = ? AND is_active = 1',
+          [user.id]
+        );
+
+        if (!activeBinding) {
+          // First login binds account to this device
+          await query.run(`
+            INSERT INTO user_device_bindings (user_id, device_fingerprint, device_name, is_active)
+            VALUES (?, ?, ?, 1)
+          `, [user.id, effectiveDeviceId, req.headers['user-agent'] || 'Primary Device']);
+        } else if (activeBinding.device_fingerprint !== effectiveDeviceId) {
+          // Different device: block
+          return res.status(403).json({
+            error: '🔒 Account is bound to another device. Only one device is permitted per student account. Please contact Super Admin to reset your device binding.',
+            code: 'ACCOUNT_BOUND_TO_ANOTHER_DEVICE',
+            bound_device_id: activeBinding.device_fingerprint
+          });
+        }
+      } catch (e) {
+        console.error('Device binding check error:', e);
+      }
+    }
+
     const subscription = getSubscriptionDetails(user);
 
     const token = jwt.sign(
