@@ -263,7 +263,7 @@ async function seedInitialData() {
   }
 
   // Seed Official Admin and Verified Student
-  const adminUser = await query.get('SELECT * FROM users WHERE email = ?', ['lahirudilshan552@gmail.com']);
+  const adminUser = await query.get('SELECT * FROM users WHERE email = ? OR student_id = ?', ['lahirudilshan552@gmail.com', 'ADMIN-YJP']);
   if (!adminUser) {
     const adminPasswordHash = await bcrypt.hash('japan@9803', 10);
     await query.run(`
@@ -273,7 +273,7 @@ async function seedInitialData() {
     console.log('Official admin seeded: lahirudilshan552@gmail.com / japan@9803 (Student ID: ADMIN-YJP)');
   }
 
-  const officialAdmin = await query.get('SELECT * FROM users WHERE email = ?', ['admin@yuzukijapancollege.edu.lk']);
+  const officialAdmin = await query.get('SELECT * FROM users WHERE email = ? OR student_id = ?', ['admin@yuzukijapancollege.edu.lk', 'ADMIN-001']);
   if (!officialAdmin) {
     const adminPasswordHash = await bcrypt.hash('japan@9803', 10);
     await query.run(`
@@ -282,7 +282,7 @@ async function seedInitialData() {
     `, ['Yuzuki Principal Admin', 'admin@yuzukijapancollege.edu.lk', adminPasswordHash, 'ADMIN-001']);
   }
 
-  const sampleStudent = await query.get('SELECT * FROM users WHERE email = ?', ['student@yuzukijapancollege.edu.lk']);
+  const sampleStudent = await query.get('SELECT * FROM users WHERE email = ? OR student_id = ?', ['student@yuzukijapancollege.edu.lk', 'YJP-2026-001']);
   if (!sampleStudent) {
     const studentPasswordHash = await bcrypt.hash('student@123', 10);
     const jftCourse = await query.get("SELECT id FROM courses WHERE code = 'JFT-BASIC'");

@@ -9,7 +9,7 @@ const api = axios.create({
 
 // Request interceptor: attach token
 api.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem('yuzuki_token');
+  const token = sessionStorage.getItem('yuzuki_token') || localStorage.getItem('yuzuki_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -42,6 +42,7 @@ export const authAPI = {
   registerExisting: (userData) => api.post('/auth/register-existing', userData),
   getMe: () => api.get('/auth/me'),
   subscribe: (data) => api.post('/auth/subscribe', data || {}),
+  changePassword: (data) => api.post('/auth/change-password', data),
 };
 
 export const courseAPI = {

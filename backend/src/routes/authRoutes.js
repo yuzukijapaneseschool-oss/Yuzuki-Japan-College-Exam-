@@ -6,10 +6,13 @@ const upload = require('../middleware/uploadMiddleware');
 
 router.post('/register', authController.register);
 router.post('/register-exam-practice', authController.registerExamPractice);
+router.post('/exam-practice/register', authController.registerExamPractice);
 router.post('/register-existing', authController.registerExistingStudent);
 router.post('/login', authController.login);
 router.get('/me', authenticate, authController.getMe);
 router.post('/subscribe', authenticate, authController.subscribe);
+router.post('/change-password', authenticate, authController.changePassword);
+router.patch('/change-password', authenticate, authController.changePassword);
 
 // Public file upload for Bank Deposit Slips & Transfer Receipts
 router.post('/upload-slip', upload.single('slip'), (req, res) => {

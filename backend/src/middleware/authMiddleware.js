@@ -19,7 +19,7 @@ async function authenticate(req, res, next) {
     }
 
     const user = await query.get(
-      'SELECT id, name, email, student_id, course_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at FROM users WHERE id = ?',
+      'SELECT id, name, email, student_id, course_id, role, status, phone, batch_mode, allow_dual_track, monthly_price, subscription_status, trial_ends_at, subscription_ends_at FROM users WHERE id = ?',
       [targetId]
     );
 
@@ -59,13 +59,19 @@ async function optionalAuth(req, res, next) {
     }
 
     const user = await query.get(
-      'SELECT id, name, email, student_id, course_id, role, status, phone, subscription_status, trial_ends_at, subscription_ends_at FROM users WHERE id = ?',
+      'SELECT id, name, email, student_id, course_id, role, status, phone, batch_mode, allow_dual_track, monthly_price, subscription_status, trial_ends_at, subscription_ends_at FROM users WHERE id = ?',
       [targetId]
     );
 
-    if (!user || (user.role !== 'admin' && user.status === 'rejected')) {
+    if (!user) {
       req.user = null;
       return next();
+    }
+
+    if (user.role !== 'admin' && user.status === 'rejected') {
+      return res.status(403).json({ 
+        error: 'Your account access has been restricted by the administrator.' 
+      });
     }
 
     req.user = user;

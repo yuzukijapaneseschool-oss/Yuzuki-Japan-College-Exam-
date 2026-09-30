@@ -17,6 +17,26 @@ function getSubscriptionDetails(user) {
     };
   }
 
+  // Pending approval
+  if (user.status === 'pending') {
+    const isSchool = user.batch_mode === 'yjp_school_student' || 
+                     user.batch_mode === 'yjp_japanese_only' ||
+                     user.batch_mode === 'ytd_truck_only' ||
+                     user.batch_mode === 'physical_kandy' ||
+                     user.batch_mode === 'online_zoom' ||
+                     (user.student_id && (user.student_id.startsWith('YJP') || user.student_id.startsWith('YTD') || user.student_id.startsWith('YAG')));
+    return {
+      status: 'pending',
+      is_active: false,
+      plan: isSchool ? 'YUZUKI School Student (Pending Admin Approval)' : 'Registration Pending Approval',
+      days_remaining: 0,
+      expires_at: null,
+      message: isSchool 
+        ? 'Your account is pending college administration approval. Your FREE 30-Day CBT Exam Pass will be activated once verified.'
+        : 'Your registration is pending verification by college administration.'
+    };
+  }
+
   // Check if CBT mock exam access has been unlocked by Admin/Sensei upon course completion
   if (user.subscription_ends_at) {
     const subEnd = new Date(user.subscription_ends_at);
@@ -46,7 +66,7 @@ function getSubscriptionDetails(user) {
     }
   }
 
-  // Course Enrolled, but CBT Exam access is locked until course completion
+  // Course Enrolled, but CBT Exam access is locked until course completion / approval
   return {
     status: 'locked',
     is_active: false,
@@ -185,7 +205,51 @@ async function registerExamPractice(req, res) {
 
     const cleanNic = (nic_number && typeof nic_number === 'string') ? nic_number.trim() : null;
 
-    // 2. Email uniqueness check
+    // 2. School student identification vs External Candidate
+    const providedStudentId = req.body.student_id || req.body.yjp_student_id || req.body.school_student_id;
+    const isSchoolStudent = Boolean(
+      req.body.is_school_student || 
+      (providedStudentId && String(providedStudentId).trim().toUpperCase().startsWith('YJP')) ||
+      (providedStudentId && String(providedStudentId).trim().toUpperCase().startsWith('YTD')) ||
+      (providedStudentId && String(providedStudentId).trim().toUpperCase().startsWith('YAG'))
+    );
+
+    let assignedStudentId;
+    let userStatus = 'approved';
+    let subscriptionStatus = 'locked';
+    let batchMode = 'exam_practice_only';
+    let monthlyPrice = 9.99;
+    let courseId = null;
+
+    if (isSchoolStudent && providedStudentId) {
+      const cleanCustomId = String(providedStudentId).trim().toUpperCase();
+
+      // Impersonation defense: Check if student_id is already assigned to a different user
+      const existingUserWithStudentId = await query.get(
+        'SELECT id, email, name FROM users WHERE UPPER(student_id) = ?',
+        [cleanCustomId]
+      );
+      if (existingUserWithStudentId && existingUserWithStudentId.email.toLowerCase() !== cleanEmail) {
+        return res.status(400).json({
+          error: `Student ID "${cleanCustomId}" is already registered. Please log in directly with your registered email or contact college administration.`
+        });
+      }
+
+      assignedStudentId = cleanCustomId;
+      batchMode = 'yjp_school_student';
+      userStatus = 'pending'; // Pending Admin confirmation for 30-Day Free JFT Pass
+      monthlyPrice = 0.00;
+      courseId = cleanCustomId.startsWith('YTD') ? 7 : (cleanCustomId.startsWith('YAG') ? 8 : 1);
+    } else {
+      // External candidate: Generate sequential YEPxxxxx ID
+      assignedStudentId = await getNextExamPracticeStudentId();
+      batchMode = 'exam_practice_only';
+      userStatus = 'approved';
+      subscriptionStatus = 'locked';
+      monthlyPrice = 9.99;
+    }
+
+    // 3. Email uniqueness check
     const existingUser = await query.get('SELECT id, student_id, role, name FROM users WHERE LOWER(email) = ?', [cleanEmail]);
     if (existingUser) {
       return res.status(400).json({ 
@@ -193,43 +257,68 @@ async function registerExamPractice(req, res) {
       });
     }
 
-    // 3. Hash password
+    // 4. Hash password
     const hashedPassword = await bcrypt.hash(password.trim(), 10);
 
-    // 4. Generate unique student ID (YEP00101, YEP00102...)
-    const assignedStudentId = await getNextExamPracticeStudentId();
-
-    // 5. Insert user (Role: student, Status: approved, Subscription: locked by default)
+    // 5. Insert user
     const userResult = await query.run(`
       INSERT INTO users (
         name, email, password, student_id, course_id, phone, nic_number, dob,
         city, batch_mode, bank_slip_url, role, status, subscription_status,
         trial_ends_at, subscription_ends_at, monthly_price, allow_dual_track
-      ) VALUES (?, ?, ?, ?, NULL, ?, ?, ?, 'Online Practice', 'exam_practice_only', NULL, 'student', 'approved', 'locked', NULL, NULL, 9.99, 0)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Online Practice', ?, NULL, 'student', ?, ?, NULL, NULL, ?, 0)
     `, [
       name.trim(),
       cleanEmail,
       hashedPassword,
       assignedStudentId,
+      courseId,
       cleanPhone,
       cleanNic,
-      cleanDob
+      cleanDob,
+      batchMode,
+      userStatus,
+      subscriptionStatus,
+      monthlyPrice
     ]);
 
-    console.log(`[Exam Practice Registration] New candidate registered: ${assignedStudentId} - ${name.trim()} (${cleanEmail})`);
+    console.log(`[Exam Practice Registration] New candidate registered: ${assignedStudentId} (${batchMode}) - ${name.trim()} (${cleanEmail})`);
+
+    // Generate immediate JWT auth token
+    const token = jwt.sign(
+      {
+        id: userResult.id,
+        userId: userResult.id,
+        role: 'student',
+        student_id: assignedStudentId,
+        course_id: courseId
+      },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    const subscription = getSubscriptionDetails({ id: userResult.id, role: 'student', status: userStatus });
+
+    const successMessage = isSchoolStudent
+      ? `Account created successfully! Your YUZUKI Student ID is ${assignedStudentId}. As a YUZUKI Japan College student, your 30-Day Free Practice Pass will be activated upon college administration approval.`
+      : `Account created successfully! Your Student ID is ${assignedStudentId}.`;
 
     return res.status(201).json({
       success: true,
-      message: `Account created successfully! Your Student ID is ${assignedStudentId}. Please log in to continue.`,
+      message: successMessage,
+      token,
       user: {
         id: userResult.id,
         name: name.trim(),
         email: cleanEmail,
         student_id: assignedStudentId,
         role: 'student',
-        status: 'approved'
+        status: userStatus,
+        subscription,
+        active_passes: []
       },
-      student_id: assignedStudentId
+      student_id: assignedStudentId,
+      is_school_student: isSchoolStudent
     });
 
   } catch (err) {
@@ -337,28 +426,93 @@ async function register(req, res) {
 
 async function login(req, res) {
   try {
-    const rawIdentifier = req.body.identifier || req.body.emailOrStudentId || req.body.email || req.body.student_id;
+    const rawIdentifier = req.body.identifier || req.body.emailOrStudentId || req.body.email || req.body.student_id || req.body.username || req.body.loginId;
     const password = req.body.password;
     if (!rawIdentifier || !password) {
       return res.status(400).json({ error: 'Student ID / Email and Password are required.' });
     }
 
-    const cleanIdentifier = String(rawIdentifier).trim();
-    const user = await query.get(`
-      SELECT u.*, c.name as course_name, c.code as course_code
+    // Clean and normalize incoming identifier
+    let cleanIdentifier = String(rawIdentifier)
+      .replace(/[\u00A0\u1680\u180E\u2000-\u200B\u202F\u205F\u3000\uFEFF]/g, ' ')
+      .replace(/[\u2010-\u2015\u2212\uFF0D]/g, '-')
+      .trim();
+
+    const cleanAlphaNum = cleanIdentifier.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    const cleanDigits = cleanIdentifier.replace(/[^0-9]/g, '');
+    const phoneLast9 = cleanDigits.length >= 9 ? cleanDigits.slice(-9) : (cleanDigits.length >= 7 ? cleanDigits : null);
+
+    // Multi-criteria resilient user lookup (ordered by match accuracy)
+    const candidates = await query.all(`
+      SELECT u.*, c.name as course_name, c.code as course_code,
+        CASE 
+          WHEN LOWER(u.email) = LOWER(?) THEN 1
+          WHEN UPPER(u.student_id) = UPPER(?) THEN 2
+          WHEN LENGTH(?) >= 3 AND REPLACE(REPLACE(REPLACE(UPPER(COALESCE(u.student_id, '')), '-', ''), ' ', ''), '_', '') = ? THEN 3
+          WHEN LENGTH(?) >= 6 AND UPPER(REPLACE(REPLACE(COALESCE(u.nic_number, ''), ' ', ''), '-', '')) = ? THEN 4
+          WHEN ? IS NOT NULL AND REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(COALESCE(u.phone, ''), ' ', ''), '-', ''), '+', ''), '(', ''), ')', '') LIKE '%' || ? THEN 5
+          ELSE 6
+        END as match_priority
       FROM users u
       LEFT JOIN courses c ON u.course_id = c.id
-      WHERE LOWER(u.email) = LOWER(?) OR UPPER(u.student_id) = UPPER(?)
-    `, [cleanIdentifier, cleanIdentifier]);
+      WHERE 
+        LOWER(u.email) = LOWER(?)
+        OR UPPER(u.student_id) = UPPER(?)
+        OR (
+          LENGTH(?) >= 3 AND
+          REPLACE(REPLACE(REPLACE(UPPER(COALESCE(u.student_id, '')), '-', ''), ' ', ''), '_', '') = ?
+        )
+        OR (
+          ? IS NOT NULL AND
+          REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(COALESCE(u.phone, ''), ' ', ''), '-', ''), '+', ''), '(', ''), ')', '') LIKE '%' || ?
+        )
+        OR (
+          LENGTH(?) >= 6 AND
+          UPPER(REPLACE(REPLACE(COALESCE(u.nic_number, ''), ' ', ''), '-', '')) = ?
+        )
+      ORDER BY match_priority ASC, u.id DESC
+    `, [
+      cleanIdentifier,
+      cleanIdentifier,
+      cleanAlphaNum,
+      cleanAlphaNum,
+      cleanAlphaNum,
+      cleanAlphaNum,
+      phoneLast9,
+      phoneLast9,
+      cleanIdentifier,
+      cleanIdentifier,
+      cleanAlphaNum,
+      cleanAlphaNum,
+      phoneLast9,
+      phoneLast9,
+      cleanAlphaNum,
+      cleanAlphaNum
+    ]);
 
-    if (!user) {
+    if (!candidates || candidates.length === 0) {
       return res.status(401).json({ error: 'Invalid Student ID / Email or Password.' });
     }
 
-    const isMatch = await bcrypt.compare(password.trim(), user.password);
-    if (!isMatch) {
+    const cleanPassword = String(password);
+    let matchedUser = null;
+
+    for (const candidate of candidates) {
+      let isMatch = await bcrypt.compare(cleanPassword.trim(), candidate.password);
+      if (!isMatch && cleanPassword !== cleanPassword.trim()) {
+        isMatch = await bcrypt.compare(cleanPassword, candidate.password);
+      }
+      if (isMatch) {
+        matchedUser = candidate;
+        break;
+      }
+    }
+
+    if (!matchedUser) {
       return res.status(401).json({ error: 'Invalid Student ID / Email or Password.' });
     }
+
+    const user = matchedUser;
 
     if (user.role !== 'admin' && user.status === 'rejected') {
       return res.status(403).json({
@@ -366,10 +520,10 @@ async function login(req, res) {
       });
     }
 
-    // One-Device Rule Enforcement for Students
+    // Graceful Device Session Registration (allows students to login on mobile phones, browsers, and desktops reliably)
     if (user.role === 'student') {
       const clientDeviceId = (req.headers['x-device-id'] || req.body.deviceId || req.body.device_fingerprint || '').trim();
-      const effectiveDeviceId = clientDeviceId || ('DEV_' + Buffer.from((req.ip || '127.0.0.1') + '_' + (req.headers['user-agent'] || 'device')).toString('base64').substring(0, 16));
+      const effectiveDeviceId = clientDeviceId || ('DEV_' + Buffer.from((req.headers['user-agent'] || 'device')).toString('base64').substring(0, 16));
 
       try {
         const activeBinding = await query.get(
@@ -378,21 +532,19 @@ async function login(req, res) {
         );
 
         if (!activeBinding) {
-          // First login binds account to this device
           await query.run(`
             INSERT INTO user_device_bindings (user_id, device_fingerprint, device_name, is_active)
             VALUES (?, ?, ?, 1)
           `, [user.id, effectiveDeviceId, req.headers['user-agent'] || 'Primary Device']);
-        } else if (activeBinding.device_fingerprint !== effectiveDeviceId) {
-          // Different device: block
-          return res.status(403).json({
-            error: '🔒 Account is bound to another device. Only one device is permitted per student account. Please contact Super Admin to reset your device binding.',
-            code: 'ACCOUNT_BOUND_TO_ANOTHER_DEVICE',
-            bound_device_id: activeBinding.device_fingerprint
-          });
+        } else {
+          await query.run(`
+            UPDATE user_device_bindings 
+            SET device_fingerprint = ?, device_name = ?, bound_at = CURRENT_TIMESTAMP
+            WHERE user_id = ? AND is_active = 1
+          `, [effectiveDeviceId, req.headers['user-agent'] || 'Active Device', user.id]);
         }
       } catch (e) {
-        console.error('Device binding check error:', e);
+        console.error('Device session registration error:', e);
       }
     }
 
@@ -403,11 +555,13 @@ async function login(req, res) {
         id: user.id,
         userId: user.id,
         role: user.role,
+        email: user.email,
+        name: user.name,
         student_id: user.student_id,
         course_id: user.course_id
       },
       JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: '30d' }
     );
 
     const activePasses = await query.all(`
@@ -427,9 +581,12 @@ async function login(req, res) {
         email: user.email,
         student_id: user.student_id,
         role: user.role,
+        status: user.status || 'approved',
+        batch_mode: user.batch_mode,
         course_id: user.course_id,
         course_name: user.course_name,
         course_code: user.course_code,
+        allow_dual_track: Boolean(user.allow_dual_track === 1 || user.batch_mode === 'dual_track'),
         subscription,
         active_passes: activePasses || []
       }
@@ -460,6 +617,8 @@ async function getMe(req, res) {
         email: user.email,
         student_id: user.student_id,
         role: user.role,
+        status: user.status || 'approved',
+        batch_mode: user.batch_mode,
         course_id: user.course_id,
         course_name: course?.name,
         course_code: course?.code,
@@ -592,7 +751,7 @@ async function registerExistingStudent(req, res) {
       INSERT INTO users (
         name, email, password, student_id, course_id, phone, nic_number, city, batch_mode, bank_slip_url, role, status,
         subscription_status, subscription_ends_at, trial_ends_at, monthly_price, allow_dual_track
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, ?, 0)
     `, [
       name.trim(),
       cleanEmail,
@@ -605,14 +764,14 @@ async function registerExistingStudent(req, res) {
       batchModeStr,
       null,
       'student',
-      'approved', // Instantly Approved for Existing Yuzuki College Students!
-      'active',   // Active Exam Pass
-      expiryDate.toISOString(),
-      expiryDate.toISOString(),
+      'pending', // Mandatory Admin Approval for School Students!
+      'locked',  // CBT Exam Pass locked until Admin reviews and approves
       0.00
     ]);
 
-    // Create JWT token for immediate auto-login
+    // Note: Free 30-Day CBT Practice Pass is ONLY activated upon explicit Admin Approval!
+
+    // Create JWT token for immediate access to dashboard (in pending status)
     const token = jwt.sign(
       { 
         id: userResult.id, 
@@ -637,12 +796,20 @@ async function registerExistingStudent(req, res) {
       course_name: course.name,
       batch_mode: cleanStudentId.startsWith('YTD') ? 'SSW Truck Driving Track' : 'Japanese Language Track',
       bank_slip_url: null,
-      registration_type: 'Existing College Student Activation (30-Day CBT Pass)'
+      registration_type: 'Existing College Student Verification (Pending Admin Approval)'
     }).catch(err => console.error('Admission email notification error:', err));
+
+    const subscription = getSubscriptionDetails({
+      id: userResult.id,
+      role: 'student',
+      status: 'pending',
+      batch_mode: batchModeStr,
+      student_id: cleanStudentId
+    });
 
     return res.status(201).json({
       success: true,
-      message: `🎉 Welcome back to YUZUKI Japan College! Student ID ${cleanStudentId} is activated for 30 Days (${trackName}).`,
+      message: `🎉 Welcome to YUZUKI Japan College! Registration received for Student ID ${cleanStudentId} (${trackName}). Your account is pending college administration verification. Once approved, your 30-day FREE CBT practice pass will be activated.`,
       token,
       user: {
         id: userResult.id,
@@ -650,17 +817,13 @@ async function registerExistingStudent(req, res) {
         email: cleanEmail,
         student_id: cleanStudentId,
         role: 'student',
-        status: 'approved',
+        status: 'pending',
+        batch_mode: batchModeStr,
         course_id: effectiveCourseId,
         course_name: course.name,
         allow_dual_track: false,
-        subscription: {
-          status: 'active',
-          is_active: true,
-          plan: `Yuzuki Student: ${trackName} (30-Day CBT Pass)`,
-          days_remaining: 30,
-          expires_at: expiryDate.toISOString()
-        }
+        subscription,
+        active_passes: []
       },
       student_id: cleanStudentId,
       track_name: trackName
@@ -672,6 +835,91 @@ async function registerExistingStudent(req, res) {
   }
 }
 
+async function changePassword(req, res) {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: 'Authentication required. Please log in.' });
+    }
+
+    const {
+      currentPassword,
+      current_password,
+      newPassword,
+      new_password,
+      confirmPassword,
+      confirm_password,
+      confirmNewPassword
+    } = req.body;
+
+    const rawCurrent = currentPassword || current_password;
+    const rawNew = newPassword || new_password;
+    const rawConfirm = confirmPassword || confirm_password || confirmNewPassword;
+
+    if (!rawCurrent || !rawNew) {
+      return res.status(400).json({ error: 'Current password and new password are required.' });
+    }
+
+    const cleanCurrent = String(rawCurrent).trim();
+    const cleanNew = String(rawNew).trim();
+    const cleanConfirm = rawConfirm ? String(rawConfirm).trim() : null;
+
+    if (cleanConfirm && cleanNew !== cleanConfirm) {
+      return res.status(400).json({ error: 'New password and confirmation do not match.' });
+    }
+
+    if (cleanNew.length < 6) {
+      return res.status(400).json({ error: 'New password must be at least 6 characters long.' });
+    }
+
+    const userRecord = await query.get('SELECT id, password, email, student_id, role, name, course_id FROM users WHERE id = ?', [req.user.id]);
+    if (!userRecord) {
+      return res.status(404).json({ error: 'User account not found.' });
+    }
+
+    const isCurrentValid = await bcrypt.compare(cleanCurrent, userRecord.password);
+    if (!isCurrentValid) {
+      return res.status(400).json({ error: 'Current password is incorrect.' });
+    }
+
+    const isSame = await bcrypt.compare(cleanNew, userRecord.password);
+    if (isSame) {
+      return res.status(400).json({ error: 'New password cannot be the same as your current password.' });
+    }
+
+    const newHashedPassword = await bcrypt.hash(cleanNew, 10);
+    await query.run('UPDATE users SET password = ? WHERE id = ?', [newHashedPassword, req.user.id]);
+
+    const newToken = jwt.sign(
+      {
+        id: userRecord.id,
+        userId: userRecord.id,
+        role: userRecord.role,
+        email: userRecord.email,
+        name: userRecord.name,
+        student_id: userRecord.student_id,
+        course_id: userRecord.course_id
+      },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    );
+
+    return res.json({
+      success: true,
+      message: 'Password changed successfully. Please sign in again using your new password.',
+      token: newToken,
+      user: {
+        id: userRecord.id,
+        student_id: userRecord.student_id,
+        name: userRecord.name,
+        email: userRecord.email
+      }
+    });
+  } catch (err) {
+    console.error('changePassword error:', err);
+    return res.status(500).json({ error: 'Internal server error while changing password.' });
+  }
+}
+
 module.exports = {
   register,
   registerExamPractice,
@@ -679,6 +927,7 @@ module.exports = {
   login,
   getMe,
   subscribe,
+  changePassword,
   getNextStudentId,
   getNextYjpStudentId,
   getNextExamPracticeStudentId

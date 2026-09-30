@@ -151,9 +151,120 @@ async function updateStudentStatus(req, res) {
       return res.status(404).json({ error: 'Student not found.' });
     }
 
-    if (course_id) {
-      await query.run('UPDATE users SET status = ?, course_id = ? WHERE id = ?', [status, course_id, id]);
+    if (status === 'approved') {
+      const validUntil = new Date();
+      validUntil.setDate(validUntil.getDate() + 30);
+
+      // Automatically create / activate 30-Day Free JFT / SSW Practice Pass
+      const targetCategory = (student.student_id && student.student_id.startsWith('YTD')) || student.course_id === 7 
+        ? 'SSW-TRUCK-DRIVING' 
+        : 'JFT-BASIC';
+
+      const existingPass = await query.get(
+        "SELECT id, valid_until, is_active FROM exam_practice_passes WHERE user_id = ? AND category_code = ?",
+        [id, targetCategory]
+      );
+
+      const isPassCurrentlyActive = existingPass && existingPass.is_active === 1 && new Date(existingPass.valid_until) > new Date();
+
+      if (!existingPass) {
+        // First-time approval: create 30-Day Free Pass
+        await query.run(`
+          INSERT INTO exam_practice_passes (
+            user_id, student_id, category_code, invoice_id, payment_id,
+            valid_from, valid_until, is_active
+          ) VALUES (?, ?, ?, NULL, NULL, CURRENT_TIMESTAMP, ?, 1)
+        `, [id, student.student_id, targetCategory, validUntil.toISOString()]);
+
+        if (course_id) {
+          await query.run(`
+            UPDATE users 
+            SET status = 'approved', 
+                subscription_status = 'active',
+                subscription_ends_at = ?,
+                course_id = ? 
+            WHERE id = ?
+          `, [validUntil.toISOString(), course_id, id]);
+        } else {
+          await query.run(`
+            UPDATE users 
+            SET status = 'approved', 
+                subscription_status = 'active',
+                subscription_ends_at = ?
+            WHERE id = ?
+          `, [validUntil.toISOString(), id]);
+        }
+      } else if (isPassCurrentlyActive) {
+        // Idempotent: pass is already active and valid, keep existing validity window
+        if (course_id) {
+          await query.run(`
+            UPDATE users 
+            SET status = 'approved', 
+                subscription_status = 'active',
+                course_id = ? 
+            WHERE id = ?
+          `, [course_id, id]);
+        } else {
+          await query.run(`
+            UPDATE users 
+            SET status = 'approved', 
+                subscription_status = 'active'
+            WHERE id = ?
+          `, [id]);
+        }
+
+        await query.run(`
+          UPDATE exam_practice_passes 
+          SET is_active = 1, updated_at = CURRENT_TIMESTAMP
+          WHERE id = ?
+        `, [existingPass.id]);
+      } else {
+        // Pass was expired or inactive: reactivate with new 30-Day window
+        if (course_id) {
+          await query.run(`
+            UPDATE users 
+            SET status = 'approved', 
+                subscription_status = 'active',
+                subscription_ends_at = ?,
+                course_id = ? 
+            WHERE id = ?
+          `, [validUntil.toISOString(), course_id, id]);
+        } else {
+          await query.run(`
+            UPDATE users 
+            SET status = 'approved', 
+                subscription_status = 'active',
+                subscription_ends_at = ?
+            WHERE id = ?
+          `, [validUntil.toISOString(), id]);
+        }
+
+        await query.run(`
+          UPDATE exam_practice_passes 
+          SET valid_until = ?, is_active = 1, updated_at = CURRENT_TIMESTAMP
+          WHERE id = ?
+        `, [validUntil.toISOString(), existingPass.id]);
+      }
+
+      console.log(`[Admin Student Approval] Student #${id} (${student.student_id}) approved and 30-Day FREE ${targetCategory} pass configured.`);
+    } else if (status === 'rejected') {
+      await query.run(`
+        UPDATE users 
+        SET status = 'rejected', 
+            subscription_status = 'locked',
+            subscription_ends_at = NULL
+        WHERE id = ?
+      `, [id]);
+
+      await query.run(`
+        UPDATE exam_practice_passes 
+        SET is_active = 0, updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = ?
+      `, [id]);
+
+      console.log(`[Admin Student Rejection] Student #${id} (${student.student_id}) rejected and pass deactivated.`);
     } else {
+      // Pending
       await query.run('UPDATE users SET status = ? WHERE id = ?', [status, id]);
     }
 

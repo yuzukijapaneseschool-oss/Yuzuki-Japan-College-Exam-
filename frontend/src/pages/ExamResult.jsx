@@ -28,6 +28,10 @@ export default function ExamResult() {
             time_taken_seconds: att.time_taken_seconds,
             examTitle: att.exam_title,
             courseName: att.course_name,
+            studentName: att.student_name,
+            studentId: att.student_id,
+            is_jft: att.is_jft || res.data.is_jft,
+            section_breakdown: res.data.section_breakdown || att.section_breakdown || [],
             detailedReview: res.data.detailedReview
           });
         } catch (err) {
@@ -124,10 +128,95 @@ export default function ExamResult() {
           </div>
           <div className="flex items-center space-x-1.5">
             <Layers className="w-4 h-4 text-rose-400" />
-            <span>Pass Requirement: <strong>{result.total_marks === 250 || result.passing_score >= 100 ? '200 / 250 Marks (80%)' : `${result.passing_score}%`}</strong></span>
+            <span>Pass Requirement: <strong>{result.total_marks === 250 || result.passing_score >= 100 ? '200 / 250 Marks (80.0%)' : `${result.passing_score}%`}</strong></span>
           </div>
         </div>
       </div>
+
+      {/* Official Section Performance & Score Report Table */}
+      {result.section_breakdown && result.section_breakdown.length > 0 && (
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+            <div>
+              <span className="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-1">
+                Official Examination Score Report
+              </span>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 font-japanese">
+                Section Performance Breakdown (セクション別得点)
+              </h2>
+            </div>
+            <div className="text-xs text-slate-500 font-mono">
+              Passing Criterion: <strong className="text-slate-800">{result.total_marks === 250 ? '200 / 250 (80.0%)' : `${result.passing_score}%`}</strong>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b-2 border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider bg-slate-50">
+                  <th className="py-3 px-4 rounded-l-xl">Section / Skill (試験科目)</th>
+                  <th className="py-3 px-4 text-center">Correct Qs</th>
+                  <th className="py-3 px-4 text-center">Raw Marks</th>
+                  <th className="py-3 px-4 text-center">Normalized Score (/100)</th>
+                  <th className="py-3 px-4 text-right rounded-r-xl">Performance</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 text-sm">
+                {result.section_breakdown.map((sec, idx) => (
+                  <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="py-3 px-4 font-japanese font-medium text-slate-800">
+                      {sec.section_name}
+                    </td>
+                    <td className="py-3 px-4 text-center font-mono font-semibold text-slate-700">
+                      {sec.correct_questions} / {sec.total_questions}
+                    </td>
+                    <td className="py-3 px-4 text-center font-mono font-bold text-slate-900">
+                      {sec.raw_earned} <span className="text-slate-400 font-normal">/ {sec.raw_total}</span>
+                    </td>
+                    <td className="py-3 px-4 text-center font-mono font-bold text-indigo-700">
+                      {Number(sec.normalized_score).toFixed(1)} <span className="text-xs text-slate-400 font-normal">/ 100</span>
+                    </td>
+                    <td className="py-3 px-4 text-right">
+                      <span className={`inline-block text-xs font-bold px-2.5 py-1 rounded-full ${
+                        sec.normalized_score >= 80 
+                          ? 'bg-emerald-100 text-emerald-800' 
+                          : sec.normalized_score >= 60 
+                            ? 'bg-amber-100 text-amber-800' 
+                            : 'bg-rose-100 text-rose-800'
+                      }`}>
+                        {sec.normalized_score >= 80 ? 'Proficient' : sec.normalized_score >= 60 ? 'Satisfactory' : 'Needs Practice'}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr className="border-t-2 border-slate-300 bg-slate-900 text-white font-bold text-sm">
+                  <td className="py-3.5 px-4 rounded-l-xl font-japanese">
+                    TOTAL OVERALL (総合得点)
+                  </td>
+                  <td className="py-3.5 px-4 text-center font-mono">
+                    {result.section_breakdown.reduce((a, s) => a + s.correct_questions, 0)} / {result.section_breakdown.reduce((a, s) => a + s.total_questions, 0)}
+                  </td>
+                  <td className="py-3.5 px-4 text-center font-mono text-amber-300">
+                    {result.score} / {result.total_marks}
+                  </td>
+                  <td className="py-3.5 px-4 text-center font-mono text-emerald-400">
+                    {Number(result.percentage).toFixed(1)} / 100
+                  </td>
+                  <td className="py-3.5 px-4 text-right rounded-r-xl">
+                    <span className={`text-xs font-extrabold px-3 py-1 rounded-lg uppercase tracking-wider ${
+                      result.passed ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'
+                    }`}>
+                      {result.passed ? 'PASSED (合格)' : 'FAILED (不合格)'}
+                    </span>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Academic / SSW Conversion Funnel CTA */}
       <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">

@@ -375,6 +375,12 @@ async function simulatePracticePassPayment(req, res) {
     const cleanCategoryCode = category_code.trim().toUpperCase();
     const config = getPayHereConfig();
 
+    if ((config.mode === 'live' || config.mode === 'production') && user.role !== 'admin') {
+      return res.status(403).json({
+        error: 'Simulation endpoint is disabled in live production mode for non-admin accounts.'
+      });
+    }
+
     const student = await getOrCreateStudentForUser(user);
     const orderId = 'SIM-PP-' + Date.now() + '-' + Math.floor(1000 + Math.random() * 9000);
     const paymentId = 'SIM-PAY-' + Date.now();

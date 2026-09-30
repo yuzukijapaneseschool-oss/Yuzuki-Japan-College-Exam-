@@ -4,23 +4,17 @@ import { authAPI } from '../services/api';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  // Clear any legacy permanent localStorage tokens
-  try {
-    localStorage.removeItem('yuzuki_token');
-    localStorage.removeItem('yuzuki_user');
-  } catch (e) {}
-
   const [user, setUser] = useState(() => {
     try {
-      const savedUser = sessionStorage.getItem('yuzuki_user');
-      return savedUser ? JSON.parse(savedUser) : null;
+      const saved = sessionStorage.getItem('yuzuki_user') || localStorage.getItem('yuzuki_user');
+      return saved ? JSON.parse(saved) : null;
     } catch (e) {
       return null;
     }
   });
   const [token, setToken] = useState(() => {
     try {
-      return sessionStorage.getItem('yuzuki_token');
+      return sessionStorage.getItem('yuzuki_token') || localStorage.getItem('yuzuki_token');
     } catch (e) {
       return null;
     }
@@ -34,6 +28,9 @@ export const AuthProvider = ({ children }) => {
           const res = await authAPI.getMe();
           setUser(res.data.user);
           sessionStorage.setItem('yuzuki_user', JSON.stringify(res.data.user));
+          try {
+            localStorage.setItem('yuzuki_user', JSON.stringify(res.data.user));
+          } catch (e) {}
         } catch (err) {
           console.error('Failed to restore session:', err);
           logout();
@@ -44,13 +41,21 @@ export const AuthProvider = ({ children }) => {
     verifyAuth();
   }, [token]);
 
-  const login = async (identifier, password) => {
-    const res = await authAPI.login(identifier, password);
-    const { token: newToken, user: userData } = res.data;
+  const setAuthData = (newToken, userData) => {
     setToken(newToken);
     setUser(userData);
     sessionStorage.setItem('yuzuki_token', newToken);
     sessionStorage.setItem('yuzuki_user', JSON.stringify(userData));
+    try {
+      localStorage.setItem('yuzuki_token', newToken);
+      localStorage.setItem('yuzuki_user', JSON.stringify(userData));
+    } catch (e) {}
+  };
+
+  const login = async (identifier, password) => {
+    const res = await authAPI.login(identifier, password);
+    const { token: newToken, user: userData } = res.data;
+    setAuthData(newToken, userData);
     return userData;
   };
 
@@ -64,8 +69,10 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     sessionStorage.removeItem('yuzuki_token');
     sessionStorage.removeItem('yuzuki_user');
-    localStorage.removeItem('yuzuki_token');
-    localStorage.removeItem('yuzuki_user');
+    try {
+      localStorage.removeItem('yuzuki_token');
+      localStorage.removeItem('yuzuki_user');
+    } catch (e) {}
   };
 
   const refreshUser = async () => {
@@ -73,13 +80,16 @@ export const AuthProvider = ({ children }) => {
       const res = await authAPI.getMe();
       setUser(res.data.user);
       sessionStorage.setItem('yuzuki_user', JSON.stringify(res.data.user));
+      try {
+        localStorage.setItem('yuzuki_user', JSON.stringify(res.data.user));
+      } catch (e) {}
     } catch (err) {
       console.error('Error refreshing user:', err);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout, refreshUser }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, logout, refreshUser, setAuthData }}>
       {children}
     </AuthContext.Provider>
   );

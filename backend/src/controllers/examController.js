@@ -884,6 +884,51 @@ async function getExamSession(req, res) {
   }
 }
 
+function calculateSectionBreakdown(questions, answers) {
+  const sectionsMap = new Map();
+
+  for (const q of questions) {
+    const sName = q.section_name || 'General Examination';
+    if (!sectionsMap.has(sName)) {
+      sectionsMap.set(sName, {
+        section_name: sName,
+        total_questions: 0,
+        correct_questions: 0,
+        raw_marks: 0,
+        earned_marks: 0
+      });
+    }
+
+    const sec = sectionsMap.get(sName);
+    const qMarks = q.marks || 1;
+    sec.total_questions += 1;
+    sec.raw_marks += qMarks;
+
+    const studentChoice = answers ? answers[q.id] : null;
+    const isCorrect = studentChoice && studentChoice.toUpperCase() === (q.correct_option || '').toUpperCase();
+    if (isCorrect) {
+      sec.correct_questions += 1;
+      sec.earned_marks += qMarks;
+    }
+  }
+
+  return Array.from(sectionsMap.values()).map(sec => {
+    const normalizedScore = sec.raw_marks > 0 
+      ? Math.round((sec.earned_marks / sec.raw_marks) * 1000) / 10 
+      : 0;
+    return {
+      section_name: sec.section_name,
+      total_questions: sec.total_questions,
+      correct_questions: sec.correct_questions,
+      raw_earned: sec.earned_marks,
+      raw_total: sec.raw_marks,
+      normalized_score: normalizedScore,
+      display_score: `${sec.earned_marks} / ${sec.raw_marks}`,
+      display_normalized: `${normalizedScore.toFixed(1)} / 100`
+    };
+  });
+}
+
 async function submitExam(req, res) {
   try {
     const { id } = req.params;
@@ -1036,6 +1081,8 @@ async function submitExam(req, res) {
       passed = percentage >= exam.passing_score ? 1 : 0;
     }
 
+    const sectionBreakdown = calculateSectionBreakdown(questions, answers);
+
     // If Anonymous User on Free Exam -> Return immediate score without DB pollution
     if (!user) {
       return res.json({
@@ -1043,10 +1090,14 @@ async function submitExam(req, res) {
         score: finalScore,
         total_marks: finalTotalMarks,
         percentage,
+        normalized_score: percentage,
         passed: !!passed,
+        status: passed ? 'PASS' : 'FAIL',
         passing_score: isJftExam ? 200 : exam.passing_score,
         time_taken_seconds: timeTakenSeconds || 0,
         tab_switches_count: tabSwitchesCount || 0,
+        is_jft: isJftExam,
+        section_breakdown: sectionBreakdown,
         is_anonymous: true,
         message: 'Practice completed! Create an account to save your exam results permanently.',
         detailedReview,
@@ -1079,10 +1130,14 @@ async function submitExam(req, res) {
       score: finalScore,
       total_marks: finalTotalMarks,
       percentage,
+      normalized_score: percentage,
       passed: !!passed,
+      status: passed ? 'PASS' : 'FAIL',
       passing_score: isJftExam ? 200 : exam.passing_score,
       time_taken_seconds: timeTakenSeconds || 0,
       tab_switches_count: tabSwitchesCount || 0,
+      is_jft: isJftExam,
+      section_breakdown: sectionBreakdown,
       detailedReview
     });
   } catch (err) {
@@ -1136,6 +1191,7 @@ async function getAttemptDetail(req, res) {
       return res.status(403).json({ error: 'Unauthorized to view this attempt.' });
     }
 
+    const isJftExam = attempt.course_code === 'JFT' || (attempt.exam_title && attempt.exam_title.toUpperCase().includes('JFT'));
     const answers = JSON.parse(attempt.answers_json || '{}');
     const questions = await query.all(`
       SELECT id, section_name, question_text, image_url, audio_url,
@@ -1168,7 +1224,18 @@ async function getAttemptDetail(req, res) {
       };
     });
 
-    return res.json({ attempt, detailedReview });
+    const sectionBreakdown = calculateSectionBreakdown(questions, answers);
+
+    return res.json({ 
+      attempt: {
+        ...attempt,
+        is_jft: isJftExam,
+        section_breakdown: sectionBreakdown
+      }, 
+      detailedReview,
+      section_breakdown: sectionBreakdown,
+      is_jft: isJftExam
+    });
   } catch (err) {
     console.error('getAttemptDetail error:', err);
     return res.status(500).json({ error: 'Failed to load attempt details.' });

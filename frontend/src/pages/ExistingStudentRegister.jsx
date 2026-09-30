@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authAPI, courseAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import confetti from 'canvas-confetti';
 import logoImg from '../assets/logo.png';
 import samuraiBg from '../assets/japan_pagoda_bg.jpg';
@@ -21,11 +22,13 @@ import {
   Building, 
   Laptop,
   Check,
-  Info
+  Info,
+  Clock
 } from 'lucide-react';
 
 export default function ExistingStudentRegister() {
   const navigate = useNavigate();
+  const { setAuthData } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successData, setSuccessData] = useState(null);
@@ -103,10 +106,12 @@ export default function ExistingStudentRegister() {
 
       const res = await authAPI.registerExisting(payload);
 
-      // Save token & user for automatic instant login
-      if (res.data.token) {
+      // Save token & user for automatic instant login and React Context hydration
+      if (res.data.token && res.data.user) {
+        setAuthData(res.data.token, res.data.user);
+      } else if (res.data.token) {
         sessionStorage.setItem('yuzuki_token', res.data.token);
-        sessionStorage.setItem('yuzuki_user', JSON.stringify(res.data.user));
+        if (res.data.user) sessionStorage.setItem('yuzuki_user', JSON.stringify(res.data.user));
       }
 
       // Trigger Confetti
@@ -152,13 +157,13 @@ export default function ExistingStudentRegister() {
 
             <div className="space-y-2">
               <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                Portal Activated • 30-Day Pass Unlocked
+                Portal Registered • Pending Admin Approval
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-japanese">
                 සාදරයෙන් පිළිගනිමු! (Welcome)
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                ඔබගේ <strong>Student ID ({successData.student_id})</strong> එක සාර්ථකව සක්‍රීය විය. ඉදිරි <strong>දින 30 පුරා</strong> ඔබට නියමිත විභාග පුහුණුවීම් සිදු කළ හැක.
+                ඔබගේ <strong>Student ID ({successData.student_id})</strong> එක සාර්ථකව ලියාපදිංචි විය. විද්‍යාල පරිපාලනය මගින් අනුමත වූ පසු ඔබගේ <strong>නොමිලේ දින 30ක විභාග පුහුණු ප්‍රවේශය (FREE 30-Day CBT Pass)</strong> සක්‍රීය වේ.
               </p>
             </div>
 
@@ -184,9 +189,9 @@ export default function ExistingStudentRegister() {
               </div>
               <div className="flex items-center justify-between pt-1 text-[11px] text-slate-400">
                 <span>CBT Exam Simulation Pass:</span>
-                <span className="text-emerald-400 font-bold flex items-center space-x-1">
-                  <ShieldCheck className="w-3.5 h-3.5 inline" />
-                  <span>30-Day Active Exam Pass (Free)</span>
+                <span className="text-amber-400 font-bold flex items-center space-x-1">
+                  <Clock className="w-3.5 h-3.5 inline" />
+                  <span>Pending Admin Approval (100% Free School Benefit)</span>
                 </span>
               </div>
             </div>
@@ -196,7 +201,7 @@ export default function ExistingStudentRegister() {
               onClick={() => navigate('/dashboard')}
               className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:to-teal-700 text-slate-950 font-black rounded-2xl text-sm sm:text-base shadow-xl shadow-emerald-500/20 transition-all transform hover:scale-[1.02] active:scale-98 flex items-center justify-center space-x-2"
             >
-              <span>🚀 Launch CBT Exam Simulation Room (විභාග අරඹන්න)</span>
+              <span>🚀 Launch Student Dashboard (ශිෂ්‍ය පුවරුව වෙත)</span>
               <ArrowRight className="w-5 h-5" />
             </button>
 

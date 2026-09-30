@@ -37,6 +37,7 @@ import InquiryManager from './pages/admin/InquiryManager';
 import SystemSettings from './pages/admin/SystemSettings';
 import MaintenancePage from './components/MaintenancePage';
 import MaintenanceBanner from './components/MaintenanceBanner';
+import ErrorBoundary from './components/ErrorBoundary';
 import { settingsAPI } from './services/api';
 
 function ProtectedRoute({ children, requiredRole = null }) {
@@ -148,8 +149,9 @@ function AppLayout() {
           <Route path="/portal" element={<ExamPortal />} />
           <Route path="/exams" element={<ExamPortal />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<BatchRegister />} />
+          <Route path="/register" element={<ExamRegister />} />
           <Route path="/exam-register" element={<ExamRegister />} />
+          <Route path="/register-exam" element={<ExamRegister />} />
           <Route path="/batch-register" element={<BatchRegister />} />
           <Route path="/existing-student" element={<ExistingStudentRegister />} />
           <Route path="/activate" element={<ExistingStudentRegister />} />
@@ -158,6 +160,14 @@ function AppLayout() {
           {/* Student Exam Routes (ExamSession & ExamResult handle public free exams & protected paid exams seamlessly) */}
           <Route
             path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/student-dashboard"
             element={
               <ProtectedRoute>
                 <StudentDashboard />
@@ -350,10 +360,12 @@ export default function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <AppLayout />
-      </BrowserRouter>
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <BrowserRouter>
+          <AppLayout />
+        </BrowserRouter>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
