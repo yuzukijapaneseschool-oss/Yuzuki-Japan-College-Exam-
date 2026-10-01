@@ -1294,9 +1294,10 @@ export default function StudentDashboard() {
 
             {/* LEVEL: JLPT N5 */}
             {selectedJlptLevel === 'N5' && (() => {
-              const n5Exam = (exams || []).find(e => e.course_code === 'JLPT-N5' || e.course_id === 2 || (e.title || '').includes('N5'));
-              const n5Attempts = (attempts || []).filter(a => a.exam_id === n5Exam?.id);
-              const bestScore = n5Attempts.length > 0 ? Math.max(...n5Attempts.map(a => a.percentage || 0)) : null;
+              const n5Exams = (exams || []).filter(e => e.course_code === 'JLPT-N5' || e.course_id === 2 || e.category === 'JLPT-N5' || ((e.title || '').includes('N5') && (e.title || '').toLowerCase().includes('jlpt')));
+              const defaultExam = n5Exams[0];
+              const defaultAttempts = (attempts || []).filter(a => a.exam_id === defaultExam?.id);
+              const bestScore = defaultAttempts.length > 0 ? Math.max(...defaultAttempts.map(a => a.percentage || 0)) : null;
 
               return (
                 <div className="space-y-6">
@@ -1308,40 +1309,106 @@ export default function StudentDashboard() {
                             Beginner Level (初級)
                           </span>
                           <span className="bg-white/10 text-slate-200 text-xs font-mono px-2.5 py-1 rounded-full">
-                            45 Mins Mock Paper
+                            {n5Exams.length} {n5Exams.length === 1 ? 'Exam Paper' : 'Exam Papers'} Available
+                          </span>
+                          <span className="bg-emerald-500/30 border border-emerald-400 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full">
+                            Free Practice
                           </span>
                         </div>
                         <h3 className="text-2xl font-bold font-japanese">
-                          {n5Exam?.title || 'JLPT N5 Comprehensive Mock Exam 2026'}
+                          JLPT N5 Examination Papers (日本語能力試験 N5)
                         </h3>
                         <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
                           Master basic Japanese kanji (100 characters), essential vocabulary (800 words), and fundamental grammar particles (は, が, を, に, で) for everyday life.
                         </p>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-                        {n5Exam ? (
+                      {defaultExam && (
+                        <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
                           <Link
-                            to={'/exam/' + n5Exam.id}
+                            to={'/exam/' + defaultExam.id}
                             className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white rounded-2xl text-xs sm:text-sm font-extrabold flex items-center justify-center space-x-2 shadow-xl transition-all transform hover:scale-105"
                           >
                             <PlayCircle className="w-4 h-4" />
-                            <span>{n5Attempts.length > 0 ? 'Retake JLPT N5 Paper' : 'Start N5 CBT Exam'}</span>
+                            <span>{defaultAttempts.length > 0 ? 'Retake Exam 1' : 'Start N5 CBT Exam'}</span>
                           </Link>
-                        ) : (
-                          <span className="text-xs text-slate-400">Exam paper being prepared</span>
-                        )}
 
-                        {n5Attempts.length > 0 && (
-                          <Link
-                            to="/history"
-                            className="w-full sm:w-auto px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-2xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors"
+                          {defaultAttempts.length > 0 && (
+                            <Link
+                              to="/history"
+                              className="w-full sm:w-auto px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-2xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors"
+                            >
+                              <History className="w-4 h-4 text-purple-300" />
+                              <span>Best: {bestScore}%</span>
+                            </Link>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Papers Listing Grid */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-base font-bold text-slate-800 flex items-center space-x-2 font-japanese">
+                        <FileText className="w-5 h-5 text-purple-600" />
+                        <span>Available JLPT N5 Papers ({n5Exams.length})</span>
+                      </h4>
+                      <span className="text-xs text-slate-500 font-mono">100% Free Practice Access</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {n5Exams.map((paper, pIdx) => {
+                        const paperAttempts = (attempts || []).filter(a => a.exam_id === paper.id);
+                        const paperBest = paperAttempts.length > 0 ? Math.max(...paperAttempts.map(a => a.percentage || 0)) : null;
+
+                        return (
+                          <div 
+                            key={paper.id}
+                            className="bg-white rounded-2xl border border-slate-200/90 hover:border-purple-300 p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
                           >
-                            <History className="w-4 h-4 text-purple-300" />
-                            <span>Best: {bestScore}%</span>
-                          </Link>
-                        )}
-                      </div>
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="bg-purple-100 text-purple-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full font-mono">
+                                  Paper {pIdx + 1}
+                                </span>
+                                <div className="flex items-center space-x-1 text-slate-500 text-xs font-mono">
+                                  <Clock className="w-3.5 h-3.5 text-purple-600" />
+                                  <span>{paper.duration_minutes > 0 ? `${paper.duration_minutes} Mins` : 'Untimed'}</span>
+                                </div>
+                              </div>
+                              <h5 className="font-bold text-slate-900 text-base font-japanese line-clamp-1">
+                                {paper.title}
+                              </h5>
+                              <p className="text-xs text-slate-500 mt-1 line-clamp-2">
+                                {paper.description || 'JLPT N5 official mock paper practice test.'}
+                              </p>
+
+                              <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Questions: <strong>{paper.question_count || '50'} MCQs</strong></span>
+                                <span>Pass Mark: <strong>{paper.passing_score}%</strong></span>
+                              </div>
+
+                              {paperAttempts.length > 0 && (
+                                <div className="mt-2 text-xs text-emerald-600 font-semibold flex items-center space-x-1">
+                                  <Award className="w-3.5 h-3.5" />
+                                  <span>Best Score: {paperBest}% ({paperAttempts.length} attempts)</span>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="mt-4 pt-3 border-t border-slate-100">
+                              <Link
+                                to={'/exam/' + paper.id}
+                                className="w-full py-2.5 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 shadow-xs transition-all active:scale-95"
+                              >
+                                <PlayCircle className="w-4 h-4" />
+                                <span>{paperAttempts.length > 0 ? 'Retake This Paper' : 'Start Exam'}</span>
+                              </Link>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
