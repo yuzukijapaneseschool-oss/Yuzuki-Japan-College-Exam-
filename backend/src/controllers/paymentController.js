@@ -23,10 +23,10 @@ async function getOrCreateStudentForUser(user) {
     person = { id: pResult.id };
   }
 
-  student = await query.get('SELECT * FROM students WHERE person_id = ?', [person.id]);
+  student = await query.get('SELECT * FROM students WHERE person_id = ? OR (student_id IS NOT NULL AND student_id = ?) OR legacy_user_id = ?', [person.id, user.student_id, user.id]);
   if (student) {
-    await query.run('UPDATE students SET legacy_user_id = ? WHERE id = ?', [user.id, student.id]);
-    return { ...student, legacy_user_id: user.id };
+    await query.run('UPDATE students SET legacy_user_id = ?, person_id = ? WHERE id = ?', [user.id, person.id, student.id]);
+    return { ...student, legacy_user_id: user.id, person_id: person.id };
   }
 
   const sCode = user.student_id || ('YEP-' + String(user.id).padStart(5, '0'));
@@ -43,6 +43,19 @@ async function checkoutPracticePass(req, res) {
   try {
     const user = req.user;
     const { category_code, currency = 'USD' } = req.body;
+
+    if (!user) {
+      return res.status(401).json({ error: 'Authentication required.' });
+    }
+
+    // Business Rule: External candidates can initiate payment ONLY after admin approval
+    if (user.role === 'student' && user.status !== 'approved') {
+      return res.status(403).json({
+        error: '🔒 Account pending college administration approval. You may complete payment only after your account has been approved by college management.',
+        code: 'ADMIN_APPROVAL_REQUIRED',
+        status: user.status
+      });
+    }
 
     if (!category_code) {
       return res.status(400).json({ error: 'category_code is required.' });
@@ -271,11 +284,20 @@ async function handlePayHereNotify(req, res) {
         validUntil.setDate(validUntil.getDate() + 30);
       }
 
+      // Check whether user account has been approved by admin
+      const targetUser = userId ? await query.get('SELECT id, status FROM users WHERE id = ?', [userId]) : null;
+      const isApproved = targetUser && targetUser.status === 'approved';
+
+      // Security requirement: Payment success ALONE cannot bypass admin approval.
+      // If the candidate's account has not been approved by college administration (e.g. pending),
+      // the pass is stored in a locked state (is_active = 0) and cannot be used until admin explicitly approves them.
+      const passIsActive = isApproved ? 1 : 0;
+
       await query.run(`
         INSERT INTO exam_practice_passes (
           user_id, student_id, category_code, invoice_id, payment_id,
           valid_from, valid_until, is_active
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `, [
         userId,
         invoice.student_id,
@@ -283,33 +305,53 @@ async function handlePayHereNotify(req, res) {
         invoice.id,
         payResult.id,
         validFrom.toISOString(),
-        validUntil.toISOString()
+        validUntil.toISOString(),
+        passIsActive
       ]);
 
-      // Update User subscription status
+      // Update User subscription status — DO NOT set status = 'approved'!
+      // Payment success alone must never promote a pending student to approved.
       if (userId) {
-        await query.run(`
-          UPDATE users
-          SET subscription_status = 'active',
-              status = 'approved',
-              subscription_ends_at = ?,
-              monthly_price = 9.99
-          WHERE id = ?
-        `, [validUntil.toISOString(), userId]);
+        if (isApproved) {
+          await query.run(`
+            UPDATE users
+            SET subscription_status = 'active',
+                subscription_ends_at = ?,
+                monthly_price = 9.99
+            WHERE id = ?
+          `, [validUntil.toISOString(), userId]);
+        } else {
+          await query.run(`
+            UPDATE users
+            SET subscription_status = 'pending_approval',
+                subscription_ends_at = ?,
+                monthly_price = 9.99
+            WHERE id = ?
+          `, [validUntil.toISOString(), userId]);
+        }
       }
 
-      console.log(`[PayHere IPN] Successfully activated 30-day pass for User #${userId} (${categoryCode}) until ${validUntil.toISOString()}`);
+      console.log(`[PayHere IPN] Payment completed for User #${userId} (${categoryCode}). Pass is_active=${passIsActive} (User approved: ${isApproved}) until ${validUntil.toISOString()}`);
       return res.status(200).send('OK');
 
     } else if (String(status_code) === '0') {
-      // Payment pending
+      // Payment pending: invoice remains unpaid, no active pass unlocked
       console.log('[PayHere IPN] Payment pending for order:', order_id);
-      return res.status(200).send('OK (Pending)');
+      await query.run("UPDATE invoices SET status = 'unpaid' WHERE id = ?", [invoice.id]);
+      await query.run("UPDATE exam_practice_passes SET is_active = 0 WHERE invoice_id = ?", [invoice.id]);
+      if (userId) {
+        await query.run("UPDATE users SET subscription_status = 'pending_payment' WHERE id = ? AND subscription_status != 'active'", [userId]);
+      }
+      return res.status(200).send('OK (Pending - Pass Locked)');
     } else {
       // Payment failed or cancelled (status_code = -1, -2, -3)
       console.log(`[PayHere IPN] Payment status ${status_code} for order:`, order_id);
       await query.run("UPDATE invoices SET status = 'cancelled' WHERE id = ?", [invoice.id]);
-      return res.status(200).send('OK (Cancelled/Failed)');
+      await query.run("UPDATE exam_practice_passes SET is_active = 0 WHERE invoice_id = ?", [invoice.id]);
+      if (userId) {
+        await query.run("UPDATE users SET subscription_status = 'locked' WHERE id = ?", [userId]);
+      }
+      return res.status(200).send('OK (Cancelled/Failed - Pass Locked)');
     }
 
   } catch (err) {
@@ -375,9 +417,11 @@ async function simulatePracticePassPayment(req, res) {
     const cleanCategoryCode = category_code.trim().toUpperCase();
     const config = getPayHereConfig();
 
-    if ((config.mode === 'live' || config.mode === 'production') && user.role !== 'admin') {
+    // Strict Security Rule: Non-admin students are NEVER permitted to simulate payments in production
+    // or when payment gateway is expected.
+    if ((config.mode === 'live' || config.mode === 'production' || process.env.NODE_ENV === 'production') && user.role !== 'admin') {
       return res.status(403).json({
-        error: 'Simulation endpoint is disabled in live production mode for non-admin accounts.'
+        error: 'Simulation endpoint is disabled in production mode for non-admin accounts. Real payment via PayHere is required.'
       });
     }
 
@@ -428,29 +472,47 @@ async function simulatePracticePassPayment(req, res) {
       validUntil.setDate(validUntil.getDate() + 30);
     }
 
+    // Safety: Simulation must NEVER bypass admin approval.
+    // If the candidate's account status is not approved by administration, the pass remains locked (is_active = 0).
+    const userRecord = await query.get('SELECT id, status FROM users WHERE id = ?', [user.id]);
+    const isApproved = userRecord && userRecord.status === 'approved';
+    const passIsActive = isApproved ? 1 : 0;
+
     const passResult = await query.run(`
       INSERT INTO exam_practice_passes (
         user_id, student_id, category_code, invoice_id, payment_id,
         valid_from, valid_until, is_active
-      ) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, 1)
-    `, [user.id, student.id, cleanCategoryCode, invResult.id, payResult.id, validUntil.toISOString()]);
+      ) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?)
+    `, [user.id, student.id, cleanCategoryCode, invResult.id, payResult.id, validUntil.toISOString(), passIsActive]);
 
-    await query.run(`
-      UPDATE users
-      SET subscription_status = 'active',
-          status = 'approved',
-          subscription_ends_at = ?,
-          monthly_price = 9.99
-      WHERE id = ?
-    `, [validUntil.toISOString(), user.id]);
+    if (isApproved) {
+      await query.run(`
+        UPDATE users
+        SET subscription_status = 'active',
+            subscription_ends_at = ?,
+            monthly_price = 9.99
+        WHERE id = ?
+      `, [validUntil.toISOString(), user.id]);
+    } else {
+      await query.run(`
+        UPDATE users
+        SET subscription_status = 'pending_approval',
+            subscription_ends_at = ?,
+            monthly_price = 9.99
+        WHERE id = ?
+      `, [validUntil.toISOString(), user.id]);
+    }
 
     const createdPass = await query.get('SELECT * FROM exam_practice_passes WHERE id = ?', [passResult.id]);
 
     return res.json({
       success: true,
-      message: `🎉 Simulated PayHere payment success! 30-Day pass for ${cleanCategoryCode} activated until ${validUntil.toISOString()}.`,
+      message: isApproved
+        ? `🎉 Simulated PayHere payment success! 30-Day pass for ${cleanCategoryCode} activated until ${validUntil.toISOString()}.`
+        : `Payment recorded for ${cleanCategoryCode}. Account pending college administration approval before pass activation.`,
       order_id: orderId,
       payment_id: paymentId,
+      is_approved: isApproved,
       pass: createdPass
     });
 
@@ -462,7 +524,7 @@ async function simulatePracticePassPayment(req, res) {
 
 // 5. Legacy Direct Checkout (Backwards Compatibility)
 async function checkout(req, res) {
-  return simulatePracticePassPayment(req, res);
+  return checkoutPracticePass(req, res);
 }
 
 // 6. Student Payment History & Active Passes

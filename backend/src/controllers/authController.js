@@ -244,7 +244,7 @@ async function registerExamPractice(req, res) {
       // External candidate: Generate sequential YEPxxxxx ID
       assignedStudentId = await getNextExamPracticeStudentId();
       batchMode = 'exam_practice_only';
-      userStatus = 'approved';
+      userStatus = 'pending'; // Mandatory Admin verification before payment & access
       subscriptionStatus = 'locked';
       monthlyPrice = 9.99;
     }
@@ -301,7 +301,7 @@ async function registerExamPractice(req, res) {
 
     const successMessage = isSchoolStudent
       ? `Account created successfully! Your YUZUKI Student ID is ${assignedStudentId}. As a YUZUKI Japan College student, your 30-Day Free Practice Pass will be activated upon college administration approval.`
-      : `Account created successfully! Your Student ID is ${assignedStudentId}.`;
+      : `Account created successfully! Your Student ID is ${assignedStudentId}. Your registration is pending verification by college administration. Once approved, you can complete payment and activate your practice pass.`;
 
     return res.status(201).json({
       success: true,
@@ -633,55 +633,11 @@ async function getMe(req, res) {
 }
 
 async function subscribe(req, res) {
-  try {
-    const user = req.user;
-    const { paymentMethod = 'Credit / Debit Card', lastFour = '4242' } = req.body;
-
-    const newSubEndDate = new Date();
-    newSubEndDate.setDate(newSubEndDate.getDate() + 30);
-
-    await query.run(`
-      UPDATE users
-      SET subscription_status = 'active',
-          subscription_ends_at = ?,
-          monthly_price = 9.99
-      WHERE id = ?
-    `, [newSubEndDate.toISOString(), user.id]);
-
-    const invoiceNum = 'YZK-' + new Date().getFullYear() + '-' + Math.floor(100000 + Math.random() * 900000);
-    const reference = 'PAY-' + Math.random().toString(36).substring(2, 9).toUpperCase();
-
-    await query.run(`
-      INSERT INTO payments (
-        user_id, invoice_num, amount, currency, payment_method,
-        payment_status, payment_reference, subscription_days
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `, [
-      user.id,
-      invoiceNum,
-      9.99,
-      'USD',
-      `${paymentMethod} (Ends in ${lastFour})`,
-      'completed',
-      reference,
-      30
-    ]);
-
-      return res.json({
-        success: true,
-        message: 'CBT Exam Simulator pass activated for 30 days!',
-        subscription: {
-          status: 'active',
-          is_active: true,
-          days_remaining: 30,
-          expires_at: newSubEndDate.toISOString(),
-          plan: 'CBT Exam Simulator (Active Pass)'
-        }
-      });
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to process subscription.' });
-    }
-  }
+  return res.status(403).json({
+    error: 'Direct mock subscription bypass is disabled. Exam practice passes require verified PayHere gateway payment and college administration approval.',
+    code: 'DIRECT_SUBSCRIPTION_DISABLED'
+  });
+}
 
 async function registerExistingStudent(req, res) {
   try {

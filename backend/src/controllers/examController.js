@@ -541,7 +541,7 @@ async function getPortalCategories(req, res) {
       );
 
       let isAcademicCovered = false;
-      if (userAcademicRegs.some(r => {
+      if (user && user.status === 'approved' && userAcademicRegs.some(r => {
         if (r.program_code === 'YJP' && cat.category_code === 'JFT-BASIC') return true;
         if (r.program_code === 'YTD' && cat.category_code === 'SSW-TRUCK-DRIVING') return true;
         if (r.program_code === 'YAG' && cat.category_code === 'SSW-AIRPORT-GROUND') return true;
@@ -557,6 +557,11 @@ async function getPortalCategories(req, res) {
       if (user && user.role === 'admin') {
         status = 'active';
         hasActivePass = true;
+      } else if (user && user.role === 'student' && user.status !== 'approved') {
+        // Unapproved students have paid categories locked
+        status = 'locked';
+        hasActivePass = false;
+        validUntil = null;
       } else if (activePass || isAcademicCovered) {
         status = 'active';
         hasActivePass = true;
@@ -682,6 +687,11 @@ async function getExams(req, res) {
         } else if (isFree) {
           status = 'free_access';
           hasActivePass = true;
+        } else if (user.role === 'student' && user.status !== 'approved') {
+          // Unapproved students have all paid exams locked
+          status = 'locked';
+          hasActivePass = false;
+          validUntil = null;
         } else {
           // Check paid pass
           const activePass = userPasses.find(p =>
@@ -700,7 +710,7 @@ async function getExams(req, res) {
           );
 
           let isAcademicCovered = false;
-          if (userAcademicRegs.some(r => {
+          if (user.status === 'approved' && userAcademicRegs.some(r => {
             if (r.program_code === 'YJP' && category === 'JFT-BASIC') return true;
             if (r.program_code === 'YTD' && category === 'SSW-TRUCK-DRIVING') return true;
             if (r.program_code === 'YAG' && category === 'SSW-AIRPORT-GROUND') return true;
@@ -778,6 +788,16 @@ async function getExamSession(req, res) {
       }
 
       if (user.role === 'student') {
+        // 1. Mandatory Admin Approval Guard: Student must be approved by College Administration
+        if (user.status !== 'approved') {
+          return res.status(403).json({
+            error: `🔒 Account pending college administration approval. Exam access is locked until verified by YUZUKI Japan College administration.`,
+            code: 'ADMIN_APPROVAL_REQUIRED',
+            status: user.status,
+            required_category: targetCategory
+          });
+        }
+
         let activePass = null;
         try {
           activePass = await query.get(`
@@ -957,6 +977,15 @@ async function submitExam(req, res) {
       }
 
       if (user.role === 'student') {
+        // 1. Mandatory Admin Approval Guard
+        if (user.status !== 'approved') {
+          return res.status(403).json({
+            error: `🔒 Account pending college administration approval. Exam submission is locked until verified.`,
+            code: 'ADMIN_APPROVAL_REQUIRED',
+            status: user.status
+          });
+        }
+
         let activePass = null;
         try {
           activePass = await query.get(`

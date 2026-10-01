@@ -207,17 +207,14 @@ export default function ExamRegister() {
         status: res.data.user?.status
       });
 
-      // If School Student or Free JLPT Exam, bypass payment step directly!
-      if (isSchoolStudent || selectedExam?.is_free || ['JLPT-N5', 'JLPT-N4', 'JLPT-N3'].includes(selectedExam?.category)) {
-        setPaymentStatus(isSchoolStudent ? 'school_free' : 'free_access');
-        setCurrentStep(5);
-        try {
-          confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
-        } catch (e) {}
-      } else {
-        // Move to Payment Step
-        setCurrentStep(4);
-      }
+      // Both school students and external candidates enter PENDING state upon registration
+      // Flow: REGISTER -> PENDING ADMIN APPROVAL -> PAYMENT -> ACCESS
+      const isFreeExam = Boolean(selectedExam?.is_free || ['JLPT-N5', 'JLPT-N4', 'JLPT-N3'].includes(selectedExam?.category));
+      setPaymentStatus(isSchoolStudent ? 'school_free' : (isFreeExam ? 'free_access' : 'pending_approval'));
+      setCurrentStep(5);
+      try {
+        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+      } catch (e) {}
 
     } catch (err) {
       console.error('Registration error:', err);
@@ -229,64 +226,41 @@ export default function ExamRegister() {
     }
   };
 
-  // Step 4: PayHere Checkout or Sandbox Simulation
-  const handlePaymentCheckout = async (isSimulation = false) => {
+  // Step 4: PayHere Checkout
+  const handlePaymentCheckout = async () => {
     setError('');
     setPayhereLoading(true);
 
     try {
       const categoryCode = selectedExam?.category || 'JFT-BASIC';
 
-      if (isSimulation) {
-        // Instant Sandbox/Test Verification (Simulate PayHere MD5 and 30-day Pass Unlock)
-        const simRes = await paymentAPI.simulatePayment({
-          category_code: categoryCode
-        });
+      // Initiate Official PayHere Checkout Session
+      const checkoutRes = await paymentAPI.checkoutPracticePass({
+        category_code: categoryCode,
+        currency: 'USD'
+      });
 
-        setPaymentStatus('paid');
-        setPaymentResult({
-          order_id: simRes.data.order_id,
-          payment_id: simRes.data.payment_id,
-          amount_usd: 9.99,
-          pass: simRes.data.pass
-        });
+      const { payhere_params, checkout_url } = checkoutRes.data;
 
-        if (refreshUser) await refreshUser();
+      // Auto-submit to PayHere Sandbox / Live Gateway Form
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = checkout_url || 'https://sandbox.payhere.lk/pay/checkout';
+      form.target = '_self';
 
-        try {
-          confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-        } catch (e) {}
-
-        setCurrentStep(5);
-      } else {
-        // Initiate Official PayHere Checkout Session
-        const checkoutRes = await paymentAPI.checkoutPracticePass({
-          category_code: categoryCode,
-          currency: 'USD'
-        });
-
-        const { payhere_params, checkout_url } = checkoutRes.data;
-
-        // Auto-submit to PayHere Sandbox / Live Gateway Form
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = checkout_url || 'https://sandbox.payhere.lk/pay/checkout';
-        form.target = '_self';
-
-        for (const [key, value] of Object.entries(payhere_params || {})) {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = key;
-          input.value = value;
-          form.appendChild(input);
-        }
-
-        document.body.appendChild(form);
-        form.submit();
+      for (const [key, value] of Object.entries(payhere_params || {})) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
       }
+
+      document.body.appendChild(form);
+      form.submit();
     } catch (err) {
       console.error('Payment checkout error:', err);
-      setError(err.response?.data?.error || 'Payment gateway connection failed. Please try simulation or contact support.');
+      setError(err.response?.data?.error || 'Payment gateway connection failed. Please contact college support.');
     } finally {
       setPayhereLoading(false);
     }
@@ -906,52 +880,28 @@ export default function ExamRegister() {
               </div>
             </div>
 
-            {/* Payment Options */}
+            {/* Payment Gateway Action */}
             <div className="space-y-3">
-              {/* Option A: Sandbox / Instant Simulation (For Quick Verification & Testing) */}
               <button
                 type="button"
                 disabled={payhereLoading}
-                onClick={() => handlePaymentCheckout(true)}
-                className="w-full p-4 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl font-bold text-sm shadow-xl transition-all flex items-center justify-between group"
+                onClick={handlePaymentCheckout}
+                className="w-full p-4 bg-gradient-to-r from-rose-600 via-rose-700 to-rose-800 hover:from-rose-500 hover:to-rose-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl font-bold text-sm shadow-xl transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center space-x-3 text-left">
                   <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                     {payhereLoading ? (
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     ) : (
-                      <Sparkles className="w-5 h-5 text-white" />
+                      <CreditCard className="w-5 h-5 text-white" />
                     )}
                   </div>
                   <div>
-                    <div className="font-bold">Instant Sandbox Payment & Activation (Test Mode)</div>
-                    <div className="text-[11px] text-emerald-200">Simulate PayHere MD5 verification & instantly unlock exam</div>
+                    <div className="font-bold">Pay USD $9.99 via PayHere Gateway (Visa / Master / Amex / eZ Cash)</div>
+                    <div className="text-[11px] text-rose-200">Secure checkout with Central Bank of Sri Lanka approved gateway</div>
                   </div>
                 </div>
                 <ArrowRight className="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              {/* Option B: Official PayHere Live / Sandbox Gateway */}
-              <button
-                type="button"
-                disabled={payhereLoading}
-                onClick={() => handlePaymentCheckout(false)}
-                className="w-full p-4 bg-slate-950 hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed border-2 border-slate-700 text-white rounded-2xl font-semibold text-sm transition-all flex items-center justify-between group"
-              >
-                <div className="flex items-center space-x-3 text-left">
-                  <div className="w-10 h-10 bg-rose-600/20 text-rose-400 rounded-xl flex items-center justify-center border border-rose-500/30">
-                    {payhereLoading ? (
-                      <div className="w-5 h-5 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
-                    ) : (
-                      <CreditCard className="w-5 h-5" />
-                    )}
-                  </div>
-                  <div>
-                    <div className="font-bold">Pay via PayHere Gateway (Visa / Master / Amex / eZ Cash)</div>
-                    <div className="text-[11px] text-slate-400">Redirects to secure PayHere checkout page</div>
-                  </div>
-                </div>
-                <ArrowRight className="w-5 h-5 text-slate-400 transform group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>
@@ -967,16 +917,22 @@ export default function ExamRegister() {
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-bold text-emerald-400 bg-emerald-950 border border-emerald-500/40 px-3 py-1 rounded-full uppercase tracking-wider">
-                {registeredUser?.is_school_student ? 'YUZUKI Student Free Access Registered' : 'Registration & Payment Complete'}
+              <span className="text-xs font-bold text-amber-400 bg-amber-950 border border-amber-500/40 px-3 py-1 rounded-full uppercase tracking-wider">
+                {registeredUser?.is_school_student 
+                  ? 'YUZUKI Enrolled Student • Pending Verification' 
+                  : (selectedExam?.is_free ? 'Free JLPT Practice Registered' : 'Registration Received • Pending Admin Approval')}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-japanese">
-                {registeredUser?.is_school_student ? 'School Student Pass Enabled! 🎓' : 'Exam Access Unlocked! 🎉 (準備完了)'}
+                {registeredUser?.is_school_student 
+                  ? 'Registration Received! 🎓' 
+                  : (selectedExam?.is_free ? 'Free Practice Ready! 🎉' : 'Registration Received! 📋 (承認待ち)')}
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
                 {registeredUser?.is_school_student
-                  ? `Welcome YUZUKI student ${registeredUser?.name || formData.name}! Your official Student ID is preserved as ${registeredUser?.student_id}. Your 30-Day Free Practice Pass is registered.`
-                  : `Welcome ${registeredUser?.name || formData.name}! Your account has been activated and your 30-day exam access pass is ready.`}
+                  ? `Welcome YUZUKI student ${registeredUser?.name || formData.name}! Your Student ID is ${registeredUser?.student_id}. Your account is pending verification by college administration. Once approved, your 30-Day Free CBT Practice Pass will be automatically activated.`
+                  : (selectedExam?.is_free 
+                      ? `Welcome ${registeredUser?.name || formData.name}! Your account is created and free JLPT practice is available immediately.`
+                      : `Welcome ${registeredUser?.name || formData.name}! Your candidate registration is pending approval by YUZUKI Japan College administration. Once approved, you can log in, complete payment ($9.99 USD) via PayHere, and activate your 30-day exam practice pass.`)}
               </p>
             </div>
 
@@ -996,22 +952,39 @@ export default function ExamRegister() {
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-400">Access Status:</span>
-                <span className="text-emerald-400 font-bold">
-                  {registeredUser?.is_school_student ? 'COLLEGE FREE BENEFIT 🎓' : 'ACTIVE & ENABLED 🚀'}
+                <span className="text-amber-400 font-bold">
+                  {registeredUser?.is_school_student 
+                    ? 'PENDING COLLEGE APPROVAL (FREE BENEFIT) 🎓' 
+                    : (selectedExam?.is_free ? 'FREE ACCESS ENABLED 🚀' : 'PENDING ADMIN APPROVAL ⏳')}
                 </span>
               </div>
             </div>
 
             {/* Action Buttons */}
             <div className="space-y-3 pt-2 max-w-lg mx-auto">
-              <button
-                type="button"
-                onClick={() => navigate(`/exam/${selectedExam?.id || 45}`)}
-                className="w-full py-4 bg-gradient-to-r from-rose-600 via-rose-700 to-rose-800 hover:from-rose-500 hover:to-rose-700 text-white font-extrabold text-base rounded-2xl shadow-xl transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-2"
-              >
-                <PlayCircle className="w-5 h-5" />
-                <span>START EXAM {selectedExam?.id} NOW &rarr; (විභාගය ආරම්භ කරන්න)</span>
-              </button>
+              {selectedExam?.is_free ? (
+                <button
+                  type="button"
+                  onClick={() => navigate(`/exam/${selectedExam?.id || 2}`)}
+                  className="w-full py-4 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-500 hover:to-emerald-700 text-white font-extrabold text-base rounded-2xl shadow-xl transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-2"
+                >
+                  <PlayCircle className="w-5 h-5" />
+                  <span>START FREE EXAM NOW &rarr;</span>
+                </button>
+              ) : (
+                <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-2xl text-xs text-slate-400 space-y-1 text-left">
+                  <div className="font-bold text-slate-200 flex items-center space-x-1.5">
+                    <Clock className="w-4 h-4 text-amber-400" />
+                    <span>Next Steps After Registration:</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    1. YUZUKI Japan College administration reviews your registration.<br/>
+                    {registeredUser?.is_school_student
+                      ? '2. Administration approves your student ID and activates your 30-Day Free Pass.'
+                      : '2. Once approved, log in to your Student Dashboard to complete PayHere checkout ($9.99 USD) and unlock your exams.'}
+                  </p>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button

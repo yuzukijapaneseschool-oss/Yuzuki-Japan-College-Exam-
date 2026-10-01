@@ -68,35 +68,31 @@ export default function SubscriptionModal({ isOpen, onClose, onSubscribed, defau
         currency: 'USD'
       });
 
-      const { payhere_params, checkout_url, order_id, invoice_id } = checkoutRes.data;
+      const { payhere_params, checkout_url, order_id } = checkoutRes.data;
 
-      // 2. In sandbox/dev environment or fallback, simulate immediate successful confirmation
-      // If PayHere JS SDK or form submit is desired:
-      const simRes = await paymentAPI.simulatePayment({
-        category_code: selectedCategory,
-        order_id: order_id
-      });
+      // 2. Submit form to official PayHere checkout gateway
+      if (checkout_url && payhere_params) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = checkout_url;
+        form.target = '_self';
 
-      setSuccessData({
-        order_id: simRes.data.order_id,
-        payment_reference: simRes.data.payment_id,
-        category_code: selectedCategory,
-        category_title: currentCat.title,
-        amount_usd: 9.99,
-        pass: simRes.data.pass
-      });
+        for (const [key, value] of Object.entries(payhere_params)) {
+          if (value !== undefined && value !== null) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = String(value);
+            form.appendChild(input);
+          }
+        }
 
-      if (refreshUser) await refreshUser();
+        document.body.appendChild(form);
+        form.submit();
+        return;
+      }
 
-      try {
-        confetti({
-          particleCount: 150,
-          spread: 90,
-          origin: { y: 0.6 }
-        });
-      } catch (err) {}
-
-      if (onSubscribed) onSubscribed();
+      setError('Payment gateway configuration is missing. Please contact college support.');
 
     } catch (err) {
       console.error('PayHere Checkout error:', err);
@@ -278,14 +274,31 @@ export default function SubscriptionModal({ isOpen, onClose, onSubscribed, defau
               </div>
             </div>
 
+            {user?.role === 'student' && user?.status !== 'approved' && (
+              <div className="p-4 bg-amber-50 border border-amber-300 rounded-2xl text-amber-900 text-xs space-y-1">
+                <div className="font-bold flex items-center space-x-1.5">
+                  <Lock className="w-4 h-4 text-amber-700 shrink-0" />
+                  <span>Account Pending College Administration Approval</span>
+                </div>
+                <p className="text-[11px] text-amber-800">
+                  Your account must be verified by YUZUKI Japan College administration before initiating payment. Once approved, you will be able to complete checkout and activate your practice pass.
+                </p>
+              </div>
+            )}
+
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={submitting}
-              className="w-full py-4 px-4 rounded-2xl bg-gradient-to-r from-rose-600 via-rose-700 to-rose-800 hover:from-rose-700 hover:to-rose-900 text-white font-bold shadow-xl shadow-rose-600/30 transition-all flex items-center justify-center space-x-2 text-sm sm:text-base disabled:opacity-50 transform hover:scale-[1.01]"
+              disabled={submitting || (user?.role === 'student' && user?.status !== 'approved')}
+              className="w-full py-4 px-4 rounded-2xl bg-gradient-to-r from-rose-600 via-rose-700 to-rose-800 hover:from-rose-700 hover:to-rose-900 text-white font-bold shadow-xl shadow-rose-600/30 transition-all flex items-center justify-center space-x-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.01]"
             >
               {submitting ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : user?.role === 'student' && user?.status !== 'approved' ? (
+                <>
+                  <Lock className="w-4 h-4" />
+                  <span>Awaiting College Administration Approval 🔒</span>
+                </>
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
