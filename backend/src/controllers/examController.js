@@ -758,6 +758,7 @@ async function getExams(req, res) {
 
 async function getExamSession(req, res) {
   try {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     const { id } = req.params;
     const user = req.user;
 
